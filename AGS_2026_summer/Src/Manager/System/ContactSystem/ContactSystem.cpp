@@ -1,9 +1,9 @@
 #include "ContactSystem.h"
 
-void ContactSystem::OnBeginContact(EntityID a, EntityID b, CollisionResult result)
+void ContactSystem::OnBeginContact(Entity a, Entity b, CollisionResult result)
 {
-	touching_[a].insert(b);
-	touching_[b].insert(a);
+	touching_[a.entityId].insert(b.entityId);
+	touching_[b.entityId].insert(a.entityId);
 
 	contactRules_.push_back(
 		ContactRule{
@@ -15,10 +15,10 @@ void ContactSystem::OnBeginContact(EntityID a, EntityID b, CollisionResult resul
 		});
 }
 
-void ContactSystem::OnEndContact(EntityID a, EntityID b, CollisionResult result)
+void ContactSystem::OnEndContact(Entity a, Entity b, CollisionResult result)
 {
-	touching_[a].erase(b);
-	touching_[b].erase(a);
+	touching_[a.entityId].erase(b.entityId);
+	touching_[b.entityId].erase(a.entityId);
 
 	contactRules_.push_back(
 		ContactRule{

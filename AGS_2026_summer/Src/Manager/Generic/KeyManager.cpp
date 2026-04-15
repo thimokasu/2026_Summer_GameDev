@@ -24,6 +24,9 @@ void KeyManager::Init(void)
 	// コントローラーのボタン以外(スティックやトリガーなど)を割り振るとき
 #define SET_C_OTHERS(type,key)controllerOthersFormat[(int)type].emplace_back(key)
 
+
+
+
 	SET_KEYBOARD(KEY_TYPE::MOVE_UP, KEY_INPUT_W);
 	SET_KEYBOARD(KEY_TYPE::MOVE_UP, KEY_INPUT_UP);
 	SET_C_OTHERS(KEY_TYPE::MOVE_UP, CONTROLLER_OTHERS::LEFTSTICK_UP);
