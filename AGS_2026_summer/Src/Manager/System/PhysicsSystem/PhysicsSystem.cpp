@@ -30,21 +30,22 @@ void PhysicsSystem::Update(const std::vector<std::shared_ptr<ActorBase>>& object
         {
             if (!rb.IsGrounded()) {
                 // F = m * g
-                rb.AddForce(VScale(GRAVITY, rb.GetMass()));
+                rb.AddForce(GRAVITY);
             }
             else rb.SetVelocity({ rb.GetVelocity().x,0,rb.GetVelocity().z });
         }
 
         // ===== Force → Acceleration =====
-        VECTOR acceleration = VScale(rb.GetForce(), rb.GetInverseMass());
+        VECTOR acceleration = rb.GetForce();
 
         // ===== Velocity 更新 =====
-        VECTOR newVel = VAdd(rb.GetVelocity(), acceleration); //VScale(acceleration, dt));
+        VECTOR newVel = VAdd(rb.GetVelocity(), acceleration);
         rb.SetVelocity(newVel);
 
+        float yKeep = rb.GetVelocity().y;
 
         // ===== 減速（ダンピング） =====
-        newVel = VScale(newVel, 0.7);
+        newVel = VScale(newVel, 0.95);
 
         rb.SetVelocity(newVel);
 
@@ -62,47 +63,56 @@ void PhysicsSystem::Update(const std::vector<std::shared_ptr<ActorBase>>& object
     }
 }
 
-void PhysicsSystem::Resolve(const std::vector<std::shared_ptr<ActorBase>>& objects, std::vector<CollisionSystem::CollisionManifold> mainfold)
+void PhysicsSystem::Resolve(const std::vector<std::shared_ptr<ActorBase>>& objects, std::vector<CollisionSystem::CollisionManifold> manifolds)
 {
-    for (auto obj : objects)
+    // 1. まず衝突リストに基づいて位置を補正する
+    for (auto& fold : manifolds)
     {
-        if (!obj->HasComponent<RigidBody>()) continue;
-        auto& rb = obj->GetComponent<RigidBody>();
-        // Static / Kinematic を弾くならここ
-        if (rb.GetInverseMass() == 0.0f) continue;
+        auto& rbA = fold.actorA->GetComponent<RigidBody>();
+        auto& rbB = fold.actorB->GetComponent<RigidBody>();
 
-		// 衝突解決
-        for (auto& fold : mainfold)
-        {
-            //現在のオブジェクトがActorAの場合
-            if (obj->GetEntityId() == fold.actorA->GetEntityId())
-            {
-                obj->GetTransform().prevPos = VAdd(
-                    obj->GetTransform().prevPos,
-                    VScale(
-                        VScale(fold.result.normal, -1),
-                        fold.result.penetration
-                    )
-                );
-            }
-            else if (obj->GetEntityId() == fold.actorB->GetEntityId())
-            {
-                obj->GetTransform().prevPos = VAdd(
-                    obj->GetTransform().prevPos,
-                    VScale(
-                        fold.result.normal,
-                        fold.result.penetration
-                    )
-                );
-            }
-            else
-            {
-                continue;
+        float invMassA = rbA.GetInverseMass(); 
+        float invMassB = rbB.GetInverseMass();
+        float totalInvMass = invMassA + invMassB;
+
+        if (totalInvMass == 0.0f) continue; 
+
+        // 質量に基づいた押し出し割合 (逆質量の比率で分けるのが一般的)
+        // 軽い（＝逆質量が大きい）ほうがたくさん動く
+        float ratioA = invMassA / totalInvMass;
+        float ratioB = invMassB / totalInvMass;
+
+        // ActorA の押し戻し
+        if (invMassA > 0.0f) {
+            fold.actorA->GetTransform().prevPos = VAdd(
+                fold.actorA->GetTransform().prevPos,
+                VScale(VScale(fold.result.normal, -1.0f), fold.result.penetration * ratioA)
+            );
+
+            // 地面判定（法線が上向き＝0より大きい場合）
+            if (fold.result.normal.y > 0.0f) {
+                rbA.ClearGravity();
             }
         }
 
+        // ActorB の押し戻し
+        if (invMassB > 0.0f) {
+            fold.actorB->GetTransform().prevPos = VAdd(
+                fold.actorB->GetTransform().prevPos,
+                VScale(fold.result.normal, fold.result.penetration * ratioB)
+            );
 
-        // 最終位置決定
+            // 地面判定（ActorBにとっては法線が逆転するので、下向き＝0より小さい場合が地面）
+            if (fold.result.normal.y < 0.0f) {
+                rbB.ClearGravity();
+            }
+        }
+    }
+
+    // 2. 全てのオブジェクトの最終位置を確定させる
+    for (auto obj : objects)
+    {
+        if (!obj->HasComponent<RigidBody>()) continue;
         obj->GetTransform().pos = obj->GetTransform().prevPos;
     }
 }

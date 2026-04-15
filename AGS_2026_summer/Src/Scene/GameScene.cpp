@@ -64,13 +64,18 @@ void GameScene::Load(void)
 	);
 	auto rb = std::make_shared<RigidBody>();
 	rb->SetBodyType(RigidBody::BodyType::DYNAMIC);
-	rb->SetMass(1.0f);
+	rb->SetMass(10.0f);
 	rb->SetUseGravity(true);
 	box->AddComponent(rb);
 
 	box = std::make_shared<Box>();
 	box->GetTransform().pos = VGet(300.0f, 200.0f, 0.0f);
 	actors_.push_back(box);
+	box->AddComponent(std::make_shared<PlayerInputComponent>(
+		KEY_INPUT_T, KEY_INPUT_G,
+		KEY_INPUT_F, KEY_INPUT_H,
+		KEY_INPUT_R, KEY_INPUT_Y)
+	);
 	rb = std::make_shared<RigidBody>();
 	rb->SetBodyType(RigidBody::BodyType::DYNAMIC);
 	rb->SetMass(1.0f);

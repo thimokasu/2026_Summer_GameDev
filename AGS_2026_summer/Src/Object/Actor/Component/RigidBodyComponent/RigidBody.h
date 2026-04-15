@@ -41,6 +41,8 @@ public:
 
 
 	void ClearForce(void) { force_ = VGet(0.0f, 0.0f, 0.0f); }
+	//重力を消す
+	void ClearGravity(void) { velocity_.y = 0; }
 
 private:
 	BodyType bodyType_;	//剛体のタイプ

@@ -24,6 +24,7 @@ void Floor::SubInit(void)
 
 void Floor::SubUpdate(void)
 {
+    int a = 1;
 }
 
 void Floor::SubDraw(void)
