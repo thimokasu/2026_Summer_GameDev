@@ -9,7 +9,7 @@
 
 #include"../Common/Transform.h"
 #include"Collider/ColliderBase.h"
-
+#include"EntityKind.h"
 
 class AnimationController;
 
@@ -36,6 +36,11 @@ public:
 	size_t GetEntityId(void) const { return entityId_; }
 	//エンティティID設定
 	void SetEntityId(int id) { entityId_ = id; }
+
+	//エンティティKind取得
+	EntityKind GetEntityKind(void)const { return entityKind_; }
+	//エンティティKind設定
+	void SetEntityKind(EntityKind kind) { entityKind_ = kind; }
 
 	//自身のコライダーリスト取得
 	const std::map<int, std::shared_ptr<ColliderBase>>& GetOwnColliders(void) const { return ownColliders_; }
@@ -68,7 +73,7 @@ protected:
 	AnimationController* animationCOntroller_ = nullptr;
 	Transform trans_;
 	size_t entityId_ = -1;
-
+	EntityKind entityKind_;
 	//自身のコライダーリスト
 	std::map<int, std::shared_ptr<ColliderBase>>ownColliders_;
 

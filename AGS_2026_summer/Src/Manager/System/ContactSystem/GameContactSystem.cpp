@@ -1,6 +1,5 @@
 #include "GameContactSystem.h"
-#include"ContactRuleTable.h"
-
+#include"../../../Manager/Game/SceneManager.h"
 GameContactSystem::GameContactSystem()
 {
 }
@@ -9,31 +8,35 @@ GameContactSystem::~GameContactSystem()
 {
 }
 
-void GameContactSystem::Update(void)
+void GameContactSystem::Update(std::vector<ContactRule> contactRule)
 {
 	//接触開始イベントの処理
-	for (auto& event : contactSystem_.GetContactEvent())
+	for (auto& rule : contactRule)
 	{
-		Procese(event);
+		Procese(rule);
 	}
 
-	Clear();
 }
 
 void GameContactSystem::Clear(void)
 {
-	contactSystem_.Clear();
 }
 
 void GameContactSystem::Procese(ContactRule rule)
 {
-	if (rule.contactEvent_.type_ == ContactEventInfo::Type::BEGIN)
+	//発生するイベント群を判別
+	auto event = contactRuleTable_.Query(rule);
+
+
+	switch (event.eventType_)
 	{
-		//接触開始時の処理
-		int a = 0;
+	case GameEventType::NONE:
+		break;
+	case GameEventType::TEST:
+		SceneManager::GetInstance().ChangeScene(SCENE_ID::TITLE);
+		break;
+	default:
+		break;
 	}
-	else if (rule.contactEvent_.type_ == ContactEventInfo::Type::END)
-	{
-		//接触終了時の処理
-	}
+
 }
