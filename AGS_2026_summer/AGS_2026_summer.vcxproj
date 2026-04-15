@@ -139,6 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Manager\Text\InputTextArea.cpp" />
+    <ClCompile Include="Src\Manager\Text\InputTextManager.cpp" />
+    <ClCompile Include="Src\Net\NetBase.cpp" />
+    <ClCompile Include="Src\Net\NetClient.cpp" />
+    <ClCompile Include="Src\Net\NetHost.cpp" />
+    <ClCompile Include="Src\Net\NetManager.cpp" />
+    <ClCompile Include="Src\Net\NetSend.cpp" />
     <ClCompile Include="Src\Object\Actor\Manager\ActorManager.cpp" />
     <ClCompile Include="Src\Object\Actor\Floor\Floor.cpp" />
     <ClCompile Include="Src\Scene\GameScene.cpp" />
@@ -180,6 +187,15 @@
     <ClCompile Include="Src\Scene\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Common\CRC.h" />
+    <ClInclude Include="Src\Manager\Text\InputTextArea.h" />
+    <ClInclude Include="Src\Manager\Text\InputTextManager.h" />
+    <ClInclude Include="Src\Net\NetBase.h" />
+    <ClInclude Include="Src\Net\NetClient.h" />
+    <ClInclude Include="Src\Net\NetHost.h" />
+    <ClInclude Include="Src\Net\NetManager.h" />
+    <ClInclude Include="Src\Net\NetSend.h" />
+    <ClInclude Include="Src\Net\NetStructures.h" />
     <ClInclude Include="Src\Object\Actor\Manager\ActorManager.h" />
     <ClInclude Include="Src\Object\Actor\Floor\Floor.h" />
     <ClInclude Include="Src\Scene\GameScene.h" />

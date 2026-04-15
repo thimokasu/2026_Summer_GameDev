@@ -66,12 +66,22 @@ public:
 
 	// デルタタイムの取得
 	float GetDeltaTime(void) const { return deltaTime_; }
+
+	float GetTotalGameTime(void);
+
+	void SetTotalGameTime(float time);
+
+	void ForwardGameTime(void);
+
 	// カメラの取得
 	Camera* GetCamera(void) const;
 
 private:
 	std::list<std::shared_ptr<SceneBase>>scenes_;
 	SCENE_ID sceneId_;
+
+	// ゲームの総時間
+	float totalGameTime_;
 
 	// デルタタイム
 	std::chrono::system_clock::time_point preTime_;

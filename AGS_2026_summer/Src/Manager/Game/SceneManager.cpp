@@ -260,6 +260,21 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 		}
 	}
 
+	float SceneManager::GetTotalGameTime(void)
+	{
+		return totalGameTime_;
+	}
+
+	void SceneManager::SetTotalGameTime(float time)
+	{
+		totalGameTime_ = time;
+	}
+
+	void SceneManager::ForwardGameTime(void)
+	{
+		totalGameTime_ += GetDeltaTime();
+	}
+
 	Camera* SceneManager::GetCamera(void) const
 	{
 		return camera_;
