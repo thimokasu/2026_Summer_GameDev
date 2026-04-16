@@ -24,6 +24,9 @@ void KeyManager::Init(void)
 	// コントローラーのボタン以外(スティックやトリガーなど)を割り振るとき
 #define SET_C_OTHERS(type,key)controllerOthersFormat[(int)type].emplace_back(key)
 
+#define SET_MOUSE(type,key)mouse[(int)type].emplace_back(key)
+
+
 	SET_KEYBOARD(KEY_TYPE::MOVE_UP, KEY_INPUT_W);
 	SET_KEYBOARD(KEY_TYPE::MOVE_UP, KEY_INPUT_UP);
 	SET_C_OTHERS(KEY_TYPE::MOVE_UP, CONTROLLER_OTHERS::LEFTSTICK_UP);
@@ -32,7 +35,6 @@ void KeyManager::Init(void)
 	SET_KEYBOARD(KEY_TYPE::MOVE_DOWN, KEY_INPUT_S);
 	SET_KEYBOARD(KEY_TYPE::MOVE_DOWN, KEY_INPUT_DOWN);
 	SET_C_OTHERS(KEY_TYPE::MOVE_DOWN, CONTROLLER_OTHERS::LEFTSTICK_DOWN);
-
 
 	SET_KEYBOARD(KEY_TYPE::MOVE_RIGHT, KEY_INPUT_D);
 	SET_KEYBOARD(KEY_TYPE::MOVE_RIGHT, KEY_INPUT_RIGHT);
@@ -63,6 +65,10 @@ void KeyManager::Init(void)
 	SET_KEYBOARD(KEY_TYPE::ENTER, KEY_INPUT_J);
 	SET_C_BUTTON(KEY_TYPE::ENTER, XINPUT_BUTTON_B);
 	SET_C_BUTTON(KEY_TYPE::ENTER, XINPUT_BUTTON_A);
+
+
+	SET_MOUSE(KEY_TYPE::MOUSE_LEFT, MOUSE_INPUT_LEFT);
+	SET_MOUSE(KEY_TYPE::MOUSE_RIGHT, MOUSE_INPUT_RIGHT);
 }
 
 void KeyManager::Update(void)
@@ -90,7 +96,10 @@ void KeyManager::Update(void)
 
 			b = ControllerOthersInput(input);
 		}
-
+		for (auto& input : mouse[i]) {
+			if (b) { break; }
+			if (GetMouseInput() & input) { b = true; }
+		}
 		keyInfo[i].now = b;
 
 		keyInfo[i].up = (keyInfo[i].prev && !keyInfo[i].now);

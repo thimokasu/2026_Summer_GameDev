@@ -1,7 +1,7 @@
 #include <string>
 #include <DxLib.h>
 #include "../Application.h"
-#include "../Manager/InputManager.h"
+#include "../Manager/Generic/KeyManager.h"
 #include "../Manager/Game/SceneManager.h"
 #include "../Net/NetManager.h"
 #include "ConnectScene.h"
@@ -35,11 +35,12 @@ void ConnectScene::Update(void)
 		if (players.size() > 1)
 		{
 
-			auto& ins = InputManager::GetInstance();
-			if (ins.IsClickMouseLeft())
-			{
+			auto& ins = KeyManager::GetIns();
 
-				Vector2 moPos = ins.GetMousePos();
+			if (ins.GetInfo(KEY::KEY_TYPE::MOUSE_LEFT).down)
+			{
+				Vector2 moPos;
+				GetMousePoint(&moPos.x, &moPos.y); 
 
 				if (B1_S_POS.x <= moPos.x && B1_E_POS.x >= moPos.x
 					&& B1_S_POS.y <= moPos.y && B1_E_POS.y >= moPos.y)
@@ -56,7 +57,7 @@ void ConnectScene::Update(void)
 
 	if (nIns.IsSameGameState(GAME_STATE::GOTO_GAME))
 	{
-		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::CHARA_SELECT);
+		//SceneManager::GetInstance().ChangeScene(SCENE_ID::CHARA_SELECT);
 	}
 
 }

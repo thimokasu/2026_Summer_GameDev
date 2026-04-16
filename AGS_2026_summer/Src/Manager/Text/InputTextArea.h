@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
-#include "Vector2.h"
-#include "../Manager/InputTextManager.h"
+#include "../../Common/Vector2.h"
+#include"InputTextManager.h"
 
 // マウスで矩形を左クリックしたら入力を受け付けるクラス
 // 汎用性なし。仮作成。

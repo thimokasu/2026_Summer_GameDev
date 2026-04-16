@@ -1,5 +1,6 @@
 #pragma once
 #include "SceneBase.h"
+#include"../Common/Vector2.h"
 
 class ConnectScene : public SceneBase
 {

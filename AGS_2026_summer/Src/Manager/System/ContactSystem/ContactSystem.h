@@ -11,8 +11,8 @@ class ContactSystem
 {
 public:
 	//コリジョンシステムからの接触イベント
-	void OnBeginContact(EntityID a, EntityID b, CollisionResult result);
-	void OnEndContact(EntityID a, EntityID b, CollisionResult result);
+	void OnBeginContact(Entity a, Entity b, CollisionResult result);
+	void OnEndContact(Entity a, Entity b, CollisionResult result);
 
 	std::vector<ContactRule> GetContactEvent() const
 	{

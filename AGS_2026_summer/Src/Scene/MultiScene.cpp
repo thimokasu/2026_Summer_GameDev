@@ -1,7 +1,8 @@
 #include <string>
 #include <DxLib.h>
-#include "../Manager/InputManager.h"
+#include"../Manager/Generic/KeyManager.h"
 #include "../Manager/Game/SceneManager.h"
+#include"../Manager/Game/SceneId.h"
 #include "../Net/NetManager.h"
 #include "../Manager/Text/InputTextArea.h"
 #include "../Utility/AsoUtility.h"
@@ -54,8 +55,8 @@ void MultiScene::Init(void)
 void MultiScene::Update(void)
 {
 
-	auto& ins = InputManager::GetInstance();
-	if (ins.IsClickMouseLeft())
+	auto& ins = KeyManager::GetIns();
+	if (ins.GetInfo(KEY_TYPE::MOUSE_LEFT).down)
 	{
 
 		val_++;
@@ -66,14 +67,15 @@ void MultiScene::Update(void)
 		ChangeVolumeSoundMem(val_, bgm_);
 
 
-		Vector2 moPos = ins.GetMousePos();
+		Vector2 moPos;
+		GetMousePoint(&moPos.x, &moPos.y);
 		
 		// ホスト
 		if (B1_S_POS.x <= moPos.x && B1_E_POS.x >= moPos.x
 			&& B1_S_POS.y <= moPos.y && B1_E_POS.y >= moPos.y)
 		{
 			NetManager::GetInstance().Run(NET_MODE::HOST);
-			SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::CONNECT);
+			SceneManager::GetInstance().ChangeScene(SCENE_ID::CONNECT);
 		}
 
 		// クライアント
@@ -87,7 +89,7 @@ void MultiScene::Update(void)
 			hostIp.d4 = std::stoi(inputTextArea4_->GetText());
 			NetManager::GetInstance().SetHostIp(hostIp);
 			NetManager::GetInstance().Run(NET_MODE::CLIENT);
-			SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::CONNECT);
+			SceneManager::GetInstance().ChangeScene(SCENE_ID::CONNECT);
 		}
 
 	}

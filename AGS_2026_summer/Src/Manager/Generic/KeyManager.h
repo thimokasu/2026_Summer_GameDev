@@ -42,15 +42,25 @@ public:
 		PAUSE,
 		ENTER,
 
+		MOUSE_LEFT,
+		MOUSE_RIGHT,
+
+
 		MAX,
 	};
 
-	struct KEY_INFO { bool prev = false, now = false, up = false, down = false; };
+	struct KEY_INFO { 
+		bool prev = false,
+			now = false,
+			up = false,
+			down = false; 
+	};
 
 	const KEY_INFO GetInfo(KEY_TYPE k) { return keyInfo[(int)k]; }
 
 
 	const Vector2F GetRightStickVec(void);
+
 
 private:
 	void Init(void);
@@ -60,6 +70,8 @@ private:
 
 	std::vector<int>keyboardFormat[(int)KEY_TYPE::MAX];
 	std::vector<int>controllerButtonFormat[(int)KEY_TYPE::MAX];
+	std::vector<int>mouse[(int)KEY_TYPE::MAX];
+
 	enum class CONTROLLER_OTHERS
 	{
 		LEFTSTICK_UP,
@@ -75,6 +87,9 @@ private:
 		LEFT_TRIGGER,
 		RIGHT_TRIGGER,
 	};
+
+
+
 	bool ControllerOthersInput(const CONTROLLER_OTHERS& input);
 	std::vector<CONTROLLER_OTHERS>controllerOthersFormat[(int)KEY_TYPE::MAX];
 };
