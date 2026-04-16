@@ -7,6 +7,8 @@
 #include"../../Scene/SceneBase.h"
 #include"../../Scene/TitleScene.h"
 #include"../../Scene/GameScene.h"
+#include "../../Scene/MultiScene.h"
+#include "../../Scene/ConnectScene.h"
 
 #include"../../Manager/Generic/Loading.h"
 #include"../Resource/ResourceManager.h"
@@ -69,7 +71,7 @@ void SceneManager::Init(void)
 	preTime_ = std::chrono::system_clock::now();
 
 	// èâä˙ÉVÅ[ÉìÇÃê›íË
-	ChangeScene(SCENE_ID::GAME);
+	ChangeScene(SCENE_ID::MULTI);
 
 	mainScreen_ = MakeScreen(Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y, true);
 }
@@ -173,11 +175,13 @@ void SceneManager::ChangeScene(std::shared_ptr<SceneBase>_scene)
 		scenes_.back()->Release();
 		scenes_.back() = _scene;
 
-		// ì«Ç›çûÇ›(îÒìØä˙)
-		Loading::GetInstance()->StartAsyncLoad();
-		scenes_.back()->Load();
-		Loading::GetInstance()->EndAsyncLoad();
+	
 	}
+
+	// ì«Ç›çûÇ›(îÒìØä˙)
+	Loading::GetInstance()->StartAsyncLoad();
+	scenes_.back()->Load();
+	Loading::GetInstance()->EndAsyncLoad();
 
 }
 
@@ -190,6 +194,12 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 		break;
 	case SCENE_ID::GAME:
 		ChangeScene(std::make_shared<GameScene>());
+		break;
+	case SCENE_ID::MULTI:
+		ChangeScene(std::make_shared<MultiScene>());
+		break;
+	case SCENE_ID::CONNECT:
+		ChangeScene(std::make_shared<ConnectScene>());
 		break;
 	default:
 		break;

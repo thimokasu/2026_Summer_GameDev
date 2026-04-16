@@ -4,6 +4,8 @@
 
 #include "Manager/Game/SceneManager.h"
 #include"Manager/Generic/KeyManager.h"
+#include "Net/NetManager.h"
+#include "Manager/Text/InputTextManager.h"
 
 Application* Application::instance_ = nullptr;
 
@@ -74,7 +76,11 @@ void Application::Init(void)
 
 	// シーン管理初期化
 	SceneManager::CreateInstance();
-	SceneManager::GetInstance().Init();
+	InputTextManager::CreateInstance();
+
+	// ネットワーク管理初期化
+	NetManager::CreateInstance();
+//	SceneManager::GetInstance().Init();
 
 }
 
