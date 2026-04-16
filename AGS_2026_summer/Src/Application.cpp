@@ -96,9 +96,10 @@ void Application::Run(void)
 
 		keymanager.Update();
 		sceneManager.Update();
-
+		InputTextManager::GetInstance().Update();
 		sceneManager.Draw();
-
+		// ネットワーク管理更新(フレームの最後)
+		NetManager::GetInstance().UpdateEndOfFrame();
 		ScreenFlip();
 
 	}
