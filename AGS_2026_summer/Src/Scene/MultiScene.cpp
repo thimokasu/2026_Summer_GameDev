@@ -75,6 +75,7 @@ void MultiScene::Update(void)
 		{
 			NetManager::GetInstance().Run(NET_MODE::HOST);
 			SceneManager::GetInstance().ChangeScene(SCENE_ID::CONNECT);
+			return;
 		}
 
 		// クライアント
@@ -89,8 +90,9 @@ void MultiScene::Update(void)
 			NetManager::GetInstance().SetHostIp(hostIp);
 			NetManager::GetInstance().Run(NET_MODE::CLIENT);
 			SceneManager::GetInstance().ChangeScene(SCENE_ID::CONNECT);
-		}
+			return;
 
+		}
 	}
 
 	inputTextArea1_->Update();

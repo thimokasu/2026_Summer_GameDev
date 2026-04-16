@@ -1,6 +1,7 @@
 #include <DxLib.h>
 #include "InputTextManager.h"
 #include "InputTextArea.h"
+#include"../../Manager/Generic/KeyManager.h"
 
 //Vectorの修正お願いします
 
@@ -26,12 +27,18 @@ void InputTextArea::Update(void)
 
 	// InputManagerの方が早いかもですが、
 	// 無くても動くようにDxLib直接を使用
-	mouseInputNew_ = GetMouseInput();
+	//mouseInputNew_ = GetMouseInput();
 
-	if (mouseInputNew_ == MOUSE_INPUT_LEFT
-		&& mouseInputOld_ == 0)
+	//if (mouseInputNew_ == MOUSE_INPUT_LEFT
+	//	&& mouseInputOld_ == 0)
+	//{
+
+	//}
+
+	//mouseInputOld_ = mouseInputNew_;
+
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOUSE_LEFT).down)
 	{
-
 		Vector2 mousePos;
 		GetMousePoint(&mousePos.x, &mousePos.y);
 
@@ -45,10 +52,8 @@ void InputTextArea::Update(void)
 			// 作成したキー入力ハンドルをアクティブにする
 			manager_.SetActive(this);
 		}
+
 	}
-
-	mouseInputOld_ = mouseInputNew_;
-
 }
 
 void InputTextArea::Draw(void)
