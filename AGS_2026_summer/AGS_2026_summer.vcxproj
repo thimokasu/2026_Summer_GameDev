@@ -208,7 +208,7 @@
     <ClInclude Include="Src\Manager\Generic\FPS.h" />
     <ClInclude Include="Src\Manager\Generic\KeyManager.h" />
     <ClInclude Include="Src\Manager\Generic\Loading.h" />
-    <ClInclude Include="Src\Manager\Game\SceneId.h" />
+    <ClInclude Include="Src\Scene\SceneId.h" />
     <ClInclude Include="Src\Manager\Resource\ResourceManager.h" />
     <ClInclude Include="Src\Manager\Resource\Resource.h" />
     <ClInclude Include="Src\Manager\Resource\ResourceName.h" />

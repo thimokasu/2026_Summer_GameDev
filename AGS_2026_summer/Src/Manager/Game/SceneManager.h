@@ -6,8 +6,7 @@
 #include<map>
 
 #include"../../Application.h"
-#include"SceneId.h"
-
+#include"../../Scene/SceneId.h"
 class SceneBase;
 class Fader;
 class Camera;
