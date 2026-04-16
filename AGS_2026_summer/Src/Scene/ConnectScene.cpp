@@ -48,8 +48,11 @@ void ConnectScene::Update(void)
 					//NetManager::GetInstance().TryGoToGame();
 					NetManager::GetInstance().ChangeGameState(GAME_STATE::GOTO_GAME);
 				}
+
 			}
+
 		}
+
 	}
 
 	if (nIns.IsSameGameState(GAME_STATE::GOTO_GAME))

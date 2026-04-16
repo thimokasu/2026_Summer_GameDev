@@ -2,7 +2,6 @@
 #include <DxLib.h>
 #include"../Manager/Generic/KeyManager.h"
 #include "../Manager/Game/SceneManager.h"
-#include"../Manager/Game/SceneId.h"
 #include "../Net/NetManager.h"
 #include "../Manager/Text/InputTextArea.h"
 #include "../Utility/AsoUtility.h"
