@@ -71,7 +71,7 @@ void SceneManager::Init(void)
 	preTime_ = std::chrono::system_clock::now();
 
 	// ‰ŠúƒV[ƒ“‚Ìİ’è
-	ChangeScene(SCENE_ID::MULTI);
+	ChangeScene(SCENE_ID::GAME);
 
 	mainScreen_ = MakeScreen(Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y, true);
 }

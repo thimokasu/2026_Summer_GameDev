@@ -32,9 +32,11 @@ VECTOR ColliderBox::Local2World(const VECTOR& localPos) const
 
 VECTOR ColliderBox::World2Local(const VECTOR& worldPos) const
 {
+	// ワールド座標から中心座標を引いて、ローカル軸に投影する
 	VECTOR center = GetRotPos(colliderInfo_.localPos);
+	// ワールド座標から中心座標を引く
 	VECTOR dir = VSub(worldPos, center);
-
+	// ローカル軸に投影する
 	return VGet(
 		VDot(dir, GetAxisX()),
 		VDot(dir, GetAxisY()),

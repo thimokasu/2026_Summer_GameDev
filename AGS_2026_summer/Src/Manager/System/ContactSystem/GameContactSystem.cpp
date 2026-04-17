@@ -33,7 +33,7 @@ void GameContactSystem::Procese(ContactRule rule)
 	case GameEventType::NONE:
 		break;
 	case GameEventType::TEST:
-		SceneManager::GetInstance().ChangeScene(SCENE_ID::TITLE);
+		//SceneManager::GetInstance().ChangeScene(SCENE_ID::TITLE);
 		break;
 	default:
 		break;

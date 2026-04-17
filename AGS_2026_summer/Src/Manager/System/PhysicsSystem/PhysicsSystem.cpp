@@ -65,51 +65,47 @@ void PhysicsSystem::Update(const std::vector<std::shared_ptr<ActorBase>>& object
 
 void PhysicsSystem::Resolve(const std::vector<std::shared_ptr<ActorBase>>& objects, std::vector<CollisionSystem::CollisionManifold> manifolds)
 {
-    // 1. まず衝突リストに基づいて位置を補正する
     for (auto& fold : manifolds)
     {
         auto& rbA = fold.actorA->GetComponent<RigidBody>();
         auto& rbB = fold.actorB->GetComponent<RigidBody>();
 
-        float invMassA = rbA.GetInverseMass(); 
+        float invMassA = rbA.GetInverseMass();
         float invMassB = rbB.GetInverseMass();
         float totalInvMass = invMassA + invMassB;
 
-        if (totalInvMass == 0.0f) continue; 
+        if (totalInvMass == 0.0f) continue;
 
-        // 質量に基づいた押し出し割合 (逆質量の比率で分けるのが一般的)
-        // 軽い（＝逆質量が大きい）ほうがたくさん動く
         float ratioA = invMassA / totalInvMass;
         float ratioB = invMassB / totalInvMass;
 
-        // ActorA の押し戻し
         if (invMassA > 0.0f) {
             fold.actorA->GetTransform().prevPos = VAdd(
                 fold.actorA->GetTransform().prevPos,
-                VScale(VScale(fold.result.normal, -1.0f), fold.result.penetration * ratioA)
+                VScale(fold.result.normal, fold.result.penetration * ratioA) // プラス！
             );
 
-            // 地面判定（法線が上向き＝0より大きい場合）
-            if (fold.result.normal.y > 0.0f) {
+            // 地面判定 (法線が上向き = Aが上に押し上げられた)
+            if (fold.result.normal.y > 0.5f) {
+                rbA.SetVelocity(VGet(rbA.GetVelocity().x, 0, rbA.GetVelocity().z));
                 rbA.ClearGravity();
             }
         }
 
-        // ActorB の押し戻し
         if (invMassB > 0.0f) {
             fold.actorB->GetTransform().prevPos = VAdd(
                 fold.actorB->GetTransform().prevPos,
-                VScale(fold.result.normal, fold.result.penetration * ratioB)
+                VScale(fold.result.normal, -fold.result.penetration * ratioB) // マイナス！
             );
 
-            // 地面判定（ActorBにとっては法線が逆転するので、下向き＝0より小さい場合が地面）
-            if (fold.result.normal.y < 0.0f) {
+            // 地面判定 (法線が上向き = Bが下に押し下げられた = Bから見て上(A側)に地面がある状態)
+            if (fold.result.normal.y < -0.5f) {
+                rbB.SetVelocity(VGet(rbB.GetVelocity().x, 0, rbB.GetVelocity().z));
                 rbB.ClearGravity();
             }
         }
     }
 
-    // 2. 全てのオブジェクトの最終位置を確定させる
     for (auto obj : objects)
     {
         if (!obj->HasComponent<RigidBody>()) continue;

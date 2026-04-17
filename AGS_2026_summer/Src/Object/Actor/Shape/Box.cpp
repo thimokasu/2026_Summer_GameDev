@@ -53,7 +53,7 @@ void Box::InitCollider(void)
     ColliderBase::SetMask({Layer::ACTOR,Layer::STAGE}),
     VGet(0.0f, 0.0f, 0.0f),
     VGet(0.0f, 0.0f, 0.0f),
-    true,
+    false,
     true,
     };
     std::shared_ptr<ColliderBox> collider =
