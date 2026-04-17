@@ -68,6 +68,11 @@ void MultiScene::Update(void)
 
 		Vector2 moPos;
 		GetMousePoint(&moPos.x, &moPos.y);
+
+		inputTextArea1_->Update();
+		inputTextArea2_->Update();
+		inputTextArea3_->Update();
+		inputTextArea4_->Update();
 		
 		// ƒzƒXƒg
 		if (B1_S_POS.x <= moPos.x && B1_E_POS.x >= moPos.x
@@ -95,10 +100,7 @@ void MultiScene::Update(void)
 		}
 	}
 
-	inputTextArea1_->Update();
-	inputTextArea2_->Update();
-	inputTextArea3_->Update();
-	inputTextArea4_->Update();
+
 
 }
 

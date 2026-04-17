@@ -133,9 +133,6 @@ void Application::Destroy(void)
 		isReleaseFail_ = true;
 	}
 
-	// インスタンスのメモリ解放
-	delete instance_;
-
 }
 
 bool Application::IsInitFail(void) const
