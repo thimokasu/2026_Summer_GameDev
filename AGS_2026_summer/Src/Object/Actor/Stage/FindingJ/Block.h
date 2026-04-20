@@ -13,7 +13,10 @@ public:
     void SubUpdate(void)override;
     void SubDraw(void)override;
     void SubRelease(void)override;
-private:
 
+	void InitCollider(void)override;
+
+private:
+	VECTOR halfSize_ = { 10.0f,10.0f,10.0f };
 };
 

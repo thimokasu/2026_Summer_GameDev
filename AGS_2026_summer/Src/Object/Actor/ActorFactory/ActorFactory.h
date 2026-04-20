@@ -7,6 +7,8 @@
 
 #include"../ActorBase.h"
 #include"../../../Scene/GameSelect/GameKind.h"
+
+using Actor = std::vector<std::shared_ptr<ActorBase>>;
 class ActorFactory
 {
 public:
@@ -19,7 +21,6 @@ private:
 	std::vector<std::shared_ptr<ActorBase>>actors_;
 
 private:
-	Actor CreateFindingJStage1(void);
+	std::vector<std::shared_ptr<ActorBase>> CreateFindingJStage1(Actor actors);
 
 };
-using Actor = std::vector<std::shared_ptr<ActorBase>>;

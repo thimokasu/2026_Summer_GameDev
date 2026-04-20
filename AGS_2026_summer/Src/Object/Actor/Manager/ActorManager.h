@@ -8,6 +8,8 @@
 #include"../ActorBase.h"
 #include"../EntityKind.h"
 
+#include"../ActorFactory/ActorFactory.h"
+
 using EntityID = std::uint32_t;
 
 
@@ -34,6 +36,9 @@ private:
 
 	std::vector<std::shared_ptr<ActorBase>>actors_;
 	std::unordered_map<EntityID, EntityKind>id2Kind_;
+
+	ActorFactory actorFactory_;
+
 
 	int entityId_ = 0;
 };

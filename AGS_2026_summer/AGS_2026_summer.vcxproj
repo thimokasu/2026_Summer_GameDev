@@ -139,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Src\Object\Actor\Stage\FindingJ\SearchBlock.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\FindingJ\ReactionBlock.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\FindingJ\Block.cpp" />
     <ClCompile Include="Src\Object\Actor\ActorFactory\ActorFactory.cpp" />
     <ClCompile Include="Src\Manager\Text\InputTextArea.cpp" />
@@ -193,7 +193,7 @@
     <ClCompile Include="Src\Scene\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Src\Object\Actor\Stage\FindingJ\SearchBlock.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\FindingJ\ReactionBlock.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FindingJ\Block.h" />
     <ClInclude Include="Src\Object\Actor\ActorFactory\ActorFactory.h" />
     <ClInclude Include="Src\Common\CRC.h" />
@@ -207,6 +207,7 @@
     <ClInclude Include="Src\Net\NetStructures.h" />
     <ClInclude Include="Src\Object\Actor\Manager\ActorManager.h" />
     <ClInclude Include="Src\Object\Actor\Floor\Floor.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\FindingJ\StageLayout.h" />
     <ClInclude Include="Src\Scene\ConnectScene.h" />
     <ClInclude Include="Src\Scene\GameScene.h" />
     <ClInclude Include="Src\Common\IntVector3.h" />
