@@ -10,6 +10,7 @@ ReactionBlock::ReactionBlock()
 
 ReactionBlock::ReactionBlock(VECTOR pos)
 {
+	trans_.pos = pos;
 }
 
 ReactionBlock::~ReactionBlock()
@@ -46,6 +47,6 @@ void ReactionBlock::InitCollider(void)
 	true,
 	};
 	std::shared_ptr<ColliderBox> collider =
-		std::make_shared<ColliderBox>(info, halfSize_, this);
+		std::make_shared<ColliderBox>(info, halfSize_, this,GetColor(255,0,0));
 	ownColliders_.emplace(static_cast<int>(SHAPE::BOX), collider);
 }

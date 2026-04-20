@@ -7,6 +7,7 @@ public:
 	// コンストラクタ
 	// halfSize : 各軸方向の半サイズ（中心からの距離）
 	ColliderBox(ColliderInfo& info,  VECTOR& halfSize,ActorBase*actor);
+	ColliderBox(ColliderInfo& info, VECTOR& halfSize, ActorBase* actor, int debugColor);
 	// デストラクタ
 	virtual ~ColliderBox(void);
 

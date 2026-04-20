@@ -14,8 +14,8 @@ constexpr StageLayout n = StageLayout::None;
 constexpr StageLayout r = StageLayout::ReactionBlock;
 
 constexpr int TileSize = 20;
-constexpr int W = 20;
-constexpr int D = 10;
+constexpr int W = 19;
+constexpr int D = 11;
 constexpr int H = 2;
 
 namespace Stage1
@@ -24,30 +24,32 @@ namespace Stage1
     constexpr std::array<std::array<std::array<StageLayout, W>, D>, H> stage = { {
         { // ===== çÇÇ≥ 0 =====
             {
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b}, // 1çsñ⁄
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b},// 2çsñ⁄
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b}
+                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+                {b,b,b,b,b,r,b,b,b,b,b,b,b,r,b,b,b,b,b,},
+                {b,b,b,b,b,b,b,b,b,r,b,b,b,b,b,b,b,b,b,},
+                {b,b,b,b,b,r,b,b,b,b,b,b,b,b,b,b,b,r,b,},
+                {b,b,b,b,b,b,b,b,b,r,b,b,b,b,b,b,b,b,b,},
+                {b,r,b,b,b,b,r,b,r,b,r,b,r,b,b,r,b,b,b,},
+                {b,b,b,b,b,b,b,b,b,r,b,b,b,b,b,b,b,b,b,},
+                {b,b,b,b,b,r,b,b,b,b,b,b,b,b,b,b,b,r,b,},
+                {b,b,b,b,b,b,b,b,b,r,b,b,b,b,b,b,b,b,b,},
+                {b,b,b,b,b,r,b,b,b,b,b,b,b,r,b,b,b,b,b,},
+                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,}
             }
         },
         { // ===== çÇÇ≥ 1 =====
             {
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b}
+                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+                {b,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,b,},
+                {b,n,b,b,b,n,b,b,b,n,b,b,b,n,b,b,b,n,b,},
+                {b,n,b,n,n,n,b,n,n,n,n,n,b,n,b,n,n,n,b,},
+                {b,n,b,n,b,n,b,n,b,n,b,n,b,n,b,n,b,n,b,},
+                {b,n,n,n,b,n,n,n,n,n,n,n,n,n,n,n,b,n,b,},
+                {b,n,b,n,b,n,b,n,b,n,b,n,b,n,b,n,b,n,b,},
+                {b,n,b,n,n,n,b,n,n,n,n,n,b,n,b,n,n,n,b,},
+                {b,n,b,b,b,n,b,b,b,n,b,b,b,n,b,b,b,n,b,},
+                {b,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,b,},
+                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,}
             }
         }
     } };

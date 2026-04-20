@@ -31,6 +31,19 @@ void ActorManager::Load(void)
 	{
 		actors_.push_back(a);
 	}
+	auto player = std::make_shared<Capsule>(8.0f, VGet(0.0f, 10.0f, 0.0f), VGet(0.0f, -10.0f, 0.0f));
+	player->SetEntityKind(EntityKind::PLAYER);
+	player->GetTransform().pos = VGet(0.0f, 100.0f, 0.0f);
+	auto rb = std::make_shared<RigidBody>();
+	rb->SetBodyType(RigidBody::BodyType::DYNAMIC);
+	rb->SetMoveSpeed(2);
+	player->AddComponent(rb);
+	player->AddComponent(std::make_shared<PlayerInputComponent>(
+		KEY_INPUT_W, KEY_INPUT_S,
+		KEY_INPUT_A, KEY_INPUT_D,
+		KEY_INPUT_SPACE, -1));
+	actors_.push_back(player);
+
 }
 
 void ActorManager::Init(void)
