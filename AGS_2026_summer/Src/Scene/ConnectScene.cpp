@@ -60,6 +60,21 @@ void ConnectScene::Update(void)
 		//SceneManager::GetInstance().ChangeScene(SCENE_ID::CHARA_SELECT);
 	}
 
+	auto& net = NetManager::GetInstance();
+
+	// 毎フレームリセット
+	net.ResetAction();
+
+	// テスト値（例：フレーム番号）
+	NET_ACTION act;
+	act.key = net.GetFrameNo(); // ← これが送られる数字
+
+	// 履歴に追加
+	net.MakeActionHis(act);
+
+	// 送信
+	net.Send(NET_DATA_TYPE::ACTION_HIS_ALL);
+
 }
 
 void ConnectScene::Draw(void)
@@ -106,6 +121,23 @@ void ConnectScene::Draw(void)
 			DrawBox(B1_S_POS.x, B1_S_POS.y, B1_E_POS.x, B1_E_POS.y, 0x000000, true);
 			DrawString(B1_S_POS.x + 50, B1_S_POS.y + 5, "進む", 0xffffff);
 		}
+	}
+
+	auto& net = NetManager::GetInstance();
+	auto actionHis = net.GetActionHis();
+	auto user = net.GetSelf();
+
+
+	int z = 100;
+
+	for (auto& [id, his] : actionHis)
+	{
+		int value = his.key;
+
+		DrawFormatString(100, z, 0xffffff,
+			"ID:%d VALUE:%d", id, value);
+
+		z += 20;
 	}
 
 }
