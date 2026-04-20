@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Actor\ActorFactory\ActorFactory.cpp" />
     <ClCompile Include="Src\Manager\Text\InputTextArea.cpp" />
     <ClCompile Include="Src\Manager\Text\InputTextManager.cpp" />
     <ClCompile Include="Src\Net\NetBase.cpp" />
@@ -180,6 +181,7 @@
     <ClCompile Include="Src\Object\Actor\Shape\Sphere.cpp" />
     <ClCompile Include="Src\Object\Common\AnimationController.cpp" />
     <ClCompile Include="Src\Object\Common\Transform.cpp" />
+    <ClCompile Include="Src\Scene\GameSelect\GameSelect.cpp" />
     <ClCompile Include="Src\Scene\MultiScene.cpp" />
     <ClCompile Include="Src\Scene\SceneBase.cpp" />
     <ClCompile Include="Src\Manager\Game\SceneManager.cpp" />
@@ -189,6 +191,7 @@
     <ClCompile Include="Src\Scene\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Actor\ActorFactory\ActorFactory.h" />
     <ClInclude Include="Src\Common\CRC.h" />
     <ClInclude Include="Src\Manager\Text\InputTextArea.h" />
     <ClInclude Include="Src\Manager\Text\InputTextManager.h" />
@@ -208,6 +211,8 @@
     <ClInclude Include="Src\Manager\Generic\FPS.h" />
     <ClInclude Include="Src\Manager\Generic\KeyManager.h" />
     <ClInclude Include="Src\Manager\Generic\Loading.h" />
+    <ClInclude Include="Src\Scene\GameSelect\GameKind.h" />
+    <ClInclude Include="Src\Scene\GameSelect\GameSelect.h" />
     <ClInclude Include="Src\Scene\SceneId.h" />
     <ClInclude Include="Src\Manager\Resource\ResourceManager.h" />
     <ClInclude Include="Src\Manager\Resource\Resource.h" />

@@ -1,1 +1,11 @@
 #pragma once
+enum class GAMEKIND
+{
+	NONE=-1,
+
+	FINDINGJ_STAGE1,
+	FINDINGJ_STAGE2,
+	FINDINGJ_STAGE3,
+
+
+};
