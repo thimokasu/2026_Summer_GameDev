@@ -37,6 +37,7 @@ private:
     MoveInputSystem moveInputSystem_;
 
     ActorManager actorManager_;
+
     
 
 };

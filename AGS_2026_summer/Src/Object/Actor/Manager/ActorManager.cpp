@@ -14,6 +14,8 @@
 #include"../Floor/Floor.h"
 #include"../Camera/Camera.h"
 
+#include "../../../Net/NetManager.h"
+
 ActorManager::ActorManager()
 {
 }
@@ -26,10 +28,8 @@ ActorManager::~ActorManager()
 
 void ActorManager::Load(void)
 {
-
 	std::shared_ptr<Box>box = std::make_shared<Box>();
 	box->GetTransform().pos = VGet(0.0f, 200.0f, 0.0f);
-	actors_.push_back(box);
 	box->AddComponent(std::make_shared<PlayerInputComponent>(
 		KEY_INPUT_W, KEY_INPUT_S,
 		KEY_INPUT_A, KEY_INPUT_D,
@@ -41,10 +41,10 @@ void ActorManager::Load(void)
 	rb->SetUseGravity(true);
 	box->AddComponent(rb);
 	box->SetEntityKind(EntityKind::STAGE);
+	actors_.push_back(box);
 
 	box = std::make_shared<Box>();
 	box->GetTransform().pos = VGet(400.0f, 200.0f, 0.0f);
-	actors_.push_back(box);
 	box->AddComponent(std::make_shared<PlayerInputComponent>(
 		KEY_INPUT_T, KEY_INPUT_G,
 		KEY_INPUT_F, KEY_INPUT_H,
@@ -56,6 +56,7 @@ void ActorManager::Load(void)
 	rb->SetUseGravity(true);
 	box->AddComponent(rb);
 	box->SetEntityKind(EntityKind::STAGE);
+	actors_.push_back(box);
 
 	std::shared_ptr<Floor> floor = std::make_shared<Floor>(VGet(1000.0f, 5.0f, 1000.0f));
 	floor->GetTransform().pos = VGet(0, -100, 0);
@@ -65,6 +66,35 @@ void ActorManager::Load(void)
 	floor->AddComponent(rb);
 
 	actors_.push_back(floor);
+}
+
+std::map<int, NET_JOIN_USER> ActorManager::TestLoad(void)
+{
+	auto& users = NetManager::GetInstance().GetNetUsers();
+
+	std::map<int, NET_JOIN_USER> data = {};
+
+	for (auto& [id, user] : users)
+	{
+		std::shared_ptr<Box>box = std::make_shared<Box>();
+		box->GetTransform().pos = VGet(0.0f, 200.0f, 0.0f);
+		actors_.push_back(box);
+		box->AddComponent(std::make_shared<PlayerInputComponent>(
+			KEY_INPUT_W, KEY_INPUT_S,
+			KEY_INPUT_A, KEY_INPUT_D,
+			KEY_INPUT_Q, KEY_INPUT_E)
+		);
+		auto rb = std::make_shared<RigidBody>();
+		rb->SetBodyType(RigidBody::BodyType::DYNAMIC);
+		rb->SetMass(10.0f);
+		rb->SetUseGravity(true);
+		box->AddComponent(rb);
+		box->SetEntityKind(EntityKind::STAGE);
+
+		data = { {id, user} };
+	}
+
+	return data;
 }
 
 void ActorManager::Init(void)

@@ -45,6 +45,7 @@ std::vector<std::shared_ptr<T>> ObjSearch(const std::vector<std::shared_ptr<Acto
 void GameScene::Load(void)
 {
 	actorManager_.Load();
+	moveInputSystem_.Load();
 }
 
 void GameScene::Init(void)

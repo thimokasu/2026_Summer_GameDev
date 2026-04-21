@@ -57,23 +57,20 @@ void ConnectScene::Update(void)
 
 	if (nIns.IsSameGameState(GAME_STATE::GOTO_GAME))
 	{
-		//SceneManager::GetInstance().ChangeScene(SCENE_ID::CHARA_SELECT);
+		SceneManager::GetInstance().ChangeScene(SCENE_ID::GAME);
 	}
 
-	auto& net = NetManager::GetInstance();
+	//auto& net = NetManager::GetInstance();
 
-	// 毎フレームリセット
-	net.ResetAction();
+	//// 入力作成
+	//NET_ACTION act;
+	//act.key = 12; // テスト
 
-	// テスト値（例：フレーム番号）
-	NET_ACTION act;
-	act.key = net.GetFrameNo(); // ← これが送られる数字
+	//// 履歴に追加（蓄積）
+	//net.MakeActionHis(act);
 
-	// 履歴に追加
-	net.MakeActionHis(act);
-
-	// 送信
-	net.Send(NET_DATA_TYPE::ACTION_HIS_ALL);
+	//// 必要なタイミングで送信
+	//net.Send(NET_DATA_TYPE::ACTION_HIS_ALL);
 
 }
 
@@ -123,22 +120,28 @@ void ConnectScene::Draw(void)
 		}
 	}
 
-	auto& net = NetManager::GetInstance();
-	auto actionHis = net.GetActionHis();
-	auto user = net.GetSelf();
+	//auto& net = NetManager::GetInstance();
+	//auto actionHis = net.GetActionHis();
+	//auto user = net.GetSelf();
 
 
-	int z = 100;
+	//int z = 100;
 
-	for (auto& [id, his] : actionHis)
-	{
-		int value = his.key;
+	//for (auto& [id, his] : actionHis)
+	//{
+	//	DrawFormatString(100, z, 0xffffff, "ID:%d", id);
+	//	z += 20;
 
-		DrawFormatString(100, z, 0xffffff,
-			"ID:%d VALUE:%d", id, value);
+	//	for (int i = 0; i < NUM_FRAME; i++)
+	//	{
+	//		DrawFormatString(120, z, 0xffffff,
+	//			"frame[%d]: %d", i, his.actions[i].key);
 
-		z += 20;
-	}
+	//		z += 20;
+	//	}
+
+	//	z += 10;
+	//}
 
 }
 

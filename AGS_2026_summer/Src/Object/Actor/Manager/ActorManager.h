@@ -8,6 +8,8 @@
 #include"../ActorBase.h"
 #include"../EntityKind.h"
 
+#include "../../../Net/NetStructures.h"
+
 using EntityID = std::uint32_t;
 
 
@@ -20,6 +22,7 @@ public:
 	~ActorManager();
 
 	void Load(void);
+	std::map<int, NET_JOIN_USER> TestLoad(void);
 	void Init(void);
 	void Update(void);
 	void Draw(void);
