@@ -5,7 +5,7 @@
 ContactRule ContactRuleTable::Query(ContactRule rule)
 {
 
-    if (rule.contactEvent_.entityA.entityKind == EntityKind::STAGE && rule.contactEvent_.entityB.entityKind == EntityKind::STAGE)
+    if (rule.contactEvent_.entityA.entityKind == EntityKind::REACTION_BLOCK && rule.contactEvent_.entityB.entityKind == EntityKind::PLAYER)
     {
         rule.eventType_ = GameEventType::TEST;
     }

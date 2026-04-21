@@ -28,12 +28,14 @@ void GameContactSystem::Procese(ContactRule rule)
 	auto event = contactRuleTable_.Query(rule);
 
 
+		int a = 0;
 	switch (event.eventType_)
 	{
 	case GameEventType::NONE:
 		break;
 	case GameEventType::TEST:
 		//SceneManager::GetInstance().ChangeScene(SCENE_ID::TITLE);
+		a = 1;
 		break;
 	default:
 		break;

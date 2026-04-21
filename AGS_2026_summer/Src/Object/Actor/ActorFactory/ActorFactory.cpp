@@ -68,7 +68,7 @@ std::vector<std::shared_ptr<ActorBase>> ActorFactory::CreateFindingJStage1(Actor
                         std::make_shared<ReactionBlock>(
                             VGet(w * TileSize, h * TileSize, d * TileSize)));
                     actors.back()->AddComponent(rb);
-                    actors.back()->SetEntityKind(EntityKind::STAGE);
+                    actors.back()->SetEntityKind(EntityKind::REACTION_BLOCK);
                 }
                 else
 				{
