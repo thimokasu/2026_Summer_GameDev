@@ -141,7 +141,6 @@
   <ItemGroup>
     <ClCompile Include="Src\Object\Actor\Stage\FindingJ\ReactionBlock.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\FindingJ\Block.cpp" />
-    <ClCompile Include="Src\Object\Actor\ActorFactory\ActorFactory.cpp" />
     <ClCompile Include="Src\Manager\Text\InputTextArea.cpp" />
     <ClCompile Include="Src\Manager\Text\InputTextManager.cpp" />
     <ClCompile Include="Src\Net\NetBase.cpp" />
@@ -191,11 +190,12 @@
     <ClCompile Include="Src\main.cpp" />
     <ClCompile Include="Src\Utility\AsoUtility.cpp" />
     <ClCompile Include="Src\Scene\TitleScene.cpp" />
+    <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage1Factory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\ActorFactoryBase.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FindingJ\ReactionBlock.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FindingJ\Block.h" />
-    <ClInclude Include="Src\Object\Actor\ActorFactory\ActorFactory.h" />
     <ClInclude Include="Src\Common\CRC.h" />
     <ClInclude Include="Src\Manager\Text\InputTextArea.h" />
     <ClInclude Include="Src\Manager\Text\InputTextManager.h" />
@@ -261,6 +261,7 @@
     <ClInclude Include="Src\main.h" />
     <ClInclude Include="Src\Utility\AsoUtility.h" />
     <ClInclude Include="Src\Scene\TitleScene.h" />
+    <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage1Factory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

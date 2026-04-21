@@ -13,12 +13,13 @@
 #include"../Manager/Generic/KeyManager.h"
 
 #include"../Object/Actor/Manager/ActorManager.h"
-
+#include"GameSelect/GameKind.h"
 class GameScene :
     public SceneBase
 {
 public:
     GameScene(void);
+	GameScene(GAMEKIND kind);
     ~GameScene(void)override;
 
     void Load(void)override;
@@ -37,7 +38,7 @@ private:
     MoveInputSystem moveInputSystem_;
 
     ActorManager actorManager_;
-    
+    GAMEKIND gameKind_;
 
 };
 

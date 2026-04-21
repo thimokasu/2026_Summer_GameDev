@@ -14,6 +14,10 @@
 #include"../Floor/Floor.h"
 #include"../Camera/Camera.h"
 
+
+#include"../../Actor/Factory/ActorFactory/ActorFactoryBase.h"
+#include"../../Actor/Factory/ActorFactory/FindingJ/Stage1Factory.h"
+
 ActorManager::ActorManager()
 {
 }
@@ -26,24 +30,40 @@ ActorManager::~ActorManager()
 
 void ActorManager::Load(void)
 {
-	auto actors = actorFactory_.CreateActor(GAMEKIND::FINDINGJ_STAGE1);
-	for (auto a : actors)
+}
+
+void ActorManager::Load(GAMEKIND kind)
+{
+	switch (kind)
 	{
-		actors_.push_back(a);
+	case GAMEKIND::NONE:
+		break;
+	case GAMEKIND::FINDINGJ_STAGE1:
+		actorFactory_ = std::make_unique<Stage1Factory>();
+		break;
+	case GAMEKIND::FINDINGJ_STAGE2:
+		break;
+	case GAMEKIND::FINDINGJ_STAGE3:
+		break;
+	default:
+		break;
+	}
+	for(auto & actor : actorFactory_->CreateActors())
+	{
+		actors_.push_back(actor);
 	}
 	auto player = std::make_shared<Capsule>(8.0f, VGet(0.0f, 10.0f, 0.0f), VGet(0.0f, -10.0f, 0.0f));
 	player->SetEntityKind(EntityKind::PLAYER);
 	player->GetTransform().pos = VGet(0.0f, 100.0f, 0.0f);
 	auto rb = std::make_shared<RigidBody>();
 	rb->SetBodyType(RigidBody::BodyType::DYNAMIC);
-	rb->SetMoveSpeed(2);
+	rb->SetMoveSpeed(5);
 	player->AddComponent(rb);
 	player->AddComponent(std::make_shared<PlayerInputComponent>(
 		KEY_INPUT_W, KEY_INPUT_S,
 		KEY_INPUT_A, KEY_INPUT_D,
 		KEY_INPUT_SPACE, -1));
 	actors_.push_back(player);
-
 }
 
 void ActorManager::Init(void)

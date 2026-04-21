@@ -16,6 +16,13 @@
 
 GameScene::GameScene(void)
 {
+	//テスト用初期化
+	gameKind_ = GAMEKIND::FINDINGJ_STAGE1;
+}
+
+GameScene::GameScene(GAMEKIND kind)
+{
+	gameKind_ = kind;
 }
 
 GameScene::~GameScene(void)
@@ -44,7 +51,7 @@ std::vector<std::shared_ptr<T>> ObjSearch(const std::vector<std::shared_ptr<Acto
 
 void GameScene::Load(void)
 {
-	actorManager_.Load();
+	actorManager_.Load(gameKind_);
 }
 
 void GameScene::Init(void)
@@ -70,7 +77,6 @@ void GameScene::Init(void)
 	{
 	collisionSystem_.AddCollider(actor->GetOwnColliders());
 	}
-
 }
 
 void GameScene::Update(void)
