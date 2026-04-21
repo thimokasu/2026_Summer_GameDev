@@ -17,6 +17,8 @@
 
 #include"../../Actor/Factory/ActorFactory/ActorFactoryBase.h"
 #include"../../Actor/Factory/ActorFactory/FindingJ/Stage1Factory.h"
+#include"../../Actor/Factory/ActorFactory/FindingJ/Stage2Factory.h"
+#include"../../Actor/Factory/ActorFactory/FindingJ/Stage3Factory.h"
 
 ActorManager::ActorManager()
 {
@@ -49,20 +51,9 @@ void ActorManager::Load(GAMEKIND kind)
 	player->SetEntityKind(EntityKind::PLAYER);
 	player->GetComponent<PlayerInputComponent>().SetJumpKey(KEY_INPUT_SPACE);
 	actors_.push_back(player);
-	switch (kind)
-	{
-	case GAMEKIND::NONE:
-		break;
-	case GAMEKIND::FINDINGJ_STAGE1:
-		actorFactory_ = std::make_unique<Stage1Factory>();
-		break;
-	case GAMEKIND::FINDINGJ_STAGE2:
-		break;
-	case GAMEKIND::FINDINGJ_STAGE3:
-		break;
-	default:
-		break;
-	}
+
+	SetFactory(kind);
+	
 	for(auto & actor : actorFactory_->CreateActors())
 	{
 		actors_.push_back(actor);
@@ -123,5 +114,24 @@ void ActorManager::BindId2Kind(void)
 	}
 }
 
+void ActorManager::SetFactory(GAMEKIND kind)
+{
+	switch (kind)
+	{
+	case GAMEKIND::NONE:
+		break;
+	case GAMEKIND::FINDINGJ_STAGE1:
+		actorFactory_ = std::make_unique<Stage1Factory>();
+		break;
+	case GAMEKIND::FINDINGJ_STAGE2:
+		actorFactory_ = std::make_unique<Stage2Factory>();
+		break;
+	case GAMEKIND::FINDINGJ_STAGE3:
+		actorFactory_ = std::make_unique<Stage3Factory>();
+		break;
+	default:
+		break;
+	}
+}
 
 

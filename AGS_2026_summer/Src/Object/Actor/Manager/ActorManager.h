@@ -33,7 +33,6 @@ public:
 	EntityKind GetKind(int entityId_);
 
 private:
-	void BindId2Kind(void);
 
 	std::vector<std::shared_ptr<ActorBase>>actors_;
 	std::unordered_map<EntityID, EntityKind>id2Kind_;
@@ -42,5 +41,8 @@ private:
 
 
 	int entityId_ = 0;
+private	:
+	void BindId2Kind(void);
+	void SetFactory(GAMEKIND kind);
 };
 

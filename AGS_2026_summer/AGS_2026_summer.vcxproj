@@ -191,6 +191,8 @@
     <ClCompile Include="Src\Utility\AsoUtility.cpp" />
     <ClCompile Include="Src\Scene\TitleScene.cpp" />
     <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage1Factory.cpp" />
+    <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage2Factory.cpp" />
+    <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage3Factory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\ActorFactoryBase.h" />
@@ -262,6 +264,8 @@
     <ClInclude Include="Src\Utility\AsoUtility.h" />
     <ClInclude Include="Src\Scene\TitleScene.h" />
     <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage1Factory.h" />
+    <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage2Factory.h" />
+    <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage3Factory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

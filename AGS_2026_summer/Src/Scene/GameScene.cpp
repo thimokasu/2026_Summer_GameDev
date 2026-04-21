@@ -17,7 +17,7 @@
 GameScene::GameScene(void)
 {
 	//テスト用初期化
-	gameKind_ = GAMEKIND::FINDINGJ_STAGE1;
+	gameKind_ = GAMEKIND::FINDINGJ_STAGE3;
 }
 
 GameScene::GameScene(GAMEKIND kind)

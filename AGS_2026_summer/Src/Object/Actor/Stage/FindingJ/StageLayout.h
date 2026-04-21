@@ -25,15 +25,15 @@ namespace Stage1
         { // ===== 高さ 0 =====
             {
                 {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-                {b,b,b,b,b,r,b,b,b,b,b,b,b,r,b,b,b,b,b,},
-                {b,b,b,b,b,b,b,b,b,r,b,b,b,b,b,b,b,b,b,},
-                {b,b,b,b,b,r,b,b,b,b,b,b,b,b,b,b,b,r,b,},
-                {b,b,b,b,b,b,b,b,b,r,b,b,b,b,b,b,b,b,b,},
-                {b,r,b,b,b,b,r,b,r,b,r,b,r,b,b,r,b,b,b,},
-                {b,b,b,b,b,b,b,b,b,r,b,b,b,b,b,b,b,b,b,},
-                {b,b,b,b,b,r,b,b,b,b,b,b,b,b,b,b,b,r,b,},
-                {b,b,b,b,b,b,b,b,b,r,b,b,b,b,b,b,b,b,b,},
-                {b,b,b,b,b,r,b,b,b,b,b,b,b,r,b,b,b,b,b,},
+                {b,b,b,b,b,r,b,b,b,r,b,b,b,r,b,b,b,b,b,},
+                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+                {b,r,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,r,b,},
+                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+                {b,b,b,b,b,r,b,b,b,r,b,b,b,r,b,b,b,b,b,},
+                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+                {b,r,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,r,b,},
+                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+                {b,b,b,b,b,r,b,b,b,r,b,b,b,r,b,b,b,b,b,},
                 {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,}
             }
         },
@@ -42,15 +42,90 @@ namespace Stage1
                 {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
                 {b,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,b,},
                 {b,n,b,b,b,n,b,b,b,n,b,b,b,n,b,b,b,n,b,},
-                {b,n,b,n,n,n,b,n,n,n,n,n,b,n,b,n,n,n,b,},
+                {b,n,n,n,b,n,b,n,n,n,n,n,b,n,b,n,n,n,b,},
                 {b,n,b,n,b,n,b,n,b,n,b,n,b,n,b,n,b,n,b,},
-                {b,n,n,n,b,n,n,n,n,n,n,n,n,n,n,n,b,n,b,},
+                {b,n,b,n,n,n,n,n,n,n,n,n,n,n,n,n,b,n,b,},
                 {b,n,b,n,b,n,b,n,b,n,b,n,b,n,b,n,b,n,b,},
-                {b,n,b,n,n,n,b,n,n,n,n,n,b,n,b,n,n,n,b,},
+                {b,n,n,n,b,n,b,n,n,n,n,n,b,n,b,n,n,n,b,},
                 {b,n,b,b,b,n,b,b,b,n,b,b,b,n,b,b,b,n,b,},
                 {b,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,b,},
                 {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,}
             }
         }
     } };
+}
+
+namespace Stage2
+{
+    // 各高さごとにD行W列の2次元配列をH個用意
+    constexpr std::array<std::array<std::array<StageLayout, W>, D>, H> stage = { {
+        { // ===== 高さ 0 =====
+            {
+              {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+                {b,b,b,b,b,r,b,b,b,b,b,b,b,r,b,b,b,b,b,},
+                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+                {b,b,b,b,b,b,b,b,b,r,b,b,b,b,b,b,b,b,b,},
+                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+                {b,b,r,b,b,r,b,b,b,b,b,b,b,r,b,b,r,b,b,},
+                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+                {b,b,b,b,b,b,b,b,b,r,b,b,b,b,b,b,b,b,b,},
+                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+                {b,b,b,b,b,r,b,b,b,b,b,b,b,r,b,b,b,b,b,},
+                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,}
+            }
+        },
+        { // ===== 高さ 1 =====
+            {
+                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+                {b,n,n,n,n,n,n,n,b,b,b,n,n,n,n,n,n,n,b,},
+                {b,n,b,n,b,n,b,n,n,n,n,n,b,n,b,n,b,n,b,},
+                {b,n,n,n,b,n,b,b,b,n,b,b,b,n,b,n,n,n,b,},
+                {b,b,n,b,b,n,b,n,n,n,n,n,b,n,b,b,n,b,b,},
+                {b,b,n,n,n,n,n,n,b,b,b,n,n,n,n,n,n,b,b,},
+                {b,b,n,b,b,n,b,n,n,n,n,n,b,n,b,b,n,b,b,},
+                {b,n,n,n,b,n,b,b,b,n,b,b,b,n,b,n,n,n,b,},
+                {b,n,b,n,b,n,b,n,n,n,n,n,b,n,b,n,b,n,b,},
+                {b,n,n,n,n,n,n,n,b,b,b,n,n,n,n,n,n,n,b,},
+                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,}
+            }
+        }
+    } };
+}
+
+namespace Stage3
+{
+    // 各高さごとにD行W列の2次元配列をH個用意
+    constexpr std::array<std::array<std::array<StageLayout, W>, D>, H> stage = { {
+        { // ===== 高さ 0 =====
+            {
+             {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+                {b,b,b,b,b,b,b,b,b,r,b,b,b,b,b,b,b,b,b,},
+                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+                {b,b,b,b,b,b,r,b,b,b,b,b,r,b,b,b,b,b,b,},
+                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+                {b,r,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,r,b,},
+                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+                {b,b,b,b,b,b,r,b,b,b,b,b,r,b,b,b,b,b,b,},
+                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+                {b,b,b,b,b,b,b,b,b,r,b,b,b,b,b,b,b,b,b,},
+                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,}
+            }
+        },
+        { // ===== 高さ 1 =====
+            {
+                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+                {b,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,b,},
+                {b,n,b,b,b,b,b,b,n,b,n,b,b,b,b,b,b,n,b,},
+                {b,n,n,n,n,n,n,n,n,b,n,n,n,n,n,n,n,n,b,},
+                {b,n,b,b,b,b,n,b,n,n,n,b,n,b,b,b,b,n,b,},
+                {b,n,n,n,n,n,n,b,n,b,n,b,n,n,n,n,n,n,b,},
+                {b,n,b,b,b,b,n,b,n,n,n,b,n,b,b,b,b,n,b,},
+                {b,n,n,n,n,n,n,n,n,b,n,n,n,n,n,n,n,n,b,},
+                {b,n,b,b,b,b,b,b,n,b,n,b,b,b,b,b,b,n,b,},
+                {b,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,b,},
+                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,}
+            }
+        }
+    } };
+   
 }
