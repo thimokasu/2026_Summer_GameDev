@@ -34,7 +34,10 @@ void MoveInputSystem::Update(const std::vector<std::shared_ptr<ActorBase>>& obje
 			if (CheckHitKey(input.backKey_))moveDir.z -= 1.0f;
 			if (CheckHitKey(input.leftKey_))moveDir.x -= 1.0f;
 			if (CheckHitKey(input.rightKey_))moveDir.x += 1.0f;
-			if (CheckHitKey(input.upKey_))moveDir.y += 1.0f;
+			if (CheckHitKey(input.upKey_))
+			{
+				moveDir.y += 1.0f;
+			}
 			if (CheckHitKey(input.downKey_))moveDir.y -= 1.0f;
 			
 			const VECTOR cameraAngle = SceneManager::GetInstance().GetCamera()->GetAngles();
@@ -46,7 +49,7 @@ void MoveInputSystem::Update(const std::vector<std::shared_ptr<ActorBase>>& obje
 				moveDir = VNorm(moveDir);
 			}
 
-			if (CheckHitKey(input.jumpKey_) && rb.IsGrounded())
+			if (CheckHitKey(input.jumpKey_))
 			{
 				rb.SetVelocity(VAdd(rb.GetVelocity(), VGet(0, rb.GetJumpPower(), 0)));
 			}

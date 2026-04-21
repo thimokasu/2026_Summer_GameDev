@@ -34,6 +34,21 @@ void ActorManager::Load(void)
 
 void ActorManager::Load(GAMEKIND kind)
 {
+	auto player = std::make_shared<Capsule>(8.0f, VGet(0.0f, 10.0f, 0.0f), VGet(0.0f, -10.0f, 0.0f));
+	player->SetEntityKind(EntityKind::PLAYER);
+	player->GetTransform().pos = VGet(0.0f, 100.0f, 0.0f);
+	auto rb = std::make_shared<RigidBody>();
+	rb->SetBodyType(RigidBody::BodyType::DYNAMIC);
+	rb->SetMoveSpeed(5);
+	rb->SetJumpPower(30);
+	player->AddComponent(rb);
+	player->AddComponent(std::make_shared<PlayerInputComponent>(
+		KEY_INPUT_W, KEY_INPUT_S,
+		KEY_INPUT_A, KEY_INPUT_D,
+		KEY_INPUT_Q, KEY_INPUT_E));
+	player->SetEntityKind(EntityKind::PLAYER);
+	player->GetComponent<PlayerInputComponent>().SetJumpKey(KEY_INPUT_SPACE);
+	actors_.push_back(player);
 	switch (kind)
 	{
 	case GAMEKIND::NONE:
@@ -52,18 +67,6 @@ void ActorManager::Load(GAMEKIND kind)
 	{
 		actors_.push_back(actor);
 	}
-	auto player = std::make_shared<Capsule>(8.0f, VGet(0.0f, 10.0f, 0.0f), VGet(0.0f, -10.0f, 0.0f));
-	player->SetEntityKind(EntityKind::PLAYER);
-	player->GetTransform().pos = VGet(0.0f, 100.0f, 0.0f);
-	auto rb = std::make_shared<RigidBody>();
-	rb->SetBodyType(RigidBody::BodyType::DYNAMIC);
-	rb->SetMoveSpeed(5);
-	player->AddComponent(rb);
-	player->AddComponent(std::make_shared<PlayerInputComponent>(
-		KEY_INPUT_W, KEY_INPUT_S,
-		KEY_INPUT_A, KEY_INPUT_D,
-		KEY_INPUT_SPACE, -1));
-	actors_.push_back(player);
 }
 
 void ActorManager::Init(void)

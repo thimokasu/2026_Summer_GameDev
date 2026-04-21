@@ -45,7 +45,7 @@ void PhysicsSystem::Update(const std::vector<std::shared_ptr<ActorBase>>& object
         float yKeep = rb.GetVelocity().y;
 
         // ===== 減速（ダンピング） =====
-        newVel = VScale(newVel, 0.95);
+        newVel = VScale(newVel, 0.975);
 
         rb.SetVelocity(newVel);
 
@@ -60,6 +60,7 @@ void PhysicsSystem::Update(const std::vector<std::shared_ptr<ActorBase>>& object
 
         // ===== Force クリア =====
         rb.ClearForce();
+        rb.SetGrounded(false);
     }
 }
 
@@ -89,6 +90,7 @@ void PhysicsSystem::Resolve(const std::vector<std::shared_ptr<ActorBase>>& objec
             if (fold.result.normal.y > 0.5f) {
                 rbA.SetVelocity(VGet(rbA.GetVelocity().x, 0, rbA.GetVelocity().z));
                 rbA.ClearGravity();
+				rbA.SetGrounded(true);
             }
         }
 
@@ -102,6 +104,7 @@ void PhysicsSystem::Resolve(const std::vector<std::shared_ptr<ActorBase>>& objec
             if (fold.result.normal.y < -0.5f) {
                 rbB.SetVelocity(VGet(rbB.GetVelocity().x, 0, rbB.GetVelocity().z));
                 rbB.ClearGravity();
+				rbB.SetGrounded(true);
             }
         }
     }
