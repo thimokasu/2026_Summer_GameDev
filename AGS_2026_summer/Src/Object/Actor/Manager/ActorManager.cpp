@@ -34,7 +34,7 @@ void ActorManager::Load(void)
 {
 }
 
-void ActorManager::Load(GAMEKIND kind)
+void ActorManager::Load(GameInfo info)
 {
 	auto player = std::make_shared<Capsule>(8.0f, VGet(0.0f, 10.0f, 0.0f), VGet(0.0f, -10.0f, 0.0f));
 	player->SetEntityKind(EntityKind::PLAYER);
@@ -52,9 +52,9 @@ void ActorManager::Load(GAMEKIND kind)
 	player->GetComponent<PlayerInputComponent>().SetJumpKey(KEY_INPUT_SPACE);
 	actors_.push_back(player);
 
-	SetFactory(kind);
-	
-	for(auto & actor : actorFactory_->CreateActors())
+	SetFactory(info);
+
+	for (auto& actor : actorFactory_->CreateActors())
 	{
 		actors_.push_back(actor);
 	}
@@ -114,24 +114,124 @@ void ActorManager::BindId2Kind(void)
 	}
 }
 
-void ActorManager::SetFactory(GAMEKIND kind)
+void ActorManager::SetFactory(GameInfo info)
 {
-	switch (kind)
+	switch (info.gameMode)
 	{
-	case GAMEKIND::NONE:
+	case GAMEKMODE::OnePlayer:
+		switch (static_cast<OnePlayer::Game>(info.gameID))
+		{
+		case OnePlayer::Game::A:
+			if (info.stageID == 0)
+			{
+			}
+			else if (info.stageID == 1)
+			{
+			}
+			else if (info.stageID == 2)
+			{
+			}
+			break;
+		case OnePlayer::Game::B:
+			if (info.stageID == 0)
+			{
+			}
+			else if (info.stageID == 1)
+			{
+			}
+			else if (info.stageID == 2)
+			{
+			}
+			break;
+		}
 		break;
-	case GAMEKIND::FINDINGJ_STAGE1:
-		actorFactory_ = std::make_unique<Stage1Factory>();
+	case GAMEKMODE::TwoPlayer:
+		switch (static_cast<TwoPlayer::Game>(info.gameID))
+		{
+		case TwoPlayer::Game::A:
+			if (info.stageID == 0)
+			{
+			}
+			else if (info.stageID == 1)
+			{
+			}
+			else if (info.stageID == 2)
+			{
+			}
+			break;
+		case TwoPlayer::Game::B:
+			if (info.stageID == 0)
+			{
+			}
+			else if (info.stageID == 1)
+			{
+			}
+			else if (info.stageID == 2)
+			{
+			}
+			break;
+		}
 		break;
-	case GAMEKIND::FINDINGJ_STAGE2:
-		actorFactory_ = std::make_unique<Stage2Factory>();
+	case GAMEKMODE::ThreePlayer:
+		switch (static_cast<ThreePlayer::Game>(info.gameID))
+		{
+		case ThreePlayer::Game::A:
+			if (info.stageID == 0)
+			{
+			}
+			else if (info.stageID == 1)
+			{
+			}
+			else if (info.stageID == 2)
+			{
+			}
+			break;
+		case ThreePlayer::Game::B:
+			if (info.stageID == 0)
+			{
+			}
+			else if (info.stageID == 1)
+			{
+			}
+			else if (info.stageID == 2)
+			{
+			}
+			break;
+		}
 		break;
-	case GAMEKIND::FINDINGJ_STAGE3:
-		actorFactory_ = std::make_unique<Stage3Factory>();
-		break;
-	default:
+	case GAMEKMODE::FourPlayer:
+		switch (static_cast<FourPlayer::Game>(info.gameID))
+		{
+		case FourPlayer::Game::FindingJ:
+			if (info.stageID == 0)
+			{
+				actorFactory_ = std::make_unique<Stage1Factory>();
+				break;
+			}
+			else if (info.stageID == 1)
+			{
+				actorFactory_ = std::make_unique<Stage2Factory>();
+				break;
+			}
+			else if (info.stageID == 2)
+			{
+				actorFactory_ = std::make_unique<Stage3Factory>();
+				break;
+			}
+			break;
+		case FourPlayer::Game::B:
+			if (info.stageID == 0)
+			{
+			}
+			else if (info.stageID == 1)
+			{
+			}
+			else if (info.stageID == 2)
+			{
+			}
+			break;
+		}
 		break;
 	}
 }
-
 

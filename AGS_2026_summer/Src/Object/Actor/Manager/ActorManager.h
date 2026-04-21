@@ -9,7 +9,6 @@
 #include"../EntityKind.h"
 #include"../../../Scene/GameSelect/GameKind.h"
 
-
 using EntityID = std::uint32_t;
 class ActorFactoryBase;
 
@@ -22,7 +21,7 @@ public:
 	~ActorManager();
 
 	void Load(void);
-	void Load(GAMEKIND kind);
+	void Load(GameInfo info);
 	void Init(void);
 	void Update(void);
 	void Draw(void);
@@ -43,6 +42,6 @@ private:
 	int entityId_ = 0;
 private	:
 	void BindId2Kind(void);
-	void SetFactory(GAMEKIND kind);
+	void SetFactory(GameInfo info);
 };
 

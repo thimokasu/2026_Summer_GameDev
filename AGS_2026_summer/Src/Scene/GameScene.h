@@ -19,7 +19,7 @@ class GameScene :
 {
 public:
     GameScene(void);
-	GameScene(GAMEKIND kind);
+	GameScene(GameInfo info);
     ~GameScene(void)override;
 
     void Load(void)override;
@@ -38,7 +38,7 @@ private:
     MoveInputSystem moveInputSystem_;
 
     ActorManager actorManager_;
-    GAMEKIND gameKind_;
+	GameInfo gameInfo_;
 
 };
 

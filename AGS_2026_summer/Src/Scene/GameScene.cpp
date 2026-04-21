@@ -16,13 +16,14 @@
 
 GameScene::GameScene(void)
 {
-	//テスト用初期化
-	gameKind_ = GAMEKIND::FINDINGJ_STAGE3;
+	gameInfo_.gameMode = GAMEKMODE::FourPlayer;
+	gameInfo_.gameID = static_cast<Game>(FourPlayer::Game::FindingJ);
+	gameInfo_.stageID = static_cast<int>(FourPlayer::FindingJ::Stage::Stage3);
 }
 
-GameScene::GameScene(GAMEKIND kind)
+GameScene::GameScene(GameInfo info)
 {
-	gameKind_ = kind;
+	gameInfo_ = info;
 }
 
 GameScene::~GameScene(void)
@@ -51,7 +52,7 @@ std::vector<std::shared_ptr<T>> ObjSearch(const std::vector<std::shared_ptr<Acto
 
 void GameScene::Load(void)
 {
-	actorManager_.Load(gameKind_);
+	actorManager_.Load(gameInfo_);
 }
 
 void GameScene::Init(void)

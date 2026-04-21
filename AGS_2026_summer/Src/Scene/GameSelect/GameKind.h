@@ -1,11 +1,62 @@
 #pragma once
-enum class GAMEKIND
+
+
+enum class Game {};
+
+enum class GAMEKMODE
 {
-	NONE=-1,
+	OnePlayer,
+	TwoPlayer,
+	ThreePlayer,
+	FourPlayer,
+};;
 
-	FINDINGJ_STAGE1,
-	FINDINGJ_STAGE2,
-	FINDINGJ_STAGE3,
-
-
+struct GameInfo
+{
+	GAMEKMODE gameMode;
+	Game gameID;
+	int stageID;
 };
+namespace OnePlayer
+{
+	enum class Game { A, B, };
+	namespace A {
+		enum class Stage { Stage1, Stage2, Stage3, }; 
+	}
+	namespace B {
+		enum class Stage { Stage1, Stage2, Stage3, };
+	}
+}
+
+namespace TwoPlayer
+{
+	enum class Game { A, B, };
+	namespace A {
+		enum class Stage { Stage1, Stage2, Stage3, };
+	}
+	namespace B {
+		enum class Stage { Stage1, Stage2, Stage3, };
+	}
+}
+
+namespace ThreePlayer
+{
+	enum class Game { A, B, };
+	namespace A {
+		enum class Stage { Stage1, Stage2, Stage3, };
+	}
+	namespace B {
+		enum class Stage { Stage1, Stage2, Stage3, };
+	}
+}
+
+namespace FourPlayer
+{
+	enum class Game { FindingJ, B, };
+	namespace FindingJ {
+		enum class Stage { Stage1, Stage2, Stage3, };
+	}
+	namespace B {
+		enum class Stage { Stage1, Stage2, Stage3, };
+	}
+}
