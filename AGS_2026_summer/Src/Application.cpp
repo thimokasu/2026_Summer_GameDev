@@ -103,7 +103,7 @@ void Application::Run(void)
 
 		keymanager.Update();
 		sceneManager.Update();
-
+		InputTextManager::GetInstance().Update();
 		sceneManager.Draw();
 		NetManager::GetInstance().Update();
 
