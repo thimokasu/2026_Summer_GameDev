@@ -11,7 +11,7 @@
 #include"../Manager/System/ContactSystem/GameContactSystem.h"
 #include"../Manager/System/MoveInputSystem/MoveInputSystem.h"
 
-
+#include "../Net/NetManager.h"
 
 
 GameScene::GameScene(void)
@@ -78,11 +78,32 @@ void GameScene::Init(void)
 	{
 	collisionSystem_.AddCollider(actor->GetOwnColliders());
 	}
+
+	stepCountDown_ = 3.0f;
 }
 
 void GameScene::Update(void)
 {
 
+	auto& nIns = NetManager::GetInstance();
+	if (nIns.GetMode() == NET_MODE::HOST)
+	{
+		// ƒQ[ƒ€ŽžŠÔis
+		SceneManager::GetInstance().ForwardGameTime();
+	}
+
+	float limit = stepCountDown_ - SceneManager::GetInstance().GetTotalGameTime();
+	if (limit > 0.0f)
+	{
+		DrawFormatString(100, 100, 0xffffff, "%f", limit);
+		return;
+	}
+	else
+	{
+		NetManager::GetInstance().ChangeGameState(GAME_STATE::GAME_PLAYING);
+	}
+
+	NetManager::GetInstance().ResetAction();
 
 	actorManager_.Update();
 
@@ -94,6 +115,9 @@ void GameScene::Update(void)
 
 	gameContactSystem_.Update(contactSystem_.GetContactEvent());
 	contactSystem_.Clear();
+
+	NetManager::GetInstance().Send(NET_DATA_TYPE::ACTION_HIS_ALL);
+
 }
 
 void GameScene::Draw(void)
