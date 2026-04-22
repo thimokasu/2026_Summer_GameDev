@@ -7,11 +7,6 @@
 #include"../../../Manager/Game/SceneManager.h"
 #include"../../../Object/Actor/Camera/Camera.h"
 
-#include "../../../Net/NetManager.h"
-#include "../../../Net/NetStructures.h"
-
-#include "../../../Object/Actor/Component/NetPlayerIDComponent/NetPlayerIDComponent.h"
-
 MoveInputSystem::MoveInputSystem()
 {
 }
@@ -21,13 +16,6 @@ MoveInputSystem::~MoveInputSystem()
 }
 void MoveInputSystem::Update(const std::vector<std::shared_ptr<ActorBase>>& objects)
 {
-
-	bool isAction = false;
-	auto& nIns = NetManager::GetInstance();
-
-	using PID = NetPlayerIDComponent;
-	using PAction= PLAYER_ACTION;
-
 	for (auto obj : objects)
 	{
 		//プレイヤー入力コンポーネントを持っているか
@@ -38,51 +26,19 @@ void MoveInputSystem::Update(const std::vector<std::shared_ptr<ActorBase>>& obje
 
 			VECTOR moveDir = VGet(0.0f, 0.0f, 0.0f);
 
-			isAction = CheckHitKey(input.frontKey_);
 			//入力に応じて移動方向を設定
-			if (nIns.IsAction(
-				obj->GetComponent<PID>().GetUserId(),
-				PAction::MOVE_FORWARD,isAction))
+			if (CheckHitKey(input.frontKey_))
 			{
 				moveDir.z += 1.0f;
-				if (obj->GetComponent<PID>().GetUserId() == nIns.GetSelf().key)
-				{
-					nIns.SetAction(PAction::MOVE_FORWARD);
-				}
 			}
-			isAction = CheckHitKey(input.backKey_);
-			if (nIns.IsAction(
-				obj->GetComponent<PID>().GetUserId(),
-				PAction::MOVE_BACK,isAction))
-			{
-				moveDir.z -= 1.0f;
-				if (obj->GetComponent<PID>().GetUserId() == nIns.GetSelf().key)
-				{
-					nIns.SetAction(PAction::MOVE_BACK);
-				}
-			}
-			isAction = CheckHitKey(input.leftKey_);
-			if (nIns.IsAction(
-				obj->GetComponent<PID>().GetUserId(),
-				PAction::MOVE_LEFT,isAction))
+			if (CheckHitKey(input.backKey_))moveDir.z -= 1.0f;
+			if (CheckHitKey(input.leftKey_))moveDir.x -= 1.0f;
+			if (CheckHitKey(input.rightKey_))moveDir.x += 1.0f;
+			if (CheckHitKey(input.upKey_))
 			{
 				moveDir.y += 1.0f;
-				if (obj->GetComponent<PID>().GetUserId() == nIns.GetSelf().key)
-				{
-					nIns.SetAction(PAction::MOVE_LEFT);
-				}
 			}
-			isAction = CheckHitKey(input.rightKey_);
-			if (nIns.IsAction(
-				obj->GetComponent<PID>().GetUserId(),
-				PAction::MOVE_RIGHT,isAction))
-			{
-				moveDir.y -= 1.0f;
-				if (obj->GetComponent<PID>().GetUserId() == nIns.GetSelf().key)
-				{
-					nIns.SetAction(PAction::MOVE_RIGHT);
-				}
-			}
+			if (CheckHitKey(input.downKey_))moveDir.y -= 1.0f;
 			
 			const VECTOR cameraAngle = SceneManager::GetInstance().GetCamera()->GetAngles();
 			MATRIX camYaw = MGetRotY(cameraAngle.y);

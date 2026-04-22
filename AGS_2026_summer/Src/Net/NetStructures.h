@@ -1,6 +1,6 @@
 #pragma once
 #include <DxLib.h>
-#include <cstdint>
+
 static constexpr int MAX_PLAYERS = 2;
 static constexpr int MAX_SEND_BYTES = 1024;
 static constexpr int NUM_FRAME = 10;

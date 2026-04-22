@@ -40,7 +40,5 @@ private:
     ActorManager actorManager_;
 	GameInfo gameInfo_;
 
-	int stepCountDown_;
-
 };
 

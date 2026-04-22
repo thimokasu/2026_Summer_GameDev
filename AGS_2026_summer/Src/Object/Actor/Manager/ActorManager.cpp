@@ -8,7 +8,6 @@
 
 #include"../Component/PlayerInputComponent/PlayerInputComponent.h"
 #include"../Component/RigidBodyComponent/RigidBody.h"
-#include"../Component/NetPlayerIDComponent/NetPlayerIDComponent.h"
 
 #include"../ActorBase.h"
 #include"../../Common/Transform.h"
@@ -20,11 +19,6 @@
 #include"../../Actor/Factory/ActorFactory/FindingJ/Stage1Factory.h"
 #include"../../Actor/Factory/ActorFactory/FindingJ/Stage2Factory.h"
 #include"../../Actor/Factory/ActorFactory/FindingJ/Stage3Factory.h"
-
-#include "../../Actor/Charactor/Player/Player.h"
-
-#include "../../../Net/NetManager.h"
-#include "../../../Net/NetStructures.h"
 
 ActorManager::ActorManager()
 {
@@ -42,34 +36,7 @@ void ActorManager::Load(void)
 
 void ActorManager::Load(GameInfo info)
 {
-	//現在のネットユーザ情報を取得
-	auto& users = NetManager::GetInstance().GetNetUsers();
-	auto player = std::make_shared<Player>();
-
-	for (auto& user : users)
-	{
-		player->SetEntityKind(EntityKind::PLAYER);
-		player->GetTransform().pos = VGet(0.0f, 100.0f, 0.0f);
-		auto rb = std::make_shared<RigidBody>();
-		player->AddComponent(
-			std::make_shared<NetPlayerIDComponent>());
-		player->GetComponent<NetPlayerIDComponent>().SetUserId(user.first);
-		player->GetComponent<NetPlayerIDComponent>().SetPlayerTag(user.second.playerType);
-		rb->SetBodyType(RigidBody::BodyType::DYNAMIC);
-		rb->SetMoveSpeed(5);
-		rb->SetJumpPower(30);
-		player->AddComponent(rb);
-		player->AddComponent(std::make_shared<PlayerInputComponent>(
-			KEY_INPUT_W, KEY_INPUT_S,
-			KEY_INPUT_A, KEY_INPUT_D,
-			KEY_INPUT_Q, KEY_INPUT_E));
-		player->GetComponent<PlayerInputComponent>().SetJumpKey(KEY_INPUT_SPACE);
-		actors_.push_back(player);
-	}
-
-
-
-	/*auto player = std::make_shared<Capsule>(8.0f, VGet(0.0f, 10.0f, 0.0f), VGet(0.0f, -10.0f, 0.0f));
+	auto player = std::make_shared<Capsule>(8.0f, VGet(0.0f, 10.0f, 0.0f), VGet(0.0f, -10.0f, 0.0f));
 	player->SetEntityKind(EntityKind::PLAYER);
 	player->GetTransform().pos = VGet(0.0f, 100.0f, 0.0f);
 	auto rb = std::make_shared<RigidBody>();
@@ -82,8 +49,8 @@ void ActorManager::Load(GameInfo info)
 		KEY_INPUT_A, KEY_INPUT_D,
 		KEY_INPUT_Q, KEY_INPUT_E));
 	player->SetEntityKind(EntityKind::PLAYER);
-	player->GetComponent<PlayerInputComponent>().SetJumpKey(KEY_INPUT_SPACE);*/
-	//actors_.push_back(player);
+	player->GetComponent<PlayerInputComponent>().SetJumpKey(KEY_INPUT_SPACE);
+	actors_.push_back(player);
 
 	SetFactory(info);
 

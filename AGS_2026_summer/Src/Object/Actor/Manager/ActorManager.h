@@ -37,7 +37,7 @@ private:
 	std::unordered_map<EntityID, EntityKind>id2Kind_;
 
 	std::unique_ptr<ActorFactoryBase>actorFactory_;
-	
+
 
 	int entityId_ = 0;
 private	:

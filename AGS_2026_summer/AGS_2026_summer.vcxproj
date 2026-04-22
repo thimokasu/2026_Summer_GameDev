@@ -139,7 +139,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Src\Object\Actor\Component\NetPlayerIDComponent\NetPlayerIDComponent.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\Player\Player.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\CharactorBase.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\FindingJ\ReactionBlock.cpp" />
@@ -198,7 +197,6 @@
     <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage3Factory.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Src\Object\Actor\Component\NetPlayerIDComponent\NetPlayerIDComponent.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\Player\Player.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\CharactorBase.h" />
     <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\ActorFactoryBase.h" />
