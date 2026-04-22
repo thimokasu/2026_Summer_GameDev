@@ -44,12 +44,20 @@ void ActorManager::Load(GameInfo info)
 {
 	//現在のネットユーザ情報を取得
 	auto& users = NetManager::GetInstance().GetNetUsers();
-	auto player = std::make_shared<Player>();
 
 	for (auto& user : users)
 	{
+		auto player = std::make_shared<Player>();
 		player->SetEntityKind(EntityKind::PLAYER);
-		player->GetTransform().pos = VGet(0.0f, 100.0f, 0.0f);
+		if(user.second.playerType == PLAYERS::PLAYER_1)
+		{
+			player->GetTransform().pos = VGet(0.0f, 100.0f, 0.0f);
+		}
+		else if (user.second.playerType == PLAYERS::PLAYER_2)
+		{
+			player->GetTransform().pos = VGet(0.0f, 100.0f, 20.0f);
+		}
+		player->GetTransform().scl = VGet(1.0f, 1.0f, 1.0f);
 		auto rb = std::make_shared<RigidBody>();
 		player->AddComponent(
 			std::make_shared<NetPlayerIDComponent>());
@@ -59,10 +67,20 @@ void ActorManager::Load(GameInfo info)
 		rb->SetMoveSpeed(5);
 		rb->SetJumpPower(30);
 		player->AddComponent(rb);
-		player->AddComponent(std::make_shared<PlayerInputComponent>(
-			KEY_INPUT_W, KEY_INPUT_S,
-			KEY_INPUT_A, KEY_INPUT_D,
-			KEY_INPUT_Q, KEY_INPUT_E));
+		if (user.second.playerType == PLAYERS::PLAYER_1)
+		{
+			player->AddComponent(std::make_shared<PlayerInputComponent>(
+				KEY_INPUT_W, KEY_INPUT_S,
+				KEY_INPUT_A, KEY_INPUT_D,
+				KEY_INPUT_Q, KEY_INPUT_E));
+		}
+		else if (user.second.playerType == PLAYERS::PLAYER_2)
+		{
+			player->AddComponent(std::make_shared<PlayerInputComponent>(
+				KEY_INPUT_G, KEY_INPUT_B,
+				KEY_INPUT_V, KEY_INPUT_N,
+				KEY_INPUT_C, KEY_INPUT_M));
+		}
 		player->GetComponent<PlayerInputComponent>().SetJumpKey(KEY_INPUT_SPACE);
 		actors_.push_back(player);
 	}

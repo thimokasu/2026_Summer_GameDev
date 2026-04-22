@@ -43,9 +43,9 @@ void CharactorBase::InitCollider(void)
 		false,
 		true,
 	};
-	float radius = 50.0f;
-	VECTOR localPostop = VGet(0.0f, 50.0f, 0.0f);
-	VECTOR localPosDown = VGet(0.0f, -50.0f, 0.0f);
+	float radius = 5.0f;
+	VECTOR localPostop = VGet(0.0f, 10.0f, 0.0f);
+	VECTOR localPosDown = VGet(0.0f, -10.0f, 0.0f);
 	std::shared_ptr<ColliderCapsule> collider =
 		std::make_shared<ColliderCapsule>(info, radius, localPostop, localPosDown, this);
 	ownColliders_.emplace(static_cast<int>(SHAPE::CAPSULE), collider);

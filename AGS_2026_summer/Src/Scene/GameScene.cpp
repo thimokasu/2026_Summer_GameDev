@@ -126,6 +126,11 @@ void GameScene::Draw(void)
 
 	actorManager_.Draw();
 
+	float limit = stepCountDown_ - SceneManager::GetInstance().GetTotalGameTime();
+	if (limit > 0.0f)
+	{
+		DrawFormatString(100, 100, 0xffffff, "%f", limit);
+	}
 
 }
 

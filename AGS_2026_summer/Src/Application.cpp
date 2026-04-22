@@ -48,6 +48,13 @@ void Application::Init(void)
 	SetGraphMode(SCREEN_SIZE_X, SCREEN_SIZE_Y, 32);
 	ChangeWindowMode(true);
 
+	// ２重起動検査回避用
+	SRand(GetNowCount());
+	int rand = GetRand(999);
+	std::string name = "UDP Test";
+	name += std::to_string(rand);
+	SetMainWindowClassName(name.c_str());
+
 	// DxLibの初期化
 	SetUseDirect3DVersion(DX_DIRECT3D_11);
 	isInitFail_ = false;
@@ -98,6 +105,7 @@ void Application::Run(void)
 		sceneManager.Update();
 
 		sceneManager.Draw();
+		NetManager::GetInstance().Update();
 
 		ScreenFlip();
 
@@ -114,6 +122,8 @@ void Application::Destroy(void)
 	// 入力制御解放
 	KeyManager::GetIns().DeleteIns();
 
+	NetManager::GetInstance().Destroy();
+
 	Effkseer_End();
 
 	// DxLib終了
@@ -121,9 +131,6 @@ void Application::Destroy(void)
 	{
 		isReleaseFail_ = true;
 	}
-
-	// インスタンスのメモリ解放
-	delete instance_;
 
 }
 

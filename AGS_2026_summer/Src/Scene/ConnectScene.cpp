@@ -57,7 +57,7 @@ void ConnectScene::Update(void)
 
 	if (nIns.IsSameGameState(GAME_STATE::GOTO_GAME))
 	{
-		//SceneManager::GetInstance().ChangeScene(SCENE_ID::CHARA_SELECT);
+		SceneManager::GetInstance().ChangeScene(SCENE_ID::GAME);
 	}
 
 }

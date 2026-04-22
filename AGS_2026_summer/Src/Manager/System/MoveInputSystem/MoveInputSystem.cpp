@@ -66,7 +66,7 @@ void MoveInputSystem::Update(const std::vector<std::shared_ptr<ActorBase>>& obje
 				obj->GetComponent<PID>().GetUserId(),
 				PAction::MOVE_LEFT,isAction))
 			{
-				moveDir.y += 1.0f;
+				moveDir.x -= 1.0f;
 				if (obj->GetComponent<PID>().GetUserId() == nIns.GetSelf().key)
 				{
 					nIns.SetAction(PAction::MOVE_LEFT);
@@ -77,7 +77,7 @@ void MoveInputSystem::Update(const std::vector<std::shared_ptr<ActorBase>>& obje
 				obj->GetComponent<PID>().GetUserId(),
 				PAction::MOVE_RIGHT,isAction))
 			{
-				moveDir.y -= 1.0f;
+				moveDir.x += 1.0f;
 				if (obj->GetComponent<PID>().GetUserId() == nIns.GetSelf().key)
 				{
 					nIns.SetAction(PAction::MOVE_RIGHT);
