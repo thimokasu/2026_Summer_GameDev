@@ -12,6 +12,11 @@
 #include"../Manager/System/MoveInputSystem/MoveInputSystem.h"
 
 #include "../Net/NetManager.h"
+#include "../Object/Actor/Component/NetPlayerIDComponent/NetPlayerIDComponent.h"
+#include"../Object/Actor/Component/PlayerInputComponent/PlayerInputComponent.h"
+
+#include"../Object/Actor/ActorBase.h"
+#include "../Net/NetStructures.h"
 
 
 GameScene::GameScene(void)
@@ -130,6 +135,18 @@ void GameScene::Draw(void)
 	if (limit > 0.0f)
 	{
 		DrawFormatString(100, 100, 0xffffff, "%f", limit);
+	}
+
+	auto& nIns = NetManager::GetInstance();
+	using PID = NetPlayerIDComponent;
+	int x = 1;
+	for (auto obj : actorManager_.GetActors())
+	{
+		if (obj->HasComponent<PlayerInputComponent>())
+		{
+			DrawFormatString(100, 150 * x, 0xffffff, "User:%d Self: %d", obj->GetComponent<PID>().GetUserId(), nIns.GetSelf().key);
+			x++;
+		}
 	}
 
 }

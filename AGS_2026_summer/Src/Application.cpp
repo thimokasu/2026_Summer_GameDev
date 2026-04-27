@@ -54,6 +54,7 @@ void Application::Init(void)
 	std::string name = "UDP Test";
 	name += std::to_string(rand);
 	SetMainWindowClassName(name.c_str());
+	SetAlwaysRunFlag(true);
 
 	// DxLib‚Ì‰Šú‰»
 	SetUseDirect3DVersion(DX_DIRECT3D_11);
