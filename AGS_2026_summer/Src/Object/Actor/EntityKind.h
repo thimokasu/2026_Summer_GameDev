@@ -8,4 +8,5 @@ enum class EntityKind
 	STAGE,
 	REACTION_BLOCK,
 	PLAYER,
+	CPU
 };

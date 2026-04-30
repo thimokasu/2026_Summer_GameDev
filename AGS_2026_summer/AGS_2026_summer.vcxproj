@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Actor\Component\FindingJComponent\RunnerAIComponent\RunnerAIComponent.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\FindingJ\ReactionBlock.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\FindingJ\Block.cpp" />
     <ClCompile Include="Src\Manager\Text\InputTextArea.cpp" />
@@ -195,6 +196,7 @@
     <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage3Factory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Actor\Component\FindingJComponent\RunnerAIComponent\RunnerAIComponent.h" />
     <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\ActorFactoryBase.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FindingJ\ReactionBlock.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FindingJ\Block.h" />
