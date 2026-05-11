@@ -2,6 +2,7 @@
 
 #include"../../../Object/Actor/Component/PlayerInputComponent/PlayerInputComponent.h"
 #include"../../../Object/Actor/Component/RigidBodyComponent/RigidBody.h"
+#include"../../../Object/Actor/Component/FindingJComponent/RunnerAIComponent/RunnerAIComponent.h"
 
 #include"../../../Object/Actor/ActorBase.h"
 #include"../../../Manager/Game/SceneManager.h"
@@ -9,6 +10,7 @@
 
 MoveInputSystem::MoveInputSystem()
 {
+	timer_ = RunnerAIComponent::DecisionInterval;
 }
 
 MoveInputSystem::~MoveInputSystem()
@@ -16,6 +18,14 @@ MoveInputSystem::~MoveInputSystem()
 }
 void MoveInputSystem::Update(const std::vector<std::shared_ptr<ActorBase>>& objects)
 {
+	//全プレイヤー（鬼）の座標をリストにまとめる
+	std::vector<VECTOR> playerPositions;
+	for (auto obj : objects) {
+		if (obj->GetEntityKind() == EntityKind::PLAYER) {
+			playerPositions.push_back(obj->GetTransform().pos);
+		}
+	}
+
 	for (auto obj : objects)
 	{
 		//プレイヤー入力コンポーネントを持っているか
@@ -55,7 +65,30 @@ void MoveInputSystem::Update(const std::vector<std::shared_ptr<ActorBase>>& obje
 			}
 			
 			rb.AddForce(VScale(moveDir, rb.GetMoveSpeed()));
+		}
+		else if (obj->HasComponent<RunnerAIComponent>())
+		{
+			auto& rb = obj->GetComponent<RigidBody>();
+			auto& ai = obj->GetComponent<RunnerAIComponent>();
+			ai.SetPos(obj->GetTransform().pos.x, obj->GetTransform().pos.z);
 
+			//鬼の場所を教える
+			ai.SetEnemyPositions(playerPositions);
+
+			// 思考タイマー
+			timer_ -= SceneManager::GetInstance().GetDeltaTime();
+			if (timer_ <= 0.0f) {
+				ai.Think();
+				timer_ = RunnerAIComponent::DecisionInterval;
+			}
+
+			VECTOR targetPos = ai.GetTargetPosition();
+			VECTOR moveDir = VSub(targetPos, obj->GetTransform().prevPos);
+			if (VSize(moveDir) > 0.0f)
+			{
+				moveDir = VNorm(moveDir);
+			}
+			rb.AddForce(VScale(moveDir, rb.GetMoveSpeed()));
 		}
 	}
 

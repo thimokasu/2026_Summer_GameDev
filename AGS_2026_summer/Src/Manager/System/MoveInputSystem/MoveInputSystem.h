@@ -10,5 +10,9 @@ public:
 	~MoveInputSystem();
 
 	void Update(const std::vector<std::shared_ptr<ActorBase>>& objects);
+
+private:
+
+	float timer_ = 0.0f;
 };
 

@@ -8,6 +8,7 @@
 
 #include"../Component/PlayerInputComponent/PlayerInputComponent.h"
 #include"../Component/RigidBodyComponent/RigidBody.h"
+#include "../Component/FindingJComponent/RunnerAIComponent/RunnerAIComponent.h"
 
 #include"../ActorBase.h"
 #include"../../Common/Transform.h"
@@ -51,6 +52,18 @@ void ActorManager::Load(GameInfo info)
 	player->SetEntityKind(EntityKind::PLAYER);
 	player->GetComponent<PlayerInputComponent>().SetJumpKey(KEY_INPUT_SPACE);
 	actors_.push_back(player);
+
+	//CPU(“¦‚°‚é‘¤)
+	auto  runner = std::make_shared<Capsule>(8.0f, VGet(0.0f, 10.0f, 0.0f), VGet(0.0f, -10.0f, 0.0f));
+	runner->SetEntityKind(EntityKind::CPU);
+	runner->GetTransform().pos = VGet(0.0f, 100.0f, 10.0f);
+	auto rbRunner = std::make_shared<RigidBody>();
+	rbRunner->SetBodyType(RigidBody::BodyType::DYNAMIC);
+	rbRunner->SetMoveSpeed(5);
+	rbRunner->SetJumpPower(30);
+	runner->AddComponent(rbRunner);
+	runner->AddComponent(std::make_shared<RunnerAIComponent>());
+	actors_.push_back(runner);
 
 	SetFactory(info);
 

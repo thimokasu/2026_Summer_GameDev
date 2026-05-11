@@ -8,7 +8,7 @@ class RunnerAIComponent :
     public ComponentBase
 {
 public:
-    static constexpr float DecisionInterval = 0.15f; // 思考間隔（秒）
+    static constexpr float DecisionInterval = 0.01f; // 思考間隔（秒）
     static constexpr float ReactionBlockPenalty = 30.0f; // 光る床を通る際のリスク加算
 
 private:
@@ -18,17 +18,25 @@ private:
 
     VECTOR targetPos_ = VGet(0, 0, 0); 
 
+    std::vector<VECTOR> enemyPositions_; // 鬼の位置リスト
+
 public:
     RunnerAIComponent();
     virtual ~RunnerAIComponent() = default;
 
-    void Update(float deltaTime);
+    void Think();
+
+	void SetPos(float x, float z) { x_ = x; z_ = z; }
 
     // 目的地を取得（移動用コンポーネントが参照する）
     VECTOR GetTargetPosition() const { return targetPos_; }
 
+    //鬼の位置
+    void SetEnemyPositions(const std::vector<VECTOR>& positions) {
+        enemyPositions_ = positions;
+    }
+
 private:
-    void Think();
     float CalculateTileScore(int tw, int td, const std::vector<VECTOR>& enemyPos);
 };
 

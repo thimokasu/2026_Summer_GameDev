@@ -5,28 +5,10 @@ RunnerAIComponent::RunnerAIComponent()
 {
 }
 
-void RunnerAIComponent::Update(float deltaTime) {
-    
-    auto owner = OnAttach()
-    auto pos = owner->GetPosition();
-    x_ = pos.x;
-    z_ = pos.z;
-
-    timer_ -= deltaTime;
-    if (timer_ <= 0.0f) {
-        Think();
-        timer_ = DecisionInterval;
-    }
-}
-
 void RunnerAIComponent::Think() {
     // 1. 現在のタイルインデックスを算出
     int curW = static_cast<int>(x_ / TileSize);
     int curD = static_cast<int>(z_ / TileSize);
-
-    // 2. 鬼の位置を取得（GameManager経由などを想定）
-    // std::vector<VECTOR> enemyPos = GameManager::GetInstance().GetEnemyPositions();
-    std::vector<VECTOR> enemyPos; // 一旦空とする
 
     float bestScore = 1000000.0f;
     VECTOR bestTilePos = targetPos_;
@@ -44,7 +26,7 @@ void RunnerAIComponent::Think() {
             if (Stage1::stage[1][nextD][nextW] != StageLayout::None) continue;
 
             // スコア計算
-            float score = CalculateTileScore(nextW, nextD, enemyPos);
+            float score = CalculateTileScore(nextW, nextD, enemyPositions_);
 
             if (score < bestScore) {
                 bestScore = score;
