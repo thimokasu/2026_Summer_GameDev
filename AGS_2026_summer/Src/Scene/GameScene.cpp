@@ -109,7 +109,9 @@ void GameScene::Update(void)
 	}
 
 	NetManager::GetInstance().ResetAction();
-
+	// 1. 同期チェック
+	nIns.Update();
+	if (nIns.IsSync() && !nIns.IsSameFrameNo()) return; // 揃うまで計算しない
 	actorManager_.Update();
 
 	moveInputSystem_.Update(actorManager_.GetActors());
@@ -122,6 +124,7 @@ void GameScene::Update(void)
 	contactSystem_.Clear();
 
 	NetManager::GetInstance().Send(NET_DATA_TYPE::ACTION_HIS_ALL);
+	NetManager::GetInstance().UpdateEndOfFrame();
 
 }
 
@@ -147,6 +150,21 @@ void GameScene::Draw(void)
 			DrawFormatString(100, 150 * x, 0xffffff, "User:%d Self: %d", obj->GetComponent<PID>().GetUserId(), nIns.GetSelf().key);
 			x++;
 		}
+	}
+	auto& pool = NetManager::GetInstance().GetActionHis(); // pool_.joinUserActionHis_ を返すゲッター
+
+	int y = 200;
+	for (auto& pair : pool) {
+		int userId = pair.first;
+		auto& history = pair.second;
+
+		// IDと、その人が持っている最新のフレーム番号を表示
+		DrawFormatString(0, y, 0xffffff, "UserID: %d, DataCount: %d",
+			userId, (int)history.actions);
+		y += 20;
+		// 1番目の要素（最新）のフレーム番号を表示してみる
+		DrawFormatString(0, y+10, 0xffffff, "UserID: %d, LatestFrame: %d",
+			userId, history.actions[0].frameNo);
 	}
 
 }

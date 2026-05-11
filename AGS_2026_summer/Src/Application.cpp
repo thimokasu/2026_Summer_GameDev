@@ -103,10 +103,10 @@ void Application::Run(void)
 	{
 
 		keymanager.Update();
+		NetManager::GetInstance().Update();
 		sceneManager.Update();
 		InputTextManager::GetInstance().Update();
 		sceneManager.Draw();
-		NetManager::GetInstance().Update();
 
 		ScreenFlip();
 

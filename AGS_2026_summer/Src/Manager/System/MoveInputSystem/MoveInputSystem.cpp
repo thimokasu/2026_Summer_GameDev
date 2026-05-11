@@ -39,6 +39,9 @@ void MoveInputSystem::Update(const std::vector<std::shared_ptr<ActorBase>>& obje
 			VECTOR moveDir = VGet(0.0f, 0.0f, 0.0f);
 
 			isAction = CheckHitKey(input.frontKey_);
+			static int a = 0;
+			a++;
+			//if (a % 10 != 0)return;
 			//“ü—Í‚É‰ž‚¶‚ÄˆÚ“®•ûŒü‚ðÝ’è
 			if (nIns.IsAction(
 				obj->GetComponent<PID>().GetUserId(),

@@ -129,35 +129,45 @@ void NetManager::Run(NET_MODE mode)
 
 void NetManager::Update(void)
 {
-	if (net_ == nullptr) return;
 
-	// 1. 最新の受信パケットをプールに反映（一瞬で終わる処理）
-	DataReflection();
+	if (net_ == nullptr)
+	{
+		// Runが実行されるまで処理しない
+		return;
+	}
 
 	if (isSync_)
 	{
-		// 2. 「全員の今のフレームのデータ」が揃っているかチェック
-		if (!IsSameFrameNo())
+
+		// TODO 完全同期になっているので、ある程度非同期でも実行できるようにしたい
+		while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 		{
-			// 揃っていないなら、送信処理（催促）だけして、
-			// このフレームの更新処理（移動など）をまるごとパスする
+			// 通信データ反映
+			DataReflection();
+
+			// 全ユーザの最新フレームが揃うまで待つ
+			if (IsSameFrameNo())
+			{
+				break;
+			}
+
+			// 状態別更新(主に送信処理)
 			UpdateState();
-			return; // ★ここが重要！whileで待たずに一回関数を抜ける
+
+			// 一定時間待機
+			WaitTimer(static_cast<int>(SYNC_TERM_MSEC));
 		}
 
-		// --- ここから下は「全員分が揃った瞬間」だけ1回通る ---
-
-		// 4. フレーム番号を次に進める
-		NextFrame();
 	}
 	else
 	{
-		// ロビーなどは揃っていなくても反映
+		// 通信データ反映
 		DataReflection();
 	}
 
-	// 5. 次のフレーム用の自分の入力を送信
+	// 状態別更新(主に送信処理)
 	UpdateState();
+
 }
 
 void NetManager::UpdateState(void)
