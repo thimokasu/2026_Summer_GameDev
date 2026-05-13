@@ -97,9 +97,19 @@ void ActorManager::Draw(void)
 	for (auto& actor : actors_)
 	{
 		actor->Draw();
-		for (const auto& [shape, collider] : actor->GetOwnColliders())
+		for (const auto& [shape, collider] : actor->GetOwnColliders() )
 		{
-			collider->Draw();
+			if (actor->GetEntityKind() != EntityKind::CPU)
+			{
+				collider->Draw();
+			}
+			else
+			{
+				if (actor->GetComponent<RunnerAIComponent>().GetVisibleTime() > 0.0f)
+				{
+					collider->Draw();
+				}
+			}
 		}
 	}
 }

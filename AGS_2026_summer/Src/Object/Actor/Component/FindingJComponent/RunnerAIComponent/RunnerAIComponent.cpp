@@ -1,8 +1,29 @@
 #include "RunnerAIComponent.h"
 #include "../../../ActorBase.h"
+#include "../../../../../Manager/Game/SceneManager.h"
 
 RunnerAIComponent::RunnerAIComponent()
 {
+    timer_ = DecisionInterval;
+    lastStepTileW_ = -1; 
+    lastStepTileD_ = -1; 
+    visibleTimer_ = 0.0f; 
+
+}
+
+void RunnerAIComponent::Update() {
+
+    timer_ -= SceneManager::GetInstance().GetDeltaTime();
+    if (timer_ <= 0.0f) {
+        Think();
+        timer_ = DecisionInterval;
+    }
+    Visible();
+    if (visibleTimer_ > 0.0f)
+    {
+        visibleTimer_ -= SceneManager::GetInstance().GetDeltaTime();
+    }
+    
 }
 
 void RunnerAIComponent::Think() {
@@ -35,6 +56,21 @@ void RunnerAIComponent::Think() {
         }
     }
     targetPos_ = bestTilePos;
+}
+
+void RunnerAIComponent::Visible()
+{
+    // CPUの更新処理内
+    int curW = static_cast<int>(x_ / TileSize);
+    int curD = static_cast<int>(z_ / TileSize);
+
+    // タイルが切り替わったかチェック
+    if (curW != lastStepTileW_ || curD != lastStepTileD_)
+    {
+        // 現在のタイルを「前回のタイル」として保存
+        lastStepTileW_ = curW;
+        lastStepTileD_ = curD;
+    }
 }
 
 float RunnerAIComponent::CalculateTileScore(int tw, int td, const std::vector<VECTOR>& enemyPos) {

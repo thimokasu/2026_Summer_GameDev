@@ -92,7 +92,7 @@ void GameScene::Update(void)
 	collisionSystem_.Update();
 	physicsSystem_.Resolve(actorManager_.GetActors(),collisionSystem_.GetCollisionMainfold());
 
-	gameContactSystem_.Update(contactSystem_.GetContactEvent());
+	gameContactSystem_.Update(contactSystem_.GetContactEvent(), actorManager_.GetActors());
 	contactSystem_.Clear();
 }
 

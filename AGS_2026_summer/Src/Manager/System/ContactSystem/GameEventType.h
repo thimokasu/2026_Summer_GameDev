@@ -6,5 +6,7 @@ enum class GameEventType
 
 	TEST,
 
+	REACTION_BLOCK,
+
 	MAX
 };

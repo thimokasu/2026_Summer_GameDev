@@ -53,6 +53,7 @@ public:
            mask |= LAYER_BIT(layer);  
        return mask;  
    }  
+
 	// ローカル座標から回転後のワールド座標を取得
    VECTOR GetRotPos(const VECTOR& localPos) const;  
 protected:  

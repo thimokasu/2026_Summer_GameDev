@@ -10,7 +10,7 @@
 
 MoveInputSystem::MoveInputSystem()
 {
-	timer_ = RunnerAIComponent::DecisionInterval;
+	
 }
 
 MoveInputSystem::~MoveInputSystem()
@@ -75,12 +75,8 @@ void MoveInputSystem::Update(const std::vector<std::shared_ptr<ActorBase>>& obje
 			//鬼の場所を教える
 			ai.SetEnemyPositions(playerPositions);
 
-			// 思考タイマー
-			timer_ -= SceneManager::GetInstance().GetDeltaTime();
-			if (timer_ <= 0.0f) {
-				ai.Think();
-				timer_ = RunnerAIComponent::DecisionInterval;
-			}
+			// 思考
+			ai.Update();
 
 			VECTOR targetPos = ai.GetTargetPosition();
 			VECTOR moveDir = VSub(targetPos, obj->GetTransform().prevPos);
