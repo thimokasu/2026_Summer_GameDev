@@ -6,6 +6,8 @@
 
 Block::Block(void)
 {
+	rigidBody_.SetBodyType(RigidBody::BodyType::STATIC);
+	rigidBody_.SetUseGravity(false);
 }
 
 Block::~Block(void)
@@ -14,6 +16,8 @@ Block::~Block(void)
 
 Block::Block(VECTOR pos)
 {
+	rigidBody_.SetBodyType(RigidBody::BodyType::STATIC);
+	rigidBody_.SetUseGravity(false);
 	trans_.pos = pos;
 }
 

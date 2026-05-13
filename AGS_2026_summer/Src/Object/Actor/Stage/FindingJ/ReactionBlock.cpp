@@ -6,10 +6,14 @@
 
 ReactionBlock::ReactionBlock()
 {
+	rigidBody_.SetBodyType(RigidBody::BodyType::STATIC);
+	rigidBody_.SetUseGravity(false);
 }
 
 ReactionBlock::ReactionBlock(VECTOR pos)
 {
+	rigidBody_.SetBodyType(RigidBody::BodyType::STATIC);
+	rigidBody_.SetUseGravity(false);
 	trans_.pos = pos;
 }
 
