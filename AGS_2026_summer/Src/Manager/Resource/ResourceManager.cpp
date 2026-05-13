@@ -88,6 +88,22 @@ int ResourceManager::LoadModelDuplicate(SRC src)
 	return duId;
 }
 
+int ResourceManager::LoadGraph(const std::string& path)
+{
+	auto it = graphMap_.find(path);
+
+	if (it != graphMap_.end())
+	{
+		return it->second;
+	}
+
+	int handle = DxLib::LoadGraph(path.c_str());
+
+	graphMap_[path] = handle;
+
+	return handle;
+}
+
 
 ResourceManager::ResourceManager(void)
 {

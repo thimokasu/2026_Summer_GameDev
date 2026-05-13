@@ -1,23 +1,16 @@
 #pragma once
 #include "SceneBase.h"
-class SceneManager;
-
-class TitleScene :
+class PeopleSelectScene :
     public SceneBase
 {
-public:
-    TitleScene(void);
-    ~TitleScene(void)override;
-
+	public:
+	PeopleSelectScene();
+	~PeopleSelectScene();
+    void Load(void)override;
     void Init(void)override;
     void Update(void)override;
     void Draw(void)override;
-
+    void Release(void)override;
 private:
-
-    //ƒ^ƒCƒgƒ‹‰æ‘œ
-    int imgTitle_;
-    int imgPush_;
-
 };
 
