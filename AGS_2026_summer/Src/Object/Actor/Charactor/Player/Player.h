@@ -1,7 +1,7 @@
 #pragma once
 #include "../CharactorBase.h"
 #include "../../../../Net/NetStructures.h"
-
+#include"NetPlayerID.h"
 class Player :
     public CharactorBase
 {
@@ -14,5 +14,7 @@ class Player :
     void SubDraw(void) override;
     void SubRelease(void) override;
 private:
+    void MoveInput(void);
+	NetPlayerID netPlayerID_;
 };
 

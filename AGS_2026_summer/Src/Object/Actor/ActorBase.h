@@ -8,6 +8,7 @@
 #include <filesystem>
 
 #include"../Common/Transform.h"
+#include"../Common/RigidBody.h"
 #include"Collider/ColliderBase.h"
 #include"EntityKind.h"
 
@@ -31,6 +32,7 @@ public:
 	void Release(void);
 
 	Transform& GetTransform(void) { return trans_; }
+	RigidBody& GetRigidBody(void) { return rigidBody_; }
 
 	//エンティティID取得
 	size_t GetEntityId(void) const { return entityId_; }
@@ -72,6 +74,8 @@ protected:
 
 	AnimationController* animationCOntroller_ = nullptr;
 	Transform trans_;
+	RigidBody rigidBody_;
+
 	size_t entityId_ = -1;
 	EntityKind entityKind_;
 	//自身のコライダーリスト

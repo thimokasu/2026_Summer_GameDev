@@ -7,9 +7,7 @@
 #include"../Manager/System/CollisionSystem/CollisionSystem.h"
 #include"../Manager/System/ContactSystem/ContactSystem.h"
 #include"../Manager/System/ContactSystem/GameContactSystem.h"
-#include"../Manager/System/MoveInputSystem/MoveInputSystem.h"
-#include"../Manager/System/PhysicsSystem/PhysicsSystem.h"
-
+#include"../Manager/System/CollisionSystem/CollisionResolve.h"
 #include"../Manager/Generic/KeyManager.h"
 
 #include"../Object/Actor/Manager/ActorManager.h"
@@ -30,12 +28,9 @@ public:
 
 private:
     CollisionSystem collisionSystem_;
+	CollisionResolve collisionResolve_;
     ContactSystem contactSystem_;
     GameContactSystem gameContactSystem_;
-    PhysicsSystem physicsSystem_;
-
-
-    MoveInputSystem moveInputSystem_;
 
     ActorManager actorManager_;
 	GameInfo gameInfo_;

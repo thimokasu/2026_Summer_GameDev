@@ -4,7 +4,6 @@
 #include"../../../Stage/FindingJ/ReactionBlock.h"
 #include"../../../Stage/FindingJ/StageLayout.h"
 
-#include"../../../../../Object/Actor/Component/RigidBodyComponent/RigidBody.h"
 
 Stage2Factory::Stage2Factory()
 {
@@ -18,8 +17,6 @@ std::vector<std::shared_ptr<ActorBase>> Stage2Factory::CreateActors()
 {
 	StageLayout layout;
 	layout = Stage2::stage[0][0][0];
-	auto rb = std::make_shared<RigidBody>();
-	rb->SetBodyType(RigidBody::BodyType::STATIC);
 
 	std::vector<std::shared_ptr<ActorBase>>actors;
 
@@ -35,7 +32,6 @@ std::vector<std::shared_ptr<ActorBase>> Stage2Factory::CreateActors()
 					actors.push_back(
 						std::make_shared<Block>(
 							VGet(w * TileSize, h * TileSize, d * TileSize)));
-					actors.back()->AddComponent(rb);
 					actors.back()->SetEntityKind(EntityKind::STAGE);
 				}
 				else if (layout == StageLayout::ReactionBlock)
@@ -43,7 +39,6 @@ std::vector<std::shared_ptr<ActorBase>> Stage2Factory::CreateActors()
 					actors.push_back(
 						std::make_shared<ReactionBlock>(
 							VGet(w * TileSize, h * TileSize, d * TileSize)));
-					actors.back()->AddComponent(rb);
 					actors.back()->SetEntityKind(EntityKind::REACTION_BLOCK);
 				}
 				else

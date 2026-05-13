@@ -22,6 +22,7 @@ void ActorBase::Init(void)
 void ActorBase::Update(void)
 {
 	SubUpdate();
+	rigidBody_.Update();
 	trans_.Update();
 }
 

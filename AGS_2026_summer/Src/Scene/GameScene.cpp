@@ -5,15 +5,11 @@
 #include"../Manager/Resource/ResourceManager.h"
 #include"../Manager/Generic/KeyManager.h"
 
-#include"../Manager/System/PhysicsSystem/PhysicsSystem.h"
 #include"../Manager/System/CollisionSystem/CollisionSystem.h"
 #include"../Manager/System/ContactSystem/ContactSystem.h"
 #include"../Manager/System/ContactSystem/GameContactSystem.h"
-#include"../Manager/System/MoveInputSystem/MoveInputSystem.h"
 
 #include "../Net/NetManager.h"
-#include "../Object/Actor/Component/NetPlayerIDComponent/NetPlayerIDComponent.h"
-#include"../Object/Actor/Component/PlayerInputComponent/PlayerInputComponent.h"
 
 #include"../Object/Actor/ActorBase.h"
 #include "../Net/NetStructures.h"
@@ -114,11 +110,8 @@ void GameScene::Update(void)
 	if (nIns.IsSync() && !nIns.IsSameFrameNo()) return; // 揃うまで計算しない
 	actorManager_.Update();
 
-	moveInputSystem_.Update(actorManager_.GetActors());
-	physicsSystem_.Update(actorManager_.GetActors());
-
 	collisionSystem_.Update();
-	physicsSystem_.Resolve(actorManager_.GetActors(),collisionSystem_.GetCollisionMainfold());
+	collisionResolve_.Resolve(actorManager_.GetActors(), collisionSystem_.GetCollisionMainfold());
 
 	gameContactSystem_.Update(contactSystem_.GetContactEvent());
 	contactSystem_.Clear();
@@ -141,7 +134,7 @@ void GameScene::Draw(void)
 	}
 
 	auto& nIns = NetManager::GetInstance();
-	using PID = NetPlayerIDComponent;
+	/*using PID = NetPlayerIDComponent;
 	int x = 1;
 	for (auto obj : actorManager_.GetActors())
 	{
@@ -150,7 +143,7 @@ void GameScene::Draw(void)
 			DrawFormatString(100, 150 * x, 0xffffff, "User:%d Self: %d", obj->GetComponent<PID>().GetUserId(), nIns.GetSelf().key);
 			x++;
 		}
-	}
+	}*/
 	auto& pool = NetManager::GetInstance().GetActionHis(); // pool_.joinUserActionHis_ を返すゲッター
 
 	int y = 200;
