@@ -8,6 +8,10 @@ PeopleSelectScene::~PeopleSelectScene()
 {
 }
 
+void PeopleSelectScene::Load(void)
+{
+}
+
 void PeopleSelectScene::Init(void)
 {
 }

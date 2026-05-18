@@ -17,8 +17,8 @@ TitleScene::~TitleScene(void)
 
 void TitleScene::Init(void)
 {
-	imgPush_ = resMng_.LoadGraph("Resources/Texture/Title/push.png");
-	imgTitle_ = resMng_.LoadGraph("Resources/Texture/Title/title.png");
+	imgPush_ = resMng_.LoadGraph("Date/Title/GamePick.png");
+	imgTitle_ = resMng_.LoadGraph("Date/Title/title4.png");
 }
 
 void TitleScene::Update(void)
@@ -28,9 +28,19 @@ void TitleScene::Update(void)
 	{
 		SceneManager::GetInstance().ChangeScene(SCENE_ID::GAME);
 	}
+
+	if (KeyManager::GetIns().GetInfo(KEY_TYPE::PAUSE).down)
+	{
+		SceneManager::GetInstance().ChangeScene(SCENE_ID::MENU);
+	}
+
 }
 
 void TitleScene::Draw(void)
 {
-	
+	DrawString(0, 0, "title", 0xffffff);	
+
+
+	DrawGraph(0, 0, imgTitle_, TRUE);
+	DrawGraph(600, 700, imgPush_, TRUE);
 }

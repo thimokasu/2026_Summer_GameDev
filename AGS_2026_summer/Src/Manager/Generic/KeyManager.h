@@ -42,6 +42,7 @@ public:
 		PAUSE,
 		ENTER,
 		SPACE,
+		ESCAPE,
 
 		MAX,
 	};

@@ -7,5 +7,7 @@ enum class SCENE_ID
 
 	GAME,
 
+	MENU,
+
 	MAX
 };

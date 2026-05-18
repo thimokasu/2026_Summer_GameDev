@@ -89,6 +89,8 @@ void GameScene::Load(void)
 	rb->SetMass(0.0f);
 	floor->AddComponent(rb);
 
+
+
 	actors_.push_back(floor);
 }
 
@@ -121,10 +123,18 @@ void GameScene::Update(void)
 	moveInputSystem_.Update(actors_);
 	physicsSystem_.Update(actors_);
 
+
+
 	collisionSystem_.Update();
 	gameContactSystem_.Update();
 
 	physicsSystem_.Resolve(actors_,collisionSystem_.GetCollisionMainfold());
+
+	//スペース押したらゲームシーンへ
+	if (KeyManager::GetIns().GetInfo(KEY_TYPE::SPACE).down)
+	{
+		SceneManager::GetInstance().ChangeScene(SCENE_ID::TITLE);
+	}
 
 }
 

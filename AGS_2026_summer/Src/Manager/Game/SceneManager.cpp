@@ -7,6 +7,7 @@
 #include"../../Scene/SceneBase.h"
 #include"../../Scene/TitleScene.h"
 #include"../../Scene/GameScene.h"
+#include"../../Scene/PauseScene.h"
 
 #include"../../Manager/Generic/Loading.h"
 #include"../Resource/ResourceManager.h"
@@ -195,6 +196,9 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 	case SCENE_ID::GAME:
 		ChangeScene(std::make_shared<GameScene>());
 		break;
+	case SCENE_ID::MENU:
+		ChangeScene(std::make_shared<PauseScene>());
+		break;
 	default:
 		break;
 	}
@@ -210,6 +214,9 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 			break;
 		case SCENE_ID::GAME:
 			ChangeScene(std::make_shared<GameScene>());
+			break;
+		case SCENE_ID::MENU:
+			ChangeScene(std::make_shared<PauseScene>());
 			break;
 		default:
 			break;
@@ -258,6 +265,9 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 			break;
 		case SCENE_ID::GAME:
 			ChangeScene(std::make_shared<GameScene>());
+			break;
+		case SCENE_ID::MENU:
+			ChangeScene(std::make_shared<PauseScene>());
 			break;
 		default:
 			break;
