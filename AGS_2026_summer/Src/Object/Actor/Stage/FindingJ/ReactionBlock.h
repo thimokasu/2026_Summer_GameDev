@@ -11,6 +11,10 @@ public:
 
 	~ReactionBlock();
 
+    void OnContact(std::shared_ptr<ActorBase> other) {
+        // 踏まれたら、自分自身の発光タイマーをセットする
+        glowTimer_ = 0.5f;
+    }
 
     void SubInit(void) override;
     void SubUpdate(void) override;

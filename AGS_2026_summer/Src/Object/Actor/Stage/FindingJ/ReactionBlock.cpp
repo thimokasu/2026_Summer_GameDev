@@ -23,6 +23,9 @@ void ReactionBlock::SubInit(void)
 
 void ReactionBlock::SubUpdate(void)
 {
+	if (glowTimer_ > 0.0f) {
+		glowTimer_ -= 1.0f / 60.0f;
+	}
 }
 
 void ReactionBlock::SubDraw(void)
