@@ -1,79 +1,71 @@
-#pragma once  
-#include <DxLib.h>  
-#include <cstdint>  
-#include<initializer_list>
+#pragma once
+#include<DxLib.h>
 #include"ColliderInfo.h"
+#include"../../Actor/ActorBase.h"
+#include"../../Common/Transform.h"
 
 
-class Transform;  
-class ActorBase;
-class ColliderBase  
-{  
+
+class ColliderBase
+{
 public:
+	ColliderBase(void) = delete;
 
-   //コンストラクタ
-   ColliderBase(ColliderInfo& info, ActorBase*actor);
+	ColliderBase(ColliderInfo& info, ActorBase& owner)
+		: colliderInfo_(info)
+		, ownerActor_(owner)
+		, ownerTransform_(owner.GetTransform())
+	{
+	}
 
+	ColliderBase(ColliderInfo& info, ActorBase& owner, Transform& ownerTrans)
+		: colliderInfo_(info)
+		, ownerActor_(owner)
+		, ownerTransform_(ownerTrans)
+	{
+	}
+	virtual ~ColliderBase(void);
 
-   //デストラクタ
-   virtual ~ColliderBase(void) = default;
+	virtual void Update(void);//更新
+	virtual void Draw(void);//描画
 
-   // 初期化  
-   virtual void Init(void);  
+	//コライダー情報取得
+	const ColliderInfo& GetColliderInfo(void)const { return colliderInfo_; }
+	//親取得
+	ActorBase& GetOwnerActor(void)const { return ownerActor_; }
+	Transform& GetOwnerTransform(void)const { return ownerTransform_; }
 
-   // 更新  
-   virtual void Update(void);  
+	//レイヤーマッチ判定
+	static bool IsLayerMatch(const Layer& layerA, const uint32_t& maskA)
+	{
+		return(maskA & LAYER_BIT(layerA)) != 0;
+	}
+	//レイヤーマスク生成
+	static uint32_t SetMask(std::initializer_list<Layer> layers)
+	{
+		uint32_t mask = 0;
+		for (Layer layer : layers)
+			mask |= LAYER_BIT(layer);
+		return mask;
+	}
+	//ローカル座標から開店後のワールド座標を取得
+	VECTOR GetRotPos(const VECTOR& localPos)const;
+	//デバッグ描画するかどうか
+	void SetIsDebug(bool isDebug) { isDebug_ = isDebug;}
+protected:
+#pragma region 関数
+	virtual void DrawDebug(int color) {};//デバッグ描画
+	//レイヤービット取得
+	static constexpr uint32_t LAYER_BIT(const Layer& layer)
+	{
+		return 1 << static_cast<uint32_t>(layer);
+	}
+#pragma endregion
 
-   // 描画  
-   virtual void Draw(void);  
-
-   // 解放  
-   virtual void Release(void);  
-
-	//コライダ情報取得
-	const ColliderInfo& GetColliderInfo() const { return colliderInfo_; }
-
-	//親Transform取得
-	Transform* GetFollow(void) const { return colliderInfo_.targetTransform; }
-	//親Actor取得
-	ActorBase* GetFollowActor(void) const { return actor_; }
-	//親Actor設定
-	void SetFollowActor(ActorBase* actor) { actor_ = actor; }
-
-   // レイヤーマッチ判定
-   static bool IsLayerMatch(Layer layerA, uint32_t maskA)  
-   {  
-       return (maskA & LAYER_BIT(layerA)) != 0;  
-   }  
-	// マスク作成
-   static uint32_t SetMask(std::initializer_list<Layer> layers)  
-   {  
-       uint32_t mask = 0;  
-       for (Layer layer : layers)  
-           mask |= LAYER_BIT(layer);  
-       return mask;  
-   }  
-	// ローカル座標から回転後のワールド座標を取得
-   VECTOR GetRotPos(const VECTOR& localPos) const;  
-protected:  
-   // デバッグ描画
-   virtual void DrawDebug(int color) {};  
-
-   // レイヤービット取得
-   static constexpr uint32_t LAYER_BIT(Layer layer)  
-   {  
-       return 1 << static_cast<uint32_t>(layer);  
-   }  
-
-protected:  
-	// コライダ情報
+#pragma region 変数
 	ColliderInfo colliderInfo_;
-	int debugColor_;
-
-private:
-	// デバッグ表示の色
-	static constexpr int COLOR_VALID = 0xff0000;
-	static constexpr int COLOR_INVALID = 0xaaaaaa;
-
-	ActorBase* actor_ = nullptr;
+	ActorBase& ownerActor_;
+	Transform& ownerTransform_;
+	bool isDebug_ = true;//デバッグ描画するかどうか
+#pragma endregion
 };

@@ -1,38 +1,34 @@
 #pragma once
-#include "ColliderBase.h"
+#include<DxLib.h>
+#include"ColliderBase.h"
+class ActorBase;
 
-class ColliderBox : public ColliderBase
+class ColliderBox:public ColliderBase
 {
 public:
-	// コンストラクタ
-	// halfSize : 各軸方向の半サイズ（中心からの距離）
-	ColliderBox(ColliderInfo& info,  VECTOR& halfSize,ActorBase*actor);
-	ColliderBox(ColliderInfo& info, VECTOR& halfSize, ActorBase* actor, int debugColor);
-	// デストラクタ
-	virtual ~ColliderBox(void);
-
-	// ボックスの半サイズ取得
-	const VECTOR& GetHalfSize(void) const { return halfSize_; }
+	//コンストラクタ
+	ColliderBox(ColliderInfo& info, VECTOR& falfSize, ActorBase& actor);
+	ColliderBox(ColliderInfo& info, VECTOR& falfSize, ActorBase& actor,int debugColor);
+	
+	//ボックスの半サイズ取得
+	const VECTOR& GetHalfSize(void)const { return halfSize_; }
+	//半サイズを設定
 	void SetHalfSize(const VECTOR& halfSize) { halfSize_ = halfSize; }
 
 	// 各軸ベクトル取得
-	VECTOR GetAxisX(void)const { return GetFollow()->GetRight(); }
-	VECTOR GetAxisY(void)const { return GetFollow()->GetUp(); }
-	VECTOR GetAxisZ(void)const { return GetFollow()->GetForward(); }
+	VECTOR GetAxisX(void)const { return GetOwnerTransform().GetRight(); }
+	VECTOR GetAxisY(void)const { return GetOwnerTransform().GetUp(); }
+	VECTOR GetAxisZ(void)const { return GetOwnerTransform().GetForward(); }
 
 	// ローカル座標⇔ワールド座標変換
 	VECTOR Local2World(const VECTOR& localPos) const;
 	VECTOR World2Local(const VECTOR& worldPos) const;
 
-
 	//ボックスの各頂点座標取得
 	VECTOR GetVertexPos(int index) const;
 
-protected:
-	// デバッグ描画
-	void DrawDebug(int color) override;
-
 private:
-	// ボックスの半サイズ（Half Extents）
+	void DrawDebug(int color)override;
 	VECTOR halfSize_;
 };
+

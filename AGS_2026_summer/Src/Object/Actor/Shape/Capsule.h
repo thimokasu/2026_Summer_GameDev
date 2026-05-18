@@ -3,23 +3,24 @@
 class Capsule :
     public ShapeBase
 {
-public:
-	Capsule(void);
-	Capsule(float radius, VECTOR localPosTop, VECTOR localPosDown);
-	~Capsule(void) override;
+    public:
+    Capsule(void);
+    Capsule(float radius, VECTOR localPosTop, VECTOR localPosDown);
+	~Capsule(void);
 
 protected:
-	void SubInit(void) override;
-	void SubUpdate(void) override;
-	void SubDraw(void) override;
-	void SubRelease(void) override;
-	void InitCollider(void) override;
-
-private:
-	float radius_;
-	//カプセルの上端のローカル位置
+#pragma region 関数
+    void SubLoad(void) override;
+    void SubInit(void) override;
+    void SubUpdate(void) override;
+    void SubDraw(void) override;
+    void SubRelease(void) override;
+    void InitCollider(void) override;
+#pragma endregion
+#pragma region 変数
 	VECTOR localPosTop_;
-	//カプセルの下端のローカル位置
 	VECTOR localPosDown_;
+    float radius_;
+#pragma endregion
 };
 

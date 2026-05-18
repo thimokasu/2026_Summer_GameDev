@@ -1,393 +1,225 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup>
-    <Filter Include="ソース ファイル">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="ヘッダー ファイル">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="リソース ファイル">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Src\Application.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Manager\Game\SceneManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Scene\SceneBase.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Manager\Resource\Resource.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Manager\Resource\ResourceManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Manager\Generic\Loading.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Utility\AsoUtility.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Common\IntVector3.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Common\Quaternion.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Common\Vector2.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Common\AnimationController.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Common\Transform.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Actor\ActorBase.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Shape\Box.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Shape\Capsule.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Shape\ShapeBase.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Shape\Sphere.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Collider\ColliderBase.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Collider\ColliderBox.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Collider\ColliderCapsule.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Collider\ColliderSphere.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Camera\Camera.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Manager\Generic\FPS.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Manager\Generic\KeyManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Scene\TitleScene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Manager\System\ContactSystem\ContactRuleTable.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Manager\System\ContactSystem\ContactSystem.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Manager\System\ContactSystem\GameContactSystem.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Manager\System\CollisionSystem\CollisionLogic.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Manager\System\CollisionSystem\CollisionSystem.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Scene\GameScene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Floor\Floor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Manager\ActorManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Net\NetBase.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Net\NetClient.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Net\NetHost.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Net\NetManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Net\NetSend.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Manager\Text\InputTextArea.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Manager\Text\InputTextManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Scene\ConnectScene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Scene\MultiScene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Stage\FindingJ\Block.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Scene\GameSelect\GameSelect.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Stage\FindingJ\ReactionBlock.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Charactor\Player\Player.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Charactor\CharactorBase.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage1Factory.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage2Factory.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage3Factory.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Common\RigidBody.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Manager\System\CollisionSystem\CollisionResolve.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Src\Application.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\main.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Manager\Game\SceneManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Scene\SceneBase.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Manager\Resource\Resource.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Manager\Resource\ResourceType.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Manager\Resource\ResourceManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Manager\Resource\ResourceName.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Manager\Generic\Loading.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Utility\AsoUtility.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Common\IntVector3.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Common\Quaternion.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Common\Vector2.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Common\AnimationController.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Common\Transform.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\ActorBase.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\ActorTag.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\EntityKind.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Shape\Box.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Shape\Capsule.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Shape\ShapeBase.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Shape\Sphere.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Collider\ColliderBase.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Collider\ColliderBox.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Collider\ColliderCapsule.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Collider\ColliderInfo.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Collider\ColliderLayer.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Collider\ColliderShape.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Collider\ColliderSphere.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Camera\Camera.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Manager\Generic\FPS.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Manager\Generic\KeyManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Scene\TitleScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Manager\System\ContactSystem\ContactEventInfo.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Manager\System\ContactSystem\ContactRuleTable.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Manager\System\ContactSystem\ContactSystem.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Manager\System\ContactSystem\GameContactSystem.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Manager\System\ContactSystem\GameEventType.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Manager\System\CollisionSystem\CollisionLogic.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Manager\System\CollisionSystem\CollisionPairType.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Manager\System\CollisionSystem\CollisionResult.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Manager\System\CollisionSystem\CollisionSystem.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Scene\GameScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Floor\Floor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Manager\ActorManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Net\NetBase.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Net\NetClient.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Net\NetHost.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Net\NetManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Net\NetSend.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Net\NetStructures.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Common\CRC.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Manager\Text\InputTextArea.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Manager\Text\InputTextManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Scene\ConnectScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Scene\MultiScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Stage\FindingJ\Block.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Scene\GameSelect\GameKind.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Scene\GameSelect\GameSelect.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Scene\SceneId.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Stage\FindingJ\ReactionBlock.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Stage\FindingJ\StageLayout.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Charactor\Player\Player.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Charactor\CharactorBase.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\ActorFactoryBase.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage1Factory.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage2Factory.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage3Factory.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Common\RigidBody.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Manager\System\CollisionSystem\CollisionResolve.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Charactor\Player\NetPlayerID.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-  </ItemGroup>
+	<ItemGroup>
+		<Filter Include="ソース ファイル">
+			<UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+			<Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+		</Filter>
+		<Filter Include="ヘッダー ファイル">
+			<UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+			<Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+		</Filter>
+		<Filter Include="リソース ファイル">
+			<UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+			<Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="Src\Application.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\main.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Manager\Game\SceneManager.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Scene\SceneBase.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Manager\Resource\Resource.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Manager\Resource\ResourceManager.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Manager\Generic\Loading.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Utility\AsoUtility.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Common\IntVector3.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Common\Quaternion.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Common\Vector2.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Object\Common\AnimationController.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Object\Common\Transform.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Object\Actor\ActorBase.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Object\Actor\Shape\Box.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Object\Actor\Shape\Capsule.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Object\Actor\Shape\ShapeBase.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Object\Actor\Shape\Sphere.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Object\Actor\Collider\ColliderBase.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Object\Actor\Collider\ColliderBox.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Object\Actor\Collider\ColliderCapsule.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Object\Actor\Collider\ColliderSphere.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Object\Actor\Camera\Camera.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Manager\Generic\FPS.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Manager\Generic\KeyManager.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Object\Common\RigidBody.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Scene\TitleScene.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Scene\GameScene.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+		<ClCompile Include="Src\Object\Actor\Manager\ActorManager.cpp">
+			<Filter>ソース ファイル</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="Src\Application.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\main.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Manager\Game\SceneManager.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Scene\SceneBase.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Manager\Resource\Resource.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Manager\Resource\ResourceType.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Manager\Resource\ResourceManager.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Manager\Resource\ResourceName.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Manager\Generic\Loading.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Utility\AsoUtility.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Common\IntVector3.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Common\Quaternion.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Common\Vector2.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Object\Common\AnimationController.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Object\Common\Transform.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Object\Actor\ActorBase.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Object\Actor\ActorTag.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Object\Actor\EntityKind.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Object\Actor\Shape\Box.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Object\Actor\Shape\Capsule.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Object\Actor\Shape\ShapeBase.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Object\Actor\Shape\Sphere.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Object\Actor\Collider\ColliderBase.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Object\Actor\Collider\ColliderBox.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Object\Actor\Collider\ColliderCapsule.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Object\Actor\Collider\ColliderInfo.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Object\Actor\Collider\ColliderShape.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Object\Actor\Collider\ColliderSphere.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Object\Actor\Camera\Camera.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Manager\Generic\FPS.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Manager\Generic\KeyManager.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Common\CRC.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Scene\SceneId.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Object\Common\RigidBody.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Scene\TitleScene.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Scene\GameScene.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Object\Actor\Manager\ActorManager.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Scene\GameSelect\GameKind.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+		<ClInclude Include="Src\Object\Actor\Factory\ActorFactory\ActorFactoryBase.h">
+			<Filter>ヘッダー ファイル</Filter>
+		</ClInclude>
+	</ItemGroup>
 </Project>

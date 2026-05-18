@@ -1,13 +1,8 @@
 #include "ColliderCapsule.h"
-#include<DxLib.h>
 
-
-ColliderCapsule::ColliderCapsule(ColliderInfo& info, float radius,  VECTOR& localPosTop,  VECTOR& localPosDown, ActorBase* actor)
-	:
-	ColliderBase(info, actor), radius_(radius), localPosTop_(localPosTop), localPosDown_(localPosDown)
-{
-}
-ColliderCapsule::~ColliderCapsule(void)
+ColliderCapsule::ColliderCapsule(ColliderInfo& info, float radius,
+	VECTOR& localPosTop, VECTOR& localPosDown, ActorBase& actor)
+	: ColliderBase(info, actor), localPosTop_(localPosTop), localPosDown_(localPosDown), radius_(radius)
 {
 }
 
@@ -28,48 +23,21 @@ VECTOR ColliderCapsule::GetPosDown(void) const
 
 VECTOR ColliderCapsule::GetCenter(void) const
 {
-    VECTOR top = GetPosTop();
-    VECTOR down = GetPosDown();
-    VECTOR diff = VSub(top, down);
-    return VAdd(down, VScale(diff, 0.5f));
+	return GetRotPos(VScale(VAdd(localPosTop_, localPosDown_), 0.5f));
 }
 
 void ColliderCapsule::DrawDebug(int color)
 {
-	VECTOR top = GetPosTop();
-	VECTOR down = GetPosDown();
-
-	// 球
-	DrawSphere3D(top, radius_, 8, color, color, false);
-	DrawSphere3D(down, radius_, 8, color, color, false);
-
-	// 軸
-	VECTOR axis = VNorm(VSub(top, down));
-
-	// 安全な up
-	VECTOR up = VGet(0, 1, 0);
-	if (fabs(VDot(axis, up)) > 0.99f)
-	{
-		up = VGet(1, 0, 0);
-	}
-
-	// 側面方向
-	VECTOR right = VNorm(VCross(up, axis));
-	VECTOR forward = VCross(axis, right);
-
-	// 4本の側面線
-	auto DrawSide = [&](const VECTOR& dir)
-		{
-			VECTOR s = VAdd(top, VScale(dir, radius_));
-			VECTOR e = VAdd(down, VScale(dir, radius_));
-			DrawLine3D(s, e, color);
-		};
-
-	DrawSide(right);
-	DrawSide(VScale(right, -1));
-	DrawSide(forward);
-	DrawSide(VScale(forward, -1));
-
-	// 中心
-	DrawSphere3D(GetCenter(), 4.0f, 6, color, color, false);
+	// 上端と下端のワールド座標を取得
+	VECTOR posTop = GetPosTop();
+	VECTOR posDown = GetPosDown();
+	// カプセルの中心座標を取得
+	VECTOR center = GetCenter();
+	// 上端と下端を結ぶ線分を描画
+	DrawLine3D(posTop, posDown, color);
+	// 上端と下端に球を描画
+	DrawSphere3D(posTop, radius_, 16, color, color, false);
+	DrawSphere3D(posDown, radius_, 16, color, color, false);
+	// カプセルの中心に球を描画
+	DrawSphere3D(center, radius_, 16, color, color, false);
 }

@@ -23,7 +23,7 @@ void TitleScene::Update(void)
 	if (KeyManager::GetIns().GetInfo(KEY_TYPE::MOUSE_LEFT).down)
 	{
 
-	SceneManager::GetInstance().ChangeScene(SCENE_ID::GAME);
+		SceneManager::GetInstance().ChangeScene(SCENE_ID::GAME);
 	}
 }
 

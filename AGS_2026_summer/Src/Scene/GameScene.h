@@ -1,41 +1,34 @@
 #pragma once
 #include "SceneBase.h"
-
 #include<vector>
 #include<memory>
-
-#include"../Manager/System/CollisionSystem/CollisionSystem.h"
-#include"../Manager/System/ContactSystem/ContactSystem.h"
-#include"../Manager/System/ContactSystem/GameContactSystem.h"
-#include"../Manager/System/CollisionSystem/CollisionResolve.h"
-#include"../Manager/Generic/KeyManager.h"
-
-#include"../Object/Actor/Manager/ActorManager.h"
 #include"GameSelect/GameKind.h"
+
+class ActorManager;
+
 class GameScene :
     public SceneBase
 {
 public:
     GameScene(void);
 	GameScene(GameInfo info);
-    ~GameScene(void)override;
+	~GameScene(void);
 
-    void Load(void)override;
-    void Init(void)override;
-    void Update(void)override;
-    void Draw(void)override;
-    void Release(void)override;
+	void Load(void) override;
+	void Init(void) override;
+	void Update(void) override;
+	void Draw(void) override;
+	void Release(void) override;
 
 private:
-    CollisionSystem collisionSystem_;
-	CollisionResolve collisionResolve_;
-    ContactSystem contactSystem_;
-    GameContactSystem gameContactSystem_;
+#pragma region ä÷êî
 
-    ActorManager actorManager_;
+#pragma endregion
+
+#pragma region ïœêî
+	std::unique_ptr<ActorManager> actorMng_;
 	GameInfo gameInfo_;
-
-	int stepCountDown_;
+#pragma endregion
 
 };
 

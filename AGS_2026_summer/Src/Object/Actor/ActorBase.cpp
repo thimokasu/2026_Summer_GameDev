@@ -1,5 +1,7 @@
 #include "ActorBase.h"
 #include"../Common/AnimationController.h"
+#include"Collider/ColliderBase.h"
+
 ActorBase::ActorBase(void)
 {
 }
@@ -16,7 +18,7 @@ void ActorBase::Load(void)
 void ActorBase::Init(void)
 {
 	SubInit();
-   InitCollider();
+	InitCollider();
 }
 
 void ActorBase::Update(void)
@@ -35,8 +37,4 @@ void ActorBase::Draw(void)
 void ActorBase::Release(void)
 {
 	SubRelease();
-}
-
-void ActorBase::SetOwnerActor2Colliders(void)
-{
 }

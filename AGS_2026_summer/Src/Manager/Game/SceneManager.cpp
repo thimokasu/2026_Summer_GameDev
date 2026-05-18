@@ -5,10 +5,6 @@
 #include<EffekseerForDXLib.h>
 
 #include"../../Scene/SceneBase.h"
-#include"../../Scene/TitleScene.h"
-#include"../../Scene/GameScene.h"
-#include "../../Scene/MultiScene.h"
-#include "../../Scene/ConnectScene.h"
 
 #include"../../Manager/Generic/Loading.h"
 #include"../Resource/ResourceManager.h"
@@ -49,16 +45,21 @@ SceneManager::SceneManager(void)
 
 
 
+void SceneManager::SetSceneFactory(SCENE_ID sceneID, SceneFactory factory)
+{
+	sceneFactories_[sceneID] = factory;
+}
+
 void SceneManager::Init(void)
 {
-	sceneId_ = SCENE_ID::TITLE;
+	sceneID_ = SCENE_ID::TITLE;
 	// ロード画面生成
 	Loading::GetInstance()->CreateInstance();
 	Loading::GetInstance()->Init();
 	Loading::GetInstance()->Load();
 
 	// カメラ
-	camera_ = new Camera();
+	camera_ = std::make_unique<Camera>();
 	camera_->Init();
 
 	ResourceManager::CreateInstance();
@@ -146,7 +147,6 @@ void SceneManager::Destroy(void)
 
 	//カメラの解放
 	camera_->Release();
-	delete camera_;
 
 	DeleteGraph(mainScreen_);
 
@@ -162,65 +162,22 @@ void SceneManager::Destroy(void)
 
 void SceneManager::ChangeScene(std::shared_ptr<SceneBase>_scene)
 {
-	// シーンが空か？
-	if (scenes_.empty())
-	{
-		//空なので新しく入れる
-		scenes_.push_back(_scene);
-	}
-	else
-	{
-		//末尾のものを新しい物に入れ替える
-		ResourceManager::GetInstance().Release();
-		scenes_.back()->Release();
-		scenes_.back() = _scene;
-
-	
-	}
-
-	// 読み込み(非同期)
-	Loading::GetInstance()->StartAsyncLoad();
+	scenes_.push_back(_scene);
 	scenes_.back()->Load();
-	Loading::GetInstance()->EndAsyncLoad();
-
+	scenes_.back()->Init();
 }
 
 void SceneManager::ChangeScene(SCENE_ID scene)
 {
-	switch (scene)
+	auto it = sceneFactories_.find(scene);
+	if (it != sceneFactories_.end())
 	{
-	case SCENE_ID::TITLE:
-		ChangeScene(std::make_shared<TitleScene>());
-		break;
-	case SCENE_ID::GAME:
-		ChangeScene(std::make_shared<GameScene>());
-		break;
-	case SCENE_ID::MULTI:
-		ChangeScene(std::make_shared<MultiScene>());
-		break;
-	case SCENE_ID::CONNECT:
-		ChangeScene(std::make_shared<ConnectScene>());
-		break;
-	default:
-		break;
+		sceneID_ = scene;
+		//登録されたラムダ式を実行して実体を生成
+		ChangeScene(it->second());
 	}
 }
 
-
-	void SceneManager::ChangeScene(SCENE_ID scene, std::string editFilename)
-	{
-		switch (scene)
-		{
-		case SCENE_ID::TITLE:
-			ChangeScene(std::make_shared<TitleScene>());
-			break;
-		case SCENE_ID::GAME:
-			ChangeScene(std::make_shared<GameScene>());
-			break;
-		default:
-			break;
-		}
-	}
 
 	void SceneManager::PushScene(std::shared_ptr<SceneBase> scene)
 	{
@@ -232,7 +189,13 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 
 	void SceneManager::PushScene(SCENE_ID scene)
 	{
-
+		auto it = sceneFactories_.find(scene);
+		if (it != sceneFactories_.end())
+		{
+			sceneID_ = scene;
+			//登録されたラムダ式を実行して実体を生成
+			PushScene(it->second());
+		}
 	}
 
 	void SceneManager::PopScene(void)
@@ -257,16 +220,12 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 
 	void SceneManager::JumpScene(SCENE_ID scene)
 	{
-		switch (scene)
+		auto it = sceneFactories_.find(scene);
+		if (it != sceneFactories_.end())
 		{
-		case SCENE_ID::TITLE:
-			ChangeScene(std::make_shared<TitleScene>());
-			break;
-		case SCENE_ID::GAME:
-			ChangeScene(std::make_shared<GameScene>());
-			break;
-		default:
-			break;
+			for (auto& s : scenes_) { s->Release(); }
+			scenes_.clear();
+			ChangeScene(it->second());
 		}
 	}
 
@@ -285,9 +244,9 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 		totalGameTime_ += GetDeltaTime();
 	}
 
-	Camera* SceneManager::GetCamera(void) const
+	Camera& SceneManager::GetCamera(void) const
 	{
-		return camera_;
+		return *camera_;
 	}
 
 

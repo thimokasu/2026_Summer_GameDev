@@ -5,25 +5,20 @@
 #include"../Collider/ColliderBox.h"
 
 Box::Box(void)
-	:
-	ShapeBase(),
-	halfSize_({100.0f,100.0f,100.0f})
+	: ShapeBase(), halfSize_{ 50.0f,50.0f,50.0f }
 {
 }
-
-
 
 Box::Box(const VECTOR& halfSize)
-	:
-	ShapeBase(),
-	halfSize_(halfSize)
+	: ShapeBase(), halfSize_(halfSize)
 {
 }
 
-
-
-
 Box::~Box(void)
+{
+}
+
+void Box::SubLoad(void)
 {
 }
 
@@ -45,18 +40,14 @@ void Box::SubRelease(void)
 
 void Box::InitCollider(void)
 {
-    ColliderInfo info = {
-    SHAPE::BOX,
-    &trans_,
-    TAG::PLAYER,
-    Layer::ACTOR,
-    ColliderBase::SetMask({Layer::ACTOR,Layer::STAGE}),
-    VGet(0.0f, 0.0f, 0.0f),
-    VGet(0.0f, 0.0f, 0.0f),
-    false,
-    true,
-    };
-    std::shared_ptr<ColliderBox> collider =
-		std::make_shared<ColliderBox>(info, halfSize_, this);
-	ownColliders_.emplace(static_cast<int>(SHAPE::BOX), collider);
+	ColliderInfo info;
+	info.shape_ = ColliderShape::BOX;
+	info.layer_ = ColliderLayer::ACTOR;
+	info.mask_ = ColliderBase::SetMask({ ColliderLayer::ACTOR,ColliderLayer::STAGE });
+	info.localPos_ = VECTOR{ 0,0,0 };
+	info.localRot_ = VECTOR{ 0,0,0 };
+	info.isTrigger_ = false;
+	info.isActive_ = true;
+	std::unique_ptr<ColliderBox> collider =
+		std::make_unique<ColliderBox>(info, halfSize_, *this);
 }

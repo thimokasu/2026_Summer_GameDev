@@ -4,8 +4,6 @@
 
 #include "Manager/Game/SceneManager.h"
 #include"Manager/Generic/KeyManager.h"
-#include "Net/NetManager.h"
-#include "Manager/Text/InputTextManager.h"
 
 Application* Application::instance_ = nullptr;
 
@@ -84,12 +82,8 @@ void Application::Init(void)
 
 	// シーン管理初期化
 	SceneManager::CreateInstance();
-	InputTextManager::CreateInstance();
 
 	// ネットワーク管理初期化
-	NetManager::CreateInstance();
-//	SceneManager::GetInstance().Init();
-
 }
 
 void Application::Run(void)
@@ -103,9 +97,7 @@ void Application::Run(void)
 	{
 
 		keymanager.Update();
-		NetManager::GetInstance().Update();
 		sceneManager.Update();
-		InputTextManager::GetInstance().Update();
 		sceneManager.Draw();
 
 		ScreenFlip();
@@ -123,7 +115,6 @@ void Application::Destroy(void)
 	// 入力制御解放
 	KeyManager::GetIns().DeleteIns();
 
-	NetManager::GetInstance().Destroy();
 
 	Effkseer_End();
 
