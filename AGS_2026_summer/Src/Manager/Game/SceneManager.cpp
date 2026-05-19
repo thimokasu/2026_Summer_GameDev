@@ -165,6 +165,7 @@ void SceneManager::ChangeScene(std::shared_ptr<SceneBase>_scene)
 	scenes_.push_back(_scene);
 	scenes_.back()->Load();
 	scenes_.back()->Init();
+	sceneID_ = scenes_.back()->GetSceneID();
 }
 
 void SceneManager::ChangeScene(SCENE_ID scene)
@@ -185,6 +186,8 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 		scenes_.push_back(scene);
 		scenes_.back()->Load();
 		scenes_.back()->Init();
+		sceneID_ = scenes_.back()->GetSceneID();
+
 	}
 
 	void SceneManager::PushScene(SCENE_ID scene)
@@ -205,7 +208,9 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 		{
 			scenes_.back()->Release();
 			scenes_.pop_back();
+			sceneID_ = scenes_.back()->GetSceneID();
 		}
+
 	}
 
 	void SceneManager::JumpScene(std::shared_ptr<SceneBase> scene)

@@ -19,7 +19,7 @@ public:
 	void Update(void) override;
 	void Draw(void) override;
 	void Release(void) override;
-
+	SCENE_ID GetSceneID(void)const override { return SCENE_ID::GAME; }
 private:
 #pragma region ä÷êî
 

@@ -1,4 +1,6 @@
 #pragma once
+#include"SceneId.h"
+
 class ResourceManager;
 class SceneManager;
 class SceneBase
@@ -27,7 +29,7 @@ public:
 	// ‰ğ•úˆ—
 	virtual void Release(void) {};
 
-
+	virtual SCENE_ID GetSceneID(void)const = 0;
 
 protected:
 
