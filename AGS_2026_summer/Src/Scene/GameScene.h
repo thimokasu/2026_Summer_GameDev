@@ -5,6 +5,7 @@
 #include"GameSelect/GameKind.h"
 
 class ActorManager;
+class CollisionManager;
 
 class GameScene :
     public SceneBase
@@ -27,6 +28,7 @@ private:
 
 #pragma region •Ï”
 	std::unique_ptr<ActorManager> actorMng_;
+	std::unique_ptr<CollisionManager>colMng_;
 	GameInfo gameInfo_;
 #pragma endregion
 

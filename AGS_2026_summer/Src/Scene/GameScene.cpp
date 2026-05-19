@@ -1,6 +1,8 @@
 #include "GameScene.h"
 #include<DxLib.h>
 
+#include"../Manager/System/Collision/CollisionManager.h"
+
 #include"../Object/Actor/Manager/ActorManager.h"
 
 GameScene::GameScene(void)
@@ -22,6 +24,8 @@ GameScene::~GameScene(void)
 void GameScene::Load(void)
 {
 	actorMng_ = std::make_unique<ActorManager>();
+	colMng_ = std::make_unique<CollisionManager>();
+
 	actorMng_->Load(gameInfo_);
 }
 
@@ -33,6 +37,7 @@ void GameScene::Init(void)
 void GameScene::Update(void)
 {
 	actorMng_->Update();
+	colMng_->Update();
 }
 
 void GameScene::Draw(void)
@@ -44,4 +49,5 @@ void GameScene::Draw(void)
 void GameScene::Release(void)
 {
 	actorMng_->Release();
+	colMng_->ClearColliders();
 }
