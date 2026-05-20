@@ -119,7 +119,7 @@ void CollisionManager::Update(void)
 			//小さいほうのIDをファーストにしてペアを正規化
 			currentPairs.push_back({ (std::min)(idA, idB), (std::max)(idA, idB) });
 			//押し戻しや衝突点を保存する
-			resolve_.push_back(CollisionResolve{ a->GetOwnerActor(),b->GetOwnerActor(),result });
+			resolve_.push_back(CollisionResolve{ &a->GetOwnerActor(),&b->GetOwnerActor(),result });
 		}
 	}
 	//新規衝突ペアと消失ペアを摘出

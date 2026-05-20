@@ -4,7 +4,9 @@
 #include<cstdint>
 #include<functional>
 #include<map>
+#include"CollisionResult.h"
 
+class ActorBase;
 class ColliderBase;
 
 using ContactCallback = std::function<void(std::uint32_t, std::uint32_t)>;
