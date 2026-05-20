@@ -10,8 +10,7 @@
 class ContactEventManager
 {
 public:
-	std::unordered_map<GameEventType, std::function<void(const ContactRule&)>>collbackEevnt_;
-
+	std::unordered_map<GameEventType, std::vector<std::function<void(const ContactRule&)>>> collbackEevnt_;
 	ContactEventManager(void);
 	~ContactEventManager(void);
 
@@ -22,9 +21,9 @@ public:
 
 	void Clear(void) { contactRules_.clear(); touching_.clear(); }
 
-	void SetContactEventCallback(GameEventType eventType,std::function<void(const ContactRule&)> callback)
+	void SetContactEventCallback(GameEventType eventType, std::function<void(const ContactRule&)> callback)
 	{
-		collbackEevnt_[eventType] = callback;
+		collbackEevnt_[eventType].push_back(callback);
 	}
 private:
 	std::map<EntityID, std::set<EntityID>> touching_;
