@@ -62,7 +62,8 @@ public:
 	// シーンIDの取得
 	SCENE_ID GetSceneID(void) { return sceneId_; }
 
-
+	// 現在のシーンIDの取得
+	SCENE_ID GetNowScene(void) const { return nowsceneId_; }
 
 	// デルタタイムの取得
 	float GetDeltaTime(void) const { return deltaTime_; }
@@ -72,6 +73,8 @@ public:
 private:
 	std::list<std::shared_ptr<SceneBase>>scenes_;
 	SCENE_ID sceneId_;
+
+	SCENE_ID nowsceneId_;
 
 	// デルタタイム
 	std::chrono::system_clock::time_point preTime_;

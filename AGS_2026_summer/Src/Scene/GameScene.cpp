@@ -136,6 +136,11 @@ void GameScene::Update(void)
 		SceneManager::GetInstance().ChangeScene(SCENE_ID::TITLE);
 	}
 
+	if(KeyManager::GetIns().GetInfo(KEY_TYPE::PAUSE).down)
+	{
+		SceneManager::GetInstance().ChangeScene(SCENE_ID::PAUSE);
+	}
+
 }
 
 void GameScene::Draw(void)

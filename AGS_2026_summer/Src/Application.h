@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-
+#include "Common/Vector2.h"
 class Application
 {
 
@@ -25,6 +25,8 @@ public:
 	static Application& GetInstance(void);
 
 	static void DeleteInstance(void);
+
+	static Vector2 GetWindowSize(void) { return Vector2(SCREEN_SIZE_X, SCREEN_SIZE_Y); }
 
 	// èâä˙âª
 	void Init(void);

@@ -29,9 +29,10 @@ void TitleScene::Update(void)
 		SceneManager::GetInstance().ChangeScene(SCENE_ID::GAME);
 	}
 
+	//エスケープ押したらメニューシーンへ
 	if (KeyManager::GetIns().GetInfo(KEY_TYPE::PAUSE).down)
 	{
-		SceneManager::GetInstance().ChangeScene(SCENE_ID::MENU);
+		SceneManager::GetInstance().ChangeScene(SCENE_ID::PAUSE);
 	}
 
 }

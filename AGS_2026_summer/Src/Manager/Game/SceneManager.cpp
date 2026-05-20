@@ -196,7 +196,7 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 	case SCENE_ID::GAME:
 		ChangeScene(std::make_shared<GameScene>());
 		break;
-	case SCENE_ID::MENU:
+	case SCENE_ID::PAUSE:
 		ChangeScene(std::make_shared<PauseScene>());
 		break;
 	default:
@@ -215,7 +215,7 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 		case SCENE_ID::GAME:
 			ChangeScene(std::make_shared<GameScene>());
 			break;
-		case SCENE_ID::MENU:
+		case SCENE_ID::PAUSE:
 			ChangeScene(std::make_shared<PauseScene>());
 			break;
 		default:
@@ -266,7 +266,7 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 		case SCENE_ID::GAME:
 			ChangeScene(std::make_shared<GameScene>());
 			break;
-		case SCENE_ID::MENU:
+		case SCENE_ID::PAUSE:
 			ChangeScene(std::make_shared<PauseScene>());
 			break;
 		default:
