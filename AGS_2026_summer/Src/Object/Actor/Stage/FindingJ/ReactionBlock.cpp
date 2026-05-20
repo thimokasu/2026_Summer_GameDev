@@ -3,9 +3,11 @@
 #include"../../Collider/ColliderInfo.h"
 #include"../../Collider/ColliderBase.h"
 #include"../../Collider/ColliderBox.h"
+#include <EffekseerForDXLib.h>
 
 ReactionBlock::ReactionBlock()
 {
+	handle_ = -1;
 }
 
 ReactionBlock::ReactionBlock(VECTOR pos)
@@ -15,21 +17,29 @@ ReactionBlock::ReactionBlock(VECTOR pos)
 
 ReactionBlock::~ReactionBlock()
 {
+	if (handle_ != -1) {
+		DeleteEffekseerEffect(handle_);
+		handle_ = -1;
+	}
 }
 
 void ReactionBlock::SubInit(void)
 {
+	trans_.modelId = MV1LoadModel("Data/Stage/ReactionBlock.mv1");
+	const float scale = 0.113f;
+	trans_.scl = VGet(scale, scale, scale);
+
+	//handle_ = LoadEffekseerEffect("Data/Effect/Light/aaa.efk");
 }
 
 void ReactionBlock::SubUpdate(void)
-{
-	if (glowTimer_ > 0.0f) {
-		glowTimer_ -= 1.0f / 60.0f;
-	}     
+{    
+	UpdateEffekseer3D();
 }
 
 void ReactionBlock::SubDraw(void)
 {
+	DrawEffekseer3D();
 }
 
 void ReactionBlock::SubRelease(void)
@@ -52,4 +62,15 @@ void ReactionBlock::InitCollider(void)
 	std::shared_ptr<ColliderBox> collider =
 		std::make_shared<ColliderBox>(info, halfSize_, this,GetColor(255,0,0));
 	ownColliders_.emplace(static_cast<int>(SHAPE::BOX), collider);
+}
+
+void ReactionBlock::StepOn()
+{
+	GlowEffect();
+}
+
+void ReactionBlock::GlowEffect(void)
+{
+	auto upPos = VAdd(halfSize_, trans_.pos);
+	SetPosPlayingEffekseer3DEffect(handle_, upPos.x, upPos.y, upPos.z);
 }

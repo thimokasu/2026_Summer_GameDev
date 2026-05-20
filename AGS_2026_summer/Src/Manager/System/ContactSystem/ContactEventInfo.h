@@ -1,5 +1,6 @@
 #pragma once
 #include<cstdint>
+#include<memory>
 #include"GameEventType.h"
 #include"../../../Object/Actor/ActorBase.h"
 #include"../../../Object/Actor/EntityKind.h"
@@ -9,6 +10,7 @@ struct Entity
 {
 	EntityID entityId;
 	EntityKind entityKind;
+	std::shared_ptr<ActorBase> actorPtr;
 };
 
 
@@ -30,4 +32,6 @@ struct ContactRule
 	ContactEventInfo contactEvent_;
 	GameEventType eventType_;
 };
+
+
 

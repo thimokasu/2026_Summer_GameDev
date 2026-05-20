@@ -59,14 +59,14 @@ void GameScene::Init(void)
 {
 	auto onBeginContact = [this](uint32_t a, uint32_t b)
 		{
-			Entity entA{ a, actorManager_.GetKind(a) };
-			Entity entB{ b, actorManager_.GetKind(b) };
+			Entity entA{ a, actorManager_.GetKind(a), actorManager_.FindActor(a) };
+			Entity entB{ b, actorManager_.GetKind(b), actorManager_.FindActor(b) };
 			contactSystem_.OnBeginContact(entA, entB, CollisionResult{});
 		};
 	auto onEndContact = [this](uint32_t a, uint32_t b)
 		{
-			Entity entA{ a, actorManager_.GetKind(a) };
-			Entity entB{ b, actorManager_.GetKind(b) };
+			Entity entA{ a, actorManager_.GetKind(a), actorManager_.FindActor(a) };
+			Entity entB{ b, actorManager_.GetKind(b), actorManager_.FindActor(b) };
 			contactSystem_.OnEndContact(entA, entB, CollisionResult{});
 		};
 
@@ -92,7 +92,7 @@ void GameScene::Update(void)
 	collisionSystem_.Update();
 	physicsSystem_.Resolve(actorManager_.GetActors(),collisionSystem_.GetCollisionMainfold());
 
-	gameContactSystem_.Update(contactSystem_.GetContactEvent(), actorManager_.GetActors());
+	gameContactSystem_.Update(contactSystem_.GetContactEvent());
 	contactSystem_.Clear();
 }
 

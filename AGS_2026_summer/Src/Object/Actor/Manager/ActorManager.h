@@ -31,6 +31,18 @@ public:
 	std::vector<std::shared_ptr<ActorBase>> GetActors(void) { return actors_; }
 	EntityKind GetKind(int entityId_);
 
+	std::shared_ptr<ActorBase> FindActor(EntityID id) const
+	{
+		for (const auto& obj : actors_)
+		{
+			if (obj->GetEntityId() == id)
+			{
+				return obj;
+			}
+		}
+		return nullptr;
+	}
+
 private:
 
 	std::vector<std::shared_ptr<ActorBase>>actors_;

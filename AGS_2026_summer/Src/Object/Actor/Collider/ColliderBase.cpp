@@ -1,5 +1,6 @@
 #include "ColliderBase.h"
 #include"../../Common/Transform.h"
+#include "../ActorBase.h"
 
 
 ColliderBase::ColliderBase(ColliderInfo& info, ActorBase* actor)
@@ -20,6 +21,7 @@ void ColliderBase::Update(void)
 void ColliderBase::Draw(void)
 {
 	// デバッグ描画
+	if(actor_->GetEntityKind() != EntityKind::REACTION_BLOCK)
 	DrawDebug(debugColor_);
 }
 
