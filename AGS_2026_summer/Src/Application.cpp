@@ -5,6 +5,9 @@
 #include "Manager/Game/SceneManager.h"
 #include"Manager/Generic/KeyManager.h"
 
+#include"Scene/TitleScene.h"
+#include"Scene/GameScene.h"
+
 Application* Application::instance_ = nullptr;
 
 const std::string Application::PATH_DATA = "Data/";
@@ -82,7 +85,9 @@ void Application::Init(void)
 
 	// シーン管理初期化
 	SceneManager::CreateInstance();
-
+	SceneManager::GetInstance().SetSceneFactory(SCENE_ID::TITLE, []() { return std::make_shared<TitleScene>(); });
+	SceneManager::GetInstance().SetSceneFactory(SCENE_ID::GAME, []() {return std::make_shared<GameScene>(); });
+	SceneManager::GetInstance().Init();
 	// ネットワーク管理初期化
 }
 

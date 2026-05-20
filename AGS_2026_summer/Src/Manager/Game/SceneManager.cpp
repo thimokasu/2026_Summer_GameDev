@@ -72,7 +72,7 @@ void SceneManager::Init(void)
 	preTime_ = std::chrono::system_clock::now();
 
 	// ‰ŠúƒV[ƒ“‚Ìİ’è
-	ChangeScene(SCENE_ID::GAME);
+	ChangeScene(SCENE_ID::TITLE);
 
 	mainScreen_ = MakeScreen(Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y, true);
 }
@@ -162,7 +162,16 @@ void SceneManager::Destroy(void)
 
 void SceneManager::ChangeScene(std::shared_ptr<SceneBase>_scene)
 {
-	scenes_.push_back(_scene);
+	if (scenes_.empty())
+	{
+		scenes_.push_back(_scene);
+	}
+	else
+	{
+		ResourceManager::GetInstance().Release();
+		scenes_.back()->Release();
+		scenes_.back() = _scene;
+	}
 	scenes_.back()->Load();
 	scenes_.back()->Init();
 	sceneID_ = scenes_.back()->GetSceneID();

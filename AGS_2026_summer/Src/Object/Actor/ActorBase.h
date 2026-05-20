@@ -52,6 +52,8 @@ protected:
 	virtual void SubRelease(void) {};
 
 	virtual void InitCollider(void) {};
+
+	virtual void Move(void);
 #pragma endregion
 
 #pragma region •Ï”

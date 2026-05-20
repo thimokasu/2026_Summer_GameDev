@@ -73,7 +73,7 @@ void CollisionManager::DiffPairs(CollisionPairs& currentPairs, CollisionPairs& p
 		}
 	}
 	while (a < currentPairs.size())beginPairs.push_back(currentPairs[a++]);
-	while (b < currentPairs.size())endPairs.push_back(prevPairs[b++]);
+	while (b < prevPairs.size())endPairs.push_back(prevPairs[b++]);
 }
 
 void CollisionManager::Update(void)
@@ -153,7 +153,7 @@ void CollisionManager::Resolve(void)
 		auto& actorB = resolve.actorB;
 
 		auto& rbA = actorA->GetRigidBody();
-		auto& rbB = actorA->GetRigidBody();
+		auto& rbB = actorB->GetRigidBody();
 
 		auto& transA = actorA->GetTransform();
 		auto& transB = actorB->GetTransform();
@@ -196,4 +196,5 @@ void CollisionManager::Resolve(void)
 			}
 		}
 	}
+	resolve_.clear();
 }

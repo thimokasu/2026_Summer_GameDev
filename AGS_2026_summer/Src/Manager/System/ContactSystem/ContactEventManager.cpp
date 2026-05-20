@@ -38,12 +38,16 @@ void ContactEventManager::OnEndContact(Entity a, Entity b, CollisionResult resul
 		});
 }
 
-void ContactEventManager::Update(const ContactRule& rule)
+void ContactEventManager::Update(void)
 {
-	auto event = contactEventTable_.Query(rule);
-	auto it = collbackEevnt_.find(event.eventType_);
-	if (it != collbackEevnt_.end())
+	for (auto rule : contactRules_)
 	{
-		it->second(rule);
+		auto event = contactEventTable_.Query(rule);
+		auto it = collbackEevnt_.find(event.eventType_);
+		if (it != collbackEevnt_.end())
+		{
+			it->second(rule);
+		}
 	}
+	Clear();
 }

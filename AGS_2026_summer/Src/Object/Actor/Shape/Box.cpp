@@ -50,4 +50,5 @@ void Box::InitCollider(void)
 	info.isActive_ = true;
 	std::unique_ptr<ColliderBox> collider =
 		std::make_unique<ColliderBox>(info, halfSize_, *this);
+	ownColliders_.emplace(static_cast<int>(ColliderShape::BOX), std::move(collider));
 }

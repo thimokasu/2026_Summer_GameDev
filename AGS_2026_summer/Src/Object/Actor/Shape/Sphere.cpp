@@ -52,4 +52,5 @@ void Sphere::InitCollider(void)
 	info.isActive_ = true;
 	std::unique_ptr<ColliderSphere> collider =
 		std::make_unique<ColliderSphere>(info, radius_, *this);
+	ownColliders_.emplace(static_cast<int>(ColliderShape::SPHERE), std::move(collider));
 }

@@ -8,6 +8,7 @@ enum class GameMode
 	THREEPLAYER,
 	FOURPLAYER,
 
+	TEST,
 	MAX
 };
 
@@ -17,6 +18,15 @@ struct GameInfo
 	Game game_;
 	int stageNum_;
 };
+
+namespace Test
+{
+	enum class Game { A };
+	namespace A
+	{
+		enum class Stage { Stage1 };
+	}
+}
 
 namespace OnePlayer
 {

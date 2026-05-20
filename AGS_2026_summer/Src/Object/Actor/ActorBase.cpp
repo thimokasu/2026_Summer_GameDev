@@ -25,6 +25,7 @@ void ActorBase::Update(void)
 {
 	SubUpdate();
 	rigidBody_.Update();
+	Move();
 	trans_.Update();
 }
 
@@ -37,4 +38,9 @@ void ActorBase::Draw(void)
 void ActorBase::Release(void)
 {
 	SubRelease();
+}
+
+void ActorBase::Move(void)
+{
+	trans_.pos = VAdd(trans_.pos, rigidBody_.GetVelocity());
 }

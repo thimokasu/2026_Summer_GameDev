@@ -32,13 +32,13 @@ enum class ColliderShape
 
 struct ColliderInfo
 {
-	ColliderShape shape_;// コライダーの形状
-	ColliderLayer layer_;// コライダーのレイヤー
-	uint32_t mask_;//当たり判定のマスク
-	VECTOR localPos_;//ローカル座標
-	VECTOR localRot_;//ローカル回転
-	bool isTrigger_;//トリガーかどうか
-	bool isActive_;//有効かどうか
+	ColliderShape shape_=ColliderShape::SPHERE;// コライダーの形状
+	ColliderLayer layer_=ColliderLayer::ACTOR;// コライダーのレイヤー
+	uint32_t mask_ = {};//当たり判定のマスク
+	VECTOR localPos_ = { 0.0f,0.0f,0.0f };//ローカル座標
+	VECTOR localRot_={ 0.0f,0.0f,0.0f };//ローカル回転
+	bool isTrigger_=false;//トリガーかどうか
+	bool isActive_=true;//有効かどうか
 	int debugColor_ = GetColor(255, 0, 0);//デバッグ用の色
 };
 

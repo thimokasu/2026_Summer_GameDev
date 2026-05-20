@@ -6,6 +6,7 @@
 
 class ActorManager;
 class CollisionManager;
+class ContactEventManager;
 
 class GameScene :
     public SceneBase
@@ -29,6 +30,7 @@ private:
 #pragma region •Ï”
 	std::unique_ptr<ActorManager> actorMng_;
 	std::unique_ptr<CollisionManager>colMng_;
+	std::unique_ptr<ContactEventManager>contactMng_;
 	GameInfo gameInfo_;
 #pragma endregion
 

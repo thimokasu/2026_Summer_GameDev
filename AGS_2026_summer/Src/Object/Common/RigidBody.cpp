@@ -7,7 +7,7 @@ RigidBody::RigidBody(void)
 	inverseMass_ = 1.0f / mass_; // 逆質量の計算
 	velocity_ = VGet(0.0f, 0.0f, 0.0f); // 初期速度
 	force_ = VGet(0.0f, 0.0f, 0.0f); // 初期力
-	useGravity_ = true; // 重力を使用する
+	useGravity_ = false; // 重力を使用する
 	isGrounded_ = false; // 地面に接していない
 	moveSpeed_ = 5.0f; // 移動速度のデフォルト値
 	jumpForce_ = 10.0f; // ジャンプ力のデフォルト値
@@ -85,7 +85,7 @@ void RigidBody::Update(void)
 	{
 		return; // 静的剛体は更新しない
 	}
-	if (useGravity_)
+	if (useGravity_&&!isGrounded_)
 	{
 		force_.y -= GRAVITY; // 重力加速度を加える
 	}
@@ -99,4 +99,5 @@ void RigidBody::Update(void)
 	
 	//float yKeep = velocity_.y;
 	velocity_ = VScale(velocity_, 0.975f);// 摩擦の減衰(0.975fは仮の値)
+	isGrounded_ = false;
 }

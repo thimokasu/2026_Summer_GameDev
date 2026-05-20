@@ -18,7 +18,7 @@ public:
 	void OnBeginContact(Entity a, Entity b, CollisionResult result);
 	void OnEndContact(Entity a, Entity b, CollisionResult result);
 
-	void Update(const ContactRule& rule);
+	void Update(void);
 
 	void Clear(void) { contactRules_.clear(); touching_.clear(); }
 private:
