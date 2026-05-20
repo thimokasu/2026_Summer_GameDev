@@ -93,11 +93,11 @@ void RigidBody::Update(void)
 	{
 		velocity_ = VGet(velocity_.x, 0.0f, velocity_.z);
 	}
-	VECTOR accleraation = force_;
-
-	velocity_ = VAdd(velocity_, accleraation);
+	VECTOR acceleration = force_;
+	velocity_ = VAdd(velocity_, acceleration);
 	
 	//float yKeep = velocity_.y;
 	velocity_ = VScale(velocity_, 0.975f);// 摩擦の減衰(0.975fは仮の値)
 	isGrounded_ = false;
+	force_ = VGet(0.0f, 0.0f, 0.0f); // 力をリセット
 }
