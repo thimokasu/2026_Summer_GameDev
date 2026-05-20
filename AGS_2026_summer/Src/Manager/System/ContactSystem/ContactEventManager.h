@@ -21,6 +21,11 @@ public:
 	void Update(void);
 
 	void Clear(void) { contactRules_.clear(); touching_.clear(); }
+
+	void SetContactEventCallback(GameEventType eventType,std::function<void(const ContactRule&)> callback)
+	{
+		collbackEevnt_[eventType] = callback;
+	}
 private:
 	std::map<EntityID, std::set<EntityID>> touching_;
 	std::vector<ContactRule>contactRules_;

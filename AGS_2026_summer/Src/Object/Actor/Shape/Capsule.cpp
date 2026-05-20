@@ -4,6 +4,7 @@
 #include"../Collider/ColliderBase.h"
 #include"../Collider/ColliderCapsule.h"
 #include"../../../Manager/Generic/KeyManager.h"
+
 Capsule::Capsule(void)
 	: ShapeBase(), localPosTop_{ 0,50,0 }, localPosDown_{ 0,-50,0 }, radius_(20.0f)
 {
