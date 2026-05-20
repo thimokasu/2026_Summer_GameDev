@@ -35,8 +35,6 @@ Transform::~Transform(void)
 
 void Transform::Update(void)
 {
-    prevPos = pos;
-
     // ‘å‚«‚³
     matScl = MGetScale(scl);
 

@@ -139,6 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Manager\System\ContactSystem\ContactEventTable.cpp" />
+    <ClCompile Include="Src\Manager\System\ContactSystem\ContactEventManager.cpp" />
     <ClCompile Include="Src\Manager\System\Collision\CollisionLogic.cpp" />
     <ClCompile Include="Src\Manager\System\Collision\CollisionManager.cpp" />
     <ClCompile Include="Src\Object\Actor\Manager\ActorManager.cpp" />
@@ -172,10 +174,14 @@
     <ClCompile Include="Src\Scene\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Manager\System\ContactSystem\ContactEventTable.h" />
+    <ClInclude Include="Src\Manager\System\ContactSystem\ContactEventManager.h" />
     <ClInclude Include="Src\Manager\System\Collision\CollisionLogic.h" />
     <ClInclude Include="Src\Manager\System\Collision\CollisionManager.h" />
     <ClInclude Include="Src\Manager\System\Collision\CollisionPairType.h" />
     <ClInclude Include="Src\Manager\System\Collision\CollisionResult.h" />
+    <ClInclude Include="Src\Manager\System\ContactSystem\ContactEventInfo.h" />
+    <ClInclude Include="Src\Manager\System\ContactSystem\GameEventType.h" />
     <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\ActorFactoryBase.h" />
     <ClInclude Include="Src\Object\Actor\Manager\ActorManager.h" />
     <ClInclude Include="Src\Scene\GameScene.h" />

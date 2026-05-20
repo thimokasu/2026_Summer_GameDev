@@ -38,6 +38,7 @@ void GameScene::Update(void)
 {
 	actorMng_->Update();
 	colMng_->Update();
+	colMng_->Resolve();
 }
 
 void GameScene::Draw(void)

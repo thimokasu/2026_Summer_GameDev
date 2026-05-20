@@ -22,9 +22,6 @@ public:
 	// ˆÊ’u
 	VECTOR pos;
 	VECTOR localPos;
-	
-	//ˆÚ“®‚µ‚½‚¢ˆÊ’u
-	VECTOR prevPos;
 
 	MATRIX matScl;
 	MATRIX matRot;

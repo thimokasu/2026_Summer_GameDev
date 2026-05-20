@@ -147,5 +147,53 @@ void CollisionManager::Update(void)
 
 void CollisionManager::Resolve(void)
 {
+	for (auto& resolve : resolve_)
+	{
+		auto&actorA = resolve.actorA;
+		auto& actorB = resolve.actorB;
 
+		auto& rbA = actorA->GetRigidBody();
+		auto& rbB = actorA->GetRigidBody();
+
+		auto& transA = actorA->GetTransform();
+		auto& transB = actorB->GetTransform();
+
+		float invMassA = rbA.GetInverseMass();
+		float invMassB = rbB.GetInverseMass();
+		float totalInvMass = invMassA + invMassB;
+
+		if (totalInvMass == 0.0f)continue;
+		float ratioA = invMassA / totalInvMass;
+		float ratioB = invMassB / totalInvMass;
+
+		if (invMassA > 0.0f)
+		{
+			transA.pos = VAdd(
+				transA.pos,
+				VScale(resolve.result.normal,
+					resolve.result.penetration * ratioA)
+			);
+			//地面判定(法線が上向き)
+			if (resolve.result.normal.y > 0.5f)
+			{
+				rbA.ClearGravity();
+				rbA.SetGrounded(true);
+			}
+		}
+		if (invMassB > 0.0f)
+		{
+			transB.pos = VAdd(
+				transB.pos,
+				VScale(
+					resolve.result.normal,
+					-resolve.result.penetration * ratioB)
+			);
+			//地面判定(法線が下向き)
+			if (resolve.result.normal.y < -0.5f)
+			{
+				rbB.ClearGravity();
+				rbB.SetGrounded(true);
+			}
+		}
+	}
 }
