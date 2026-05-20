@@ -35,6 +35,8 @@ public:
 	void SetEntityID(int id) { entityID_ = id; }
 	//エンティティID取得
 	int GetEntityID(void) const { return entityID_; }
+	//エンティティ種別設定
+	void SetEntityKind(EntityKind kind) { entityKind_ = kind; }
 	//エンティティ種別取得
 	EntityKind GetEntityKind(void) const { return entityKind_; }
 	//アクティブ状態取得

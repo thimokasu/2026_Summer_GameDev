@@ -13,6 +13,7 @@ std::vector<std::unique_ptr<ActorBase>> TestFactory::CreateActors(void)
     auto flor = std::make_unique<Box>(halfSize);
     flor->GetRigidBody().SetBodyType(Body::STATIC);
     flor->GetRigidBody().SetUseGravity(false);
+	flor->SetEntityKind(EntityKind::STAGE);
     actors.push_back(std::move(flor));
 
     auto player = std::make_unique<Capsule>();
@@ -20,6 +21,8 @@ std::vector<std::unique_ptr<ActorBase>> TestFactory::CreateActors(void)
     player->GetRigidBody().SetUseGravity(true);
     player->GetRigidBody().SetMass(1);
     player->GetRigidBody().SetMoveSpeed(5);
+	player->GetRigidBody().SetJumpForce(15);
+	player->SetEntityKind(EntityKind::PLAYER);
     actors.push_back(std::move(player));
    
  return actors;

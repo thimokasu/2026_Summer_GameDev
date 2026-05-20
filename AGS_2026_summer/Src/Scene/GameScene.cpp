@@ -32,6 +32,21 @@ void GameScene::Load(void)
 
 void GameScene::Init(void)
 {
+	auto onBeginContact = [this](uint32_t a, uint32_t b)
+		{
+			Entity entA{ a, actorMng_->GetEntityKind(a) };
+			Entity entB{ b, actorMng_->GetEntityKind(b) };
+			contactMng_->OnBeginContact(entA, entB, CollisionResult{});
+		};
+	auto onEndContact = [this](uint32_t a, uint32_t b)
+		{
+			Entity entA{ a, actorMng_->GetEntityKind(a) };
+			Entity entB{ b, actorMng_->GetEntityKind(b) };
+			contactMng_->OnEndContact(entA, entB, CollisionResult{});
+		};
+
+	colMng_->SetContactCallbacks(onBeginContact, onEndContact);
+
 	actorMng_->Init();
 	for (auto& actor : actorMng_->GetActors())
 	{
