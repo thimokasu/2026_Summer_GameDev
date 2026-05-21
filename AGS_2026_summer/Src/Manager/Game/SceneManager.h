@@ -66,8 +66,6 @@ public:
 	// シーンIDの取得
 	SCENE_ID GetSceneID(void) { return sceneID_; }
 
-
-
 	// デルタタイムの取得
 	float GetDeltaTime(void) const { return deltaTime_; }
 

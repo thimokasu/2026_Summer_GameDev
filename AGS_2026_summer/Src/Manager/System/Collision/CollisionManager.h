@@ -30,13 +30,39 @@ public:
 	CollisionManager(void);
 	~CollisionManager(void);
 
+	/// <summary>
+	/// コライダーの登録
+	/// </summary>
+	/// <param name="collider"></param>
+	/// <param name="entityID"></param>
 	void AddCollider(ColliderBase* collider,int entityID);
+	/// <summary>
+	/// 特定のコライダーを削除
+	/// </summary>
+	/// <param name="collider"></param>
 	void RemoveCollider(ColliderBase* collider);
+	/// <summary>
+	/// 登録されている全てのコライダーをクリア
+	/// </summary>
 	void ClearColliders(void);
 
+	/// <summary>
+	/// 接触判定を行い、接触しているペアを記録する
+	/// </summary>
+	/// <param name=""></param>
 	void Update(void);
+
+	/// <summary>
+	/// 押し出し解決を行う
+	/// </summary>
+	/// <param name=""></param>
 	void Resolve(void);
 
+	/// <summary>
+	/// 接触イベントのコールバック関数を設定
+	/// </summary>
+	/// <param name="onBegin">接触が開始したときに呼び出されるコールバック関数。</param>
+	/// <param name="onEnd">接触が終了したときに呼び出されるコールバック関数。</param>
 	void SetContactCallbacks(ContactCallback onBegin, ContactCallback onEnd)
 	{
 		onBegin_ = onBegin;

@@ -14,10 +14,22 @@ public:
 	CollisionLogic(void);
 	~CollisionLogic(void);
 
-	// 形状からペアタイプを取得
+	/// <summary>
+	///　衝突ペアの種類を取得する
+	/// </summary>
+	/// <param name="shapeA">コライダーAの形状</param>
+	/// <param name="shapeB">コライダーBの形状</param>
+	/// <returns>衝突ペアの種類</returns>
 	static CollisionPairType GetCollisionPairType(
 		ColliderShape shapeA, ColliderShape shapeB);
 
+	/// <summary>
+	///　衝突判定を行う
+	/// </summary>
+	/// <param name="pairType">衝突ペアの種類</param>
+	/// <param name="colliderA">コライダーA</param>
+	/// <param name="colliderB">コライダーB</param>
+	/// <returns>衝突結果</returns>
 	static CollisionResult DispatchCollision(
 		CollisionPairType pairType,
 		const ColliderBase* colliderA,
