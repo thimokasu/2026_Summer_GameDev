@@ -1,5 +1,5 @@
 #include "ContactEventManager.h"
-
+#include<algorithm>
 ContactEventManager::ContactEventManager(void)
 {
 }
@@ -42,7 +42,7 @@ void ContactEventManager::Update(void)
 {
 	for (auto& rule : contactRules_)
 	{
-		auto event = contactEventTable_.Query(rule);
+		auto event =Query(rule);
 		auto it = collbackEevnt_.find(event.eventType_);
 		if (it != collbackEevnt_.end())
 		{
@@ -53,4 +53,34 @@ void ContactEventManager::Update(void)
 		}
 	}
 	Clear();
+}
+
+void ContactEventManager::SetContactEventCallback(GameEventType eventType, std::function<void()> callback)
+{
+	collbackEevnt_[eventType].push_back([callback](const ContactRule&) { callback(); });
+}
+
+
+void ContactEventManager::SetEventRule(EntityKind kindA, EntityKind kindB, GameEventType eventType)
+{
+	ruleTable_[std::make_pair(kindA, kindB)] = eventType;
+	ruleTable_[std::make_pair(kindB, kindA)] = eventType;
+}
+
+ContactRule ContactEventManager::Query(ContactRule rule)
+{
+	auto A = rule.contactEvent_.entityA.entityKind_;
+	auto B = rule.contactEvent_.entityB.entityKind_;
+
+	auto it = ruleTable_.find(std::make_pair(A, B));
+	if (it != ruleTable_.end())
+	{
+		rule.eventType_ = it->second;
+	}
+	else
+	{
+		rule.eventType_ = GameEventType::NONE;
+	}
+
+	return rule;
 }

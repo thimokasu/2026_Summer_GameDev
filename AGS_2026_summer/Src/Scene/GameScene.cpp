@@ -1,6 +1,8 @@
 #include "GameScene.h"
 #include<DxLib.h>
 
+#include"../Manager/Game/SceneManager.h"
+
 #include"../Manager/System/Collision/CollisionManager.h"
 #include"../Manager/System/ContactSystem/ContactEventManager.h"
 
@@ -44,8 +46,9 @@ void GameScene::Init(void)
 			Entity entB{ b, actorMng_->GetEntityKind(b) };
 			contactMng_->OnEndContact(entA, entB, CollisionResult{});
 		};
-
-	colMng_->SetContactCallbacks(onBeginContact, onEndContact);
+	colMng_->SetContactCallbacks(onBeginContact, onEndContact);	
+	SetContactEventRule();
+	SetContactEventCallback();
 
 	actorMng_->Init();
 	for (auto& actor : actorMng_->GetActors())
@@ -75,4 +78,16 @@ void GameScene::Release(void)
 {
 	actorMng_->Release();
 	colMng_->ClearColliders();
+}
+
+void GameScene::SetContactEventRule(void)
+{
+	//イベントの発生ルールの設定
+	contactMng_->SetEventRule(EntityKind::PLAYER, EntityKind::STAGE, GameEventType::TEST);
+}
+
+void GameScene::SetContactEventCallback(void)
+{
+	//イベントのコールバック関数の設定
+	contactMng_->SetContactEventCallback(GameEventType::TEST, []() {});
 }

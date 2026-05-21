@@ -24,7 +24,8 @@ public:
 	SCENE_ID GetSceneID(void)const override { return SCENE_ID::GAME; }
 private:
 #pragma region ŠÖ”
-
+	void SetContactEventRule(void);
+	void SetContactEventCallback(void);
 #pragma endregion
 
 #pragma region •Ï”
