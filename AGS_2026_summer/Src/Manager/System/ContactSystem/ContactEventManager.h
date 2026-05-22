@@ -37,6 +37,6 @@ private:
     std::unordered_map<GameEventType, std::vector<std::function<void(const ContactRule&)>>> callbackEvent_;
 
     // --- 処理中の追加に対応するためのバッファ ---
-    bool m_isUpdating = false; // 現在イベント処理中かどうかのフラグ
-    std::vector<std::pair<GameEventType, std::function<void(const ContactRule&)>>> m_pendingAdds;
+    bool isUpdate = false; // 現在イベント処理中かどうかのフラグ
+    std::vector<std::pair<GameEventType, std::function<void(const ContactRule&)>>> pendingAdds;
 };

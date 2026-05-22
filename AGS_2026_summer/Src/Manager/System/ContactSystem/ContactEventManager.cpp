@@ -1,7 +1,7 @@
 #include "ContactEventManager.h"
 #include <algorithm>
 
-ContactEventManager::ContactEventManager(void) : m_isUpdating(false) {}
+ContactEventManager::ContactEventManager(void) : isUpdate(false) {}
 ContactEventManager::~ContactEventManager(void) {}
 
 void ContactEventManager::OnBeginContact(Entity a, Entity b, CollisionResult result)
@@ -27,7 +27,7 @@ void ContactEventManager::OnEndContact(Entity a, Entity b, CollisionResult resul
 
 void ContactEventManager::Update(void)
 {
-    m_isUpdating = true; // ループ開始フラグを立てる
+    isUpdate = true; // ループ開始フラグを立てる
 
     for (auto& rule : contactRules_)
     {
@@ -44,16 +44,16 @@ void ContactEventManager::Update(void)
         }
     }
 
-    m_isUpdating = false; // ループ終了
+    isUpdate = false; // ループ終了
 
     // ループ中に保留された新しいコールバックがあれば、ここで安全に追加する
-    for (auto& pending : m_pendingAdds)
+    for (auto& pending : pendingAdds)
     {
         callbackEvent_[pending.first].push_back(pending.second);
     }
-    m_pendingAdds.clear();
+    pendingAdds.clear();
 
-    ClearQueue(); // イベントキューだけをクリア（touching_は残す）
+    ClearQueue();
 }
 
 void ContactEventManager::SetContactEventCallback(GameEventType eventType, std::function<void()> callback)
@@ -63,10 +63,10 @@ void ContactEventManager::SetContactEventCallback(GameEventType eventType, std::
 
 void ContactEventManager::SetContactEventCallback(GameEventType eventType, std::function<void(const ContactRule&)> callback)
 {
-    if (m_isUpdating)
+    if (isUpdate)
     {
         // Update中なら保留リストに入れる
-        m_pendingAdds.push_back({ eventType, callback });
+        pendingAdds.push_back({ eventType, callback });
     }
     else
     {
