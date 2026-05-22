@@ -39,9 +39,10 @@ void GameContactSystem::Procese(ContactRule rule)
 		a = 1;
 		break;
 	case GameEventType::REACTION_BLOCK:
-		std::dynamic_pointer_cast<ReactionBlock>
-			(event.contactEvent_.entityB.actorPtr)->StepOn();
-
+		if (eventCallback_)
+		{
+			eventCallback_(event.contactEvent_.entityB.entityId);
+		}
 		break;
 	default:
 		break;

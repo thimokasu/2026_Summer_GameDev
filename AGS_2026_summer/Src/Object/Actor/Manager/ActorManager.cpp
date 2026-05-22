@@ -90,6 +90,9 @@ void ActorManager::Update(void)
 	{
 		actor->Update();
 	}
+
+
+
 }
 
 void ActorManager::Draw(void)
@@ -105,7 +108,7 @@ void ActorManager::Draw(void)
 			}
 			else
 			{
-				if (actor->GetComponent<RunnerAIComponent>().GetVisibleTime() > 0.0f)
+				//if (actor->GetComponent<RunnerAIComponent>().GetVisibleTime() > 0.0f)
 				{
 					collider->Draw();
 				}

@@ -10,6 +10,7 @@
 #include"../Manager/System/ContactSystem/ContactSystem.h"
 #include"../Manager/System/ContactSystem/GameContactSystem.h"
 #include"../Manager/System/MoveInputSystem/MoveInputSystem.h"
+#include "../Object/Actor/Stage/FindingJ/ReactionBlock.h"
 
 
 
@@ -71,6 +72,13 @@ void GameScene::Init(void)
 		};
 
 	collisionSystem_.SetContactCallbacks(onBeginContact, onEndContact);
+
+	auto eventCollback = [this](uint32_t a)
+		{
+			std::dynamic_pointer_cast<ReactionBlock>(actorManager_.FindActor(a))->StepOn();
+		};
+
+	gameContactSystem_.SetEventCallback(eventCollback);
 
 	actorManager_.Init();
 

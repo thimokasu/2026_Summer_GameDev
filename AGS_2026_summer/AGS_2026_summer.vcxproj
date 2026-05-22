@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ChaserManager.cpp" />
     <ClCompile Include="Src\Object\Actor\Component\FindingJComponent\ChaserAIComponent\ChaserAIComponent.cpp" />
     <ClCompile Include="Src\Object\Actor\Component\FindingJComponent\RunnerAIComponent\RunnerAIComponent.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\FindingJ\ReactionBlock.cpp" />
@@ -197,6 +198,7 @@
     <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage3Factory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ChaserManager.h" />
     <ClInclude Include="Src\Object\Actor\Component\FindingJComponent\ChaserAIComponent\ChaserAIComponent.h" />
     <ClInclude Include="Src\Object\Actor\Component\FindingJComponent\RunnerAIComponent\RunnerAIComponent.h" />
     <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\ActorFactoryBase.h" />

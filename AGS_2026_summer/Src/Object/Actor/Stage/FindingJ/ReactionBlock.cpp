@@ -25,11 +25,13 @@ ReactionBlock::~ReactionBlock()
 
 void ReactionBlock::SubInit(void)
 {
+
 	trans_.modelId = MV1LoadModel("Data/Stage/ReactionBlock.mv1");
 	const float scale = 0.113f;
 	trans_.scl = VGet(scale, scale, scale);
 
-	//handle_ = LoadEffekseerEffect("Data/Effect/Light/aaa.efk");
+	//‚±‚ê‚¦‚Ó‚¥‚­‚µ‚ 
+	//handle_ = LoadEffekseerEffect("Data/Effect/Light/light.efkpkg");
 }
 
 void ReactionBlock::SubUpdate(void)
@@ -72,5 +74,6 @@ void ReactionBlock::StepOn()
 void ReactionBlock::GlowEffect(void)
 {
 	auto upPos = VAdd(halfSize_, trans_.pos);
+	
 	SetPosPlayingEffekseer3DEffect(handle_, upPos.x, upPos.y, upPos.z);
 }

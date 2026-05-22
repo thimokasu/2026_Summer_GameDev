@@ -4,9 +4,10 @@
 
 #include<vector>
 #include<unordered_map>
+#include <functional>
 class ActorBase;
 
-
+using EventCallback = std::function<void(std::uint32_t)>;
 
 class GameContactSystem
 {
@@ -18,6 +19,12 @@ public:
 
 	void Clear(void);
 
+	//イベントコールバックの設定
+	void SetEventCallback(EventCallback callback)
+	{
+		eventCallback_ = callback;
+	}
+
 private:
 	// 接触イベントの処理
 	void Procese(ContactRule rule);
@@ -25,6 +32,7 @@ private:
 
 	ContactSystem contactSystem_;
 	ContactRuleTable contactRuleTable_;
+	EventCallback eventCallback_;
 
 	
 };
