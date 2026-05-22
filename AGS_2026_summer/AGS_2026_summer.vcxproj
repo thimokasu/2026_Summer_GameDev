@@ -139,6 +139,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Actor\Charactor\Player\CharactorBase.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\FindingJ\ReactionBlock.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\FindingJ\Block.cpp" />
     <ClCompile Include="Src\Manager\System\ContactSystem\ContactEventManager.cpp" />
     <ClCompile Include="Src\Manager\System\Collision\CollisionLogic.cpp" />
     <ClCompile Include="Src\Manager\System\Collision\CollisionManager.cpp" />
@@ -172,8 +175,14 @@
     <ClCompile Include="Src\Utility\AsoUtility.cpp" />
     <ClCompile Include="Src\Scene\TitleScene.cpp" />
     <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\Test\TestFactory.cpp" />
+    <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage1Factory.cpp" />
+    <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage2Factory.cpp" />
+    <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage3Factory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Actor\Charactor\Player\CharactorBase.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\FindingJ\ReactionBlock.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\FindingJ\Block.h" />
     <ClInclude Include="Src\Manager\System\ContactSystem\ContactEventManager.h" />
     <ClInclude Include="Src\Manager\System\Collision\CollisionLogic.h" />
     <ClInclude Include="Src\Manager\System\Collision\CollisionManager.h" />
@@ -183,6 +192,7 @@
     <ClInclude Include="Src\Manager\System\ContactSystem\GameEventType.h" />
     <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\ActorFactoryBase.h" />
     <ClInclude Include="Src\Object\Actor\Manager\ActorManager.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\FindingJ\StageLayout.h" />
     <ClInclude Include="Src\Scene\GameScene.h" />
     <ClInclude Include="Src\Object\Actor\Shape\Sphere.h" />
     <ClInclude Include="Src\Object\Actor\Shape\Capsule.h" />
@@ -217,6 +227,9 @@
     <ClInclude Include="Src\Object\Common\Transform.h" />
     <ClInclude Include="Src\Scene\SceneBase.h" />
     <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\Test\TestFactory.h" />
+    <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage1Factory.h" />
+    <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage2Factory.h" />
+    <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage3Factory.h" />
     <Structure Include="Src\Manager\Game\SceneManager.h" />
     <ClInclude Include="Src\Manager\Game\SceneManager.h" />
     <ClInclude Include="Src\Application.h" />

@@ -25,6 +25,8 @@ void RigidBody::SetBodyType(BodyType type)
 	if (type == BodyType::STATIC)
 	{
 		inverseMass_ = 0.0f;
+		//d—Í‚ğg—p‚µ‚È‚¢
+		useGravity_ = false;
 	}
 }
 
