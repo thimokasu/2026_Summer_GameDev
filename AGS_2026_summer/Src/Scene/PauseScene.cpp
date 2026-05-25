@@ -51,3 +51,27 @@ void PauseScene::Draw(void)
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	DrawString(0, 0, "pause", 0xffffff);
 }
+
+void PauseScene::AppearUpdate()
+{
+}
+
+void PauseScene::NormalUpdate()
+{
+}
+
+void PauseScene::DisappearUpdate()
+{
+}
+
+void PauseScene::ExpandDraw()
+{
+}
+
+void PauseScene::NormalDraw()
+{
+}
+
+void PauseScene::DrawFrame()
+{
+}
