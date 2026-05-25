@@ -9,6 +9,7 @@
 #include"../Component/PlayerInputComponent/PlayerInputComponent.h"
 #include"../Component/RigidBodyComponent/RigidBody.h"
 #include "../Component/FindingJComponent/RunnerAIComponent/RunnerAIComponent.h"
+#include "../Component/FindingJComponent/ChaserAIComponent/ChaserAIComponent.h"
 
 #include"../ActorBase.h"
 #include"../../Common/Transform.h"
@@ -37,6 +38,7 @@ void ActorManager::Load(void)
 
 void ActorManager::Load(GameInfo info)
 {
+	//ÉvÉåÉCÉÑÅ[
 	auto player = std::make_shared<Capsule>(8.0f, VGet(0.0f, 10.0f, 0.0f), VGet(0.0f, -10.0f, 0.0f));
 	player->SetEntityKind(EntityKind::PLAYER);
 	player->GetTransform().pos = VGet(0.0f, 100.0f, 0.0f);
@@ -56,7 +58,7 @@ void ActorManager::Load(GameInfo info)
 	//CPU(ì¶Ç∞ÇÈë§)
 	auto  runner = std::make_shared<Capsule>(8.0f, VGet(0.0f, 10.0f, 0.0f), VGet(0.0f, -10.0f, 0.0f));
 	runner->SetEntityKind(EntityKind::CPU);
-	runner->GetTransform().pos = VGet(0.0f, 100.0f, 10.0f);
+	runner->GetTransform().pos = VGet(10.0f, 100.0f, 10.0f);
 	auto rbRunner = std::make_shared<RigidBody>();
 	rbRunner->SetBodyType(RigidBody::BodyType::DYNAMIC);
 	rbRunner->SetMoveSpeed(5);
@@ -64,6 +66,18 @@ void ActorManager::Load(GameInfo info)
 	runner->AddComponent(rbRunner);
 	runner->AddComponent(std::make_shared<RunnerAIComponent>());
 	actors_.push_back(runner);
+
+	//CPU(ãS)
+	auto chaser = std::make_shared<Capsule>(8.0f, VGet(0.0f, 10.0f, 0.0f), VGet(0.0f, -10.0f, 0.0f));
+	chaser->SetEntityKind(EntityKind::CPU);
+	chaser->GetTransform().pos = VGet(10.0f, 100.0f, 20.0f);
+	auto rbChaser = std::make_shared<RigidBody>();
+	rbChaser->SetBodyType(RigidBody::BodyType::DYNAMIC);
+	rbChaser->SetMoveSpeed(5);
+	rbChaser->SetJumpPower(30);
+	chaser->AddComponent(rbChaser);
+	chaser->AddComponent(std::make_shared<ChaserAIComponent>());
+	actors_.push_back(chaser);
 
 	SetFactory(info);
 

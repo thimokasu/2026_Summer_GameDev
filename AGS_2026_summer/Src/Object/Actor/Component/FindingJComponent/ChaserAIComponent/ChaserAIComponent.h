@@ -11,10 +11,10 @@ enum class ChaserRole
 	Blocker,  // 遮断役
 };
 
-class ChaserController : public ComponentBase
+class ChaserAIComponent : public ComponentBase
 {
 public:
-	ChaserController()
+	ChaserAIComponent()
 		: ComponentBase()
 		, role_(ChaserRole::Wander)
 		, targetPos_(0.0f, 0.0f, 0.0f)
@@ -62,7 +62,7 @@ private:
 	void WanderBehavior();
 
 private:
-	ChaserRole role_;
+	ChaserRole role_ = ChaserRole::Wander;
 	VECTOR targetPos_; 
 	bool isCPU_;        // 人間かCPUかを識別するフラグ
 	float x_ = 0.0f;
@@ -76,4 +76,6 @@ private:
 	int tileD_ = 1;
 	int targetTileX_ = 1;
 	int targetTileD_ = 1;
+	int prevW_ = -1; // 一つ前のマス（横
+	int prevD_ = -1; // 一つ前のマス（縦）
 };

@@ -1,5 +1,6 @@
 #include "GameScene.h"
 #include<DxLib.h>
+#include "../Application.h"
 
 #include"../Manager/Game/SceneManager.h"
 #include"../Manager/Resource/ResourceManager.h"
@@ -86,6 +87,7 @@ void GameScene::Init(void)
 	{
 	collisionSystem_.AddCollider(actor->GetOwnColliders());
 	}
+
 }
 
 void GameScene::Update(void)
@@ -102,6 +104,8 @@ void GameScene::Update(void)
 
 	gameContactSystem_.Update(contactSystem_.GetContactEvent());
 	contactSystem_.Clear();
+
+	timer_.Update();
 }
 
 void GameScene::Draw(void)
@@ -109,6 +113,8 @@ void GameScene::Draw(void)
 	DrawString(0, 0, "game", 0xffffff);
 
 	actorManager_.Draw();
+	gameContactSystem_.DrawDebug();
+	timer_.Draw(Application::SCREEN_SIZE_X, 10);
 
 
 }

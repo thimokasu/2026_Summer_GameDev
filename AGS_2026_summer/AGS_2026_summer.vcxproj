@@ -196,6 +196,7 @@
     <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage1Factory.cpp" />
     <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage2Factory.cpp" />
     <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage3Factory.cpp" />
+    <ClCompile Include="Src\Object\UI\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChaserManager.h" />
@@ -272,6 +273,7 @@
     <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage1Factory.h" />
     <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage2Factory.h" />
     <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage3Factory.h" />
+    <ClInclude Include="Src\Object\UI\Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -26,6 +26,8 @@ void GameContactSystem::Clear(void)
 
 void GameContactSystem::Procese(ContactRule rule)
 {
+	
+
 	//î≠ê∂Ç∑ÇÈÉCÉxÉìÉgåQÇîªï 
 	auto event = contactRuleTable_.Query(rule);
 
@@ -44,9 +46,22 @@ void GameContactSystem::Procese(ContactRule rule)
 			eventCallback_(event.contactEvent_.entityB.entityId);
 		}
 		break;
+	case GameEventType::HAS_CAUGHT:
+		isDebugDraw_ = true;
+		break;
 	default:
 		break;
 	}
 
+	
+
+}
+
+void GameContactSystem::DrawDebug(void)
+{
+	if (isDebugDraw_)
+	{
+		DrawString(0, 20, "Caught!", GetColor(255, 0, 0));
+	}
 }
 

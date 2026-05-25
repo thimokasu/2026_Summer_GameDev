@@ -25,6 +25,8 @@ public:
 		eventCallback_ = callback;
 	}
 
+	void DrawDebug(void);
+
 private:
 	// ÚGƒCƒxƒ“ƒg‚Ìˆ—
 	void Procese(ContactRule rule);
@@ -33,6 +35,8 @@ private:
 	ContactSystem contactSystem_;
 	ContactRuleTable contactRuleTable_;
 	EventCallback eventCallback_;
+
+	bool isDebugDraw_ = false;
 
 	
 };

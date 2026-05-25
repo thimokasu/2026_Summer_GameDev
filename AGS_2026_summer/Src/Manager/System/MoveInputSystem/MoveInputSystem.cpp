@@ -3,6 +3,7 @@
 #include"../../../Object/Actor/Component/PlayerInputComponent/PlayerInputComponent.h"
 #include"../../../Object/Actor/Component/RigidBodyComponent/RigidBody.h"
 #include"../../../Object/Actor/Component/FindingJComponent/RunnerAIComponent/RunnerAIComponent.h"
+#include"../../../Object/Actor/Component/FindingJComponent/ChaserAIComponent/ChaserAIComponent.h"
 
 #include"../../../Object/Actor/ActorBase.h"
 #include"../../../Manager/Game/SceneManager.h"
@@ -74,6 +75,24 @@ void MoveInputSystem::Update(const std::vector<std::shared_ptr<ActorBase>>& obje
 
 			//鬼の場所を教える
 			ai.SetEnemyPositions(playerPositions);
+
+			// 思考
+			ai.Update();
+
+			VECTOR targetPos = ai.GetTargetPosition();
+			VECTOR moveDir = VSub(targetPos, obj->GetTransform().prevPos);
+			if (VSize(moveDir) > 0.0f)
+			{
+				moveDir = VNorm(moveDir);
+			}
+			rb.AddForce(VScale(moveDir, rb.GetMoveSpeed()));
+		}
+		else if (obj->HasComponent<ChaserAIComponent>())
+		{
+			auto& rb = obj->GetComponent<RigidBody>();
+			auto& ai = obj->GetComponent<ChaserAIComponent>();
+			ai.SetPos(obj->GetTransform().pos.x, obj->GetTransform().pos.z);
+
 
 			// 思考
 			ai.Update();

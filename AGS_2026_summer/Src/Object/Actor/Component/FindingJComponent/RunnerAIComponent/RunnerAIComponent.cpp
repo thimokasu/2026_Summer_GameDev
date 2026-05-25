@@ -81,7 +81,7 @@ float RunnerAIComponent::CalculateTileScore(int tw, int td, const std::vector<VE
     for (const auto& e : enemyPos) {
         float dist = VSize(VSub(tilePos, e));
         if (dist < 1.0f) dist = 1.0f; // ƒ[ƒœŽZ–hŽ~
-        score += (1000.0f / dist);
+        score += (2000.0f / dist);
     }
 
     // Œõ‚é°‚ð’Ê‚éƒŠƒXƒN‚ðl—¶

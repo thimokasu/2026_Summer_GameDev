@@ -1,7 +1,7 @@
 ﻿#include "ChaserAIComponent.h"
 
 
-void ChaserController::UpdateAI()
+void ChaserAIComponent::UpdateAI()
 {
 	switch (role_)
 	{
@@ -23,59 +23,63 @@ void ChaserController::UpdateAI()
 	}
 }
 
-void ChaserController::UpdatePlayer()
+void ChaserAIComponent::UpdatePlayer()
 {
 
 }
 
-void ChaserController::WanderBehavior()
+void ChaserAIComponent::WanderBehavior()
 {
-	// 3D空間の現在座標から、現在のタイル位置を逆算（TileSize = 20）
-	if (!isMoving_)
-	{
-		//進む方向を決める
-		std::vector<int> selectableDirections;
+	// 現在のタイルインデックスを算出
+	int curW = static_cast<int>(x_ / TileSize);
+	int curD = static_cast<int>(z_ / TileSize);
 
-		for (int i = 0; i < 4; ++i)
-		{
-			int nextX = tileX_ + DIR_X[i];
-			int nextD = tileD_ + DIR_D[i];
+	std::vector<VECTOR> selectablePositions;
 
-			if (nextX >= 0 && nextX < W && nextD >= 0 && nextD < D)
-			{
-				if (Stage1::stage[1][nextD][nextX] == StageLayout::None)
-				{
-					// Uターンは、行き止まりじゃない限り避けるための判定
-					int backDirIndex = currentDirIndex_ ^ 1; 
-					if (i == backDirIndex && selectableDirections.size() > 0)
-					{
-						continue;
-						}
-					selectableDirections.push_back(i);
-				}
-			}
-		}
+	for (int dw = -1; dw <= 1; ++dw) {
+		for (int dd = -1; dd <= 1; ++dd) {
+			int nextW = curW + dw;
+			int nextD = curD + dd;
 
-		// 進める方向からランダムに1つ選択
-		if (!selectableDirections.empty())
-		{
-			// 本来は乱数（GetRandなど）を使う
-			int randIndex = DxLib::GetRand(static_cast<int>(selectableDirections.size()) - 1);
-			currentDirIndex_ = selectableDirections[randIndex];
+			// 範囲外チェック
+			if (nextW < 0 || nextW >= W || nextD < 0 || nextD >= D) continue;
 
-			targetTileX_ = tileX_ + DIR_X[currentDirIndex_];
-			targetTileD_ = tileD_ + DIR_D[currentDirIndex_];
-			isMoving_ = true;
+			// 高さ1が壁（None以外）なら通れない
+			if (Stage1::stage[1][nextD][nextW] != StageLayout::None) continue;
+
+			// 自分のいる場所（足元）ならスキップ
+			if (dw == 0 && dd == 0) continue;
+
+			// 一つ前のマス（今来た道）ならスキップ
+			if (nextW == prevW_ && nextD == prevD_) continue;
+
+			// 条件に合うマスの中心座標をリストに追加していく
+			VECTOR moveTilePos = VGet(nextW * TileSize + (TileSize / 2.0f), 0, nextD * TileSize + (TileSize / 2.0f));
+			selectablePositions.push_back(moveTilePos);
 		}
 	}
 
-	// 移動中の処理
-	if (isMoving_)
+	// ★【行き止まり対策】もし前や左右がすべて壁で、進める場所がゼロだった場合
+	if (selectablePositions.empty() && (prevW_ != -1 && prevD_ != -1))
 	{
-		// 目標タイルの世界座標を計算
-		float worldTargetX = targetTileX_ * TileSize + (TileSize / 2.0f);
-		float worldTargetZ = targetTileD_ * TileSize + (TileSize / 2.0f); // 奥行きをZとする
+		// しかたがないので「一つ前のマス（後ろ）」を候補に入れてUターンを許可する
+		VECTOR backTilePos = VGet(prevW_ * TileSize + (TileSize / 2.0f), 0, prevD_ * TileSize + (TileSize / 2.0f));
+		selectablePositions.push_back(backTilePos);
+	}
 
-		
+	// 候補リストからランダムに目的地を選ぶ
+	if (!selectablePositions.empty())
+	{
+		int randIndex = DxLib::GetRand(static_cast<int>(selectablePositions.size()) - 1);
+
+		// ★【重要】実際に目的地を上書きする前に、「今の場所」を「一つ前の場所」として記憶する！
+		if (selectablePositions[randIndex].x != targetPos_.x || selectablePositions[randIndex].z != targetPos_.z)
+		{
+			prevW_ = curW;
+			prevD_ = curD;
+		}
+
+		// 目的地を決定
+		targetPos_ = selectablePositions[randIndex];
 	}
 }

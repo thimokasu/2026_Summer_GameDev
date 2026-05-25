@@ -8,5 +8,7 @@ enum class GameEventType
 
 	REACTION_BLOCK,
 
+	HAS_CAUGHT,
+
 	MAX
 };
