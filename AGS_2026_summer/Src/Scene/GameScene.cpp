@@ -26,6 +26,7 @@
 
 GameScene::GameScene(void)
 {
+	pauseScene_ = std::make_unique<PauseScene>();
 }
 
 GameScene::~GameScene(void)
@@ -115,6 +116,28 @@ void GameScene::Init(void)
 
 void GameScene::Update(void)
 {
+	//エスケープ押したらメニューシーンへ
+	if (KeyManager::GetIns().GetInfo(KEY_TYPE::PAUSE).down)
+	{
+		isPause_ = !isPause_;
+	}
+
+	if (isPause_)
+	{
+		if (pauseScene_)
+		{
+			pauseScene_->Update();
+		}
+		return;
+	}
+
+	//スペース押したらゲームシーンへ
+	if (KeyManager::GetIns().GetInfo(KEY_TYPE::SPACE).down)
+	{
+		SceneManager::GetInstance().ChangeScene(SCENE_ID::TITLE);
+		return;
+	}
+
 	for (auto& actor : actors_)
 	{
 		actor->Update();
@@ -123,24 +146,10 @@ void GameScene::Update(void)
 	moveInputSystem_.Update(actors_);
 	physicsSystem_.Update(actors_);
 
-
-
 	collisionSystem_.Update();
 	gameContactSystem_.Update();
 
 	physicsSystem_.Resolve(actors_,collisionSystem_.GetCollisionMainfold());
-
-	//スペース押したらゲームシーンへ
-	if (KeyManager::GetIns().GetInfo(KEY_TYPE::SPACE).down)
-	{
-		SceneManager::GetInstance().ChangeScene(SCENE_ID::TITLE);
-	}
-
-	if(KeyManager::GetIns().GetInfo(KEY_TYPE::PAUSE).down)
-	{
-		SceneManager::GetInstance().ChangeScene(SCENE_ID::PAUSE);
-	}
-
 }
 
 void GameScene::Draw(void)
@@ -154,6 +163,12 @@ void GameScene::Draw(void)
 		{
 			collider->Draw();
 		}
+	}
+
+	if (isPause_)
+	{
+		pauseScene_->Draw();
+		return;
 	}
 }
 

@@ -1,5 +1,6 @@
 #pragma once
 #include "SceneBase.h"
+#include"../Scene/PauseScene.h"
 class SceneManager;
 
 class TitleScene :
@@ -18,6 +19,10 @@ private:
     //ƒ^ƒCƒgƒ‹‰æ‘œ
     int imgTitle_;
     int imgPush_;
+
+    bool isPause_ = false;
+
+    std::unique_ptr<PauseScene> pauseScene_;
 
 };
 

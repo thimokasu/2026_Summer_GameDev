@@ -8,6 +8,7 @@ TitleScene::TitleScene(void)
 {
 	imgPush_ = -1;
 	imgTitle_ = -1;
+	pauseScene_ = std::make_unique<PauseScene>();
 }
 
 TitleScene::~TitleScene(void)
@@ -32,9 +33,17 @@ void TitleScene::Update(void)
 	//エスケープ押したらメニューシーンへ
 	if (KeyManager::GetIns().GetInfo(KEY_TYPE::PAUSE).down)
 	{
-		SceneManager::GetInstance().ChangeScene(SCENE_ID::PAUSE);
+		isPause_ = !isPause_;
 	}
 
+	if (isPause_)
+	{
+		if(pauseScene_)
+		{
+			pauseScene_->Update();
+		}
+		return;
+	}
 }
 
 void TitleScene::Draw(void)
@@ -44,4 +53,11 @@ void TitleScene::Draw(void)
 
 	DrawGraph(0, 0, imgTitle_, TRUE);
 	DrawGraph(600, 700, imgPush_, TRUE);
+
+	if (isPause_)
+	{
+		pauseScene_->Draw();
+		return;
+	}
+
 }

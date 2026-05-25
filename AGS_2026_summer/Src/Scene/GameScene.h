@@ -9,6 +9,7 @@
 #include"../Manager/System/ContactSystem/GameContactSystem.h"
 #include"../Manager/System/MoveInputSystem/MoveInputSystem.h"
 #include"../Manager/System/PhysicsSystem/PhysicsSystem.h"
+#include"../Scene/PauseScene.h"
 
 #include"../Manager/Generic/KeyManager.h"
 
@@ -38,5 +39,8 @@ private:
     
     int EntityId = 0;
 
+	bool isPause_ = false;
+
+	std::unique_ptr<PauseScene> pauseScene_;
 };
 

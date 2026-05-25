@@ -154,9 +154,9 @@ void SceneManager::Destroy(void)
 	Loading::GetInstance()->DeleteInstance();
 
 
-	// インスタンスのメモリ解放
-	delete instance_;
-	instance_ = nullptr;
+	//// インスタンスのメモリ解放
+	//delete instance_;
+	//instance_ = nullptr;
 }
 
 void SceneManager::ChangeScene(std::shared_ptr<SceneBase>_scene)
