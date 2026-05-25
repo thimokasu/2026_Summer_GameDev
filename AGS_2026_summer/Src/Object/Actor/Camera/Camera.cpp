@@ -4,7 +4,7 @@
 #include"../../../Manager/Generic/KeyManager.h"
 #include"../../Common/Transform.h"
 #include"../Collider/ColliderSphere.h"
-#include"../ActorTag.h"
+
 Camera::Camera(void)
 	:
 	ActorBase(),

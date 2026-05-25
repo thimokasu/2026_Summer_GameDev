@@ -47,7 +47,7 @@ void Block::InitCollider(void)
 	info.localRot_ = { 0.0f,0.0f,0.0f };
 	info.isTrigger_ = false;
 	info.isActive_ = true;
-
+	info.debugColor_ = GetColor(0, 255, 0);
 	std::unique_ptr<ColliderBase> collider =
 		std::make_unique<ColliderBox>(info, halfSize_, *this);
 	ownColliders_.emplace(static_cast<int>(ColliderShape::BOX), std::move(collider));

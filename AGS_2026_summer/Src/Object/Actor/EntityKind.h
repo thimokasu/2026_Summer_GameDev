@@ -3,9 +3,14 @@
 
 enum class EntityKind
 {
+	//‹¤’Ê
 	NONE = 0,
 	CAMERA,
 	STAGE,
-	REACTION_BLOCK,
 	PLAYER,
+
+	//FindingJ
+	BLOCK,
+	REACTION_BLOCK,
+	FINDINGJ_CPU
 };

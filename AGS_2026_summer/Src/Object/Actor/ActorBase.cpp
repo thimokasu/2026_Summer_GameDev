@@ -32,7 +32,7 @@ void ActorBase::Update(void)
 void ActorBase::Draw(void)
 {
 	SubDraw();
-	MV1DrawModel(trans_.modelId);
+	if (isDraw_)MV1DrawModel(trans_.modelId);
 }
 
 void ActorBase::Release(void)

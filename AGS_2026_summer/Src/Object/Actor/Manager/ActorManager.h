@@ -24,6 +24,8 @@ public:
 
 	std::vector<std::unique_ptr<ActorBase>>& GetActors(void) { return actors_; }
 	EntityKind GetEntityKind(EntityID id) const;
+	//w’è‚³‚ê‚½Kind‚ÌActor‚ğ•Ô‚·
+	std::vector<ActorBase*>FindActorsByKind(EntityKind kind)const;
 
 private:
 #pragma region •Ï”

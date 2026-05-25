@@ -19,6 +19,12 @@ void FindingJ::SubLoad(void)
 
 void FindingJ::SubInit(void)
 {
+	entityKind_ = EntityKind::PLAYER;
+	rigidBody_.SetBodyType(RigidBody::BodyType::DYNAMIC);
+	rigidBody_.SetUseGravity(true);
+	rigidBody_.SetMass(100);
+	rigidBody_.SetMoveSpeed(0.5f);
+	trans_.pos = VGet(0.0f, 40.0f, 0.0f);
 }
 
 void FindingJ::SubUpdate(void)
@@ -40,7 +46,7 @@ void FindingJ::InitCollider(void)
 	info.shape_ = ColliderShape::CAPSULE;
 	info.layer_ = ColliderLayer::ACTOR;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE });
-	float radius = 5.0f;
+	float radius = 10.0f;
 	VECTOR localPosTop = VGet(0.0f, 10.0f, 0.0f);
 	VECTOR localPosDown = VGet(0.0f, -10.0f, 0.0f);
 	std::unique_ptr<ColliderCapsule>collider =

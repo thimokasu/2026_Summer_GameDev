@@ -8,6 +8,8 @@
 #include"../Factory/ActorFactory/FindingJ/Stage2Factory.h"
 #include"../Factory/ActorFactory/FindingJ/Stage3Factory.h"
 
+#include"../Charactor/Player/FindingJ/FindingJCPU.h"
+
 ActorManager::ActorManager(void)
 {
 }
@@ -24,6 +26,7 @@ void ActorManager::Load(GameInfo info)
 	{
 		actors_.push_back(std::move(actor));
 	}
+	actors_.push_back(std::make_unique<FindingJCPU>(*this));
 }
 
 void ActorManager::Init(void)
@@ -87,6 +90,21 @@ EntityKind ActorManager::GetEntityKind(EntityID id) const
 {
 	return id2kind_.at(id);
 }
+
+std::vector<ActorBase*> ActorManager::FindActorsByKind(EntityKind kind) const
+{
+	std::vector<ActorBase*>actors;
+
+	for (const auto& a : actors_)
+	{
+		if (a->GetEntityKind() == kind)
+		{
+			actors.push_back(a.get());
+		}
+	}
+	return actors;
+}
+
 
 void ActorManager::BindID2Kind(void)
 {

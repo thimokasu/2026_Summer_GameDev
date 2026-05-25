@@ -20,14 +20,7 @@ std::vector<std::unique_ptr<ActorBase>> Stage2Factory::CreateActors(void)
 	std::vector<std::unique_ptr<ActorBase>> actors;	
 	actors.push_back(
 		std::make_unique<FindingJ>());
-	actors.back()->SetEntityKind(EntityKind::PLAYER);
-	actors.back()->GetRigidBody().SetBodyType(RigidBody::BodyType::DYNAMIC);
-	actors.back()->GetRigidBody().SetUseGravity(false);
-	actors.back()->GetRigidBody().SetMass(1);
-	actors.back()->GetRigidBody().SetMoveSpeed(0.5);
-	actors.back()->GetRigidBody().SetUseGravity(true);
-	actors.back()->GetTransform().pos = VGet(0.0f, 40.0f, 0.0f);
-
+	
 
 	for (int h = 0; h < H; h++)
 	{
@@ -35,7 +28,7 @@ std::vector<std::unique_ptr<ActorBase>> Stage2Factory::CreateActors(void)
 		{
 			for (int w = 0; w < W; w++)
 			{
-				layout = Stage1::stage[h][d][w];
+				layout = Stage2::stage[h][d][w];
 				if (layout == StageLayout::Block)
 				{
 					actors.push_back(

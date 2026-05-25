@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJCPU.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJr.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\CharactorBase.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\FindingJ\ReactionBlock.cpp" />
@@ -181,6 +182,7 @@
     <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage3Factory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJCPU.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJ.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\CharactorBase.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FindingJ\ReactionBlock.h" />
@@ -218,7 +220,6 @@
     <ClInclude Include="Src\Manager\Resource\ResourceName.h" />
     <ClInclude Include="Src\Manager\Resource\ResourceType.h" />
     <ClInclude Include="Src\Object\Actor\ActorBase.h" />
-    <ClInclude Include="Src\Object\Actor\ActorTag.h" />
     <ClInclude Include="Src\Object\Actor\Camera\Camera.h" />
     <ClInclude Include="Src\Object\Actor\Collider\ColliderBase.h" />
     <ClInclude Include="Src\Object\Actor\Collider\ColliderBox.h" />

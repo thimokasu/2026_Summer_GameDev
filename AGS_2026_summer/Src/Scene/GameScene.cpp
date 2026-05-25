@@ -12,7 +12,7 @@ GameScene::GameScene(void)
 {
 	gameInfo_.mode_ = GameMode::FOURPLAYER;
 	gameInfo_.game_ = static_cast<Game>(FourPlayer::Game::FindingJ);
-	gameInfo_.stageNum_ = static_cast<int>(FourPlayer::FindingJ::Stage::Stage1);
+	gameInfo_.stageNum_ = static_cast<int>(FourPlayer::FindingJ::Stage::Stage3);
 }
 
 GameScene::GameScene(GameInfo info)

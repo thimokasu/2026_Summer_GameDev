@@ -46,6 +46,10 @@ public:
 	void SetIsActive(bool isActive) { isActive_ = isActive; }
 	//自身のコライダーリスト取得
 	const std::map<int, std::unique_ptr<ColliderBase>>& GetOwnColliders(void) const { return ownColliders_; }
+	//描画状態取得
+	bool GetIsDraw(void) const { return isDraw_; }
+	//描画状態設定
+	void SetIsDraw(bool isDraw) { isDraw_ = isDraw; }
 protected:
 #pragma region 関数
 	virtual void SubLoad(void) {};
@@ -56,7 +60,7 @@ protected:
 
 	virtual void InitCollider(void) {};
 
-	virtual void Move(void);
+	void Move(void);
 #pragma endregion
 
 #pragma region 変数
@@ -70,6 +74,8 @@ protected:
 	int entityID_;
 	//エンティティ種別
 	EntityKind entityKind_;
+	//描画状態
+	bool isDraw_;
 	//アクティブ状態
 	bool isActive_;
 	//自身のコライダーリスト
