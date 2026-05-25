@@ -6,6 +6,7 @@
 #include"../Common/Transform.h"
 #include"../Common/RigidBody.h"
 #include"EntityKind.h"
+#include"Collider/ColliderInfo.h"
 
 class AnimationController;
 class ColliderBase;

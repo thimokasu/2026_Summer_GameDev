@@ -3,7 +3,7 @@
 #include"../../../Stage/FindingJ/ReactionBlock.h"
 #include"../../../Stage/FindingJ/StageLayout.h"
 #include"../../../../Common/RigidBody.h"
-
+#include"./../../../Charactor/Player/FindingJ/FindingJ.h"
 Stage1Factory::Stage1Factory()
 {
 }
@@ -17,6 +17,16 @@ std::vector<std::unique_ptr<ActorBase>> Stage1Factory::CreateActors(void)
 	StageLayout layout;
 	layout = Stage1::stage[0][0][0];
 	std::vector<std::unique_ptr<ActorBase>> actors;
+
+	actors.push_back(
+		std::make_unique<FindingJ>());
+	actors.back()->SetEntityKind(EntityKind::PLAYER);
+	actors.back()->GetRigidBody().SetBodyType(RigidBody::BodyType::DYNAMIC);
+	actors.back()->GetRigidBody().SetUseGravity(false);
+	actors.back()->GetRigidBody().SetMass(1);
+	actors.back()->GetRigidBody().SetMoveSpeed(0.5);
+	actors.back()->GetRigidBody().SetUseGravity(true);
+	actors.back()->GetTransform().pos = VGet(0.0f, 40.0f, 0.0f);
 
 	for (int h = 0; h < H; h++)
 	{

@@ -4,6 +4,9 @@
 #include"../Factory/ActorFactory/ActorFactoryBase.h"
 #include"../Collider/ColliderBase.h"
 #include"../Factory/ActorFactory/Test/TestFactory.h"
+#include"../Factory/ActorFactory/FindingJ/Stage1Factory.h"
+#include"../Factory/ActorFactory/FindingJ/Stage2Factory.h"
+#include"../Factory/ActorFactory/FindingJ/Stage3Factory.h"
 
 ActorManager::ActorManager(void)
 {
@@ -104,8 +107,8 @@ void ActorManager::SetFactory(GameInfo info)
 			if (info.stageNum_ == (int)Test::A::Stage::Stage1)
 			{
 				actorFactory_ = std::make_unique<TestFactory>();
-			}
 			break;
+			}
 		}
 		break;
 	case GameMode::ONEPLAYER:
@@ -131,9 +134,9 @@ void ActorManager::SetFactory(GameInfo info)
 		}
 		break;
 	case GameMode::TWOPLAYER:
-		switch (static_cast<OnePlayer::Game>(info.game_))
+		switch (static_cast<TwoPlayer::Game>(info.game_))
 		{
-		case OnePlayer::Game::A:
+		case TwoPlayer::Game::A:
 			if (info.stageNum_ == 0) {
 			}
 			else if (info.stageNum_ == 1) {
@@ -141,7 +144,7 @@ void ActorManager::SetFactory(GameInfo info)
 			else {
 			}
 			break;
-		case OnePlayer::Game::B:
+		case TwoPlayer::Game::B:
 			if (info.stageNum_ == 0) {
 			}
 			else if (info.stageNum_ == 1) {
@@ -152,9 +155,9 @@ void ActorManager::SetFactory(GameInfo info)
 		}
 		break;
 	case GameMode::THREEPLAYER:
-		switch (static_cast<OnePlayer::Game>(info.game_))
+		switch (static_cast<ThreePlayer::Game>(info.game_))
 		{
-		case OnePlayer::Game::A:
+		case ThreePlayer::Game::A:
 			if (info.stageNum_ == 0) {
 			}
 			else if (info.stageNum_ == 1) {
@@ -162,7 +165,7 @@ void ActorManager::SetFactory(GameInfo info)
 			else {
 			}
 			break;
-		case OnePlayer::Game::B:
+		case ThreePlayer::Game::B:
 			if (info.stageNum_ == 0) {
 			}
 			else if (info.stageNum_ == 1) {
@@ -173,17 +176,23 @@ void ActorManager::SetFactory(GameInfo info)
 		}
 		break;
 	case GameMode::FOURPLAYER:
-		switch (static_cast<OnePlayer::Game>(info.game_))
+		switch (static_cast<FourPlayer::Game>(info.game_))
 		{
-		case OnePlayer::Game::A:
-			if (info.stageNum_ == 0) {
+		case FourPlayer::Game::FindingJ:
+			if (info.stageNum_ == (int)FourPlayer::FindingJ::Stage::Stage1) {
+				actorFactory_ = std::make_unique<Stage1Factory>();
+				break;
 			}
-			else if (info.stageNum_ == 1) {
+			else if (info.stageNum_ == (int)FourPlayer::FindingJ::Stage::Stage2) {
+				actorFactory_ = std::make_unique<Stage2Factory>();
+				break;
 			}
 			else {
+				actorFactory_ = std::make_unique<Stage3Factory>();
+				break;
 			}
 			break;
-		case OnePlayer::Game::B:
+		case FourPlayer::Game::B:
 			if (info.stageNum_ == 0) {
 			}
 			else if (info.stageNum_ == 1) {

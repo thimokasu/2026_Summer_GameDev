@@ -18,6 +18,7 @@ void CharactorBase::SubInit(void)
 
 void CharactorBase::SubUpdate(void)
 {
+	MoveInput();
 }
 
 void CharactorBase::SubDraw(void)

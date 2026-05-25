@@ -10,9 +10,9 @@
 
 GameScene::GameScene(void)
 {
-	gameInfo_.mode_ = GameMode::TEST;
-	gameInfo_.game_ = static_cast<Game>(Test::Game::A);
-	gameInfo_.stageNum_ = static_cast<int>(Test::A::Stage::Stage1);
+	gameInfo_.mode_ = GameMode::FOURPLAYER;
+	gameInfo_.game_ = static_cast<Game>(FourPlayer::Game::FindingJ);
+	gameInfo_.stageNum_ = static_cast<int>(FourPlayer::FindingJ::Stage::Stage1);
 }
 
 GameScene::GameScene(GameInfo info)

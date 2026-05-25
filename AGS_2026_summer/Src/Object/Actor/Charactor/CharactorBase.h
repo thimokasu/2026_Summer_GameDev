@@ -1,5 +1,5 @@
 #pragma once
-#include "../../ActorBase.h"
+#include "../ActorBase.h"
 class CharactorBase :
     public ActorBase
 {
@@ -15,5 +15,6 @@ public:
 
 	void InitCollider(void) override;
 private:
+	virtual void MoveInput(void) {};
 };
 

@@ -69,8 +69,8 @@ namespace ThreePlayer
 
 namespace FourPlayer
 {
-	enum class Game { A, B };
-	namespace A
+	enum class Game { FindingJ, B };
+	namespace FindingJ
 	{
 		enum class Stage { Stage1, Stage2, Stage3 };
 	}
