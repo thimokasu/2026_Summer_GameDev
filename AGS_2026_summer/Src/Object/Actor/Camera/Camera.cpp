@@ -37,7 +37,7 @@ Camera::~Camera(void)
 
 void Camera::SubInit(void)
 {
-
+	SetDefault();
 }
 
 void Camera::SubUpdate(void)
@@ -79,6 +79,8 @@ void Camera::SetBeforeDraw(void)
 
 void Camera::DrawDebug(void)
 {
+	DrawFormatString(0, 40, 0xffffff, "%f,%f,%f", trans_.pos.x, trans_.pos.y, trans_.pos.z);
+	DrawFormatString(0, 60, 0xffffff, "%f,%f,%f", trans_.rot.x, trans_.rot.y, trans_.rot.z);
 }
 
 void Camera::SubRelease(void)
@@ -205,10 +207,10 @@ void Camera::ProcessMove(void)
 
 	if (GetJoypadNum() == 0)
 	{
-		if (ins.GetInfo(KEY::KEY_TYPE::CAMERA_MOVE_FRONT).now) { moveDir = AsoUtility::DIR_F; }
+		/*if (ins.GetInfo(KEY::KEY_TYPE::CAMERA_MOVE_FRONT).now) { moveDir = AsoUtility::DIR_F; }
 		if (ins.GetInfo(KEY::KEY_TYPE::CAMERA_MOVE_BACK).now) { moveDir = AsoUtility::DIR_B; }
 		if (ins.GetInfo(KEY::KEY_TYPE::CAMERA_MOVE_RIGHT).now) { moveDir = AsoUtility::DIR_R; }
-		if (ins.GetInfo(KEY::KEY_TYPE::CAMERA_MOVE_LEFT).now) { moveDir = AsoUtility::DIR_L; }
+		if (ins.GetInfo(KEY::KEY_TYPE::CAMERA_MOVE_LEFT).now) { moveDir = AsoUtility::DIR_L; }*/
 	}
 	//else
 	//{
@@ -248,7 +250,6 @@ void Camera::SetBeforeDrawFixedPoint(void)
 
 void Camera::SetBeforeDrawFree(void)
 {
-
 	// ƒJƒƒ‰‘€ì(‰ñ“])
 	ProcessRot(false);
 
@@ -445,34 +446,34 @@ void Camera::RotKeyboard(bool isLimit)
 {
 
 	auto& ins = KeyManager::GetIns();
-	// ƒJƒƒ‰‰ñ“]
-	if(ins.GetInfo(KEY::KEY_TYPE::CAMERA_ROTATE_RIGHT).now)
-	{
-		// ‰E‰ñ“]
-		angles_.y += ROT_POW_RAD;
-	}
-	if (ins.GetInfo(KEY::KEY_TYPE::CAMERA_ROTATE_LEFT).now)
-	{
-		// ¶‰ñ“]
-		angles_.y -= ROT_POW_RAD;
-	}
-	if (ins.GetInfo(KEY::KEY_TYPE::CAMERA_ROTATE_UP).now)
-	{
-		angles_.x -= ROT_POW_RAD;
-		if (isLimit && angles_.x > LIMIT_X_UP_RAD)
-		{
-			angles_.x = LIMIT_X_UP_RAD;
-		}
+	//// ƒJƒƒ‰‰ñ“]
+	//if(ins.GetInfo(KEY::KEY_TYPE::CAMERA_ROTATE_RIGHT).now)
+	//{
+	//	// ‰E‰ñ“]
+	//	angles_.y += ROT_POW_RAD;
+	//}
+	//if (ins.GetInfo(KEY::KEY_TYPE::CAMERA_ROTATE_LEFT).now)
+	//{
+	//	// ¶‰ñ“]
+	//	angles_.y -= ROT_POW_RAD;
+	//}
+	//if (ins.GetInfo(KEY::KEY_TYPE::CAMERA_ROTATE_UP).now)
+	//{
+	//	angles_.x -= ROT_POW_RAD;
+	//	if (isLimit && angles_.x > LIMIT_X_UP_RAD)
+	//	{
+	//		angles_.x = LIMIT_X_UP_RAD;
+	//	}
 
-	}
-	if (ins.GetInfo(KEY::KEY_TYPE::CAMERA_ROTATE_DOWN).now)
-	{
-		angles_.x+= ROT_POW_RAD;
-		if (isLimit && angles_.x < -LIMIT_X_DW_RAD)
-		{
-			angles_.x = -LIMIT_X_DW_RAD;
-		}
-	}
+	//}
+	//if (ins.GetInfo(KEY::KEY_TYPE::CAMERA_ROTATE_DOWN).now)
+	//{
+	//	angles_.x+= ROT_POW_RAD;
+	//	if (isLimit && angles_.x < -LIMIT_X_DW_RAD)
+	//	{
+	//		angles_.x = -LIMIT_X_DW_RAD;
+	//	}
+	//}
 }
 
 void Camera::RotGamePad(bool isLimit)

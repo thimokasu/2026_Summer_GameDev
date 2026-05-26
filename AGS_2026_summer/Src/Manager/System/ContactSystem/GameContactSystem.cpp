@@ -47,7 +47,10 @@ void GameContactSystem::Procese(ContactRule rule)
 		}
 		break;
 	case GameEventType::HAS_CAUGHT:
-		isDebugDraw_ = true;
+		if (caughtCallback_)
+		{
+			caughtCallback_();
+		}
 		break;
 	default:
 		break;

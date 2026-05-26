@@ -139,7 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ChaserManager.cpp" />
+    <ClCompile Include="Src\ChaserManager.cpp" />
+    <ClCompile Include="Src\Object\UI\GameMessageUI.cpp" />
     <ClCompile Include="Src\Object\Actor\Component\FindingJComponent\ChaserAIComponent\ChaserAIComponent.cpp" />
     <ClCompile Include="Src\Object\Actor\Component\FindingJComponent\RunnerAIComponent\RunnerAIComponent.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\FindingJ\ReactionBlock.cpp" />
@@ -197,9 +198,11 @@
     <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage2Factory.cpp" />
     <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage3Factory.cpp" />
     <ClCompile Include="Src\Object\UI\Timer.cpp" />
+    <ClCompile Include="Src\Object\UI\UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ChaserManager.h" />
+    <ClInclude Include="Src\ChaserManager.h" />
+    <ClInclude Include="Src\Object\UI\GameMessageUI.h" />
     <ClInclude Include="Src\Object\Actor\Component\FindingJComponent\ChaserAIComponent\ChaserAIComponent.h" />
     <ClInclude Include="Src\Object\Actor\Component\FindingJComponent\RunnerAIComponent\RunnerAIComponent.h" />
     <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\ActorFactoryBase.h" />
@@ -274,6 +277,7 @@
     <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage2Factory.h" />
     <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage3Factory.h" />
     <ClInclude Include="Src\Object\UI\Timer.h" />
+    <ClInclude Include="Src\Object\UI\UIManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

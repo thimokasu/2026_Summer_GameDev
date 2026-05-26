@@ -11,7 +11,10 @@
 #include"../Manager/System/ContactSystem/ContactSystem.h"
 #include"../Manager/System/ContactSystem/GameContactSystem.h"
 #include"../Manager/System/MoveInputSystem/MoveInputSystem.h"
+
 #include "../Object/Actor/Stage/FindingJ/ReactionBlock.h"
+#include "../Object/UI/GameMessageUI.h"
+
 
 
 
@@ -74,12 +77,19 @@ void GameScene::Init(void)
 
 	collisionSystem_.SetContactCallbacks(onBeginContact, onEndContact);
 
-	auto eventCollback = [this](uint32_t a)
+	auto onEventCollback = [this](uint32_t a)
 		{
 			std::dynamic_pointer_cast<ReactionBlock>(actorManager_.FindActor(a))->StepOn();
 		};
 
-	gameContactSystem_.SetEventCallback(eventCollback);
+	gameContactSystem_.SetEventCallback(onEventCollback);
+
+	auto onCaughtCallback = [this]()
+		{
+			UI_.SetMessageState(GameMessageUI::MessageState::Finish);
+		};
+
+	gameContactSystem_.SetCaughtCallback(onCaughtCallback);
 
 	actorManager_.Init();
 
@@ -87,6 +97,8 @@ void GameScene::Init(void)
 	{
 	collisionSystem_.AddCollider(actor->GetOwnColliders());
 	}
+
+	UI_.Initialize();
 
 }
 
@@ -105,7 +117,7 @@ void GameScene::Update(void)
 	gameContactSystem_.Update(contactSystem_.GetContactEvent());
 	contactSystem_.Clear();
 
-	timer_.Update();
+	UI_.Update();
 }
 
 void GameScene::Draw(void)
@@ -114,7 +126,7 @@ void GameScene::Draw(void)
 
 	actorManager_.Draw();
 	gameContactSystem_.DrawDebug();
-	timer_.Draw(Application::SCREEN_SIZE_X, 10);
+	UI_.Draw();
 
 
 }

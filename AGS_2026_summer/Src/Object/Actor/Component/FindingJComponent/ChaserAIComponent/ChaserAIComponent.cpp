@@ -59,20 +59,18 @@ void ChaserAIComponent::WanderBehavior()
 		}
 	}
 
-	// ★【行き止まり対策】もし前や左右がすべて壁で、進める場所がゼロだった場合
-	if (selectablePositions.empty() && (prevW_ != -1 && prevD_ != -1))
-	{
-		// しかたがないので「一つ前のマス（後ろ）」を候補に入れてUターンを許可する
-		VECTOR backTilePos = VGet(prevW_ * TileSize + (TileSize / 2.0f), 0, prevD_ * TileSize + (TileSize / 2.0f));
-		selectablePositions.push_back(backTilePos);
-	}
+	//if (selectablePositions.empty() && (prevW_ != -1 && prevD_ != -1))
+	//{
+	//	
+	//	VECTOR backTilePos = VGet(prevW_ * TileSize + (TileSize / 2.0f), 0, prevD_ * TileSize + (TileSize / 2.0f));
+	//	selectablePositions.push_back(backTilePos);
+	//}
 
 	// 候補リストからランダムに目的地を選ぶ
 	if (!selectablePositions.empty())
 	{
 		int randIndex = DxLib::GetRand(static_cast<int>(selectablePositions.size()) - 1);
 
-		// ★【重要】実際に目的地を上書きする前に、「今の場所」を「一つ前の場所」として記憶する！
 		if (selectablePositions[randIndex].x != targetPos_.x || selectablePositions[randIndex].z != targetPos_.z)
 		{
 			prevW_ = curW;
@@ -81,5 +79,6 @@ void ChaserAIComponent::WanderBehavior()
 
 		// 目的地を決定
 		targetPos_ = selectablePositions[randIndex];
+		selectablePositions.clear();
 	}
 }

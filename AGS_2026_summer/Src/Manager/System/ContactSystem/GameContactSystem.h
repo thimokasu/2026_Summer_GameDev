@@ -8,6 +8,7 @@
 class ActorBase;
 
 using EventCallback = std::function<void(std::uint32_t)>;
+using CaughtCallback = std::function<void()>;
 
 class GameContactSystem
 {
@@ -25,6 +26,12 @@ public:
 		eventCallback_ = callback;
 	}
 
+	//捕まったイベントコールバックの設定
+	void SetCaughtCallback(CaughtCallback callback)
+	{
+		caughtCallback_ = callback;
+	}
+
 	void DrawDebug(void);
 
 private:
@@ -35,6 +42,7 @@ private:
 	ContactSystem contactSystem_;
 	ContactRuleTable contactRuleTable_;
 	EventCallback eventCallback_;
+	CaughtCallback caughtCallback_;
 
 	bool isDebugDraw_ = false;
 

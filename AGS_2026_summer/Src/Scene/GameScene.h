@@ -13,8 +13,9 @@
 #include"../Manager/Generic/KeyManager.h"
 
 #include"../Object/Actor/Manager/ActorManager.h"
-#include "../Object/UI/Timer.h"
+#include "../Object/UI/UIManager.h"
 #include"GameSelect/GameKind.h"
+
 class GameScene :
     public SceneBase
 {
@@ -41,7 +42,7 @@ private:
     ActorManager actorManager_;
 	GameInfo gameInfo_;
 
-	Timer timer_;
+    UIManager UI_;
 
 };
 
