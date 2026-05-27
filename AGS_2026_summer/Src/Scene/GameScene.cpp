@@ -2,6 +2,7 @@
 #include<DxLib.h>
 
 #include"../Manager/Game/SceneManager.h"
+#include"../Manager/Generic/KeyManager.h"
 
 #include"../Manager/System/Collision/CollisionManager.h"
 #include"../Manager/System/ContactSystem/ContactEventManager.h"
@@ -62,6 +63,29 @@ void GameScene::Init(void)
 
 void GameScene::Update(void)
 {
+	////エスケープ押したらメニューシーンへ
+	//if (KeyManager::GetIns().GetInfo(KEY_TYPE::PAUSE).down)
+	//{
+	//	isPause_ = !isPause_;
+	//}
+
+	//if (isPause_)
+	//{
+	//	if (pauseScene_)
+	//	{
+	//		pauseScene_->Update();
+	//	}
+	//	return;
+	//}
+
+	//スペース押したらゲームシーンへ
+	if (KeyManager::GetIns().GetInfo(KEY_TYPE::SPACE).down)
+	{
+		SceneManager::GetInstance().ChangeScene(SCENE_ID::TITLE);
+		return;
+	}
+
+
 	actorMng_->Update();
 	colMng_->Update();
 	colMng_->Resolve();
@@ -72,6 +96,12 @@ void GameScene::Draw(void)
 {
 	DrawFormatString(0, 0, 0xffffff, "Game");
 	actorMng_->Draw();
+
+	//if (isPause_)
+	//{
+	//	pauseScene_->Draw();
+	//	return;
+	//}
 }
 
 void GameScene::Release(void)

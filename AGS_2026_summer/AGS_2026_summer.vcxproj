@@ -148,6 +148,7 @@
     <ClCompile Include="Src\Manager\System\Collision\CollisionLogic.cpp" />
     <ClCompile Include="Src\Manager\System\Collision\CollisionManager.cpp" />
     <ClCompile Include="Src\Object\Actor\Manager\ActorManager.cpp" />
+    <ClCompile Include="Src\Scene\GameOverScene.cpp" />
     <ClCompile Include="Src\Scene\GameScene.cpp" />
     <ClCompile Include="Src\Object\Actor\Shape\Sphere.cpp" />
     <ClCompile Include="Src\Object\Actor\Shape\Capsule.cpp" />
@@ -170,6 +171,8 @@
     <ClCompile Include="Src\Object\Actor\Collider\ColliderBox.cpp" />
     <ClCompile Include="Src\Object\Common\AnimationController.cpp" />
     <ClCompile Include="Src\Object\Common\Transform.cpp" />
+    <ClCompile Include="Src\Scene\PauseScene.cpp" />
+    <ClCompile Include="Src\Scene\PeopleSelectScene.cpp" />
     <ClCompile Include="Src\Scene\SceneBase.cpp" />
     <ClCompile Include="Src\Manager\Game\SceneManager.cpp" />
     <ClCompile Include="Src\Application.cpp" />
@@ -182,6 +185,7 @@
     <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage3Factory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Manager\Game\SceneId.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJCPU.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJ.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\CharactorBase.h" />
@@ -197,6 +201,7 @@
     <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\ActorFactoryBase.h" />
     <ClInclude Include="Src\Object\Actor\Manager\ActorManager.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FindingJ\StageLayout.h" />
+    <ClInclude Include="Src\Scene\GameOverScene.h" />
     <ClInclude Include="Src\Scene\GameScene.h" />
     <ClInclude Include="Src\Object\Actor\Shape\Sphere.h" />
     <ClInclude Include="Src\Object\Actor\Shape\Capsule.h" />
@@ -213,6 +218,8 @@
     <ClInclude Include="Src\Manager\Generic\KeyManager.h" />
     <ClInclude Include="Src\Manager\Generic\Loading.h" />
     <ClInclude Include="Src\Scene\GameSelect\GameKind.h" />
+    <ClInclude Include="Src\Scene\PauseScene.h" />
+    <ClInclude Include="Src\Scene\PeopleSelectScene.h" />
     <ClInclude Include="Src\Scene\SceneId.h" />
     <ClInclude Include="Src\Scene\TitleScene.h" />
     <ClInclude Include="Src\Manager\Resource\ResourceManager.h" />
