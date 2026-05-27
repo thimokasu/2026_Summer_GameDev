@@ -24,12 +24,6 @@ void TitleScene::Init(void)
 
 void TitleScene::Update(void)
 {
-	//スペース押したらゲームシーンへ
-	if (KeyManager::GetIns().GetInfo(KEY_TYPE::SPACE).down)
-	{
-		SceneManager::GetInstance().ChangeScene(SCENE_ID::GAME);
-	}
-
 	//エスケープ押したらメニューシーンへ
 	if (KeyManager::GetIns().GetInfo(KEY_TYPE::PAUSE).down)
 	{
@@ -38,10 +32,17 @@ void TitleScene::Update(void)
 
 	if (isPause_)
 	{
-		if(pauseScene_)
+		if (pauseScene_)
 		{
 			pauseScene_->Update();
 		}
+		return;
+	}
+
+	//スペース押したらゲームシーンへ
+	if (KeyManager::GetIns().GetInfo(KEY_TYPE::SPACE).down)
+	{
+		SceneManager::GetInstance().ChangeScene(SCENE_ID::GAME);
 		return;
 	}
 }

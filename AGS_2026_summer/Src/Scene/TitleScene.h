@@ -22,7 +22,7 @@ private:
 
     bool isPause_ = false;
 
-    std::unique_ptr<PauseScene> pauseScene_;
+    std::shared_ptr<PauseScene> pauseScene_;
 
 };
 

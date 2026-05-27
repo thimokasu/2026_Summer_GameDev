@@ -40,7 +40,6 @@ private:
     int EntityId = 0;
 
 	bool isPause_ = false;
-
-	std::unique_ptr<PauseScene> pauseScene_;
+	std::shared_ptr<PauseScene> pauseScene_;
 };
 

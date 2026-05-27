@@ -14,6 +14,7 @@ public:
 
 private:
     int frame_;
+
 	using Update_t = void(PauseScene::*)(void);
 	using Draw_t = void(PauseScene::*)(void);
 
@@ -25,7 +26,7 @@ private:
 	void DisappearUpdate();
 	void ExpandDraw(); 
 	void NormalDraw();
-	void DrawFrame();
+	void DrawFrame(float rate);
 
 };
 

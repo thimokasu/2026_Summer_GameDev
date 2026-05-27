@@ -26,7 +26,7 @@
 
 GameScene::GameScene(void)
 {
-	pauseScene_ = std::make_unique<PauseScene>();
+	pauseScene_ = std::make_shared<PauseScene>();
 }
 
 GameScene::~GameScene(void)

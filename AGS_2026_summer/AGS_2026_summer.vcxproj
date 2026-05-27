@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Scene\GameOverScene.cpp" />
     <ClCompile Include="Src\Scene\PauseScene.cpp" />
     <ClCompile Include="Src\Scene\PeopleSelectScene.cpp" />
     <ClCompile Include="Src\Object\Actor\Floor\Floor.cpp" />
@@ -181,6 +182,7 @@
     <ClCompile Include="Src\Scene\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Scene\GameOverScene.h" />
     <ClInclude Include="Src\Scene\PauseScene.h" />
     <ClInclude Include="Src\Scene\PeopleSelectScene.h" />
     <ClInclude Include="Src\Object\Actor\Floor\Floor.h" />

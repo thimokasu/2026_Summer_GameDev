@@ -6,9 +6,12 @@
 #include"../Manager/Game/SceneId.h"
 
 constexpr int margin_size = 50;
+constexpr int expand_interval = 30;
 
 PauseScene::PauseScene(void)
 {
+	update_ = &PauseScene::AppearUpdate;
+	draw_ = &PauseScene::ExpandDraw;
 	
 }
 
@@ -23,39 +26,74 @@ void PauseScene::Init(void)
 
 void PauseScene::Update(void)
 {
+	(this->*update_)();
+	/*if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::PAUSE).down)
+	{
+		SceneManager::GetInstance().PopScene();
+		return;
+	}*/
 }
 
 void PauseScene::Draw(void)
 {
+
 	const auto& wsize = Application::GetInstance().GetWindowSize();
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 168);
-	
-	DrawBoxAA(margin_size, margin_size, wsize.x - margin_size, wsize.y - margin_size, 0xffffff, true, 1.0f);
+
+	DrawBoxAA(margin_size, margin_size,
+		wsize.x - margin_size, wsize.y - margin_size,
+		0xffffff,
+		true, 3.0f);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-	DrawString(0, 0, "pause", 0xffffff);
+
+	update_ = &PauseScene::AppearUpdate;
+	draw_ = &PauseScene::ExpandDraw;
+	
+
 }
 
 void PauseScene::AppearUpdate()
 {
+	if(++frame_ >= expand_interval)
+	{
+		update_ = &PauseScene::NormalUpdate;
+		draw_ = &PauseScene::NormalDraw;
+		return;
+	}
 }
 
 void PauseScene::NormalUpdate()
 {
+	if(KEY::GetIns().GetInfo(KEY::KEY_TYPE::PAUSE).down)
+	{
+		update_ = &PauseScene::DisappearUpdate;
+		draw_ = &PauseScene::ExpandDraw;
+		frame_ = 0;
+	}
 }
 
 void PauseScene::DisappearUpdate()
 {
+	if (--frame_ <= 0)
+	{
+		SceneManager::GetInstance().PopScene();
+		return;
+	}
 }
 
 void PauseScene::ExpandDraw()
 {
+	DrawFrame(static_cast<float>(frame_) / static_cast<float>(expand_interval));
 }
 
 void PauseScene::NormalDraw()
 {
+	DrawFrame(1.0f);
+	DrawString(Application::SCREEN_SIZE_X / 2 - 100, Application::SCREEN_SIZE_Y / 2 - 50, "PAUSE", 0xffffff);
 }
 
-void PauseScene::DrawFrame()
+void PauseScene::DrawFrame(float rate)
 {
+	
 }
