@@ -31,6 +31,7 @@ public:
     void Release(void)override;
 
 private:
+
     CollisionSystem collisionSystem_;
     ContactSystem contactSystem_;
     GameContactSystem gameContactSystem_;
@@ -43,6 +44,7 @@ private:
 	GameInfo gameInfo_;
 
     UIManager UI_;
+
 
 };
 

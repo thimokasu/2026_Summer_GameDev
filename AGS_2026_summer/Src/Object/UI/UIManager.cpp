@@ -22,8 +22,14 @@ void UIManager::Initialize()
 
 void UIManager::Update()
 {
-	// タイマーの更新
-	timer_.Update();
+	if (gameMessageUI_.GetStateUI() == GameMessageUI::MessageState::None)
+	{
+		// タイマーの更新
+		timer_.Update();
+	}
+
+
+	gameMessageUI_.Update();
 
 }
 

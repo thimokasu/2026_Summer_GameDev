@@ -18,6 +18,8 @@ class UIManager
 		gameMessageUI_.SetState(state);
 	}
 
+	GameMessageUI::MessageState GetState(void) const { return gameMessageUI_.GetStateUI(); }
+
 private:
 
 	GameMessageUI gameMessageUI_;

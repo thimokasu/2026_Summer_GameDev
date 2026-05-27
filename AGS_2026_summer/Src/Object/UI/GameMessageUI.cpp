@@ -1,4 +1,6 @@
 #include "GameMessageUI.h"
+#include "../../Manager/Game/SceneManager.h"
+#include <cmath>
 
 GameMessageUI::GameMessageUI()
 {
@@ -12,17 +14,22 @@ void GameMessageUI::Initialize()
 	{
 		fontHandle_ = CreateFontToHandle("Arial", FontSize, 6, DX_FONTTYPE_ANTIALIASING_EDGE, -1, EdgeSize);
 	}
+	animTime_ = 0;
+	sizeY_ = 0.0;
+	sizeX_ = 0.0;
 }
 
 void GameMessageUI::SetState(MessageState state)
 {
 	currentState_ = state;
 
+
 	switch (currentState_)
 	{
 	case MessageState::Start:
 		textColor_ = GetColor(0, 200, 255);   // …F
 		edgeColor_ = GetColor(255, 255, 255); // ”’
+		
 		break;
 
 	case MessageState::Finish:
@@ -31,11 +38,67 @@ void GameMessageUI::SetState(MessageState state)
 		break;
 
 	case MessageState::Explain:
-		textColor_ = GetColor(255, 255, 255); // ”’
-		edgeColor_ = GetColor(0, 0, 0);       // •
+		textColor_ = GetColor(255, 0, 255); // ”’
+		edgeColor_ = GetColor(255, 255, 255);       // •
+		break;
+	case MessageState::None:
+		animTime_ = 0;
+		sizeX_ = 0.0f;
+		sizeY_ = 0.0f;
+		animPhase_ = AnimPhase::FadeIn;
+		break;
+	default:
+		break;
+	}
+}
+
+void GameMessageUI::Update(void)
+{
+	if (currentState_ != MessageState::None)
+	{
+		animTime_ += SceneManager::GetInstance().GetDeltaTime();
+		TextAnim();
+	}
+}
+
+void GameMessageUI::TextAnim(void)
+{
+	static constexpr float ChangeSpeedIN = 0.02f;
+	static constexpr float ChangeSpeedOut = 0.04f;
+	static constexpr int   StayFrames = 2;   
+
+	switch (animPhase_)
+	{
+	case AnimPhase::FadeIn:
+		sizeX_ += ChangeSpeedIN;
+		sizeY_ += ChangeSpeedIN;
+
+		if (sizeX_ >= 1.0f)
+		{
+			sizeX_ = 1.0f;
+			sizeY_ = 1.0f;
+			animTime_ = 0; 
+			animPhase_ = AnimPhase::Stay;
+		}
 		break;
 
-	default:
+	case AnimPhase::Stay:
+		if (animTime_ >= StayFrames)
+		{
+			animPhase_ = AnimPhase::FadeOut;
+		}
+		break;
+
+	case AnimPhase::FadeOut:
+		sizeX_ -= ChangeSpeedOut;
+		sizeY_ -= ChangeSpeedOut;
+
+		if (sizeX_ <= 0.0f)
+		{
+			sizeX_ = 0.0f;
+			sizeY_ = 0.0f;
+			SetState(MessageState::None);
+		}
 		break;
 	}
 }
@@ -56,6 +119,7 @@ void GameMessageUI::Draw(int screenWidth, int screenHeight)
 	case MessageState::Start:   targetStr = StrStart;   break;
 	case MessageState::Finish:  targetStr = StrFinish;  break;
 	case MessageState::Explain: targetStr = StrExplain; break;
+	case MessageState::None:	targetStr = StrNone; break;
 	default: return;
 	}
 
@@ -68,14 +132,30 @@ void GameMessageUI::Draw(int screenWidth, int screenHeight)
 	GetDrawStringSizeToHandle(&stringWidth, &stringHeight, &lineCount, targetStr, (int)strlen(targetStr), fontHandle_);
 
 
-	int drawX = (screenWidth - stringWidth) / 2;
-	int drawY = (screenHeight - stringHeight) / 2;
+	float cx = stringWidth / 2.0f;
+	float cy = stringHeight / 2.0f;
+
+	int drawX = screenWidth / 2;
+	int drawY = screenHeight / 2;
+
+	if (currentState_ == MessageState::Explain)
+	{
+		int paddingY = 20;
+		int barTop = drawY - (int)cy - paddingY;
+		int barBottom = drawY + (int)cy + paddingY;
+
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 160); 
+
+		DrawBox(0, barTop, screenWidth, barBottom, GetColor(0, 0, 0), TRUE);
+
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	}
 
 	
 	DrawRotaStringToHandle(
 		drawX, drawY,
-		1.0, 1.0,           
-		0.0, 0.0,           
+		sizeX_, sizeY_,
+		cx, cy,
 		0.0,              
 		textColor_,       
 		fontHandle_,       

@@ -101,6 +101,8 @@ void GameScene::Init(void)
 
 	UI_.Initialize();
 
+	UI_.SetMessageState(GameMessageUI::MessageState::Explain);
+
 }
 
 void GameScene::Update(void)
@@ -109,16 +111,21 @@ void GameScene::Update(void)
 
 	actorManager_.Update();
 
-	moveInputSystem_.Update(actorManager_.GetActors());
-	physicsSystem_.Update(actorManager_.GetActors());
+	if (UI_.GetState() == GameMessageUI::MessageState::None)
+	{
+		moveInputSystem_.Update(actorManager_.GetActors());
+		physicsSystem_.Update(actorManager_.GetActors());
+	}
 
 	collisionSystem_.Update();
-	physicsSystem_.Resolve(actorManager_.GetActors(),collisionSystem_.GetCollisionMainfold());
+	physicsSystem_.Resolve(actorManager_.GetActors(), collisionSystem_.GetCollisionMainfold());
 
 	gameContactSystem_.Update(contactSystem_.GetContactEvent());
 	contactSystem_.Clear();
 
 	UI_.Update();
+
+
 }
 
 void GameScene::Draw(void)

@@ -41,7 +41,7 @@ void ActorManager::Load(GameInfo info)
 	//ƒvƒŒƒCƒ„[
 	auto player = std::make_shared<Capsule>(8.0f, VGet(0.0f, 10.0f, 0.0f), VGet(0.0f, -10.0f, 0.0f));
 	player->SetEntityKind(EntityKind::PLAYER);
-	player->GetTransform().pos = VGet(20.0f, 100.0f, 20.0f);
+	player->GetTransform().pos = VGet(180.0f, 28.0f, 20.0f);
 	auto rb = std::make_shared<RigidBody>();
 	rb->SetBodyType(RigidBody::BodyType::DYNAMIC);
 	rb->SetMoveSpeed(3);
@@ -58,7 +58,7 @@ void ActorManager::Load(GameInfo info)
 	//CPU(“¦‚°‚é‘¤)
 	auto  runner = std::make_shared<Capsule>(8.0f, VGet(0.0f, 10.0f, 0.0f), VGet(0.0f, -10.0f, 0.0f));
 	runner->SetEntityKind(EntityKind::CPU);
-	runner->GetTransform().pos = VGet(100.0f, 100.0f, 10.0f);
+	runner->GetTransform().pos = VGet(180.0f, 28.0f, 182.0f);
 	auto rbRunner = std::make_shared<RigidBody>();
 	rbRunner->SetBodyType(RigidBody::BodyType::DYNAMIC);
 	rbRunner->SetMoveSpeed(5);
@@ -122,14 +122,17 @@ void ActorManager::Draw(void)
 			}
 			else
 			{
-				if (actor->GetComponent<RunnerAIComponent>().GetVisibleTime() > 0.0f)
+				//if (actor->GetComponent<RunnerAIComponent>().GetVisibleTime() > 0.0f)
 				{
 					collider->Draw();
 				}
 			}
 		}
 
-		
+		if (actor->GetEntityKind() == EntityKind::PLAYER)
+		{
+			DrawFormatString(0, 20, 0xFFFFFF, "%f,%f,%f", actor->GetTransform().pos.x, actor->GetTransform().pos.y, actor->GetTransform().pos.z);
+		}
 	}
 }
 
