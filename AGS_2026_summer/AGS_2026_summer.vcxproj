@@ -139,7 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJCPU.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJCPU\FindingJChaser.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJCPU\FindingJRunner.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJr.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\CharactorBase.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\FindingJ\ReactionBlock.cpp" />
@@ -148,6 +149,9 @@
     <ClCompile Include="Src\Manager\System\Collision\CollisionLogic.cpp" />
     <ClCompile Include="Src\Manager\System\Collision\CollisionManager.cpp" />
     <ClCompile Include="Src\Object\Actor\Manager\ActorManager.cpp" />
+    <ClCompile Include="Src\Object\UI\GameMessageUI.cpp" />
+    <ClCompile Include="Src\Object\UI\Timer.cpp" />
+    <ClCompile Include="Src\Object\UI\UIManager.cpp" />
     <ClCompile Include="Src\Scene\GameOverScene.cpp" />
     <ClCompile Include="Src\Scene\GameScene.cpp" />
     <ClCompile Include="Src\Object\Actor\Shape\Sphere.cpp" />
@@ -185,7 +189,8 @@
     <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage3Factory.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJCPU.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJCPU\FindingJChaser.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJCPU\FindingJRunner.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJ.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\CharactorBase.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FindingJ\ReactionBlock.h" />
@@ -200,6 +205,9 @@
     <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\ActorFactoryBase.h" />
     <ClInclude Include="Src\Object\Actor\Manager\ActorManager.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FindingJ\StageLayout.h" />
+    <ClInclude Include="Src\Object\UI\GameMessageUI.h" />
+    <ClInclude Include="Src\Object\UI\Timer.h" />
+    <ClInclude Include="Src\Object\UI\UIManager.h" />
     <ClInclude Include="Src\Scene\GameOverScene.h" />
     <ClInclude Include="Src\Scene\GameScene.h" />
     <ClInclude Include="Src\Object\Actor\Shape\Sphere.h" />

@@ -8,7 +8,8 @@
 #include"../Factory/ActorFactory/FindingJ/Stage2Factory.h"
 #include"../Factory/ActorFactory/FindingJ/Stage3Factory.h"
 
-#include"../Charactor/Player/FindingJ/FindingJCPU.h"
+#include"../Charactor/Player/FindingJ/FindingJCPU/FindingJRunner.h"
+#include"../../../Manager/Generic/KeyManager.h"
 
 ActorManager::ActorManager(void)
 {
@@ -26,7 +27,12 @@ void ActorManager::Load(GameInfo info)
 	{
 		actors_.push_back(std::move(actor));
 	}
-	actors_.push_back(std::make_unique<FindingJCPU>(*this));
+	actors_.push_back(std::make_unique<FindingJRunner>(*this));
+
+	for(auto&a:actors_)
+	{
+		a->Load();
+	}
 }
 
 void ActorManager::Init(void)
@@ -69,9 +75,12 @@ void ActorManager::Draw(void)
 		index++; // 次のアクターは1行下に下げる
 		// ------------------------------------------
 
-		for (const auto& [shape, collider] : actor->GetOwnColliders())
+		if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::DEBUG).now)
 		{
-			collider->Draw();
+			for (const auto& [shape, collider] : actor->GetOwnColliders())
+			{
+				collider->Draw();
+			}
 		}
 	}
 }
@@ -105,6 +114,17 @@ std::vector<ActorBase*> ActorManager::FindActorsByKind(EntityKind kind) const
 	return actors;
 }
 
+ActorBase* ActorManager::FindActorByID(EntityID id) const
+{
+for(const auto&a:actors_)
+	{
+		if (a->GetEntityID() == id)
+		{
+			return a.get();
+		}
+	}
+	return nullptr;
+}
 
 void ActorManager::BindID2Kind(void)
 {

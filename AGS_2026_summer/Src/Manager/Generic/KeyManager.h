@@ -48,6 +48,7 @@ public:
 		MOUSE_LEFT,
 		MOUSE_RIGHT,
 
+		DEBUG,
 
 		MAX,
 	};

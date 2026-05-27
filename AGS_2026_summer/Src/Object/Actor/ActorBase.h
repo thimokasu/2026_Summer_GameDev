@@ -75,7 +75,7 @@ protected:
 	//エンティティ種別
 	EntityKind entityKind_;
 	//描画状態
-	bool isDraw_;
+	bool isDraw_ = true;
 	//アクティブ状態
 	bool isActive_;
 	//自身のコライダーリスト

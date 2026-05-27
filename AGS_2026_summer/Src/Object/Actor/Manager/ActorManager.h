@@ -26,7 +26,8 @@ public:
 	EntityKind GetEntityKind(EntityID id) const;
 	//指定されたKindのActorを返す
 	std::vector<ActorBase*>FindActorsByKind(EntityKind kind)const;
-
+	//指定されたIDのActorを返す
+	ActorBase* FindActorByID(EntityID id) const;
 private:
 #pragma region 変数
 	std::vector<std::unique_ptr<ActorBase>> actors_;//アクターのリスト

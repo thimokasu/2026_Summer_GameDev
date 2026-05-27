@@ -1,17 +1,23 @@
 #pragma once
-#include "../../CharactorBase.h"
-#include"../../../Stage/FindingJ/StageLayout.h"
+#include"../../../CharactorBase.h"
+#include"../../../../Stage/FindingJ/StageLayout.h"
 class ActorManager;
 
-class FindingJCPU :
+class FindingJRunner :
     public CharactorBase
 {   
 public:
+    enum class AIState
+    {
+		CHASER, // 追いかける
+		RUNNER, // 逃げる
+    };
+
 	static constexpr float DecisionInterval = 0.01f; // 思考する間隔
     static constexpr float ReactionBlockPenalty = 5.0f;
 
-    FindingJCPU(ActorManager&actMana);
-    virtual ~FindingJCPU(void);
+    FindingJRunner(ActorManager&actMana);
+    virtual ~FindingJRunner(void);
 
     void SubLoad(void) override;
     void SubInit(void) override;
@@ -21,6 +27,8 @@ public:
 	void InitCollider(void) override;
 
     void SetStageNum(int sNum) { stageNum_ = sNum; }
+	void SetAIRunner(void) { aiState_ = AIState::RUNNER; }
+	void SetAIChaser(void) { aiState_ = AIState::CHASER; }
 
 	// 敵の位置設定
     void SetEnemyPositions(const std::vector<VECTOR>&positions)
@@ -39,12 +47,12 @@ private:
     float visibleTimer_; // 姿が見えている残り時間
     float timer_ = 0.0f; 
     int stageNum_;
+	AIState aiState_ = AIState::CHASER; // 初期状態は追いかける
 #pragma endregion
 
 #pragma region 関数
 	void Think(void); // 思考
     void Visible(void);
-	float CalculateTileScore(int tw, int td, const std::vector<VECTOR>& enemyPos); // タイルのスコア計算
     void Move(void);
 #pragma endregion
 

@@ -1,13 +1,22 @@
 #include "GameScene.h"
 #include<DxLib.h>
+#include "../Application.h"
 
 #include"../Manager/Game/SceneManager.h"
+#include"../Manager/Resource/ResourceManager.h"
 #include"../Manager/Generic/KeyManager.h"
 
 #include"../Manager/System/Collision/CollisionManager.h"
 #include"../Manager/System/ContactSystem/ContactEventManager.h"
 
 #include"../Object/Actor/Manager/ActorManager.h"
+
+#include"../Object/Actor/Camera/Camera.h"
+#include"../Object/Actor/Stage/FindingJ/ReactionBlock.h"
+
+#include "../Object/UI/GameMessageUI.h"
+#include <EffekseerForDXLib.h>
+
 
 GameScene::GameScene(void)
 {
@@ -59,6 +68,10 @@ void GameScene::Init(void)
 			colMng_->AddCollider(collider.get(), actor->GetEntityID());
 		}
 	}
+	SceneManager::GetInstance().GetCamera().SetCameraAngles(VGet(1.18f, 0.0f, 0.0f));
+	SceneManager::GetInstance().GetCamera().SetCameraPos(VGet(170.0f, 270.0f, 20.0f));
+
+	UI_.Initialize();
 }
 
 void GameScene::Update(void)
@@ -90,6 +103,8 @@ void GameScene::Update(void)
 	colMng_->Update();
 	colMng_->Resolve();
 	contactMng_->Update();
+
+	UI_.Update();
 }
 
 void GameScene::Draw(void)
@@ -102,6 +117,8 @@ void GameScene::Draw(void)
 	//	pauseScene_->Draw();
 	//	return;
 	//}
+
+	UI_.Draw();
 }
 
 void GameScene::Release(void)
@@ -113,11 +130,37 @@ void GameScene::Release(void)
 void GameScene::SetContactEventRule(void)
 {
 	//イベントの発生ルールの設定
-	contactMng_->SetEventRule(EntityKind::PLAYER, EntityKind::STAGE, GameEventType::TEST);
+	contactMng_->SetEventRule(EntityKind::PLAYER, EntityKind::REACTION_BLOCK, GameEventType::REACTION_BLOCK);
+	contactMng_->SetEventRule(EntityKind::PLAYER, EntityKind::FINDINGJ_CPU, GameEventType::HAS_CAHGHT);
 }
-
 void GameScene::SetContactEventCallback(void)
 {
 	//イベントのコールバック関数の設定
-	contactMng_->SetContactEventCallback(GameEventType::TEST, []() {});
+	contactMng_->SetContactEventCallback(GameEventType::REACTION_BLOCK, [this](const ContactRule& rule)
+		{
+			auto entityKindA = rule.contactEvent_.entityA.entityKind_;
+			auto entityKindB = rule.contactEvent_.entityB.entityKind_;
+			if (entityKindA == EntityKind::REACTION_BLOCK)
+			{
+				auto idA = rule.contactEvent_.entityA.entityID_;
+				auto actor = actorMng_->FindActorByID(idA);
+				auto& reactionBlock = dynamic_cast<ReactionBlock&>(*actor);
+				reactionBlock.StepOn();
+			}
+			else if (entityKindB == EntityKind::REACTION_BLOCK)
+			{
+				auto idB = rule.contactEvent_.entityB.entityID_;
+				auto actor = actorMng_->FindActorByID(idB);
+				auto& reactionBlock = dynamic_cast<ReactionBlock&>(*actor);
+				reactionBlock.StepOn();
+			}
+		}
+	);
+	contactMng_->SetContactEventCallback(
+		GameEventType::HAS_CAHGHT,
+		[this]() { UI_.SetMessageState(
+			GameMessageUI::MessageState::Finish); 
+		}
+	);
+
 }

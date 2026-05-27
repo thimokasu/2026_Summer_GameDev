@@ -3,6 +3,7 @@
 #include"../../Collider/ColliderInfo.h"
 #include"../../Collider/ColliderBase.h"
 #include"../../Collider/ColliderBox.h"
+
 ReactionBlock::ReactionBlock(void)
 {
 }
@@ -18,18 +19,30 @@ ReactionBlock::ReactionBlock(VECTOR pos)
 
 void ReactionBlock::SubLoad(void)
 {
+	trans_.modelId = MV1LoadModel("Data/Stage/ReactionBlock.mv1");
 }
 
 void ReactionBlock::SubInit(void)
 {
+	const float scale = 0.113f;
+	trans_.scl = VGet(scale, scale, scale);
 }
 
 void ReactionBlock::SubUpdate(void)
 {
+	if (emitIntensity_ > 0.0f)
+	{
+		// 1•bŠÔ‚É–ñ 2.0 ‚¸‚ÂŒ¸‚ç‚·
+		emitIntensity_ -= 0.01f;
+		if (emitIntensity_ < 0.0f) emitIntensity_ = 0.0f;
+	}
 }
 
 void ReactionBlock::SubDraw(void)
 {
+	int colorVal = static_cast<int>(emitIntensity_ * 255.0f);
+	COLOR_F emitColor = { colorVal / 255.0f, colorVal / 255.0f, colorVal / 255.0f, 1.0f };
+	MV1SetEmiColorScale(trans_.modelId, emitColor);
 }
 
 void ReactionBlock::SubRelease(void)
@@ -50,4 +63,10 @@ void ReactionBlock::InitCollider(void)
 	std::unique_ptr<ColliderBase> collider =
 		std::make_unique<ColliderBox>(info, halfSize_, *this);
 	ownColliders_.emplace(static_cast<int>(ColliderShape::BOX), std::move(collider));
+}
+
+void ReactionBlock::StepOn()
+{
+	emitIntensity_ = 1.0f;
+
 }

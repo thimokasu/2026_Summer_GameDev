@@ -3,6 +3,7 @@
 #include<vector>
 #include<memory>
 #include"GameSelect/GameKind.h"
+#include"../Object/UI/UIManager.h"
 
 class ActorManager;
 class CollisionManager;
@@ -33,6 +34,7 @@ private:
 	std::unique_ptr<CollisionManager>colMng_;
 	std::unique_ptr<ContactEventManager>contactMng_;
 	GameInfo gameInfo_;
+	UIManager UI_;
 #pragma endregion
 
 };
