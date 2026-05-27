@@ -63,22 +63,14 @@ void GameScene::Init(void)
 
 void GameScene::Update(void)
 {
-	////エスケープ押したらメニューシーンへ
-	//if (KeyManager::GetIns().GetInfo(KEY_TYPE::PAUSE).down)
-	//{
-	//	isPause_ = !isPause_;
-	//}
+	//エスケープ押したらメニューシーンへ
+	if (KeyManager::GetIns().GetInfo(KEY_TYPE::PAUSE).down)
+	{
+		SceneManager::GetInstance().ChangeScene(SCENE_ID::PAUSE);
+		return;
+	}
 
-	//if (isPause_)
-	//{
-	//	if (pauseScene_)
-	//	{
-	//		pauseScene_->Update();
-	//	}
-	//	return;
-	//}
-
-	//スペース押したらゲームシーンへ
+	//スペース押したらタイトルシーンへ
 	if (KeyManager::GetIns().GetInfo(KEY_TYPE::SPACE).down)
 	{
 		SceneManager::GetInstance().ChangeScene(SCENE_ID::TITLE);
@@ -97,11 +89,6 @@ void GameScene::Draw(void)
 	DrawFormatString(0, 0, 0xffffff, "Game");
 	actorMng_->Draw();
 
-	//if (isPause_)
-	//{
-	//	pauseScene_->Draw();
-	//	return;
-	//}
 }
 
 void GameScene::Release(void)

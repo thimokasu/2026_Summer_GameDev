@@ -9,6 +9,7 @@ enum class SCENE_ID
 	RESULT,
 	MULTI,
 	CONNECT,
+	PAUSE,
 
 	MAX
 };

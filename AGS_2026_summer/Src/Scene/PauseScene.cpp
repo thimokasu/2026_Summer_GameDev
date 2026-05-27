@@ -27,49 +27,32 @@ void PauseScene::Init(void)
 void PauseScene::Update(void)
 {
 	(this->*update_)();
-	/*if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::PAUSE).down)
-	{
-		SceneManager::GetInstance().PopScene();
-		return;
-	}*/
 }
 
 void PauseScene::Draw(void)
 {
-
-	const auto& wsize = Application::GetInstance().GetWindowSize();
-
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 168);
-
-	DrawBoxAA(margin_size, margin_size,
-		wsize.x- margin_size, wsize.y - margin_size,
-		0xffffff,
-		true, 3.0f);
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-
-	update_ = &PauseScene::AppearUpdate;
-	draw_ = &PauseScene::ExpandDraw;
-	
-
+	(this->*draw_)();
 }
 
 void PauseScene::AppearUpdate()
 {
 	if(++frame_ >= expand_interval)
 	{
+		frame_ = expand_interval;
 		update_ = &PauseScene::NormalUpdate;
 		draw_ = &PauseScene::NormalDraw;
-		return;
 	}
 }
 
 void PauseScene::NormalUpdate()
 {
+	DrawString(0, 100, "normal", 0xffffff);
+
 	if(KEY::GetIns().GetInfo(KEY::KEY_TYPE::PAUSE).down)
 	{
 		update_ = &PauseScene::DisappearUpdate;
 		draw_ = &PauseScene::ExpandDraw;
-		frame_ = 0;
+		frame_ = expand_interval;
 	}
 }
 
@@ -95,5 +78,32 @@ void PauseScene::NormalDraw()
 
 void PauseScene::DrawFrame(float rate)
 {
-	
+	const auto& wsize = Application::GetInstance().GetWindowSize();
+
+	auto centerY = wsize.y / 2;
+	auto height = (wsize.y - margin_size) / 2;
+
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 168);
+
+	DrawBoxAA(
+		margin_size,
+		centerY - height * rate,
+		wsize.x - margin_size,
+		centerY + height * rate,
+		0xffffff,
+		true,
+		1.0f
+	);
+
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+	DrawBoxAA(
+		margin_size,
+		centerY - height * rate,
+		wsize.x - margin_size,
+		centerY + height * rate,
+		0xffffff,
+		true,
+		3.0f
+	);
 }

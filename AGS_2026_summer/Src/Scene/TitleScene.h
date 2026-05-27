@@ -1,5 +1,6 @@
 #pragma once
 #include "SceneBase.h"
+class PauseScene;
 class TitleScene :
     public SceneBase
 {
@@ -14,5 +15,11 @@ public:
     void Release(void)override;
     SCENE_ID GetSceneID(void)const override { return SCENE_ID::TITLE; }
 private:
+
+	int imgTitle_;
+	int imgPush_;
+	bool isPause_;
+
+
 };
 
