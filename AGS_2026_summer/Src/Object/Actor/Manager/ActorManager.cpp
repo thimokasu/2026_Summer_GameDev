@@ -122,12 +122,14 @@ void ActorManager::Draw(void)
 			}
 			else
 			{
-				//if (actor->GetComponent<RunnerAIComponent>().GetVisibleTime() > 0.0f)
+				if (actor->GetComponent<RunnerAIComponent>().GetVisibleTime() > 0.0f)
 				{
 					collider->Draw();
 				}
 			}
 		}
+
+		
 	}
 }
 

@@ -79,8 +79,8 @@ void Camera::SetBeforeDraw(void)
 
 void Camera::DrawDebug(void)
 {
-	DrawFormatString(0, 40, 0xffffff, "%f,%f,%f", trans_.pos.x, trans_.pos.y, trans_.pos.z);
-	DrawFormatString(0, 60, 0xffffff, "%f,%f,%f", trans_.rot.x, trans_.rot.y, trans_.rot.z);
+	//DrawFormatString(0, 40, 0xffffff, "%f,%f,%f", trans_.pos.x, trans_.pos.y, trans_.pos.z);
+	//DrawFormatString(0, 60, 0xffffff, "%f,%f,%f", trans_.rot.x, trans_.rot.y, trans_.rot.z);
 }
 
 void Camera::SubRelease(void)

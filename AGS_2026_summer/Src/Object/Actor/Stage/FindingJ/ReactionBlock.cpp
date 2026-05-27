@@ -7,7 +7,6 @@
 
 ReactionBlock::ReactionBlock()
 {
-	handle_ = -1;
 }
 
 ReactionBlock::ReactionBlock(VECTOR pos)
@@ -17,10 +16,6 @@ ReactionBlock::ReactionBlock(VECTOR pos)
 
 ReactionBlock::~ReactionBlock()
 {
-	if (handle_ != -1) {
-		DeleteEffekseerEffect(handle_);
-		handle_ = -1;
-	}
 }
 
 void ReactionBlock::SubInit(void)
@@ -30,19 +25,25 @@ void ReactionBlock::SubInit(void)
 	const float scale = 0.113f;
 	trans_.scl = VGet(scale, scale, scale);
 
-	//‚±‚ê‚¦‚Ó‚¥‚­‚µ‚ 
-	//handle_ = LoadEffekseerEffect("Data/Effect/Light/light.efkpkg");
 }
 
 void ReactionBlock::SubUpdate(void)
 {    
-	UpdateEffekseer3D();
+	if (emitIntensity_ > 0.0f)
+	{
+		// 1•bŠÔ‚É–ñ 2.0 ‚¸‚ÂŒ¸‚ç‚·
+		emitIntensity_ -= 0.01f;
+		if (emitIntensity_ < 0.0f) emitIntensity_ = 0.0f;
+	}
 }
 
 void ReactionBlock::SubDraw(void)
 {
-	DrawEffekseer3D();
+	int colorVal = static_cast<int>(emitIntensity_ * 255.0f);
+	COLOR_F emitColor = { colorVal / 255.0f, colorVal / 255.0f, colorVal / 255.0f, 1.0f };
+	MV1SetEmiColorScale(trans_.modelId, emitColor);
 }
+
 
 void ReactionBlock::SubRelease(void)
 {
@@ -68,12 +69,7 @@ void ReactionBlock::InitCollider(void)
 
 void ReactionBlock::StepOn()
 {
-	GlowEffect();
+	emitIntensity_ = 1.0f;
 }
 
-void ReactionBlock::GlowEffect(void)
-{
-	auto upPos = VAdd(halfSize_, trans_.pos);
-	
-	SetPosPlayingEffekseer3DEffect(handle_, upPos.x, upPos.y, upPos.z);
-}
+

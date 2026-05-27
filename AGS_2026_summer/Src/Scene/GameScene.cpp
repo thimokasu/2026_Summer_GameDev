@@ -14,6 +14,7 @@
 
 #include "../Object/Actor/Stage/FindingJ/ReactionBlock.h"
 #include "../Object/UI/GameMessageUI.h"
+#include <EffekseerForDXLib.h>
 
 
 
@@ -127,8 +128,8 @@ void GameScene::Draw(void)
 	actorManager_.Draw();
 	gameContactSystem_.DrawDebug();
 	UI_.Draw();
-
-
+	/*int handle_ = LoadEffekseerEffect("Data/Effect/Light/Light.efk");
+	SetPosPlayingEffekseer3DEffect(handle_, 100, 100, 100);*/
 }
 
 void GameScene::Release(void)
