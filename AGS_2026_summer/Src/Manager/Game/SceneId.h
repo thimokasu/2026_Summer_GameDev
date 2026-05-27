@@ -2,12 +2,13 @@
 enum class SCENE_ID
 {
 	NONE=-1,
-
 	TITLE,
-
+	NUMBER_SELECT,
+	STAGE_SELECT,
 	GAME,
-
-	PAUSE,
+	RESULT,
+	MULTI,
+	CONNECT,
 
 	MAX
 };

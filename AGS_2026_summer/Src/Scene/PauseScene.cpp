@@ -42,7 +42,7 @@ void PauseScene::Draw(void)
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 168);
 
 	DrawBoxAA(margin_size, margin_size,
-		wsize.x - margin_size, wsize.y - margin_size,
+		wsize.x- margin_size, wsize.y - margin_size,
 		0xffffff,
 		true, 3.0f);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);

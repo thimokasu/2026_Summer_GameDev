@@ -1,6 +1,5 @@
 #pragma once
-#include"SceneId.h"
-
+#include"../Manager/Game/SceneId.h"
 class ResourceManager;
 class SceneManager;
 class SceneBase

@@ -7,7 +7,7 @@
 #include<functional>
 
 #include"../../Application.h"
-#include"../../Scene/SceneId.h"
+#include"SceneId.h"
 class SceneBase;
 class Fader;
 class Camera;

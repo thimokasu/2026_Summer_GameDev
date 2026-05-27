@@ -185,7 +185,6 @@
     <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage3Factory.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Src\Manager\Game\SceneId.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJCPU.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJ.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\CharactorBase.h" />
@@ -220,7 +219,6 @@
     <ClInclude Include="Src\Scene\GameSelect\GameKind.h" />
     <ClInclude Include="Src\Scene\PauseScene.h" />
     <ClInclude Include="Src\Scene\PeopleSelectScene.h" />
-    <ClInclude Include="Src\Scene\SceneId.h" />
     <ClInclude Include="Src\Scene\TitleScene.h" />
     <ClInclude Include="Src\Manager\Resource\ResourceManager.h" />
     <ClInclude Include="Src\Manager\Resource\Resource.h" />
