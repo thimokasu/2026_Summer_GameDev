@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-
+#include"Common/Vector2.h"
 class Application
 {
 
@@ -40,6 +40,8 @@ public:
 
 	// ‰ğ•ú¬Œ÷^¸”s‚Ì”»’è
 	bool IsReleaseFail(void) const;
+
+	Vector2 GetWindowSize(void) const;
 
 private:
 

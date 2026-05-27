@@ -141,6 +141,11 @@ bool Application::IsReleaseFail(void) const
 	return isReleaseFail_;
 }
 
+Vector2 Application::GetWindowSize(void) const
+{
+	return Vector2(SCREEN_SIZE_X, SCREEN_SIZE_Y);
+}
+
 Application::Application(void)
 {
 	isInitFail_ = false;
