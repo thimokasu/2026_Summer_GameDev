@@ -6,16 +6,17 @@ ShapeBase::ShapeBase(void)
 {
 }
 
-
-
 ShapeBase::~ShapeBase(void)
+{
+}
+
+void ShapeBase::SubLoad(void)
 {
 }
 
 void ShapeBase::SubInit(void)
 {
 }
-
 void ShapeBase::SubUpdate(void)
 {
 }

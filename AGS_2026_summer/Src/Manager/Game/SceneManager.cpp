@@ -5,9 +5,6 @@
 #include<EffekseerForDXLib.h>
 
 #include"../../Scene/SceneBase.h"
-#include"../../Scene/TitleScene.h"
-#include"../../Scene/GameScene.h"
-#include"../../Scene/PauseScene.h"
 
 #include"../../Manager/Generic/Loading.h"
 #include"../Resource/ResourceManager.h"
@@ -48,16 +45,21 @@ SceneManager::SceneManager(void)
 
 
 
+void SceneManager::SetSceneFactory(SCENE_ID sceneID, SceneFactory factory)
+{
+	sceneFactories_[sceneID] = factory;
+}
+
 void SceneManager::Init(void)
 {
-	sceneId_ = SCENE_ID::TITLE;
+	sceneID_ = SCENE_ID::TITLE;
 	// ロード画面生成
 	Loading::GetInstance()->CreateInstance();
 	Loading::GetInstance()->Init();
 	Loading::GetInstance()->Load();
 
 	// カメラ
-	camera_ = new Camera();
+	camera_ = std::make_unique<Camera>();
 	camera_->Init();
 
 	ResourceManager::CreateInstance();
@@ -145,7 +147,6 @@ void SceneManager::Destroy(void)
 
 	//カメラの解放
 	camera_->Release();
-	delete camera_;
 
 	DeleteGraph(mainScreen_);
 
@@ -154,74 +155,39 @@ void SceneManager::Destroy(void)
 	Loading::GetInstance()->DeleteInstance();
 
 
-	//// インスタンスのメモリ解放
-	//delete instance_;
-	//instance_ = nullptr;
+	// インスタンスのメモリ解放
+	delete instance_;
+	instance_ = nullptr;
 }
 
 void SceneManager::ChangeScene(std::shared_ptr<SceneBase>_scene)
 {
-	// シーンが空か？
 	if (scenes_.empty())
 	{
-		//空なので新しく入れる
 		scenes_.push_back(_scene);
-
-		Loading::GetInstance()->StartAsyncLoad();
-		scenes_.back()->Load();
-		Loading::GetInstance()->EndAsyncLoad();
 	}
 	else
 	{
-		//末尾のものを新しい物に入れ替える
 		ResourceManager::GetInstance().Release();
 		scenes_.back()->Release();
 		scenes_.back() = _scene;
-
-		// 読み込み(非同期)
-		Loading::GetInstance()->StartAsyncLoad();
-		scenes_.back()->Load();
-		Loading::GetInstance()->EndAsyncLoad();
 	}
-
+	scenes_.back()->Load();
+	scenes_.back()->Init();
+	sceneID_ = scenes_.back()->GetSceneID();
 }
 
 void SceneManager::ChangeScene(SCENE_ID scene)
 {
-	switch (scene)
+	auto it = sceneFactories_.find(scene);
+	if (it != sceneFactories_.end())
 	{
-	case SCENE_ID::TITLE:
-		ChangeScene(std::make_shared<TitleScene>());
-		break;
-	case SCENE_ID::GAME:
-		ChangeScene(std::make_shared<GameScene>());
-		break;
-	case SCENE_ID::PAUSE:
-		ChangeScene(std::make_shared<PauseScene>());
-		break;
-	default:
-		break;
+		sceneID_ = scene;
+		//登録されたラムダ式を実行して実体を生成
+		ChangeScene(it->second());
 	}
 }
 
-
-	void SceneManager::ChangeScene(SCENE_ID scene, std::string editFilename)
-	{
-		switch (scene)
-		{
-		case SCENE_ID::TITLE:
-			ChangeScene(std::make_shared<TitleScene>());
-			break;
-		case SCENE_ID::GAME:
-			ChangeScene(std::make_shared<GameScene>());
-			break;
-		case SCENE_ID::PAUSE:
-			ChangeScene(std::make_shared<PauseScene>());
-			break;
-		default:
-			break;
-		}
-	}
 
 	void SceneManager::PushScene(std::shared_ptr<SceneBase> scene)
 	{
@@ -229,11 +195,19 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 		scenes_.push_back(scene);
 		scenes_.back()->Load();
 		scenes_.back()->Init();
+		sceneID_ = scenes_.back()->GetSceneID();
+
 	}
 
 	void SceneManager::PushScene(SCENE_ID scene)
 	{
-
+		auto it = sceneFactories_.find(scene);
+		if (it != sceneFactories_.end())
+		{
+			sceneID_ = scene;
+			//登録されたラムダ式を実行して実体を生成
+			PushScene(it->second());
+		}
 	}
 
 	void SceneManager::PopScene(void)
@@ -243,7 +217,9 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 		{
 			scenes_.back()->Release();
 			scenes_.pop_back();
+			sceneID_ = scenes_.back()->GetSceneID();
 		}
+
 	}
 
 	void SceneManager::JumpScene(std::shared_ptr<SceneBase> scene)
@@ -258,25 +234,33 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 
 	void SceneManager::JumpScene(SCENE_ID scene)
 	{
-		switch (scene)
+		auto it = sceneFactories_.find(scene);
+		if (it != sceneFactories_.end())
 		{
-		case SCENE_ID::TITLE:
-			ChangeScene(std::make_shared<TitleScene>());
-			break;
-		case SCENE_ID::GAME:
-			ChangeScene(std::make_shared<GameScene>());
-			break;
-		case SCENE_ID::PAUSE:
-			ChangeScene(std::make_shared<PauseScene>());
-			break;
-		default:
-			break;
+			for (auto& s : scenes_) { s->Release(); }
+			scenes_.clear();
+			ChangeScene(it->second());
 		}
 	}
 
-	Camera* SceneManager::GetCamera(void) const
+	float SceneManager::GetTotalGameTime(void)
 	{
-		return camera_;
+		return totalGameTime_;
+	}
+
+	void SceneManager::SetTotalGameTime(float time)
+	{
+		totalGameTime_ = time;
+	}
+
+	void SceneManager::ForwardGameTime(void)
+	{
+		totalGameTime_ += GetDeltaTime();
+	}
+
+	Camera& SceneManager::GetCamera(void) const
+	{
+		return *camera_;
 	}
 
 

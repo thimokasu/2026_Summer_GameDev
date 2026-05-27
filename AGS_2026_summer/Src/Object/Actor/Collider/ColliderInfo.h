@@ -1,22 +1,45 @@
 #pragma once
-#include "ColliderInfo.h"
-#include "ColliderShape.h"  
-#include "ColliderLayer.h"  
+#include"../../Common/Transform.h"
 
-#include "../ActorTag.h"  
-#include "../../Common/Transform.h"
+enum class ColliderLayer
+{
+	NONE = 0,
+	CAMERA,
+	ACTOR,
+	STAGE,
 
+	MAX
+};
+
+enum class ColliderShape
+{
+	NONE,
+	LINE,
+	SPHERE,
+	CAPSULE,
+	BOX,
+	MODEL,
+
+	MESH,
+
+	TRIANGULAR_PYRAMID,
+	TRIANGULAR_PRISM,
+	CYLINDER,
+	CONE,
+
+	MAX
+};
 
 struct ColliderInfo
 {
-	SHAPE shape;	//形状
-	Transform* targetTransform;	//ターゲットのTransform
-	TAG tag;	//当たり判定のタグ
-	Layer layer;	//当たり判定を行うレイヤーのマスク
-	uint32_t mask;	//当たり判定を受け付けるレイヤーのマスク
-	VECTOR localPos;	//ローカル座標
-	VECTOR localRot;	//ローカル回転
-	bool isTrigger;	//トリガー判定かどうか
-	bool isActive;	//有効かどうか
-	int debugColor = GetColor(255, 0, 0);
+	ColliderShape shape_=ColliderShape::SPHERE;// コライダーの形状
+	ColliderLayer layer_=ColliderLayer::ACTOR;// コライダーのレイヤー
+	uint32_t mask_ = {};//当たり判定のマスク
+	VECTOR localPos_ = { 0.0f,0.0f,0.0f };//ローカル座標
+	VECTOR localRot_={ 0.0f,0.0f,0.0f };//ローカル回転
+	bool isTrigger_=false;//トリガーかどうか
+	bool isActive_=true;//有効かどうか
+	int debugColor_ = GetColor(255, 0, 0);//デバッグ用の色
 };
+
+using Layer = ColliderLayer;

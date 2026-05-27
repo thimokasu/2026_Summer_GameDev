@@ -1,45 +1,39 @@
 #pragma once
 #include "SceneBase.h"
-
 #include<vector>
 #include<memory>
+#include"GameSelect/GameKind.h"
 
-#include"../Manager/System/CollisionSystem/CollisionSystem.h"
-#include"../Manager/System/ContactSystem/ContactSystem.h"
-#include"../Manager/System/ContactSystem/GameContactSystem.h"
-#include"../Manager/System/MoveInputSystem/MoveInputSystem.h"
-#include"../Manager/System/PhysicsSystem/PhysicsSystem.h"
-#include"../Scene/PauseScene.h"
-
-#include"../Manager/Generic/KeyManager.h"
+class ActorManager;
+class CollisionManager;
+class ContactEventManager;
 
 class GameScene :
     public SceneBase
 {
 public:
     GameScene(void);
-    ~GameScene(void)override;
+	GameScene(GameInfo info);
+	~GameScene(void);
 
-    void Load(void)override;
-    void Init(void)override;
-    void Update(void)override;
-    void Draw(void)override;
-    void Release(void)override;
-
+	void Load(void) override;
+	void Init(void) override;
+	void Update(void) override;
+	void Draw(void) override;
+	void Release(void) override;
+	SCENE_ID GetSceneID(void)const override { return SCENE_ID::GAME; }
 private:
-    std::vector<std::shared_ptr<ActorBase>>actors_;
+#pragma region ä÷êî
+	void SetContactEventRule(void);
+	void SetContactEventCallback(void);
+#pragma endregion
 
-    CollisionSystem collisionSystem_;
-    ContactSystem contactSystem_;
-    GameContactSystem gameContactSystem_;
-    PhysicsSystem physicsSystem_;
+#pragma region ïœêî
+	std::unique_ptr<ActorManager> actorMng_;
+	std::unique_ptr<CollisionManager>colMng_;
+	std::unique_ptr<ContactEventManager>contactMng_;
+	GameInfo gameInfo_;
+#pragma endregion
 
-
-    MoveInputSystem moveInputSystem_;
-    
-    int EntityId = 0;
-
-	bool isPause_ = false;
-	std::shared_ptr<PauseScene> pauseScene_;
 };
 

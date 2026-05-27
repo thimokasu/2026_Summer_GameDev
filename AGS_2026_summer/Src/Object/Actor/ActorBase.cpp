@@ -1,5 +1,7 @@
 #include "ActorBase.h"
 #include"../Common/AnimationController.h"
+#include"Collider/ColliderBase.h"
+
 ActorBase::ActorBase(void)
 {
 }
@@ -16,19 +18,21 @@ void ActorBase::Load(void)
 void ActorBase::Init(void)
 {
 	SubInit();
-   InitCollider();
+	InitCollider();
 }
 
 void ActorBase::Update(void)
 {
 	SubUpdate();
+	rigidBody_.Update();
+	Move();
 	trans_.Update();
 }
 
 void ActorBase::Draw(void)
 {
 	SubDraw();
-	MV1DrawModel(trans_.modelId);
+	if (isDraw_)MV1DrawModel(trans_.modelId);
 }
 
 void ActorBase::Release(void)
@@ -36,6 +40,7 @@ void ActorBase::Release(void)
 	SubRelease();
 }
 
-void ActorBase::SetOwnerActor2Colliders(void)
+void ActorBase::Move(void)
 {
+	trans_.pos = VAdd(trans_.pos, rigidBody_.GetVelocity());
 }

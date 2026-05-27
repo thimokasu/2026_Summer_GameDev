@@ -36,10 +36,6 @@ public:
 	// リソースの複製ロード(モデル用)
 	int LoadModelDuplicate(SRC src);
 
-	int LoadGraph(const std::string& path);
-
-	std::map<std::string, int>graphMap_;
-
 private:
 	// リソース管理の対象
 	std::map<SRC, Resource*> resourcesMap_;

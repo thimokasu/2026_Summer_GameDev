@@ -2,134 +2,81 @@
 #include<DxLib.h>
 
 #include"../Manager/Game/SceneManager.h"
-#include"../Manager/Resource/ResourceManager.h"
 #include"../Manager/Generic/KeyManager.h"
 
-#include"../Manager/System/PhysicsSystem/PhysicsSystem.h"
-#include"../Manager/System/CollisionSystem/CollisionSystem.h"
-#include"../Manager/System/ContactSystem/ContactSystem.h"
-#include"../Manager/System/ContactSystem/GameContactSystem.h"
-#include"../Manager/System/MoveInputSystem/MoveInputSystem.h"
+#include"../Manager/System/Collision/CollisionManager.h"
+#include"../Manager/System/ContactSystem/ContactEventManager.h"
 
-
-#include"../Object/Actor/Shape/Box.h"
-#include"../Object/Actor/Shape/Capsule.h"
-#include"../Object/Actor/Shape/Sphere.h"
-#include"../Object/Actor/Shape/ShapeBase.h"
-
-#include"../Object/Actor/Component/PlayerInputComponent/PlayerInputComponent.h"
-#include"../Object/Actor/Component/RigidBodyComponent/RigidBody.h"
-
-
-#include"../Object/Actor/Floor/Floor.h"
-#include"../Object/Actor/Camera/Camera.h"
+#include"../Object/Actor/Manager/ActorManager.h"
 
 GameScene::GameScene(void)
 {
-	pauseScene_ = std::make_shared<PauseScene>();
+	gameInfo_.mode_ = GameMode::FOURPLAYER;
+	gameInfo_.game_ = static_cast<Game>(FourPlayer::Game::FindingJ);
+	gameInfo_.stageNum_ = static_cast<int>(FourPlayer::FindingJ::Stage::Stage3);
+}
+
+GameScene::GameScene(GameInfo info)
+{
+	gameInfo_ = info;
 }
 
 GameScene::~GameScene(void)
 {
 }
 
-template<typename T>
-std::vector<std::shared_ptr<T>> ObjSearch(const std::vector<std::shared_ptr<ActorBase>>& objects)
-{
-	static_assert(std::is_base_of_v<ActorBase, T>);
-
-	std::vector<std::shared_ptr<T>> out;
-	out.reserve(objects.size());
-
-	for (const auto& obj : objects)
-	{
-		if (!obj) continue;
-
-		if (auto casted = std::dynamic_pointer_cast<T>(obj))
-		{
-			out.push_back(casted);
-		}
-	}
-	return out;
-}
-
 void GameScene::Load(void)
 {
-	std::shared_ptr<Box>box = std::make_shared<Box>();
-	box->GetTransform().pos = VGet(300.0f, 200.0f, 0.0f);
-	actors_.push_back(box);
-	box->AddComponent(std::make_shared<PlayerInputComponent>(
-		KEY_INPUT_W, KEY_INPUT_S,
-		KEY_INPUT_A, KEY_INPUT_D,
-		KEY_INPUT_Q, KEY_INPUT_E)
-	);
-	auto rb = std::make_shared<RigidBody>();
-	rb->SetBodyType(RigidBody::BodyType::DYNAMIC);
-	rb->SetMass(10.0f);
-	rb->SetUseGravity(true);
-	box->AddComponent(rb);
-
-	box = std::make_shared<Box>();
-	box->GetTransform().pos = VGet(300.0f, 200.0f, 0.0f);
-	actors_.push_back(box);
-	box->AddComponent(std::make_shared<PlayerInputComponent>(
-		KEY_INPUT_T, KEY_INPUT_G,
-		KEY_INPUT_F, KEY_INPUT_H,
-		KEY_INPUT_R, KEY_INPUT_Y)
-	);
-	rb = std::make_shared<RigidBody>();
-	rb->SetBodyType(RigidBody::BodyType::DYNAMIC);
-	rb->SetMass(1.0f);
-	rb->SetUseGravity(true);
-	box->AddComponent(rb);
-
-	std::shared_ptr<Floor> floor = std::make_shared<Floor>(VGet(1000.0f, 5.0f, 1000.0f));
-	floor->GetTransform().pos = VGet(0, -100, 0);
-	rb = std::make_shared<RigidBody>();
-	rb->SetBodyType(RigidBody::BodyType::STATIC);
-	rb->SetMass(0.0f);
-	floor->AddComponent(rb);
-
-
-
-	actors_.push_back(floor);
+	actorMng_ = std::make_unique<ActorManager>();
+	colMng_ = std::make_unique<CollisionManager>();
+	contactMng_ = std::make_unique<ContactEventManager>();
+	actorMng_->Load(gameInfo_);
 }
 
 void GameScene::Init(void)
 {
 	auto onBeginContact = [this](uint32_t a, uint32_t b)
 		{
-			contactSystem_.OnBeginContact(a, b, CollisionResult{});
+			Entity entA{ a, actorMng_->GetEntityKind(a) };
+			Entity entB{ b, actorMng_->GetEntityKind(b) };
+			contactMng_->OnBeginContact(entA, entB, CollisionResult{});
 		};
 	auto onEndContact = [this](uint32_t a, uint32_t b)
 		{
-			contactSystem_.OnEndContact(a, b, CollisionResult{});
+			Entity entA{ a, actorMng_->GetEntityKind(a) };
+			Entity entB{ b, actorMng_->GetEntityKind(b) };
+			contactMng_->OnEndContact(entA, entB, CollisionResult{});
 		};
+	colMng_->SetContactCallbacks(onBeginContact, onEndContact);	
+	SetContactEventRule();
+	SetContactEventCallback();
 
-	for (auto& actor : actors_)
+	actorMng_->Init();
+	for (auto& actor : actorMng_->GetActors())
 	{
-		actor->Init();
-		actor->SetEntityId(EntityId++);
-		collisionSystem_.AddCollider(actor->GetOwnColliders());
+		for (const auto& [shape, collider] : actor->GetOwnColliders())
+		{
+			colMng_->AddCollider(collider.get(), actor->GetEntityID());
+		}
 	}
 }
 
 void GameScene::Update(void)
 {
-	//エスケープ押したらメニューシーンへ
-	if (KeyManager::GetIns().GetInfo(KEY_TYPE::PAUSE).down)
-	{
-		isPause_ = !isPause_;
-	}
+	////エスケープ押したらメニューシーンへ
+	//if (KeyManager::GetIns().GetInfo(KEY_TYPE::PAUSE).down)
+	//{
+	//	isPause_ = !isPause_;
+	//}
 
-	if (isPause_)
-	{
-		if (pauseScene_)
-		{
-			pauseScene_->Update();
-		}
-		return;
-	}
+	//if (isPause_)
+	//{
+	//	if (pauseScene_)
+	//	{
+	//		pauseScene_->Update();
+	//	}
+	//	return;
+	//}
 
 	//スペース押したらゲームシーンへ
 	if (KeyManager::GetIns().GetInfo(KEY_TYPE::SPACE).down)
@@ -138,45 +85,39 @@ void GameScene::Update(void)
 		return;
 	}
 
-	for (auto& actor : actors_)
-	{
-		actor->Update();
-	}
 
-	moveInputSystem_.Update(actors_);
-	physicsSystem_.Update(actors_);
-
-	collisionSystem_.Update();
-	gameContactSystem_.Update();
-
-	physicsSystem_.Resolve(actors_,collisionSystem_.GetCollisionMainfold());
+	actorMng_->Update();
+	colMng_->Update();
+	colMng_->Resolve();
+	contactMng_->Update();
 }
 
 void GameScene::Draw(void)
 {
-	DrawString(0, 0, "game", 0xffffff);
+	DrawFormatString(0, 0, 0xffffff, "Game");
+	actorMng_->Draw();
 
-	for (auto& actor : actors_)
-	{
-		actor->Draw();
-		for (const auto& [shape, collider] : actor->GetOwnColliders())
-		{
-			collider->Draw();
-		}
-	}
-
-	if (isPause_)
-	{
-		pauseScene_->Draw();
-		return;
-	}
+	//if (isPause_)
+	//{
+	//	pauseScene_->Draw();
+	//	return;
+	//}
 }
 
 void GameScene::Release(void)
 {
-	for(auto&actors_: actors_)
-	{
-		actors_->Release();
-	}
-	actors_.clear();
+	actorMng_->Release();
+	colMng_->ClearColliders();
+}
+
+void GameScene::SetContactEventRule(void)
+{
+	//イベントの発生ルールの設定
+	contactMng_->SetEventRule(EntityKind::PLAYER, EntityKind::STAGE, GameEventType::TEST);
+}
+
+void GameScene::SetContactEventCallback(void)
+{
+	//イベントのコールバック関数の設定
+	contactMng_->SetContactEventCallback(GameEventType::TEST, []() {});
 }

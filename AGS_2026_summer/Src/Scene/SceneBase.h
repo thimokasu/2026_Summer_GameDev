@@ -1,4 +1,6 @@
 #pragma once
+#include"SceneId.h"
+
 class ResourceManager;
 class SceneManager;
 class SceneBase
@@ -27,7 +29,13 @@ public:
 	// 解放処理
 	virtual void Release(void) {};
 
-
+	/// <summary>
+	///	シーンIDを取得する
+	/// それぞれのシーンでオーバーライドして、シーンIDを返すようにする
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
+	virtual SCENE_ID GetSceneID(void)const = 0;
 
 protected:
 

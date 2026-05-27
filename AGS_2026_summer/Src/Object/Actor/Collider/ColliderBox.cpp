@@ -1,22 +1,19 @@
 #include "ColliderBox.h"
-#include<DxLib.h>
 
-
-ColliderBox::ColliderBox(ColliderInfo& info,  VECTOR& halfSize, ActorBase* actor)
-	:
-	ColliderBase(info, actor),
-	halfSize_(halfSize)
+ColliderBox::ColliderBox(ColliderInfo& info, VECTOR& halfSize, ActorBase& actor)
+    : ColliderBase(info, actor), halfSize_(halfSize)
 {
 }
 
-
-ColliderBox::~ColliderBox(void)
+ColliderBox::ColliderBox(ColliderInfo& info, VECTOR& halfSize, ActorBase& actor, int debugColor)
+    : ColliderBase(info, actor), halfSize_(halfSize)
 {
+    info.debugColor_ = debugColor;
 }
 
 VECTOR ColliderBox::Local2World(const VECTOR& localPos) const
 {
-	VECTOR center = GetRotPos(colliderInfo_.localPos);
+	VECTOR center = GetRotPos(colliderInfo_.localPos_);
 
 	return VAdd(
 		center,
@@ -29,12 +26,13 @@ VECTOR ColliderBox::Local2World(const VECTOR& localPos) const
 	);
 }
 
-
 VECTOR ColliderBox::World2Local(const VECTOR& worldPos) const
 {
-	VECTOR center = GetRotPos(colliderInfo_.localPos);
+	// ワールド座標から中心座標を引いて、ローカル軸に投影する
+	VECTOR center = GetRotPos(colliderInfo_.localPos_);
+	// ワールド座標から中心座標を引く
 	VECTOR dir = VSub(worldPos, center);
-
+	// ローカル軸に投影する
 	return VGet(
 		VDot(dir, GetAxisX()),
 		VDot(dir, GetAxisY()),
@@ -42,16 +40,16 @@ VECTOR ColliderBox::World2Local(const VECTOR& worldPos) const
 	);
 }
 
-
 VECTOR ColliderBox::GetVertexPos(int index) const
 {
+
 	// 中心座標
-	VECTOR center = GetRotPos(colliderInfo_.localPos);
+	VECTOR center = GetRotPos(colliderInfo_.localPos_);
 
 	// ワールド軸
-	VECTOR axisX = GetFollow()->GetRight();
-	VECTOR axisY = GetFollow()->GetUp();
-	VECTOR axisZ = GetFollow()->GetForward();
+	VECTOR axisX = GetOwnerTransform().GetRight();
+	VECTOR axisY = GetOwnerTransform().GetUp();
+	VECTOR axisZ = GetOwnerTransform().GetForward();
 
 	// 8頂点の配列
 	VECTOR hx = VScale(axisX, halfSize_.x);
@@ -74,22 +72,20 @@ VECTOR ColliderBox::GetVertexPos(int index) const
 	return v[index];
 }
 
-
 void ColliderBox::DrawDebug(int color)
 {
 	//中心座標
-	VECTOR center = GetRotPos(colliderInfo_.localPos);
+	VECTOR center = GetRotPos(colliderInfo_.localPos_);
 	//ワールド軸
-	VECTOR axisX = GetFollow()->GetRight();
-	VECTOR axisY = GetFollow()->GetUp();
-	VECTOR axisZ = GetFollow()->GetForward();
+	VECTOR axisX = GetOwnerTransform().GetRight();
+	VECTOR axisY = GetOwnerTransform().GetUp();
+	VECTOR axisZ = GetOwnerTransform().GetForward();
 	//中心から頂点までのベクトル
 	VECTOR hx = VScale(axisX, halfSize_.x);
 	VECTOR hy = VScale(axisY, halfSize_.y);
 	VECTOR hz = VScale(axisZ, halfSize_.z);
-
 	// 頂点座標計算
-	VECTOR v[8]=
+	VECTOR v[8] =
 	{
 		VAdd(center,VAdd(VAdd(hx,hy),hz)),	// +x,+y,+z
 		VAdd(center,VAdd(VAdd(hx,hy),VScale(hz,-1.0f))),	// +x,+y,-z
@@ -116,6 +112,10 @@ void ColliderBox::DrawDebug(int color)
 		DrawLine3D(v[edges[i][0]], v[edges[i][1]], color);
 	}
 
+	DrawCube3D({ center.x - halfSize_.x,center.y - halfSize_.y,center.z - halfSize_.z },
+		{ center.x + halfSize_.x,center.y + halfSize_.y,center.z + halfSize_.z },
+		color, color, true);
 	//中心点
 	DrawSphere3D(center, 2.0f, 8, color, color, false);
+
 }

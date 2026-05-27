@@ -1,17 +1,15 @@
 #pragma once
+#include<DxLib.h>
+#include<memory>
 #include<vector>
 #include<map>
-#include<memory>
-#include<unordered_map>
-#include<typeindex>
-#include <iostream>
-#include <filesystem>
-
 #include"../Common/Transform.h"
-#include"Collider/ColliderBase.h"
-
+#include"../Common/RigidBody.h"
+#include"EntityKind.h"
+#include"Collider/ColliderInfo.h"
 
 class AnimationController;
+class ColliderBase;
 
 class ActorBase
 {
@@ -30,28 +28,30 @@ public:
 	//解放
 	void Release(void);
 
+	//トランスフォーム取得
 	Transform& GetTransform(void) { return trans_; }
-
-	//エンティティID取得
-	size_t GetEntityId(void) const { return entityId_; }
+	//リジッドボディ取得
+	RigidBody& GetRigidBody(void) { return rigidBody_; }
 	//エンティティID設定
-	void SetEntityId(int id) { entityId_ = id; }
-
+	void SetEntityID(int id) { entityID_ = id; }
+	//エンティティID取得
+	int GetEntityID(void) const { return entityID_; }
+	//エンティティ種別設定
+	void SetEntityKind(EntityKind kind) { entityKind_ = kind; }
+	//エンティティ種別取得
+	EntityKind GetEntityKind(void) const { return entityKind_; }
+	//アクティブ状態取得
+	bool GetIsActive(void) const { return isActive_; }
+	//アクティブ状態設定
+	void SetIsActive(bool isActive) { isActive_ = isActive; }
 	//自身のコライダーリスト取得
-	const std::map<int, std::shared_ptr<ColliderBase>>& GetOwnColliders(void) const { return ownColliders_; }
-
-
-	//コンポーネント追加
-	template<class T>
-	ActorBase& AddComponent(std::shared_ptr<T>component);
-	//コンポーネントがあるか
-	template<class T>
-	bool HasComponent(void);
-	//コンポーネント取得
-	template<class T>
-	T& GetComponent(void);
-
+	const std::map<int, std::unique_ptr<ColliderBase>>& GetOwnColliders(void) const { return ownColliders_; }
+	//描画状態取得
+	bool GetIsDraw(void) const { return isDraw_; }
+	//描画状態設定
+	void SetIsDraw(bool isDraw) { isDraw_ = isDraw; }
 protected:
+#pragma region 関数
 	virtual void SubLoad(void) {};
 	virtual void SubInit(void) {};
 	virtual void SubUpdate(void) {};
@@ -60,44 +60,25 @@ protected:
 
 	virtual void InitCollider(void) {};
 
-	void SetOwnerActor2Colliders(void);
+	void Move(void);
+#pragma endregion
 
-
-protected:
-
-	AnimationController* animationCOntroller_ = nullptr;
+#pragma region 変数
+	//アニメーションコントローラー
+	std::unique_ptr<AnimationController> animationController_;
+	//トランスフォーム
 	Transform trans_;
-	size_t entityId_ = -1;
-
+	//リジッドボディ
+	RigidBody rigidBody_;
+	//エンティティID
+	int entityID_;
+	//エンティティ種別
+	EntityKind entityKind_;
+	//描画状態
+	bool isDraw_;
+	//アクティブ状態
+	bool isActive_;
 	//自身のコライダーリスト
-	std::map<int, std::shared_ptr<ColliderBase>>ownColliders_;
-
-	//コンポーネントリスト
-	std::unordered_map<std::type_index, std::shared_ptr<void>>components_;
-
-private:
-
-
-
+	std::map<int, std::unique_ptr<ColliderBase>> ownColliders_;
+#pragma endregion
 };
-
-template<class T>
-inline ActorBase& ActorBase::AddComponent(std::shared_ptr<T> component)
-{
-	components_[std::type_index(typeid(T))] = component;
-	return *this;
-}
-
-
-template<class T>
-inline bool ActorBase::HasComponent(void)
-{
-
-	return components_.find(std::type_index(typeid(T))) != components_.end();
-}
-
-template<class T>
-inline T& ActorBase::GetComponent(void)
-{
-	return *std::static_pointer_cast<T>(components_[std::type_index(typeid(T))]);
-}

@@ -3,9 +3,8 @@
 #include"../../../Utility/AsoUtility.h"
 #include"../../../Manager/Generic/KeyManager.h"
 #include"../../Common/Transform.h"
-#include"../Collider/ColliderShape.h"
-#include"../ActorTag.h"
 #include"../Collider/ColliderSphere.h"
+
 Camera::Camera(void)
 	:
 	ActorBase(),
@@ -205,8 +204,8 @@ void Camera::ProcessMove(void)
 
 	if (GetJoypadNum() == 0)
 	{
-		if (ins.GetInfo(KEY::KEY_TYPE::CAMERA_MOVE_BACK).now) { moveDir = AsoUtility::DIR_B; }
 		if (ins.GetInfo(KEY::KEY_TYPE::CAMERA_MOVE_FRONT).now) { moveDir = AsoUtility::DIR_F; }
+		if (ins.GetInfo(KEY::KEY_TYPE::CAMERA_MOVE_BACK).now) { moveDir = AsoUtility::DIR_B; }
 		if (ins.GetInfo(KEY::KEY_TYPE::CAMERA_MOVE_RIGHT).now) { moveDir = AsoUtility::DIR_R; }
 		if (ins.GetInfo(KEY::KEY_TYPE::CAMERA_MOVE_LEFT).now) { moveDir = AsoUtility::DIR_L; }
 	}

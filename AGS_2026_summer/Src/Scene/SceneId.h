@@ -1,0 +1,14 @@
+#pragma once
+enum class SCENE_ID
+{
+	NONE=-1,
+	TITLE,
+	NUMBER_SELECT,
+	STAGE_SELECT,
+	GAME,
+	RESULT,
+	MULTI,
+	CONNECT,
+
+	MAX
+};

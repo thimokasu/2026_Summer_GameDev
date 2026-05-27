@@ -1,43 +1,39 @@
-#include<DxLib.h>
-#include"../Manager/Resource/ResourceManager.h"
-#include"../Manager/Generic/KeyManager.h"
-#include"../Manager/Game/SceneManager.h"
 #include "TitleScene.h"
-#include"../Manager/Game/SceneId.h"
+#include"../Manager/Game/SceneManager.h"
+#include"../Manager/Generic/KeyManager.h"
+
 TitleScene::TitleScene(void)
 {
-	imgPush_ = -1;
-	imgTitle_ = -1;
-	pauseScene_ = std::make_unique<PauseScene>();
 }
 
 TitleScene::~TitleScene(void)
 {
 }
 
+void TitleScene::Load(void)
+{
+}
 
 void TitleScene::Init(void)
 {
-	imgPush_ = resMng_.LoadGraph("Date/Title/GamePick.png");
-	imgTitle_ = resMng_.LoadGraph("Date/Title/title4.png");
 }
 
 void TitleScene::Update(void)
 {
 	//エスケープ押したらメニューシーンへ
-	if (KeyManager::GetIns().GetInfo(KEY_TYPE::PAUSE).down)
-	{
-		isPause_ = !isPause_;
-	}
+	//if (KeyManager::GetIns().GetInfo(KEY_TYPE::PAUSE).down)
+	//{
+	//	isPause_ = !isPause_;
+	//}
 
-	if (isPause_)
-	{
-		if (pauseScene_)
-		{
-			pauseScene_->Update();
-		}
-		return;
-	}
+	//if (isPause_)
+	//{
+	//	if (pauseScene_)
+	//	{
+	//		pauseScene_->Update();
+	//	}
+	//	return;
+	//}
 
 	//スペース押したらゲームシーンへ
 	if (KeyManager::GetIns().GetInfo(KEY_TYPE::SPACE).down)
@@ -49,16 +45,19 @@ void TitleScene::Update(void)
 
 void TitleScene::Draw(void)
 {
-	DrawString(0, 0, "title", 0xffffff);	
+	DrawString(0, 0, "title", 0xffffff);
 
 
-	DrawGraph(0, 0, imgTitle_, TRUE);
-	DrawGraph(600, 700, imgPush_, TRUE);
+	//DrawGraph(0, 0, imgTitle_, TRUE);
+	//DrawGraph(600, 700, imgPush_, TRUE);
 
-	if (isPause_)
-	{
-		pauseScene_->Draw();
-		return;
-	}
+	//if (isPause_)
+	//{
+	//	pauseScene_->Draw();
+	//	return;
+	//}
+}
 
+void TitleScene::Release(void)
+{
 }

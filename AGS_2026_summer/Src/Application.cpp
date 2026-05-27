@@ -5,6 +5,9 @@
 #include "Manager/Game/SceneManager.h"
 #include"Manager/Generic/KeyManager.h"
 
+#include"Scene/TitleScene.h"
+#include"Scene/GameScene.h"
+
 Application* Application::instance_ = nullptr;
 
 const std::string Application::PATH_DATA = "Data/";
@@ -46,6 +49,14 @@ void Application::Init(void)
 	SetGraphMode(SCREEN_SIZE_X, SCREEN_SIZE_Y, 32);
 	ChangeWindowMode(true);
 
+	// ２重起動検査回避用
+	SRand(GetNowCount());
+	int rand = GetRand(999);
+	std::string name = "UDP Test";
+	name += std::to_string(rand);
+	SetMainWindowClassName(name.c_str());
+	SetAlwaysRunFlag(true);
+
 	// DxLibの初期化
 	SetUseDirect3DVersion(DX_DIRECT3D_11);
 	isInitFail_ = false;
@@ -74,8 +85,10 @@ void Application::Init(void)
 
 	// シーン管理初期化
 	SceneManager::CreateInstance();
+	SceneManager::GetInstance().SetSceneFactory(SCENE_ID::TITLE, []() { return std::make_shared<TitleScene>(); });
+	SceneManager::GetInstance().SetSceneFactory(SCENE_ID::GAME, []() {return std::make_shared<GameScene>(); });
 	SceneManager::GetInstance().Init();
-
+	// ネットワーク管理初期化
 }
 
 void Application::Run(void)
@@ -85,12 +98,11 @@ void Application::Run(void)
 	auto&sceneManager = SceneManager::GetInstance();
 
 	// ゲームループ
-	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_A) == 0)
+	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
 
 		keymanager.Update();
 		sceneManager.Update();
-
 		sceneManager.Draw();
 
 		ScreenFlip();
@@ -108,6 +120,7 @@ void Application::Destroy(void)
 	// 入力制御解放
 	KeyManager::GetIns().DeleteIns();
 
+
 	Effkseer_End();
 
 	// DxLib終了
@@ -115,9 +128,6 @@ void Application::Destroy(void)
 	{
 		isReleaseFail_ = true;
 	}
-
-	// インスタンスのメモリ解放
-	delete instance_;
 
 }
 

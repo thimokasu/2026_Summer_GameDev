@@ -1,14 +1,14 @@
 #pragma once
 #include <string>
-#include "Common/Vector2.h"
+
 class Application
 {
 
 public:
 
 	// スクリーンサイズ
-	static constexpr int SCREEN_SIZE_X = 1980;
-	static constexpr int SCREEN_SIZE_Y = 1080;
+	static constexpr int SCREEN_SIZE_X = 1024;
+	static constexpr int SCREEN_SIZE_Y = 640;
 
 	// データパス関連
 	//-------------------------------------------
@@ -25,8 +25,6 @@ public:
 	static Application& GetInstance(void);
 
 	static void DeleteInstance(void);
-
-	static Vector2 GetWindowSize(void) { return Vector2(SCREEN_SIZE_X, SCREEN_SIZE_Y); }
 
 	// 初期化
 	void Init(void);
