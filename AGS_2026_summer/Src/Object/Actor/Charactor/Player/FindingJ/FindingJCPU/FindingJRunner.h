@@ -53,7 +53,7 @@ private:
 #pragma region ä÷êî
 	void Think(void); // évçl
     void Visible(void);
-    void Move(void);
+	void MoveToTarget(void);
 #pragma endregion
 
 };

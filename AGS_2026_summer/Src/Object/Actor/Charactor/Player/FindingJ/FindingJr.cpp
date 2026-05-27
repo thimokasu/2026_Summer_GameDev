@@ -22,7 +22,7 @@ void FindingJ::SubInit(void)
 	entityKind_ = EntityKind::PLAYER;
 	rigidBody_.SetBodyType(RigidBody::BodyType::DYNAMIC);
 	rigidBody_.SetUseGravity(true);
-	rigidBody_.SetMass(100);
+	rigidBody_.SetMass(1000);
 	rigidBody_.SetMoveSpeed(0.5f);
 	trans_.pos = VGet(0.0f, 40.0f, 0.0f);
 }

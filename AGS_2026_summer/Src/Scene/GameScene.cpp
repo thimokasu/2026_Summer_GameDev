@@ -131,6 +131,7 @@ void GameScene::SetContactEventRule(void)
 {
 	//イベントの発生ルールの設定
 	contactMng_->SetEventRule(EntityKind::PLAYER, EntityKind::REACTION_BLOCK, GameEventType::REACTION_BLOCK);
+	contactMng_->SetEventRule(EntityKind::FINDINGJ_CPU, EntityKind::REACTION_BLOCK, GameEventType::REACTION_BLOCK);
 	contactMng_->SetEventRule(EntityKind::PLAYER, EntityKind::FINDINGJ_CPU, GameEventType::HAS_CAHGHT);
 }
 void GameScene::SetContactEventCallback(void)

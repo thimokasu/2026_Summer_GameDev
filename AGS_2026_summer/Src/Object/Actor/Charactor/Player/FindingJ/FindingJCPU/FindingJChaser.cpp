@@ -1,6 +1,7 @@
 #include "FindingJChaser.h"
-#include"../../../../../../Object/Actor/Stage/FindingJ/StageLayout.h"
-
+#include"../../../../Stage/FindingJ/StageLayout.h"
+#include"../../../../Collider/ColliderBase.h"
+#include"../../../../Collider/ColliderCapsule.h"
 FindingJChaser::FindingJChaser(void)
 {
 }
@@ -15,6 +16,11 @@ void FindingJChaser::SubLoad(void)
 
 void FindingJChaser::SubInit(void)
 {
+	entityKind_ = EntityKind::FINDINGJ_CPU;
+	rigidBody_.SetUseGravity(true);
+	rigidBody_.SetMass(100);
+	rigidBody_.SetMoveSpeed(0.5f);
+	trans_.pos = VGet(100.0f, 40.0f, 100.0f);
 }
 
 void FindingJChaser::SubUpdate(void)
@@ -41,6 +47,16 @@ void FindingJChaser::SubRelease(void)
 
 void FindingJChaser::InitCollider(void)
 {
+	ColliderInfo info;
+	info.shape_ = ColliderShape::CAPSULE;
+	info.layer_ = ColliderLayer::ACTOR;
+	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE });
+	float radius = 10.0f;
+	VECTOR localPosTop = VGet(0.0f, 10.0f, 0.0f);
+	VECTOR localPosDown = VGet(0.0f, -10.0f, 0.0f);
+	std::unique_ptr<ColliderCapsule>collider =
+		std::make_unique<ColliderCapsule>(info, radius, localPosTop, localPosDown, *this);
+	ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
 }
 
 void FindingJChaser::WanderBehavior()

@@ -4,6 +4,8 @@
 #include"../../../Stage/FindingJ/StageLayout.h"
 #include"../../../../Common/RigidBody.h"
 #include"./../../../Charactor/Player/FindingJ/FindingJ.h"
+
+
 Stage1Factory::Stage1Factory()
 {
 }
