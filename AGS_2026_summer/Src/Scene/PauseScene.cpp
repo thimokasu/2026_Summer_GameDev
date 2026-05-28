@@ -12,7 +12,7 @@ PauseScene::PauseScene(void)
 {
 	update_ = &PauseScene::AppearUpdate;
 	draw_ = &PauseScene::ExpandDraw;
-	
+	frame_ = 0;
 }
 
 PauseScene::~PauseScene(void)
@@ -38,21 +38,20 @@ void PauseScene::AppearUpdate()
 {
 	if(++frame_ >= expand_interval)
 	{
-		frame_ = expand_interval;
 		update_ = &PauseScene::NormalUpdate;
 		draw_ = &PauseScene::NormalDraw;
+		return;	
 	}
 }
 
 void PauseScene::NormalUpdate()
 {
-	DrawString(0, 100, "normal", 0xffffff);
 
 	if(KEY::GetIns().GetInfo(KEY::KEY_TYPE::PAUSE).down)
 	{
 		update_ = &PauseScene::DisappearUpdate;
 		draw_ = &PauseScene::ExpandDraw;
-		frame_ = expand_interval;
+		return;
 	}
 }
 
@@ -95,7 +94,7 @@ void PauseScene::DrawFrame(float rate)
 		1.0f
 	);
 
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	/*SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 	DrawBoxAA(
 		margin_size,
@@ -105,5 +104,5 @@ void PauseScene::DrawFrame(float rate)
 		0xffffff,
 		true,
 		3.0f
-	);
+	);*/
 }

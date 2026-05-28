@@ -1,6 +1,5 @@
 #pragma once
 #include "SceneBase.h"
-class PauseScene;
 class TitleScene :
     public SceneBase
 {
@@ -18,7 +17,6 @@ private:
 
 	int imgTitle_;
 	int imgPush_;
-	bool isPause_;
 
 
 };

@@ -1,6 +1,7 @@
 #include "TitleScene.h"
 #include"../Manager/Game/SceneManager.h"
 #include"../Manager/Generic/KeyManager.h"
+#include"../Manager/Resource/ResourceManager.h"
 
 
 TitleScene::TitleScene(void)
@@ -17,6 +18,7 @@ void TitleScene::Load(void)
 
 void TitleScene::Init(void)
 {
+	
 }
 
 void TitleScene::Update(void)
