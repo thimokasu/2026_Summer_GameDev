@@ -6,7 +6,7 @@
 
 Timer::Timer()
 {
-	time_ = 20.0f;
+	time_ = 2000.0f;
 	BGHandle_ = LoadGraph("Data/Image/TimerBG.png");
 	IconHandle_ = LoadGraph("Data/Image/TimerIcon.png");
 	clockHandle_ = LoadGraph("Data/Image/Clock.png");
@@ -21,6 +21,7 @@ void Timer::Update()
 	if (time_ <= 0.9f)
 	{
 		time_ = 0.0f;
+		//タイムオーバー判定
 		if (timeUpCollback_)
 		{
 			timeUpCollback_();

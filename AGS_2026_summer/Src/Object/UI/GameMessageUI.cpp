@@ -22,6 +22,10 @@ void GameMessageUI::Initialize()
 void GameMessageUI::SetState(MessageState state)
 {
 	currentState_ = state;
+	animTime_ = 0;
+	sizeX_ = 0.0f;
+	sizeY_ = 0.0f;
+	animPhase_ = AnimPhase::FadeIn;
 
 
 	switch (currentState_)
@@ -38,7 +42,7 @@ void GameMessageUI::SetState(MessageState state)
 		break;
 
 	case MessageState::Explain:
-		textColor_ = GetColor(255, 0, 255); // 白
+		textColor_ = GetColor(255, 0, 255); // 紫
 		edgeColor_ = GetColor(255, 255, 255);       // 黒
 		break;
 	case MessageState::None:
@@ -67,6 +71,7 @@ void GameMessageUI::TextAnim(void)
 	static constexpr float ChangeSpeedOut = 0.04f;
 	static constexpr int   StayFrames = 2;   
 
+	//文字の拡大縮小アニメーション
 	switch (animPhase_)
 	{
 	case AnimPhase::FadeIn:
@@ -97,6 +102,8 @@ void GameMessageUI::TextAnim(void)
 		{
 			sizeX_ = 0.0f;
 			sizeY_ = 0.0f;
+			//ゲーム説明の後だけスタートに切り替える
+			if (currentState_ == MessageState::Explain) { SetState(MessageState::Start); return; }
 			SetState(MessageState::None);
 		}
 		break;
@@ -138,6 +145,7 @@ void GameMessageUI::Draw(int screenWidth, int screenHeight)
 	int drawX = screenWidth / 2;
 	int drawY = screenHeight / 2;
 
+	//ゲーム説明の時だけ文字の後ろに帯を出す
 	if (currentState_ == MessageState::Explain)
 	{
 		int paddingY = 20;

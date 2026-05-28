@@ -8,8 +8,8 @@ class RunnerAIComponent :
     public ComponentBase
 {
 public:
-    static constexpr float DecisionInterval = 0.01f; // 思考間隔（秒）
-    static constexpr float ReactionBlockPenalty = 10.0f; // 光る床を通る際のリスク加算
+    static constexpr float DecisionInterval = 0.001f; // 思考間隔（秒）
+    static constexpr float ReactionBlockPenalty = 100.0f; // 光る床を通る際のリスク加算
 
 private:
     float x_ = 0.0f;

@@ -40,7 +40,7 @@ void ActorManager::Load(GameInfo info)
 {
 	//ÉvÉåÉCÉÑÅ[
 	auto player = std::make_shared<Capsule>(8.0f, VGet(0.0f, 10.0f, 0.0f), VGet(0.0f, -10.0f, 0.0f));
-	player->SetEntityKind(EntityKind::PLAYER);
+	player->SetEntityKind(EntityKind::CHASER);
 	player->GetTransform().pos = VGet(180.0f, 28.0f, 20.0f);
 	auto rb = std::make_shared<RigidBody>();
 	rb->SetBodyType(RigidBody::BodyType::DYNAMIC);
@@ -51,13 +51,13 @@ void ActorManager::Load(GameInfo info)
 		KEY_INPUT_W, KEY_INPUT_S,
 		KEY_INPUT_A, KEY_INPUT_D,
 		KEY_INPUT_Q, KEY_INPUT_E));
-	player->SetEntityKind(EntityKind::PLAYER);
+	player->SetEntityKind(EntityKind::CHASER);
 	player->GetComponent<PlayerInputComponent>().SetJumpKey(KEY_INPUT_SPACE);
 	actors_.push_back(player);
 
 	//CPU(ì¶Ç∞ÇÈë§)
 	auto  runner = std::make_shared<Capsule>(8.0f, VGet(0.0f, 10.0f, 0.0f), VGet(0.0f, -10.0f, 0.0f));
-	runner->SetEntityKind(EntityKind::CPU);
+	runner->SetEntityKind(EntityKind::RUNNER);
 	runner->GetTransform().pos = VGet(180.0f, 28.0f, 182.0f);
 	auto rbRunner = std::make_shared<RigidBody>();
 	rbRunner->SetBodyType(RigidBody::BodyType::DYNAMIC);
@@ -68,16 +68,16 @@ void ActorManager::Load(GameInfo info)
 	actors_.push_back(runner);
 
 	//CPU(ãS)
-	//auto chaser = std::make_shared<Capsule>(8.0f, VGet(0.0f, 10.0f, 0.0f), VGet(0.0f, -10.0f, 0.0f));
-	//chaser->SetEntityKind(EntityKind::CPU);
-	//chaser->GetTransform().pos = VGet(10.0f, 100.0f, 20.0f);
-	//auto rbChaser = std::make_shared<RigidBody>();
-	//rbChaser->SetBodyType(RigidBody::BodyType::DYNAMIC);
-	//rbChaser->SetMoveSpeed(5);
-	//rbChaser->SetJumpPower(30);
-	//chaser->AddComponent(rbChaser);
-	//chaser->AddComponent(std::make_shared<ChaserAIComponent>());
-	//actors_.push_back(chaser);
+	auto chaser = std::make_shared<Capsule>(8.0f, VGet(0.0f, 10.0f, 0.0f), VGet(0.0f, -10.0f, 0.0f));
+	chaser->SetEntityKind(EntityKind::CHASER);
+	chaser->GetTransform().pos = VGet(10.0f, 100.0f, 20.0f);
+	auto rbChaser = std::make_shared<RigidBody>();
+	rbChaser->SetBodyType(RigidBody::BodyType::DYNAMIC);
+	rbChaser->SetMoveSpeed(5);
+	rbChaser->SetJumpPower(30);
+	chaser->AddComponent(rbChaser);
+	chaser->AddComponent(std::make_shared<ChaserAIComponent>());
+	actors_.push_back(chaser);
 
 	SetFactory(info);
 

@@ -22,7 +22,7 @@ void MoveInputSystem::Update(const std::vector<std::shared_ptr<ActorBase>>& obje
 	//全プレイヤー（鬼）の座標をリストにまとめる
 	std::vector<VECTOR> playerPositions;
 	for (auto obj : objects) {
-		if (obj->GetEntityKind() == EntityKind::PLAYER) {
+		if (obj->GetEntityKind() == EntityKind::CHASER) {
 			playerPositions.push_back(obj->GetTransform().pos);
 		}
 	}

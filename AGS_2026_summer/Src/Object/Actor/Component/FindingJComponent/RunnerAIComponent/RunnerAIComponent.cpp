@@ -44,7 +44,7 @@ void RunnerAIComponent::Think() {
             if (nextW < 0 || nextW >= W || nextD < 0 || nextD >= D) continue;
 
             // 高さ1が壁（None以外）なら通れない
-            if (Stage1::stage[1][nextD][nextW] != StageLayout::None) continue;
+            if (Stage3::stage[1][nextD][nextW] != StageLayout::None) continue;
 
             // スコア計算
             float score = CalculateTileScore(nextW, nextD, enemyPositions_);
@@ -85,7 +85,7 @@ float RunnerAIComponent::CalculateTileScore(int tw, int td, const std::vector<VE
     }
 
     // 光る床を通るリスクを考慮
-    if (Stage1::stage[0][td][tw] == StageLayout::ReactionBlock) {
+    if (Stage3::stage[0][td][tw] == StageLayout::ReactionBlock) {
         score += ReactionBlockPenalty;
     }
 

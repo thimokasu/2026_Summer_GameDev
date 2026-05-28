@@ -31,7 +31,6 @@ void ReactionBlock::SubUpdate(void)
 {    
 	if (emitIntensity_ > 0.0f)
 	{
-		// 1•bŠÔ‚É–ñ 2.0 ‚¸‚ÂŒ¸‚ç‚·
 		emitIntensity_ -= 0.01f;
 		if (emitIntensity_ < 0.0f) emitIntensity_ = 0.0f;
 	}
@@ -39,6 +38,7 @@ void ReactionBlock::SubUpdate(void)
 
 void ReactionBlock::SubDraw(void)
 {
+	//ƒ‚ƒfƒ‹‚ÌŽ©ŒÈ”­Œõ•Ï‰»
 	int colorVal = static_cast<int>(emitIntensity_ * 255.0f);
 	COLOR_F emitColor = { colorVal / 255.0f, colorVal / 255.0f, colorVal / 255.0f, 1.0f };
 	MV1SetEmiColorScale(trans_.modelId, emitColor);

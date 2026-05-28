@@ -17,7 +17,7 @@ public:
 	ChaserAIComponent()
 		: ComponentBase()
 		, role_(ChaserRole::Wander)
-		, targetPos_(0.0f, 0.0f, 0.0f)
+		, pos_(0.0f, 0.0f, 0.0f)
 		, isCPU_(true) // デフォルトはCPU
 	{
 	}
@@ -38,12 +38,12 @@ public:
 	void SetCommand(ChaserRole role, const VECTOR& targetPos)
 	{
 		role_ = role;
-		targetPos_ = targetPos;
+		pos_ = targetPos;
 	}
 
 	// ゲッター群
 	ChaserRole GetRole() const { return role_; }
-	VECTOR GetTargetPosition() const { return targetPos_; }
+	VECTOR GetTargetPosition() const { return pos_; }
 	bool IsCPU() const { return isCPU_; }
 
 	// プレイヤー操作かCPU操作かを切り替える
@@ -60,10 +60,11 @@ private:
 	void UpdateAI();
 	void UpdatePlayer();
 	void WanderBehavior();
+	void Chase();
 
 private:
 	ChaserRole role_ = ChaserRole::Wander;
-	VECTOR targetPos_; 
+	VECTOR pos_; 
 	bool isCPU_;        // 人間かCPUかを識別するフラグ
 	float x_ = 0.0f;
 	float z_ = 0.0f;
@@ -78,4 +79,11 @@ private:
 	int targetTileD_ = 1;
 	int prevW_ = -1; // 一つ前のマス（横
 	int prevD_ = -1; // 一つ前のマス（縦）
+
+
+	//追跡用
+	std::vector<VECTOR> path_;
+	int psthIndex_;
+	int recalcTimer_;
+
 };

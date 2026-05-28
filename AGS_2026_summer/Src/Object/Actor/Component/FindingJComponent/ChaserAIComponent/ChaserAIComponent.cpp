@@ -11,8 +11,7 @@ void ChaserAIComponent::UpdateAI()
 		break;
 
 	case ChaserRole::Chaser:
-		// ターゲットの座標へ向けて A* で最短経路を毎フレーム（または数フレームおきに）計算して進む
-		//MoveAlongPath(AStar::FindPath(position_, targetPos_));
+		Chase();
 		break;
 
 	case ChaserRole::Blocker:
@@ -44,18 +43,18 @@ void ChaserAIComponent::WanderBehavior()
 			// 範囲外チェック
 			if (nextW < 0 || nextW >= W || nextD < 0 || nextD >= D) continue;
 
-			// 高さ1が壁（None以外）なら通れない
-			if (Stage1::stage[1][nextD][nextW] != StageLayout::None) continue;
+			// 高さ1が壁なら通れない
+			if (Stage3::stage[1][nextD][nextW] != StageLayout::None) continue;
 
-			// 自分のいる場所（足元）ならスキップ
+			// 自分のいる場所ならスキップ
 			if (dw == 0 && dd == 0) continue;
 
-			// 一つ前のマス（今来た道）ならスキップ
+			// 一つ前のマスならスキップ
 			if (nextW == prevW_ && nextD == prevD_) continue;
 
 			// 条件に合うマスの中心座標をリストに追加していく
-			VECTOR moveTilePos = VGet(nextW * TileSize + (TileSize / 2.0f), 0, nextD * TileSize + (TileSize / 2.0f));
-			selectablePositions.push_back(moveTilePos);
+			pos_ = VGet(nextW * TileSize + (TileSize / 2.0f), 0, nextD * TileSize + (TileSize / 2.0f));
+			//selectablePositions.push_back(moveTilePos);
 		}
 	}
 
@@ -71,14 +70,23 @@ void ChaserAIComponent::WanderBehavior()
 	{
 		int randIndex = DxLib::GetRand(static_cast<int>(selectablePositions.size()) - 1);
 
-		if (selectablePositions[randIndex].x != targetPos_.x || selectablePositions[randIndex].z != targetPos_.z)
+		if (selectablePositions[randIndex].x != pos_.x || selectablePositions[randIndex].z != pos_.z)
 		{
 			prevW_ = curW;
 			prevD_ = curD;
 		}
 
 		// 目的地を決定
-		targetPos_ = selectablePositions[randIndex];
+		pos_ = selectablePositions[randIndex];
 		selectablePositions.clear();
 	}
+}
+
+void ChaserAIComponent::Chase()
+{
+	/*VECTOR toTarget = VSub(pos_, pos_);
+
+	toTarget.y = 0.0f;
+
+	float distance = VSize()*/
 }
