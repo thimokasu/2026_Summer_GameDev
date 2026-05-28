@@ -47,7 +47,7 @@ public:
 	//自身のコライダーリスト取得
 	const std::map<int, std::unique_ptr<ColliderBase>>& GetOwnColliders(void) const { return ownColliders_; }
 	//描画状態取得
-	bool GetIsDraw(void) const { return isDraw_; }
+	bool IsDraw(void) const { return isDraw_; }
 	//描画状態設定
 	void SetIsDraw(bool isDraw) { isDraw_ = isDraw; }
 protected:

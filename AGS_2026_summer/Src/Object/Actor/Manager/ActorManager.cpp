@@ -63,17 +63,10 @@ void ActorManager::Draw(void)
 
 	for (auto& actor : actors_)
 	{
+		if (actor->IsDraw())
+		{
 		actor->Draw();
-
-		// --- ここから追加：左上に座標をリスト表示 ---
-		auto pos = actor->GetTransform().pos;
-
-		// actorに名前やIDを取得する関数（GetName()など）があれば、"Player" などの代わりに使えます
-		DrawFormatString(startX, startY + (index * lineHeight), GetColor(255, 255, 255),
-			"Actor[%d] - X: %.1f, Y: %.1f", index, pos.x, pos.y);
-
-		index++; // 次のアクターは1行下に下げる
-		// ------------------------------------------
+		}
 
 		if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::DEBUG).now)
 		{
@@ -82,6 +75,16 @@ void ActorManager::Draw(void)
 				collider->Draw();
 			}
 		}
+		//// --- ここから追加：左上に座標をリスト表示 ---
+		//auto pos = actor->GetTransform().pos;
+
+		//// actorに名前やIDを取得する関数（GetName()など）があれば、"Player" などの代わりに使えます
+		//DrawFormatString(startX, startY + (index * lineHeight), GetColor(255, 255, 255),
+		//	"Actor[%d] - X: %.1f, Y: %.1f", index, pos.x, pos.y);
+
+		//index++; // 次のアクターは1行下に下げる
+		//// ------------------------------------------
+
 	}
 }
 

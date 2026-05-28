@@ -30,9 +30,9 @@ void FindingJRunner::SubInit(void)
 	entityKind_ = EntityKind::FINDINGJ_CPU;
 	rigidBody_.SetUseGravity(true);
 	rigidBody_.SetMass(100);
-	rigidBody_.SetMoveSpeed(0.5f);
+	rigidBody_.SetMoveSpeed(0.25f);
 	trans_.pos = VGet(100.0f, 40.0f, 100.0f);
-
+	isDraw_ = false; 
 }
 void FindingJRunner::SubUpdate(void)
 {
@@ -41,7 +41,12 @@ void FindingJRunner::SubUpdate(void)
 	{
 		enemyPositions_.push_back(p->GetTransform().pos);
 	}
-	Think();
+	timer_ -= SceneManager::GetInstance().GetDeltaTime();
+	if (timer_ <= 0.0f)
+	{
+		Think();
+		timer_ = DecisionInterval;
+	}
 	MoveToTarget();
 	enemyPositions_.clear();
 }
@@ -71,14 +76,20 @@ void FindingJRunner::InitCollider(void)
 
 void FindingJRunner::Think(void) // 思考
 {
-	//現在のタイルインデックスを取得
-	int curW = static_cast<int>(trans_.pos.x / TileSize);
-	int curD = static_cast<int>(trans_.pos.z / TileSize);
-	float bestScore = 10000.0f;
-	VECTOR bestTilePos = targetPos_;
+	// 1. 現在のタイルインデックスを『四捨五入』で正確に算出（ズレ防止）
+	int curW = static_cast<int>(std::round(trans_.pos.x / TileSize));
+	int curD = static_cast<int>(std::round(trans_.pos.z / TileSize));
 
+	// 範囲外を安全にクランプ
+	if (curW < 0) curW = 0; if (curW >= W) curW = W - 1;
+	if (curD < 0) curD = 0; if (curD >= D) curD = D - 1;
 
-	//隣接する9マスを評価
+	float bestScore = 1000000.0f;
+
+	// 初期値は現在のマスの中央にしておく
+	VECTOR bestTilePos = VGet(curW * TileSize , trans_.pos.y, curD * TileSize );
+
+	// 3. 隣接する9マス（自分を含む）を評価
 	for (int dw = -1; dw <= 1; ++dw) {
 		for (int dd = -1; dd <= 1; ++dd) {
 			int nextW = curW + dw;
@@ -86,62 +97,43 @@ void FindingJRunner::Think(void) // 思考
 
 			// 範囲外チェック
 			if (nextW < 0 || nextW >= W || nextD < 0 || nextD >= D) continue;
-			if (dw == 0 && dd == 0) continue; // 現在のタイルはスキップ
-			switch (stageNum_)
-			{
-			case static_cast<int>(FourPlayer::FindingJ::Stage::Stage1):
-				if (Stage1::stage[0][nextW][nextD] == StageLayout::Block) continue;
-				break;
-			case static_cast<int>(FourPlayer::FindingJ::Stage::Stage2):
-				if (Stage2::stage[0][nextW][nextD] == StageLayout::Block) continue;
-				break;
-			case static_cast<int>(FourPlayer::FindingJ::Stage::Stage3):
-				if (Stage3::stage[0][nextW][nextD] == StageLayout::Block) continue;
-				break;
-			}
 
-			// スコア計算
-			float score = 0;
-			VECTOR tilePos = VGet(nextW * TileSize, 0, nextD * TileSize);
-			//鬼との距離によるペナルティー
+			// ★壁判定を先に行う（壁ならこのマスのスコア計算自体を完全にスキップ！）
+			if (Stage3::stage[1][nextD][nextW] != StageLayout::None) continue;
+
+			// ★壁じゃないことを確認してからスコアを0で初期化
+			float score = 0.0f;
+
+			// マスの「中央」の座標を計算
+			VECTOR tilePos = VGet(nextW * TileSize , trans_.pos.y, nextD * TileSize);
+
+			// 鬼との距離によるペナルティ
 			for (const auto& e : enemyPositions_)
 			{
 				float dist = VSize(VSub(tilePos, e));
-				if (dist < 1.0f)dist = 1.0f; // ゼロ割防止
-				score += (2000.0f / dist); // 距離が近いほどスコアが高くなる
+				if (dist < 1.0f) dist = 1.0f; // ゼロ割防止
+				score += (2000.0f / dist);    // 距離が近いほどペナルティが大きくなる
 			}
-			//光る床を通るリスクを考慮
-			switch (stageNum_)
+
+			// 光る床を通るリスクを考慮
+			if (Stage3::stage[0][nextD][nextW] == StageLayout::ReactionBlock)
 			{
-			case static_cast<int>(FourPlayer::FindingJ::Stage::Stage1):
-				if (Stage1::stage[0][nextW][nextD] == StageLayout::ReactionBlock)
-					score += ReactionBlockPenalty;
-				break;
-			case static_cast<int>(FourPlayer::FindingJ::Stage::Stage2):
-				if (Stage2::stage[0][nextW][nextD] == StageLayout::ReactionBlock)
-					score += ReactionBlockPenalty;
-				break;
-			case static_cast<int>(FourPlayer::FindingJ::Stage::Stage3):
-				if (Stage3::stage[0][nextW][nextD] == StageLayout::ReactionBlock)
-					score += ReactionBlockPenalty;
-				break;
+				score += ReactionBlockPenalty; // 光る床を通るとペナルティ
 			}
+
+			// 最もスコアが低い（安全な）マスを更新
 			if (score < bestScore) {
 				bestScore = score;
-				bestTilePos = VGet(nextW * TileSize + (TileSize / 2.0f), 0, nextD * TileSize + (TileSize / 2.0f));
+				bestTilePos = tilePos;
 			}
 		}
 	}
-	targetPos_ = bestTilePos;
 
-	// CPUの更新処理内
-	int W = static_cast<int>(trans_.pos.x / TileSize);
-	int D = static_cast<int>(trans_.pos.z / TileSize);
+	targetPos_ = bestTilePos;
 
 	// タイルが切り替わったかチェック
 	if (curW != lastStepTileW_ || curD != lastStepTileD_)
 	{
-		// 現在のタイルを「前回のタイル」として保存
 		lastStepTileW_ = curW;
 		lastStepTileD_ = curD;
 	}

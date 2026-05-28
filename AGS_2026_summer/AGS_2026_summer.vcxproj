@@ -141,7 +141,7 @@
   <ItemGroup>
     <ClCompile Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJCPU\FindingJChaser.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJCPU\FindingJRunner.cpp" />
-    <ClCompile Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJr.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJ.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\CharactorBase.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\FindingJ\ReactionBlock.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\FindingJ\Block.cpp" />
