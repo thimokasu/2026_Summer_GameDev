@@ -72,6 +72,7 @@ void GameScene::Init(void)
 	SceneManager::GetInstance().GetCamera().SetCameraPos(VGet(170.0f, 270.0f, 20.0f));
 
 	UI_.Initialize();
+	UI_.SetMessageState(GameMessageUI::MessageState::Explain);
 }
 
 void GameScene::Update(void)
