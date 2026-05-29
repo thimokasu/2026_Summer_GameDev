@@ -93,6 +93,8 @@ void PauseScene::DrawFrame(float rate)
 		true,
 		1.0f
 	);
+	//必ず元の設定（ノーマル）にリセットする！
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 	/*SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 

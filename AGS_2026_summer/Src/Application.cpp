@@ -48,6 +48,7 @@ void Application::Init(void)
 
 	// ウィンドウサイズ
 	SetGraphMode(SCREEN_SIZE_X, SCREEN_SIZE_Y, 32);
+	//SetGraphMode(680, 480, 32);
 	ChangeWindowMode(true);
 
 	// ２重起動検査回避用

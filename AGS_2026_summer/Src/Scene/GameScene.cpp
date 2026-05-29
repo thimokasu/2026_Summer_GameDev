@@ -66,7 +66,7 @@ void GameScene::Update(void)
 	//エスケープ押したらメニューシーンへ
 	if (KeyManager::GetIns().GetInfo(KEY_TYPE::PAUSE).down)
 	{
-		SceneManager::GetInstance().ChangeScene(SCENE_ID::PAUSE);
+		SceneManager::GetInstance().PushScene(SCENE_ID::PAUSE);
 		return;
 	}
 
