@@ -104,6 +104,7 @@ void GameMessageUI::TextAnim(void)
 			sizeY_ = 0.0f;
 			//ゲーム説明の後だけスタートに切り替える
 			if (currentState_ == MessageState::Explain) { SetState(MessageState::Start); return; }
+			if (currentState_ == MessageState::Finish) { SceneManager::GetInstance().ChangeScene(SCENE_ID::TITLE); }
 			SetState(MessageState::None);
 		}
 		break;

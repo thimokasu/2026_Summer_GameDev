@@ -55,5 +55,6 @@ private:
 private	:
 	void BindId2Kind(void);
 	void SetFactory(GameInfo info);
+	bool isShowCollider_;
 };
 

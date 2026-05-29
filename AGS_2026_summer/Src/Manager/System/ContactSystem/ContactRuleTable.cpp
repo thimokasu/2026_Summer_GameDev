@@ -13,7 +13,7 @@ ContactRule ContactRuleTable::Query(ContactRule rule)
     {
         rule.eventType_ = GameEventType::REACTION_BLOCK;
     }
-    if(rule.contactEvent_.entityA.entityKind == EntityKind::PLAYER && rule.contactEvent_.entityB.entityKind == EntityKind::CPU)
+    if(rule.contactEvent_.entityA.entityKind == EntityKind::CHASER && rule.contactEvent_.entityB.entityKind == EntityKind::RUNNER)
     {
         rule.eventType_ = GameEventType::HAS_CAUGHT;
 	}

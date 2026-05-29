@@ -45,6 +45,8 @@ public:
 		MOUSE_LEFT,
 		MOUSE_RIGHT,
 
+		SPACE,
+
 
 		MAX,
 	};

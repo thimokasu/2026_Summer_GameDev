@@ -22,8 +22,11 @@
 #include"../../Actor/Factory/ActorFactory/FindingJ/Stage2Factory.h"
 #include"../../Actor/Factory/ActorFactory/FindingJ/Stage3Factory.h"
 
+#include "../../../Manager/Generic/KeyManager.h"
+
 ActorManager::ActorManager()
 {
+	isShowCollider_ = false;
 }
 
 ActorManager::~ActorManager()
@@ -68,16 +71,16 @@ void ActorManager::Load(GameInfo info)
 	actors_.push_back(runner);
 
 	//CPU(‹S)
-	auto chaser = std::make_shared<Capsule>(8.0f, VGet(0.0f, 10.0f, 0.0f), VGet(0.0f, -10.0f, 0.0f));
-	chaser->SetEntityKind(EntityKind::CHASER);
-	chaser->GetTransform().pos = VGet(10.0f, 100.0f, 20.0f);
-	auto rbChaser = std::make_shared<RigidBody>();
-	rbChaser->SetBodyType(RigidBody::BodyType::DYNAMIC);
-	rbChaser->SetMoveSpeed(5);
-	rbChaser->SetJumpPower(30);
-	chaser->AddComponent(rbChaser);
-	chaser->AddComponent(std::make_shared<ChaserAIComponent>());
-	actors_.push_back(chaser);
+	//auto chaser = std::make_shared<Capsule>(8.0f, VGet(0.0f, 10.0f, 0.0f), VGet(0.0f, -10.0f, 0.0f));
+	//chaser->SetEntityKind(EntityKind::CHASER);
+	//chaser->GetTransform().pos = VGet(10.0f, 100.0f, 20.0f);
+	//auto rbChaser = std::make_shared<RigidBody>();
+	//rbChaser->SetBodyType(RigidBody::BodyType::DYNAMIC);
+	//rbChaser->SetMoveSpeed(5);
+	//rbChaser->SetJumpPower(30);
+	//chaser->AddComponent(rbChaser);
+	//chaser->AddComponent(std::make_shared<ChaserAIComponent>());
+	//actors_.push_back(chaser);
 
 	SetFactory(info);
 
@@ -116,16 +119,21 @@ void ActorManager::Draw(void)
 		actor->Draw();
 		for (const auto& [shape, collider] : actor->GetOwnColliders() )
 		{
-			if (actor->GetEntityKind() != EntityKind::CPU)
+			if (actor->GetEntityKind() != EntityKind::RUNNER)
 			{
 				collider->Draw();
 			}
 			else
 			{
-				//if (actor->GetComponent<RunnerAIComponent>().GetVisibleTime() > 0.0f)
+				if (KeyManager::GetIns().GetInfo(KEY_TYPE::ENTER).down)
+				{
+					isShowCollider_ = !isShowCollider_;
+				}
+				if (isShowCollider_)
 				{
 					collider->Draw();
 				}
+				
 			}
 		}
 
