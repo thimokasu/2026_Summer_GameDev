@@ -44,6 +44,7 @@ public:
 		PAUSE,
 		ENTER,
 		SPACE,
+		TAB,
 
 		MOUSE_LEFT,
 		MOUSE_RIGHT,

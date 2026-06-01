@@ -14,8 +14,7 @@ TitleScene::~TitleScene(void)
 
 void TitleScene::Load(void)
 {
-	imgTitle_ = resMng_.Load(Resource::SRC::TITLE)->GetGraph();
-	imgPush_ = resMng_.Load(Resource::SRC::PUSH)->GetGraph();
+	
 }
 
 void TitleScene::Init(void)

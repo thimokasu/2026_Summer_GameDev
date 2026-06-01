@@ -5,7 +5,7 @@
 #include"../Manager/Game/SceneManager.h"
 #include"../Manager/Game/SceneId.h"
 
-constexpr int margin_size = 50;
+constexpr int margin_size = 150;
 constexpr int expand_interval = 30;
 
 PauseScene::PauseScene(void)
@@ -79,7 +79,7 @@ void PauseScene::DrawFrame(float rate)
 {
 	const auto& wsize = Application::GetInstance().GetWindowSize();
 
-	auto centerY = wsize.y / 2;
+	const auto centerY = wsize.y / 2;
 	auto height = (wsize.y - margin_size) / 2;
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 168);
@@ -96,15 +96,12 @@ void PauseScene::DrawFrame(float rate)
 	//必ず元の設定（ノーマル）にリセットする！
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
-	/*SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-
-	DrawBoxAA(
-		margin_size,
+	DrawBoxAA(margin_size,
 		centerY - height * rate,
 		wsize.x - margin_size,
 		centerY + height * rate,
-		0xffffff,
-		true,
-		3.0f
-	);*/
+		0x000000,
+		false,
+		1.0f
+	);
 }
