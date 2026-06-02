@@ -11,7 +11,7 @@ public:
 
 
 	Timer();
-	~Timer() = default;
+	~Timer();
 	void Update();
 	float GetTime() const { return time_; }
 	void Reset() { time_ = 0.0f; }

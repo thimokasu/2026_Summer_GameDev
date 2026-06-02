@@ -16,6 +16,8 @@
 #include "../Object/UI/GameMessageUI.h"
 #include <EffekseerForDXLib.h>
 
+#include "../Object/Common/SE.h"
+
 
 
 
@@ -25,6 +27,7 @@ GameScene::GameScene(void)
 	gameInfo_.gameMode = GAMEKMODE::FourPlayer;
 	gameInfo_.gameID = static_cast<Game>(FourPlayer::Game::FindingJ);
 	gameInfo_.stageID = static_cast<int>(FourPlayer::FindingJ::Stage::Stage3);
+	SE::GetInstance().Load(SOUND_TYPE::BGM, "Data/BGM/GameBGM.mp3");
 }
 
 GameScene::GameScene(GameInfo info)
@@ -103,6 +106,8 @@ void GameScene::Init(void)
 
 	UI_.SetMessageState(GameMessageUI::MessageState::Explain);
 
+	
+
 }
 
 void GameScene::Update(void)
@@ -111,8 +116,11 @@ void GameScene::Update(void)
 
 	actorManager_.Update();
 
+
+
 	if (UI_.GetState() == GameMessageUI::MessageState::None)
 	{
+
 		moveInputSystem_.Update(actorManager_.GetActors());
 		physicsSystem_.Update(actorManager_.GetActors());
 	}
@@ -124,6 +132,13 @@ void GameScene::Update(void)
 	contactSystem_.Clear();
 
 	UI_.Update();
+
+	static bool isBGMPlayed = false;
+	if (!isBGMPlayed && UI_.GetState() == GameMessageUI::MessageState::None)
+	{
+		SE::GetInstance().Play(SOUND_TYPE::BGM, true);
+		isBGMPlayed = true;
+	}
 
 
 }
@@ -142,6 +157,7 @@ void GameScene::Draw(void)
 void GameScene::Release(void)
 {
 	actorManager_.Release();
+	SE::GetInstance().Stop(SOUND_TYPE::BGM);
 
 
 }

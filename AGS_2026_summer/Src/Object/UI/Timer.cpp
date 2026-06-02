@@ -3,6 +3,7 @@
 #include <DxLib.h>
 #include "../../Common/Vector2.h"
 #include <cmath>
+#include "../Common/SE.h"
 
 Timer::Timer()
 {
@@ -12,6 +13,12 @@ Timer::Timer()
 	clockHandle_ = LoadGraph("Data/Image/Clock.png");
 	size_ = 0.15f;
 	bgColor_ = IntVector3(0, 0, 0);
+	SE::GetInstance().Load(SOUND_TYPE::ALERT, "Data/BGM/Alert.mp3");
+}
+
+Timer::~Timer()
+{
+	
 }
 
 void Timer::Update()
@@ -63,10 +70,12 @@ void Timer::Draw(int x, int y)
 			float wave = std::sin((fract - 0.7f) / 0.3f * DX_PI_F);
 
 			scale = 0.15f + wave * 0.03f;
+			SE::GetInstance().Play(SOUND_TYPE::ALERT, false);
 		}
 		else
 		{
 			scale = 0.15f;
+			if (SE::GetInstance().IsEnd(SOUND_TYPE::ALERT)) { SE::GetInstance().Play(SOUND_TYPE::ALERT, false); }
 		}
 	}
 	else

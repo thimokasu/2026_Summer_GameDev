@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Src\ChaserManager.cpp" />
+    <ClCompile Include="Src\Object\Common\SE.cpp" />
     <ClCompile Include="Src\Object\UI\GameMessageUI.cpp" />
     <ClCompile Include="Src\Object\Actor\Component\FindingJComponent\ChaserAIComponent\ChaserAIComponent.cpp" />
     <ClCompile Include="Src\Object\Actor\Component\FindingJComponent\RunnerAIComponent\RunnerAIComponent.cpp" />
@@ -202,6 +203,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\ChaserManager.h" />
+    <ClInclude Include="Src\Object\Common\SE.h" />
     <ClInclude Include="Src\Object\UI\GameMessageUI.h" />
     <ClInclude Include="Src\Object\Actor\Component\FindingJComponent\ChaserAIComponent\ChaserAIComponent.h" />
     <ClInclude Include="Src\Object\Actor\Component\FindingJComponent\RunnerAIComponent\RunnerAIComponent.h" />
