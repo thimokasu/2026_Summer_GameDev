@@ -75,7 +75,7 @@ void Timer::Draw(int x, int y)
 		else
 		{
 			scale = 0.15f;
-			if (SE::GetInstance().IsEnd(SOUND_TYPE::ALERT)) { SE::GetInstance().Play(SOUND_TYPE::ALERT, false); }
+			if (SE::GetInstance().IsEnd(SOUND_TYPE::ALERT)) { SE::GetInstance().Stop(SOUND_TYPE::ALERT); }
 		}
 	}
 	else
