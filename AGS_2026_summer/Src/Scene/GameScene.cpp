@@ -46,8 +46,10 @@ void GameScene::Load(void)
 	actorMng_->Load(gameInfo_);
 	
 	auto msgUI = std::make_shared<GameMessageUI>(Vector2F(400.0f, 200.0f), Vector2F(400.0f, 100.0f));
+	msgUI->Load();
 	UIManager::GetInstance().AddRootUI(msgUI);
 	auto timerUI = std::make_shared<Timer>(Vector2F(50.0f, 50.0f), Vector2F(200.0f, 50.0f));
+	timerUI->Load();
 	timerUI->SetTimeUpCallback([this]()
 		{
 			contactMng_->TriggerEvent(GameEventType::TIMER_UP);
