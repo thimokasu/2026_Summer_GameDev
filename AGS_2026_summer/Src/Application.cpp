@@ -7,6 +7,7 @@
 
 #include"Scene/TitleScene.h"
 #include"Scene/GameScene.h"
+#include"Scene/PauseScene.h"
 
 Application* Application::instance_ = nullptr;
 
@@ -47,6 +48,7 @@ void Application::Init(void)
 
 	// ウィンドウサイズ
 	SetGraphMode(SCREEN_SIZE_X, SCREEN_SIZE_Y, 32);
+	//SetGraphMode(680, 480, 32);
 	ChangeWindowMode(true);
 
 	// ２重起動検査回避用
@@ -87,6 +89,7 @@ void Application::Init(void)
 	SceneManager::CreateInstance();
 	SceneManager::GetInstance().SetSceneFactory(SCENE_ID::TITLE, []() { return std::make_shared<TitleScene>(); });
 	SceneManager::GetInstance().SetSceneFactory(SCENE_ID::GAME, []() {return std::make_shared<GameScene>(); });
+	SceneManager::GetInstance().SetSceneFactory(SCENE_ID::PAUSE, []() {return std::make_shared<PauseScene>(); });
 	SceneManager::GetInstance().Init();
 	// ネットワーク管理初期化
 }
@@ -98,7 +101,7 @@ void Application::Run(void)
 	auto&sceneManager = SceneManager::GetInstance();
 
 	// ゲームループ
-	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
+	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_TAB) == 0)
 	{
 
 		keymanager.Update();

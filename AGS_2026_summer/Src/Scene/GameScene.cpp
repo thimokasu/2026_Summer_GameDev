@@ -79,7 +79,14 @@ void GameScene::Init(void)
 
 void GameScene::Update(void)
 {
-	//スペース押したらゲームシーンへ
+	//エスケープ押したらメニューシーンへ
+	if (KeyManager::GetIns().GetInfo(KEY_TYPE::PAUSE).down)
+	{
+		SceneManager::GetInstance().PushScene(SCENE_ID::PAUSE);
+		return;
+	}
+
+	//スペース押したらタイトルシーンへ
 	if (KeyManager::GetIns().GetInfo(KEY_TYPE::SPACE).down)
 	{
 		SceneManager::GetInstance().ChangeScene(SCENE_ID::TITLE);
@@ -97,6 +104,7 @@ void GameScene::Draw(void)
 {
 	DrawFormatString(0, 0, 0xffffff, "Game");
 	actorMng_->Draw();
+
 }
 
 void GameScene::Release(void)

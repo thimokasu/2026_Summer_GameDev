@@ -14,5 +14,10 @@ public:
     void Release(void)override;
     SCENE_ID GetSceneID(void)const override { return SCENE_ID::TITLE; }
 private:
+
+	int imgTitle_;
+	int imgPush_;
+
+
 };
 

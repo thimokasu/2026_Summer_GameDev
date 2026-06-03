@@ -12,6 +12,8 @@ public:
     void Update(void)override;
     void Draw(void)override;
 
+	SCENE_ID GetSceneID(void)const override { return SCENE_ID::PAUSE; }
+
 private:
     int frame_;
 
