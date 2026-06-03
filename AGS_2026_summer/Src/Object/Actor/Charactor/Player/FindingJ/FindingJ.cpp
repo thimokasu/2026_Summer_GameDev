@@ -58,10 +58,10 @@ void FindingJ::MoveInput(void)
 {
 	VECTOR moveVec = { 0.0f, 0.0f, 0.0f };
 
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_FRONT).now) moveVec.z += 1.0f;
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_BACK).now) moveVec.z -= 1.0f;
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_RIGHT).now) moveVec.x += 1.0f;
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT).now) moveVec.x -= 1.0f;
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_FRONT, 1).now) moveVec.z += 1.0f;
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_BACK, 1).now) moveVec.z -= 1.0f;
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_RIGHT, 1).now) moveVec.x += 1.0f;
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT, 1).now) moveVec.x -= 1.0f;
 	
 	const VECTOR cameraAngle = SceneManager::GetInstance().GetCamera().GetAngles();
 	MATRIX camYaw = MGetRotY(cameraAngle.y);
