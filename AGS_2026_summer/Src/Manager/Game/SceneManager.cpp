@@ -8,6 +8,7 @@
 
 #include"../../Manager/Generic/Loading.h"
 #include"../Resource/ResourceManager.h"
+#include"UIManager.h"
 
 #include"../../Object/Actor/Camera/Camera.h"
 
@@ -61,9 +62,12 @@ void SceneManager::Init(void)
 	// カメラ
 	camera_ = std::make_unique<Camera>();
 	camera_->Init();
-
+	//リソースマネージャー
 	ResourceManager::CreateInstance();
 	ResourceManager::GetInstance().Init();
+	//UIマネージャー
+	UIManager::CreateInstance();
+	UIManager::GetInstance().Init();
 
 	//３D用の設定
 	Init3D();
@@ -98,6 +102,7 @@ void SceneManager::Update(void)
 	else
 	{
 		scenes_.back()->Update();
+		UIManager::GetInstance().Update();
 	}
 	camera_->Update();
 
@@ -129,6 +134,9 @@ void SceneManager::Draw(void)
 	}
 	//エフェクシアの描画
 	DrawEffekseer3D();
+	//UI
+	UIManager::GetInstance().Draw();
+
 	// カメラ描画
 	camera_->DrawDebug();
 
@@ -168,6 +176,7 @@ void SceneManager::ChangeScene(std::shared_ptr<SceneBase>_scene)
 	}
 	else
 	{
+		UIManager::GetInstance().Clear();
 		ResourceManager::GetInstance().Release();
 		scenes_.back()->Release();
 		scenes_.back() = _scene;
@@ -224,6 +233,8 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 
 	void SceneManager::JumpScene(std::shared_ptr<SceneBase> scene)
 	{
+		UIManager::GetInstance().Clear();
+		ResourceManager::GetInstance().Release();
 		// 全て解放
 		for (auto& scene : scenes_) { scene->Release(); }
 		scenes_.clear();
@@ -237,6 +248,8 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 		auto it = sceneFactories_.find(scene);
 		if (it != sceneFactories_.end())
 		{
+			UIManager::GetInstance().Clear();
+			ResourceManager::GetInstance().Release();
 			for (auto& s : scenes_) { s->Release(); }
 			scenes_.clear();
 			ChangeScene(it->second());

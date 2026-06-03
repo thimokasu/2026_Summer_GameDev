@@ -3,18 +3,22 @@
 #include "../Application.h"
 
 #include"../Manager/Game/SceneManager.h"
+#include"../Manager/Game/UIManager.h"
 #include"../Manager/Resource/ResourceManager.h"
 #include"../Manager/Generic/KeyManager.h"
 
 #include"../Manager/System/Collision/CollisionManager.h"
 #include"../Manager/System/ContactSystem/ContactEventManager.h"
+#include"../Manager/System/ContactSystem/GameEventType.h"
 
 #include"../Object/Actor/Manager/ActorManager.h"
-
 #include"../Object/Actor/Camera/Camera.h"
 #include"../Object/Actor/Stage/FindingJ/ReactionBlock.h"
 
-#include "../Object/UI/GameMessageUI.h"
+#include"../Object/UI/UIBase.h"
+#include"../Object/UI/FindingJ/Timer.h"
+#include"../Object/UI/FindingJ/GameMessageUI.h"
+
 #include <EffekseerForDXLib.h>
 
 
@@ -40,23 +44,21 @@ void GameScene::Load(void)
 	colMng_ = std::make_unique<CollisionManager>();
 	contactMng_ = std::make_unique<ContactEventManager>();
 	actorMng_->Load(gameInfo_);
+	
+	auto msgUI = std::make_shared<GameMessageUI>(Vector2F(400.0f, 200.0f), Vector2F(400.0f, 100.0f));
+	UIManager::GetInstance().AddRootUI(msgUI);
+	auto timerUI = std::make_shared<Timer>(Vector2F(50.0f, 50.0f), Vector2F(200.0f, 50.0f));
+	timerUI->SetTimeUpCallback([this]()
+		{
+			contactMng_->TriggerEvent(GameEventType::TIMER_UP);
+		}
+	);
+	UIManager::GetInstance().AddRootUI(timerUI);
 }
 
 void GameScene::Init(void)
 {
-	auto onBeginContact = [this](uint32_t a, uint32_t b)
-		{
-			Entity entA{ a, actorMng_->GetEntityKind(a) };
-			Entity entB{ b, actorMng_->GetEntityKind(b) };
-			contactMng_->OnBeginContact(entA, entB, CollisionResult{});
-		};
-	auto onEndContact = [this](uint32_t a, uint32_t b)
-		{
-			Entity entA{ a, actorMng_->GetEntityKind(a) };
-			Entity entB{ b, actorMng_->GetEntityKind(b) };
-			contactMng_->OnEndContact(entA, entB, CollisionResult{});
-		};
-	colMng_->SetContactCallbacks(onBeginContact, onEndContact);	
+	SetCollisionCollback();
 	SetContactEventRule();
 	SetContactEventCallback();
 
@@ -71,27 +73,11 @@ void GameScene::Init(void)
 	SceneManager::GetInstance().GetCamera().SetCameraAngles(VGet(1.18f, 0.0f, 0.0f));
 	SceneManager::GetInstance().GetCamera().SetCameraPos(VGet(170.0f, 270.0f, 20.0f));
 
-	UI_.Initialize();
-	UI_.SetMessageState(GameMessageUI::MessageState::Explain);
+
 }
 
 void GameScene::Update(void)
 {
-	////エスケープ押したらメニューシーンへ
-	//if (KeyManager::GetIns().GetInfo(KEY_TYPE::PAUSE).down)
-	//{
-	//	isPause_ = !isPause_;
-	//}
-
-	//if (isPause_)
-	//{
-	//	if (pauseScene_)
-	//	{
-	//		pauseScene_->Update();
-	//	}
-	//	return;
-	//}
-
 	//スペース押したらゲームシーンへ
 	if (KeyManager::GetIns().GetInfo(KEY_TYPE::SPACE).down)
 	{
@@ -105,21 +91,12 @@ void GameScene::Update(void)
 	colMng_->Resolve();
 	contactMng_->Update();
 
-	UI_.Update();
 }
 
 void GameScene::Draw(void)
 {
 	DrawFormatString(0, 0, 0xffffff, "Game");
 	actorMng_->Draw();
-
-	//if (isPause_)
-	//{
-	//	pauseScene_->Draw();
-	//	return;
-	//}
-
-	UI_.Draw();
 }
 
 void GameScene::Release(void)
@@ -158,11 +135,21 @@ void GameScene::SetContactEventCallback(void)
 			}
 		}
 	);
-	contactMng_->SetContactEventCallback(
-		GameEventType::HAS_CAHGHT,
-		[this]() { UI_.SetMessageState(
-			GameMessageUI::MessageState::Finish); 
-		}
-	);
+}
 
+void GameScene::SetCollisionCollback(void)
+{
+auto onBeginContact = [this](uint32_t a, uint32_t b)
+	{
+		Entity entA{ a, actorMng_->GetEntityKind(a) };
+		Entity entB{ b, actorMng_->GetEntityKind(b) };
+		contactMng_->OnBeginContact(entA, entB, CollisionResult{});
+	};
+auto onEndContact = [this](uint32_t a, uint32_t b)
+	{
+		Entity entA{ a, actorMng_->GetEntityKind(a) };
+		Entity entB{ b, actorMng_->GetEntityKind(b) };
+		contactMng_->OnEndContact(entA, entB, CollisionResult{});
+	};
+colMng_->SetContactCallbacks(onBeginContact, onEndContact);
 }

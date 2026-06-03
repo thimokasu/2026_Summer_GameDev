@@ -25,6 +25,8 @@ public:
     void SetContactEventCallback(GameEventType eventType, std::function<void()> callback);
     void SetContactEventCallback(GameEventType eventType, std::function<void(const ContactRule&)> callback);
     void SetEventRule(EntityKind kindA, EntityKind kindB, GameEventType eventType);
+    //外部からイベントを発生
+	void TriggerEvent(GameEventType eventType);
 
 private:
     ContactRule Query(ContactRule rule);

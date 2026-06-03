@@ -81,6 +81,20 @@ void ContactEventManager::SetEventRule(EntityKind kindA, EntityKind kindB, GameE
     ruleTable_[std::make_pair(kindB, kindA)] = eventType;
 }
 
+void ContactEventManager::TriggerEvent(GameEventType eventType)
+{
+    auto it = callbackEvent_.find(eventType);
+    if (it != callbackEvent_.end())
+    {
+        auto callbacks = it->second;
+        for (const auto& callback : callbacks)
+        {
+            callback(ContactRule{}); 
+        }
+	}
+}
+
+
 ContactRule ContactEventManager::Query(ContactRule rule)
 {
     auto A = rule.contactEvent_.entityA.entityKind_;

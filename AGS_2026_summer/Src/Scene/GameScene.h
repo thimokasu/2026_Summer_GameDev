@@ -3,7 +3,6 @@
 #include<vector>
 #include<memory>
 #include"GameSelect/GameKind.h"
-#include"../Object/UI/UIManager.h"
 
 class ActorManager;
 class CollisionManager;
@@ -27,6 +26,7 @@ private:
 #pragma region ä÷êî
 	void SetContactEventRule(void);
 	void SetContactEventCallback(void);
+	void SetCollisionCollback(void);
 #pragma endregion
 
 #pragma region ïœêî
@@ -34,7 +34,6 @@ private:
 	std::unique_ptr<CollisionManager>colMng_;
 	std::unique_ptr<ContactEventManager>contactMng_;
 	GameInfo gameInfo_;
-	UIManager UI_;
 #pragma endregion
 
 };
