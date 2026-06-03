@@ -13,6 +13,12 @@ PauseScene::PauseScene(void)
 	update_ = &PauseScene::AppearUpdate;
 	draw_ = &PauseScene::ExpandDraw;
 	frame_ = 0;
+
+
+	menuItems_ = {
+		"ÉQÅ[ÉÄÇ…ñﬂÇÈ",
+		"èIóπ"
+	};
 }
 
 PauseScene::~PauseScene(void)
@@ -102,6 +108,6 @@ void PauseScene::DrawFrame(float rate)
 		centerY + height * rate,
 		0x000000,
 		false,
-		1.0f
+		5.0f
 	);
-}
+};

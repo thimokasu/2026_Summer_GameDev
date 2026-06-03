@@ -1,6 +1,8 @@
 #pragma once
 #include "SceneBase.h"
-
+#include<vector>
+#include<map>
+#include<string>
 class PauseScene :
     public SceneBase
 {
@@ -16,6 +18,8 @@ public:
 
 private:
     int frame_;
+
+	std::vector<std::string> menuItems_;
 
 	using Update_t = void(PauseScene::*)(void);
 	using Draw_t = void(PauseScene::*)(void);
