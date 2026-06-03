@@ -8,8 +8,8 @@
 #include"../Manager/Generic/KeyManager.h"
 
 #include"../Manager/System/Collision/CollisionManager.h"
-#include"../Manager/System/ContactSystem/ContactEventManager.h"
-#include"../Manager/System/ContactSystem/GameEventType.h"
+#include"../Manager/System/EventSystem/EventManager.h"
+#include"../Manager/System/EventSystem/GameEventType.h"
 
 #include"../Object/Actor/Manager/ActorManager.h"
 #include"../Object/Actor/Camera/Camera.h"
@@ -42,7 +42,6 @@ void GameScene::Load(void)
 {
 	actorMng_ = std::make_unique<ActorManager>();
 	colMng_ = std::make_unique<CollisionManager>();
-	contactMng_ = std::make_unique<ContactEventManager>();
 	actorMng_->Load(gameInfo_);
 	
 	auto msgUI = std::make_shared<GameMessageUI>(Vector2F(400.0f, 200.0f), Vector2F(400.0f, 100.0f));
@@ -52,7 +51,7 @@ void GameScene::Load(void)
 	timerUI->Load();
 	timerUI->SetTimeUpCallback([this]()
 		{
-			contactMng_->TriggerEvent(GameEventType::TIMER_UP);
+			EventManager::GetInstance().TriggerEvent(GameEventType::TIME_UP);
 		}
 	);
 	UIManager::GetInstance().AddRootUI(timerUI);
@@ -91,7 +90,6 @@ void GameScene::Update(void)
 	actorMng_->Update();
 	colMng_->Update();
 	colMng_->Resolve();
-	contactMng_->Update();
 
 }
 
@@ -110,14 +108,14 @@ void GameScene::Release(void)
 void GameScene::SetContactEventRule(void)
 {
 	//イベントの発生ルールの設定
-	contactMng_->SetEventRule(EntityKind::PLAYER, EntityKind::REACTION_BLOCK, GameEventType::REACTION_BLOCK);
-	contactMng_->SetEventRule(EntityKind::FINDINGJ_CPU, EntityKind::REACTION_BLOCK, GameEventType::REACTION_BLOCK);
-	contactMng_->SetEventRule(EntityKind::PLAYER, EntityKind::FINDINGJ_CPU, GameEventType::HAS_CAHGHT);
+	EventManager::GetInstance().SetEventRule(EntityKind::PLAYER, EntityKind::REACTION_BLOCK, GameEventType::REACTION_BLOCK);
+	EventManager::GetInstance().SetEventRule(EntityKind::FINDINGJ_CPU, EntityKind::REACTION_BLOCK, GameEventType::REACTION_BLOCK);
+	EventManager::GetInstance().SetEventRule(EntityKind::PLAYER, EntityKind::FINDINGJ_CPU, GameEventType::HAS_CAHGHT);
 }
 void GameScene::SetContactEventCallback(void)
 {
 	//イベントのコールバック関数の設定
-	contactMng_->SetContactEventCallback(GameEventType::REACTION_BLOCK, [this](const ContactRule& rule)
+	EventManager::GetInstance().SetContactEventCallback(GameEventType::REACTION_BLOCK, [this](const ContactRule& rule)
 		{
 			auto entityKindA = rule.contactEvent_.entityA.entityKind_;
 			auto entityKindB = rule.contactEvent_.entityB.entityKind_;
@@ -145,13 +143,13 @@ auto onBeginContact = [this](uint32_t a, uint32_t b)
 	{
 		Entity entA{ a, actorMng_->GetEntityKind(a) };
 		Entity entB{ b, actorMng_->GetEntityKind(b) };
-		contactMng_->OnBeginContact(entA, entB, CollisionResult{});
+		EventManager::GetInstance().OnBeginContact(entA, entB, CollisionResult{});
 	};
 auto onEndContact = [this](uint32_t a, uint32_t b)
 	{
 		Entity entA{ a, actorMng_->GetEntityKind(a) };
 		Entity entB{ b, actorMng_->GetEntityKind(b) };
-		contactMng_->OnEndContact(entA, entB, CollisionResult{});
+		EventManager::GetInstance().OnEndContact(entA, entB, CollisionResult{});
 	};
 colMng_->SetContactCallbacks(onBeginContact, onEndContact);
 }

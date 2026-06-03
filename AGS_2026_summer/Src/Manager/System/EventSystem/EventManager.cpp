@@ -1,10 +1,36 @@
-#include "ContactEventManager.h"
+#include "EventManager.h"
 #include <algorithm>
 
-ContactEventManager::ContactEventManager(void) : isUpdate(false) {}
-ContactEventManager::~ContactEventManager(void) {}
+EventManager* EventManager::instance_ = nullptr;
 
-void ContactEventManager::OnBeginContact(Entity a, Entity b, CollisionResult result)
+void EventManager::CreateInstance(void)
+{
+    if (instance_ == nullptr)
+    {
+        instance_ = new EventManager();
+    }
+}
+
+EventManager& EventManager::GetInstance(void)
+{
+    return *instance_;
+}
+
+void EventManager::DeleteInstance(void)
+{
+    if (instance_ != nullptr)
+    {
+        delete instance_;
+        instance_ = nullptr;
+    }
+}
+
+// コンストラクタの実体
+EventManager::EventManager(void)
+{
+}
+
+void EventManager::OnBeginContact(Entity a, Entity b, CollisionResult result)
 {
     touching_[a.entityID_].insert(b.entityID_);
     touching_[b.entityID_].insert(a.entityID_);
@@ -14,7 +40,7 @@ void ContactEventManager::OnBeginContact(Entity a, Entity b, CollisionResult res
     );
 }
 
-void ContactEventManager::OnEndContact(Entity a, Entity b, CollisionResult result)
+void EventManager::OnEndContact(Entity a, Entity b, CollisionResult result)
 {
     // 接触リストから削除
     if (touching_.count(a.entityID_)) touching_[a.entityID_].erase(b.entityID_);
@@ -25,7 +51,7 @@ void ContactEventManager::OnEndContact(Entity a, Entity b, CollisionResult resul
     );
 }
 
-void ContactEventManager::Update(void)
+void EventManager::Update(void)
 {
     isUpdate = true; // ループ開始フラグを立てる
 
@@ -56,12 +82,12 @@ void ContactEventManager::Update(void)
     ClearQueue();
 }
 
-void ContactEventManager::SetContactEventCallback(GameEventType eventType, std::function<void()> callback)
+void EventManager::SetContactEventCallback(GameEventType eventType, std::function<void()> callback)
 {
     SetContactEventCallback(eventType, [callback](const ContactRule&) { callback(); });
 }
 
-void ContactEventManager::SetContactEventCallback(GameEventType eventType, std::function<void(const ContactRule&)> callback)
+void EventManager::SetContactEventCallback(GameEventType eventType, std::function<void(const ContactRule&)> callback)
 {
     if (isUpdate)
     {
@@ -75,13 +101,13 @@ void ContactEventManager::SetContactEventCallback(GameEventType eventType, std::
     }
 }
 
-void ContactEventManager::SetEventRule(EntityKind kindA, EntityKind kindB, GameEventType eventType)
+void EventManager::SetEventRule(EntityKind kindA, EntityKind kindB, GameEventType eventType)
 {
     ruleTable_[std::make_pair(kindA, kindB)] = eventType;
     ruleTable_[std::make_pair(kindB, kindA)] = eventType;
 }
 
-void ContactEventManager::TriggerEvent(GameEventType eventType)
+void EventManager::TriggerEvent(GameEventType eventType)
 {
     auto it = callbackEvent_.find(eventType);
     if (it != callbackEvent_.end())
@@ -95,7 +121,7 @@ void ContactEventManager::TriggerEvent(GameEventType eventType)
 }
 
 
-ContactRule ContactEventManager::Query(ContactRule rule)
+ContactRule EventManager::Query(ContactRule rule)
 {
     auto A = rule.contactEvent_.entityA.entityKind_;
     auto B = rule.contactEvent_.entityB.entityKind_;

@@ -7,8 +7,10 @@
 #include"../../Scene/SceneBase.h"
 
 #include"../../Manager/Generic/Loading.h"
-#include"../Resource/ResourceManager.h"
+#include"../../Manager/System/EventSystem/EventManager.h"
 #include"UIManager.h"
+
+#include"../Resource/ResourceManager.h"
 
 #include"../../Object/Actor/Camera/Camera.h"
 
@@ -68,6 +70,8 @@ void SceneManager::Init(void)
 	//UIマネージャー
 	UIManager::CreateInstance();
 	UIManager::GetInstance().Init();
+	//イベントマネージャー
+	EventManager::CreateInstance();
 
 	//３D用の設定
 	Init3D();
@@ -103,6 +107,7 @@ void SceneManager::Update(void)
 	{
 		scenes_.back()->Update();
 		UIManager::GetInstance().Update();
+		EventManager::GetInstance().Update();
 	}
 	camera_->Update();
 
@@ -161,7 +166,8 @@ void SceneManager::Destroy(void)
 	// ロード画面の削除
 	Loading::GetInstance()->Release();
 	Loading::GetInstance()->DeleteInstance();
-
+		EventManager::DeleteInstance();
+		UIManager::DeleteInstance();
 
 	// インスタンスのメモリ解放
 	delete instance_;
@@ -178,6 +184,7 @@ void SceneManager::ChangeScene(std::shared_ptr<SceneBase>_scene)
 	{
 		UIManager::GetInstance().Clear();
 		ResourceManager::GetInstance().Release();
+		EventManager::GetInstance().Clear();
 		scenes_.back()->Release();
 		scenes_.back() = _scene;
 	}
@@ -235,6 +242,7 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 	{
 		UIManager::GetInstance().Clear();
 		ResourceManager::GetInstance().Release();
+		EventManager::GetInstance().Clear();
 		// 全て解放
 		for (auto& scene : scenes_) { scene->Release(); }
 		scenes_.clear();
@@ -250,6 +258,7 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 		{
 			UIManager::GetInstance().Clear();
 			ResourceManager::GetInstance().Release();
+			EventManager::GetInstance().Clear();
 			for (auto& s : scenes_) { s->Release(); }
 			scenes_.clear();
 			ChangeScene(it->second());

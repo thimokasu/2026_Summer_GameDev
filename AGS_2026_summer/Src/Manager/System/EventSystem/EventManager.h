@@ -6,21 +6,40 @@
 #include <utility>
 #include <vector>
 #include "../Collision/CollisionResult.h"
-#include "ContactEventInfo.h"
+#include "EventInfo.h"
 
-class ContactEventManager
+class EventManager
 {
 public:
-    ContactEventManager(void);
-    ~ContactEventManager(void);
+    static void CreateInstance(void);
+    static EventManager& GetInstance(void);
+    static void DeleteInstance(void);
+private:
+    static EventManager* instance_;
+    EventManager(void);
+    EventManager(const EventManager& instance) = default;
+    ~EventManager(void) = default;
+public:
 
     void OnBeginContact(Entity a, Entity b, CollisionResult result);
     void OnEndContact(Entity a, Entity b, CollisionResult result);
 
     void Update(void);
 
+    void Clear(void)
+    {
+        touching_.clear();
+        contactRules_.clear();
+        ruleTable_.clear();
+        callbackEvent_.clear();
+    }
+
     // contactRules_ だけをクリアするように変更
     void ClearQueue(void) { contactRules_.clear(); }
+	//シーンごとにイベントルールをリセットするための関数
+	void ClearRules(void) { ruleTable_.clear(); }
+	//保持しているコールバックをすべてクリアする関数
+	void ClearCallbacks(void) { callbackEvent_.clear(); }
 
     void SetContactEventCallback(GameEventType eventType, std::function<void()> callback);
     void SetContactEventCallback(GameEventType eventType, std::function<void(const ContactRule&)> callback);

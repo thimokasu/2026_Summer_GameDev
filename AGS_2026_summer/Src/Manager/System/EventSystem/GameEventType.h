@@ -6,7 +6,7 @@ enum class GameEventType
 
 	TEST,
 
-	TIMER_UP,
+	TIME_UP,
 	
 	//FindingJ
 	HAS_CAHGHT,

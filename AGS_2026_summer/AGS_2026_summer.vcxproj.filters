@@ -108,7 +108,7 @@
     <ClCompile Include="Src\Manager\System\Collision\CollisionLogic.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Manager\System\ContactSystem\ContactEventManager.cpp">
+    <ClCompile Include="Src\Manager\System\EventSystem\EventManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\Test\TestFactory.cpp">
@@ -287,13 +287,13 @@
     <ClInclude Include="Src\Manager\System\Collision\CollisionResult.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Manager\System\ContactSystem\GameEventType.h">
+    <ClInclude Include="Src\Manager\System\EventSystem\GameEventType.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Manager\System\ContactSystem\ContactEventInfo.h">
+    <ClInclude Include="Src\Manager\System\EventSystem\EventInfo.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Manager\System\ContactSystem\ContactEventManager.h">
+    <ClInclude Include="Src\Manager\System\EventSystem\EventManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\Test\TestFactory.h">
