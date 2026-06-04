@@ -1,5 +1,6 @@
 #include "Timer.h"
 #include"../../../Manager/Game/SceneManager.h"
+#include"../../../Manager/Game/SE.h"
 #include <DxLib.h>
 #include <cmath>
 
@@ -23,6 +24,7 @@ void Timer::SubLoad()
     clockHandle_ = LoadGraph("Data/Image/Clock.png");
 
     fontHandle_ = CreateFontToHandle("Arial", 60, 3, DX_FONTTYPE_ANTIALIASING_EDGE, -1, 2);
+    SE::GetInstance().Load(SOUND_TYPE::ALERT, "Data/BGM/Alert.mp3");
 }
 
 void Timer::SubInit()
@@ -66,12 +68,17 @@ void Timer::SubDraw()
         if (fract > 0.7f)
         {
             float wave = std::sin((fract - 0.7f) / 0.3f * DX_PI_F);
-            scale_ = 0.15f + wave * 0.03f;
+            scale_ = 0.15f + wave * 0.03f;           
+            SE::GetInstance().Play(SOUND_TYPE::ALERT, false);
         }
     }
     else
     {
         bgColor_ = { 0, 0, 0 };
+        if (SE::GetInstance().IsEnd(SOUND_TYPE::ALERT)) 
+        { 
+            SE::GetInstance().Play(SOUND_TYPE::ALERT, false); 
+        }
     }
 
     // âèéÊÇËîwåiÇÃï`âÊ

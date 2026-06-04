@@ -4,6 +4,7 @@
 
 #include"../Manager/Game/SceneManager.h"
 #include"../Manager/Game/UIManager.h"
+#include"../Manager/Game/SE.h"
 #include"../Manager/Resource/ResourceManager.h"
 #include"../Manager/Generic/KeyManager.h"
 
@@ -55,6 +56,7 @@ void GameScene::Load(void)
 		}
 	);
 	UIManager::GetInstance().AddRootUI(timerUI);
+	SE::GetInstance().Load(SOUND_TYPE::BGM, "Data/BGM/GameBGM.mp3");
 }
 
 void GameScene::Init(void)
@@ -111,6 +113,8 @@ void GameScene::Release(void)
 {
 	actorMng_->Release();
 	colMng_->ClearColliders();
+	SE::GetInstance().Stop(SOUND_TYPE::BGM);
+	SE::GetInstance().Release();
 }
 
 void GameScene::SetContactEventRule(void)

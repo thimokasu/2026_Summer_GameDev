@@ -6,9 +6,10 @@
 
 #include"../../Scene/SceneBase.h"
 
+#include"SE.h"
+#include"UIManager.h"
 #include"../../Manager/Generic/Loading.h"
 #include"../../Manager/System/EventSystem/EventManager.h"
-#include"UIManager.h"
 
 #include"../Resource/ResourceManager.h"
 
@@ -43,7 +44,6 @@ void SceneManager::DeleteInstance(void)
 
 SceneManager::SceneManager(void)
 {
-
 }
 
 
