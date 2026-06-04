@@ -49,6 +49,11 @@ void FindingJRunner::SubUpdate(void)
 	}
 	MoveToTarget();
 	enemyPositions_.clear();
+	visibleTimer_ -= SceneManager::GetInstance().GetDeltaTime();
+	if (visibleTimer_ < 0.0f)
+	{
+		isDraw_ = false;
+	}
 }
 
 void FindingJRunner::SubDraw(void)

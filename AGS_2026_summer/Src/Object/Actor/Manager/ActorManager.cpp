@@ -65,15 +65,19 @@ void ActorManager::Draw(void)
 	{
 		if (actor->IsDraw())
 		{
-		actor->Draw();
+			actor->Draw();
+			if (actor->GetTransform().modelId == -1)
+			{
+
+				for (const auto& [shape, collider] : actor->GetOwnColliders())
+				{
+					collider->Draw();
+				}
+			}
 		}
 
 		if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::DEBUG).now)
 		{
-			for (const auto& [shape, collider] : actor->GetOwnColliders())
-			{
-				collider->Draw();
-			}
 		}
 		//// --- ここから追加：左上に座標をリスト表示 ---
 		//auto pos = actor->GetTransform().pos;

@@ -15,6 +15,7 @@ public:
 
 	static constexpr float DecisionInterval = 0.1f; // 思考する間隔
     static constexpr float ReactionBlockPenalty = 5.0f;
+	static constexpr float AppearTime = 0.1f; // 出現してから完全に見えるまでの時間
 
     FindingJRunner(ActorManager&actMana);
     virtual ~FindingJRunner(void);
@@ -26,9 +27,8 @@ public:
     void SubRelease(void) override;
 	void InitCollider(void) override;
 
+	void Appear(void) { visibleTimer_ = AppearTime; isDraw_ = true; }
     void SetStageNum(int sNum) { stageNum_ = sNum; }
-	void SetAIRunner(void) { aiState_ = AIState::RUNNER; }
-	void SetAIChaser(void) { aiState_ = AIState::CHASER; }
 
 	// 敵の位置設定
     void SetEnemyPositions(const std::vector<VECTOR>&positions)

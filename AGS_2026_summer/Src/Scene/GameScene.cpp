@@ -15,6 +15,7 @@
 #include"../Object/Actor/Manager/ActorManager.h"
 #include"../Object/Actor/Camera/Camera.h"
 #include"../Object/Actor/Stage/FindingJ/ReactionBlock.h"
+#include"../Object/Actor/Charactor/Player/FindingJ/FindingJCPU/FindingJRunner.h"
 
 #include"../Object/UI/UIBase.h"
 #include"../Object/UI/FindingJ/Timer.h"
@@ -131,19 +132,32 @@ void GameScene::SetContactEventCallback(void)
 		{
 			auto entityKindA = rule.contactEvent_.entityA.entityKind_;
 			auto entityKindB = rule.contactEvent_.entityB.entityKind_;
-			if (entityKindA == EntityKind::REACTION_BLOCK)
+			if (entityKindA == EntityKind::FINDINGJ_CPU)
 			{
 				auto idA = rule.contactEvent_.entityA.entityID_;
 				auto actor = actorMng_->FindActorByID(idA);
-				auto& reactionBlock = dynamic_cast<ReactionBlock&>(*actor);
-				reactionBlock.StepOn();
+				auto& findingJCPU = dynamic_cast<FindingJRunner&>(*actor);
+				findingJCPU.Appear();
 			}
-			else if (entityKindB == EntityKind::REACTION_BLOCK)
+			else if (entityKindB == EntityKind::FINDINGJ_CPU)
 			{
 				auto idB = rule.contactEvent_.entityB.entityID_;
 				auto actor = actorMng_->FindActorByID(idB);
-				auto& reactionBlock = dynamic_cast<ReactionBlock&>(*actor);
-				reactionBlock.StepOn();
+				auto& findingJCPU = dynamic_cast<FindingJRunner&>(*actor);
+				findingJCPU.Appear();
+			}
+		}
+	);
+	EventManager::GetInstance().SetContactEventCallback(GameEventType::HAS_CAHGHT, [this](const ContactRule& rule)
+		{
+			auto entityKindA = rule.contactEvent_.entityA.entityKind_;
+			auto entityKindB = rule.contactEvent_.entityB.entityKind_;
+			if (entityKindA == EntityKind::FINDINGJ_CPU)
+			{
+				auto idA = rule.contactEvent_.entityA.entityID_;
+				auto actor = actorMng_->FindActorByID(idA);
+				auto& findingJCPU = dynamic_cast<FindingJRunner&>(*actor);
+				findingJCPU.SetIsDraw(true);
 			}
 		}
 	);
