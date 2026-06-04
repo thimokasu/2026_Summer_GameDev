@@ -59,6 +59,15 @@ void PauseScene::NormalUpdate()
 		draw_ = &PauseScene::ExpandDraw;
 		return;
 	}
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_UP).down)
+	{
+		selectedMenuIndex_ = (selectedMenuIndex_ + menuItems_.size() - 1) % menuItems_.size();
+	}
+
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_DOWN).down)
+	{
+		selectedMenuIndex_ = (selectedMenuIndex_ + 1) % menuItems_.size();
+	}
 }
 
 void PauseScene::DisappearUpdate()
@@ -78,7 +87,7 @@ void PauseScene::ExpandDraw()
 void PauseScene::NormalDraw()
 {
 	DrawFrame(1.0f);
-	DrawString(Application::SCREEN_SIZE_X / 2 - 100, Application::SCREEN_SIZE_Y / 2 - 50, "PAUSE", 0xffffff);
+	DrawMenu();
 }
 
 void PauseScene::DrawFrame(float rate)
@@ -110,4 +119,31 @@ void PauseScene::DrawFrame(float rate)
 		false,
 		5.0f
 	);
-};
+}
+void PauseScene::DrawMenu()
+{
+	constexpr int menu_top_offset = margin_size + 600;
+	constexpr int menu_left_offset = margin_size + 800;
+	constexpr int menu_item_height = 80;
+	constexpr uint32_t menu_item_color = 0xffffff;
+	constexpr uint32_t indicator_color = 0xffaaaa;
+	constexpr int menu_indent_size = 10;
+	constexpr uint32_t selected_item_color = 0xffffaaff;
+	int x = menu_left_offset;
+	int y = menu_top_offset;
+
+	for (const auto& item : menuItems_)
+	{
+		int x = menu_left_offset;
+		auto itemColor = menu_item_color;
+		if (menuItems_[selectedMenuIndex_] == item) {
+			DrawString(x-30,y,"Å®", indicator_color);
+			x += menu_indent_size;
+			itemColor = selected_item_color;
+		}
+
+		DrawFormatString(x, y, menu_item_color,"%s" ,item.c_str());
+		y += menu_item_height;
+	}
+}
+;

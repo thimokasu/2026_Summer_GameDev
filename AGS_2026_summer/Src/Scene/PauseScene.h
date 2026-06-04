@@ -19,6 +19,8 @@ public:
 private:
     int frame_;
 
+	int selectedMenuIndex_ = 0;
+
 	std::vector<std::string> menuItems_;
 
 	using Update_t = void(PauseScene::*)(void);
@@ -33,6 +35,8 @@ private:
 	void ExpandDraw(); 
 	void NormalDraw();
 	void DrawFrame(float rate);
+
+	void DrawMenu();
 
 };
 
