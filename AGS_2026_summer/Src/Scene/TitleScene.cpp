@@ -2,8 +2,8 @@
 #include"../Manager/Game/SceneManager.h"
 #include"../Manager/Generic/KeyManager.h"
 #include"../Manager/Resource/ResourceManager.h"
-
-
+#include"../Manager/Resource/Resource.h"
+#include"../Manager/Resource/ResourceName.h"
 TitleScene::TitleScene(void)
 {
 }
@@ -14,7 +14,9 @@ TitleScene::~TitleScene(void)
 
 void TitleScene::Load(void)
 {
-	
+	ResourceManager& resMng = ResourceManager::GetInstance();
+	imgTitle_ = resMng.Load(SRC::TITLE).handleId_;
+	imgPush_ = resMng.Load(SRC::PUSH).handleId_;
 }
 
 void TitleScene::Init(void)

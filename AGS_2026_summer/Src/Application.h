@@ -43,6 +43,8 @@ public:
 
 	Vector2 GetWindowSize(void) const;
 
+	void RequestExit(void);
+
 private:
 
 	// 静的インスタンス
@@ -53,6 +55,9 @@ private:
 
 	// 解放失敗
 	bool isReleaseFail_;
+
+	// 終了要求
+	bool isRequestedExit_ = false;
 
 	// デフォルトコンストラクタをprivateにして、
 	// 外部から生成できない様にする

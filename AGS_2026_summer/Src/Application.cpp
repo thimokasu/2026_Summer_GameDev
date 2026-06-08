@@ -101,7 +101,7 @@ void Application::Run(void)
 	auto&sceneManager = SceneManager::GetInstance();
 
 	// ÉQÅ[ÉÄÉãÅ[Év
-	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_TAB) == 0)
+	while (ProcessMessage() == 0 && !isRequestedExit_)
 	{
 
 		keymanager.Update();
@@ -147,6 +147,11 @@ bool Application::IsReleaseFail(void) const
 Vector2 Application::GetWindowSize(void) const
 {
 	return Vector2(SCREEN_SIZE_X, SCREEN_SIZE_Y);
+}
+
+void Application::RequestExit(void)
+{
+	isRequestedExit_ = true;
 }
 
 Application::Application(void)

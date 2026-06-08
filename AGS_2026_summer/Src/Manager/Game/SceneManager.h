@@ -58,6 +58,7 @@ public:
 
 	// 最後に追加したシーンを削除する。
 	void PopScene(void);
+	void ResetScene(std::shared_ptr<SceneBase>scene);
 
 	// 強制的に特定のシーンに飛ぶ。リセットをかけ特定のシーンのみにする。
 	void JumpScene(std::shared_ptr<SceneBase>scene);
