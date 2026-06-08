@@ -1,81 +1,37 @@
 #pragma once
-enum class Game {};
-
-enum class GameMode
-{
-	ONEPLAYER,
-	TWOPLAYER,
-	THREEPLAYER,
-	FOURPLAYER,
-
-	TEST,
-	MAX
-};
 
 struct GameInfo
 {
-	GameMode mode_;
-	Game game_;
-	int stageNum_;
+	GAME_KIND game_;
+	STAGE_NUM stage_;
+	PLAY_NUM playNum_;
 };
 
-namespace Test
-{
-	enum class Game { A };
-	namespace A
-	{
-		enum class Stage { Stage1 };
-	}
-}
 
-namespace OnePlayer
+enum class GAME_KIND
 {
-	enum class Game { A, B };
-	namespace A
-	{
-		enum class Stage { Stage1, Stage2, Stage3 };
-	}
-	namespace B
-	{
-		enum class  Stage{Stage1,Stage2,Stage3};
-	}
-}
+	// 1人用
 
-namespace TwoPlayer
-{
-	enum class Game { A, B };
-	namespace A
-	{
-		enum class Stage { Stage1, Stage2, Stage3 };
-	}
-	namespace B
-	{
-		enum class  Stage { Stage1, Stage2, Stage3 };
-	}
-}
+	//2人用
 
-namespace ThreePlayer
-{
-	enum class Game { A, B };
-	namespace A
-	{
-		enum class Stage { Stage1, Stage2, Stage3 };
-	}
-	namespace B
-	{
-		enum class  Stage { Stage1, Stage2, Stage3 };
-	}
-}
+	//3人用
 
-namespace FourPlayer
+	//4人用
+	FINDINGJ,
+
+};
+
+enum class PLAY_NUM
 {
-	enum class Game { FindingJ, B };
-	namespace FindingJ
-	{
-		enum class Stage { Stage1, Stage2, Stage3 };
-	}
-	namespace B
-	{
-		enum class  Stage { Stage1, Stage2, Stage3 };
-	}
-}
+	ONE_PLAYER,
+	TWO_PLAYER,
+	THREE_PLAYER,
+	FOUR_PLAYER,
+};
+
+enum class STAGE_NUM
+{
+	STAGE1,
+	STAGE2,
+	STAGE3,
+};

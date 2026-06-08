@@ -1,25 +1,25 @@
 #include "GameScene.h"
 #include<DxLib.h>
-#include "../Application.h"
+#include "../../Application.h"
 
-#include"../Manager/Game/SceneManager.h"
-#include"../Manager/Game/UIManager.h"
-#include"../Manager/Game/SE.h"
-#include"../Manager/Resource/ResourceManager.h"
-#include"../Manager/Generic/KeyManager.h"
+#include"../../Manager/Game/SceneManager.h"
+#include"../../Manager/Game/UIManager.h"
+#include"../../Manager/Game/SE.h"
+#include"../../Manager/Resource/ResourceManager.h"
+#include"../../Manager/Generic/KeyManager.h"
 
-#include"../Manager/System/Collision/CollisionManager.h"
-#include"../Manager/System/EventSystem/EventManager.h"
-#include"../Manager/System/EventSystem/GameEventType.h"
+#include"../../Manager/System/Collision/CollisionManager.h"
+#include"../../Manager/System/EventSystem/EventManager.h"
+#include"../../Manager/System/EventSystem/GameEventType.h"
 
-#include"../Object/Actor/Manager/ActorManager.h"
-#include"../Object/Actor/Camera/Camera.h"
-#include"../Object/Actor/Stage/FindingJ/ReactionBlock.h"
-#include"../Object/Actor/Charactor/Player/FindingJ/FindingJCPU/FindingJRunner.h"
+#include"../../Object/Actor/Manager/ActorManager.h"
+#include"../../Object/Actor/Camera/Camera.h"
+#include"../../Object/Actor/Stage/FindingJ/ReactionBlock.h"
+#include"../../Object/Actor/Charactor/Player/FindingJ/FindingJCPU/FindingJRunner.h"
 
-#include"../Object/UI/UIBase.h"
-#include"../Object/UI/FindingJ/Timer.h"
-#include"../Object/UI/FindingJ/GameMessageUI.h"
+#include"../../Object/UI/UIBase.h"
+#include"../../Object/UI/FindingJ/Timer.h"
+#include"../../Object/UI/FindingJ/GameMessageUI.h"
 
 #include <EffekseerForDXLib.h>
 

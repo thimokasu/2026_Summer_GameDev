@@ -6,7 +6,7 @@
 #include"Manager/Generic/KeyManager.h"
 
 #include"Scene/TitleScene.h"
-#include"Scene/GameScene.h"
+#include"Scene/GameScene/GameScene.h"
 #include"Scene/PauseScene.h"
 
 Application* Application::instance_ = nullptr;
