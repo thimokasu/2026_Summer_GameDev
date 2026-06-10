@@ -12,8 +12,7 @@ FindingJRunner::FindingJRunner(ActorManager& actMana)
 	actorManager_(actMana),
 	lastStepTileW_(0),
 	lastStepTileD_(0),
-	visibleTimer_(0.0f),
-	stageNum_(static_cast<int>(FourPlayer::FindingJ::Stage::Stage3))
+	visibleTimer_(0.0f)
 {
 }
 

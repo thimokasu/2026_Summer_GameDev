@@ -68,18 +68,18 @@ PauseScene::~PauseScene(void)
 {
 }
 
-void PauseScene::Init(void)
+void PauseScene::SubInit(void) 
 {
 
 }
 
-void PauseScene::Update(void)
+void PauseScene::SubUpdate(void)
 {
 	//関数ポインタを呼び出す
 	(this->*update_)();
 }
 
-void PauseScene::Draw(void)
+void PauseScene::SubDraw(void)
 {
 	//関数ポインタを呼び出す
 	(this->*draw_)();

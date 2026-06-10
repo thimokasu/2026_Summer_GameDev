@@ -8,22 +8,22 @@ PeopleSelectScene::~PeopleSelectScene()
 {
 }
 
-void PeopleSelectScene::Load(void)
+void PeopleSelectScene::SubLoad(void)
 {
 }
 
-void PeopleSelectScene::Init(void)
+void PeopleSelectScene::SubInit(void)
 {
 }
 
-void PeopleSelectScene::Update(void)
+void PeopleSelectScene::SubUpdate(void)
 {
 }
 
-void PeopleSelectScene::Draw(void)
+void PeopleSelectScene::SubDraw(void)
 {
 }
 
-void PeopleSelectScene::Release(void)
+void PeopleSelectScene::SubRelease(void)
 {
 }

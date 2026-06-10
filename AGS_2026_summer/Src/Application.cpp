@@ -6,8 +6,9 @@
 #include"Manager/Generic/KeyManager.h"
 
 #include"Scene/TitleScene.h"
-#include"Scene/GameScene.h"
+#include"Scene/GameScene/GameScene.h"
 #include"Scene/PauseScene.h"
+#include"Scene/GameSelect/GameSelectScene.h"
 
 Application* Application::instance_ = nullptr;
 
@@ -89,6 +90,7 @@ void Application::Init(void)
 	SceneManager::GetInstance().SetSceneFactory(SCENE_ID::TITLE, []() { return std::make_shared<TitleScene>(); });
 	SceneManager::GetInstance().SetSceneFactory(SCENE_ID::GAME, []() {return std::make_shared<GameScene>(); });
 	SceneManager::GetInstance().SetSceneFactory(SCENE_ID::PAUSE, []() {return std::make_shared<PauseScene>(); });
+	SceneManager::GetInstance().SetSceneFactory(SCENE_ID::GAME_SELECT, []() {return std::make_shared<GameSelectScene>(); });
 	SceneManager::GetInstance().Init();
 	// ネットワーク管理初期化
 }
