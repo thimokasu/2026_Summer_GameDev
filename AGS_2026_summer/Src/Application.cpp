@@ -158,6 +158,7 @@ Application::Application(void)
 {
 	isInitFail_ = false;
 	isReleaseFail_ = false;
+	isRequestedExit_ = false;
 }
 
 void Application::InitEffekseer(void)
