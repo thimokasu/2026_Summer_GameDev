@@ -189,8 +189,8 @@ void PauseScene::DrawFrame(float rate)
 void PauseScene::DrawMenu()
 {
 	//メニューの描画位置や、アイテムの高さ、色などを定数で定義する
-	constexpr int menu_top_offset = margin_size + 600;
-	constexpr int menu_left_offset = margin_size + 800;
+	constexpr int menu_top_offset = Application::SCREEN_SIZE_Y / 2;
+	constexpr int menu_left_offset = Application::SCREEN_SIZE_X / 2;
 	constexpr int menu_item_height = 80;
 	constexpr uint32_t menu_item_color = 0xffffff;
 	constexpr uint32_t indicator_color = 0xffaaaa;
