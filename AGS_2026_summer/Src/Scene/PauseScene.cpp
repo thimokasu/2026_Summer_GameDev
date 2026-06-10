@@ -19,17 +19,17 @@ PauseScene::~PauseScene(void)
 {
 }
 
-void PauseScene::Init(void) 
+void PauseScene::SubInit(void) 
 {
 	
 }
 
-void PauseScene::Update(void)
+void PauseScene::SubUpdate(void)
 {
 	(this->*update_)();
 }
 
-void PauseScene::Draw(void)
+void PauseScene::SubDraw(void)
 {
 	(this->*draw_)();
 }

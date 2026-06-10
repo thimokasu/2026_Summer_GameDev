@@ -45,6 +45,10 @@ public:
 		PAUSE,
 		ENTER,
 		SPACE,
+		UP,
+		DOWN,
+		RIGHT,
+		LEFT,
 		TAB,
 
 		MOUSE_LEFT,

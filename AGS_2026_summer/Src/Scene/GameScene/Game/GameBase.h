@@ -9,7 +9,7 @@ class GameBase
 {
 public:
 	GameBase(GameInfo info, ActorManager* actMng, CollisionManager* colMng);
-	virtual ~GameBase(void);;
+	virtual ~GameBase(void) = default;
 
 	void Load(void);
 	void Init(void);

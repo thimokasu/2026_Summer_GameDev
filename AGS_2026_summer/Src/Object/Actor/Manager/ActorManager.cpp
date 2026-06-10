@@ -143,109 +143,17 @@ void ActorManager::BindID2Kind(void)
 
 void ActorManager::SetFactory(GameInfo info)
 {
-	switch (info.mode_)
+	switch (info.playNum_)
 	{
-	case GameMode::TEST:
-		switch (static_cast<Test::Game>(info.game_))
-		{
-		case Test::Game::A:
-			if (info.stageNum_ == (int)Test::A::Stage::Stage1)
-			{
-				actorFactory_ = std::make_unique<TestFactory>();
-			break;
-			}
-		}
+	case PLAY_NUM::ONE_PLAYER:
 		break;
-	case GameMode::ONEPLAYER:
-		switch (static_cast<OnePlayer::Game>(info.game_))
-		{
-		case OnePlayer::Game::A:
-			if (info.stageNum_ == 0){
-				
-			}
-			else if (info.stageNum_ == 1){
-			}
-			else {
-			}
-			break;
-		case OnePlayer::Game::B:
-			if (info.stageNum_ == 0) {
-			}
-			else if (info.stageNum_ == 1) {
-			}
-			else {
-			}
-			break;
-		}
+	case PLAY_NUM::TWO_PLAYER:
+
 		break;
-	case GameMode::TWOPLAYER:
-		switch (static_cast<TwoPlayer::Game>(info.game_))
-		{
-		case TwoPlayer::Game::A:
-			if (info.stageNum_ == 0) {
-			}
-			else if (info.stageNum_ == 1) {
-			}
-			else {
-			}
-			break;
-		case TwoPlayer::Game::B:
-			if (info.stageNum_ == 0) {
-			}
-			else if (info.stageNum_ == 1) {
-			}
-			else {
-			}
-			break;
-		}
+	case PLAY_NUM::THREE_PLAYER:
+
 		break;
-	case GameMode::THREEPLAYER:
-		switch (static_cast<ThreePlayer::Game>(info.game_))
-		{
-		case ThreePlayer::Game::A:
-			if (info.stageNum_ == 0) {
-			}
-			else if (info.stageNum_ == 1) {
-			}
-			else {
-			}
-			break;
-		case ThreePlayer::Game::B:
-			if (info.stageNum_ == 0) {
-			}
-			else if (info.stageNum_ == 1) {
-			}
-			else {
-			}
-			break;
-		}
-		break;
-	case GameMode::FOURPLAYER:
-		switch (static_cast<FourPlayer::Game>(info.game_))
-		{
-		case FourPlayer::Game::FindingJ:
-			if (info.stageNum_ == (int)FourPlayer::FindingJ::Stage::Stage1) {
-				actorFactory_ = std::make_unique<Stage1Factory>();
-				break;
-			}
-			else if (info.stageNum_ == (int)FourPlayer::FindingJ::Stage::Stage2) {
-				actorFactory_ = std::make_unique<Stage2Factory>();
-				break;
-			}
-			else {
-				actorFactory_ = std::make_unique<Stage3Factory>();
-				break;
-			}
-			break;
-		case FourPlayer::Game::B:
-			if (info.stageNum_ == 0) {
-			}
-			else if (info.stageNum_ == 1) {
-			}
-			else {
-			}
-			break;
-		}
+	case PLAY_NUM::FOUR_PLAYER:
 		break;
 	}
 }

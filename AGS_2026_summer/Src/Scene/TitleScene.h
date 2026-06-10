@@ -7,11 +7,11 @@ public:
     TitleScene(void);
     ~TitleScene(void)override;
 
-    void Load(void)override;
-    void Init(void)override;
-    void Update(void)override;
-    void Draw(void)override;
-    void Release(void)override;
+    void SubLoad(void)override;
+    void SubInit(void)override;
+    void SubUpdate(void)override;
+    void SubDraw(void)override;
+    void SubRelease(void)override;
     SCENE_ID GetSceneID(void)const override { return SCENE_ID::TITLE; }
 private:
 

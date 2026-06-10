@@ -12,6 +12,8 @@
 #include"../../Manager/System/EventSystem/EventManager.h"
 #include"../../Manager/System/EventSystem/GameEventType.h"
 
+#include"Game/GameBase.h"
+
 #include"../../Object/Actor/Manager/ActorManager.h"
 #include"../../Object/Actor/Camera/Camera.h"
 #include"../../Object/Actor/Stage/FindingJ/ReactionBlock.h"
@@ -26,9 +28,7 @@
 
 GameScene::GameScene(void)
 {
-	gameInfo_.mode_ = GameMode::FOURPLAYER;
-	gameInfo_.game_ = static_cast<Game>(FourPlayer::Game::FindingJ);
-	gameInfo_.stageNum_ = static_cast<int>(FourPlayer::FindingJ::Stage::Stage3);
+
 }
 
 GameScene::GameScene(GameInfo info)
@@ -40,12 +40,13 @@ GameScene::~GameScene(void)
 {
 }
 
-void GameScene::Load(void)
+void GameScene::SubLoad(void)
 {
 	actorMng_ = std::make_unique<ActorManager>();
 	colMng_ = std::make_unique<CollisionManager>();
 	actorMng_->Load(gameInfo_);
-	
+	CreateMiniGame();
+
 	auto msgUI = std::make_shared<GameMessageUI>(Vector2F(400.0f, 200.0f), Vector2F(400.0f, 100.0f));
 	msgUI->Load();
 	UIManager::GetInstance().AddRootUI(msgUI);
@@ -60,60 +61,34 @@ void GameScene::Load(void)
 	SE::GetInstance().Load(SOUND_TYPE::BGM, "Data/BGM/GameBGM.mp3");
 }
 
-void GameScene::Init(void)
+void GameScene::SubInit(void)
 {
 	SetCollisionCollback();
 	SetContactEventRule();
 	SetContactEventCallback();
+	
+	miniGame_->Init();
 
-	actorMng_->Init();
-	for (auto& actor : actorMng_->GetActors())
-	{
-		for (const auto& [shape, collider] : actor->GetOwnColliders())
-		{
-			colMng_->AddCollider(collider.get(), actor->GetEntityID());
-		}
-	}
 	SceneManager::GetInstance().GetCamera().SetCameraAngles(VGet(1.18f, 0.0f, 0.0f));
 	SceneManager::GetInstance().GetCamera().SetCameraPos(VGet(170.0f, 270.0f, 20.0f));
 
-
 }
 
-void GameScene::Update(void)
+void GameScene::SubUpdate(void)
 {
-	//エスケープ押したらメニューシーンへ
-	if (KeyManager::GetIns().GetInfo(KEY_TYPE::PAUSE).down)
-	{
-		SceneManager::GetInstance().PushScene(SCENE_ID::PAUSE);
-		return;
-	}
-
-	//スペース押したらタイトルシーンへ
-	if (KeyManager::GetIns().GetInfo(KEY_TYPE::SPACE).down)
-	{
-		SceneManager::GetInstance().ChangeScene(SCENE_ID::TITLE);
-		return;
-	}
-
-
-	actorMng_->Update();
-	colMng_->Update();
-	colMng_->Resolve();
-
+	miniGame_->Update();
 }
 
-void GameScene::Draw(void)
+void GameScene::SubDraw(void)
 {
 	DrawFormatString(0, 0, 0xffffff, "Game");
-	actorMng_->Draw();
+	miniGame_->Draw();
 
 }
 
-void GameScene::Release(void)
+void GameScene::SubRelease(void)
 {
-	actorMng_->Release();
-	colMng_->ClearColliders();
+	miniGame_->Release();
 	SE::GetInstance().Stop(SOUND_TYPE::BGM);
 	SE::GetInstance().Release();
 }
@@ -178,4 +153,10 @@ auto onEndContact = [this](uint32_t a, uint32_t b)
 		EventManager::GetInstance().OnEndContact(entA, entB, CollisionResult{});
 	};
 colMng_->SetContactCallbacks(onBeginContact, onEndContact);
+}
+
+void GameScene::CreateMiniGame(void)
+{
+	auto minigame = std::make_unique<GameBase>(gameInfo_, actorMng_.get(), colMng_.get());
+	miniGame_ = std::move(minigame);
 }

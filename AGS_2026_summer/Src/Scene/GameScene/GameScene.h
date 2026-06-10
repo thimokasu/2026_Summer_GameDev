@@ -17,17 +17,18 @@ public:
 	GameScene(GameInfo info);
 	~GameScene(void);
 
-	void Load(void) override;
-	void Init(void) override;
-	void Update(void) override;
-	void Draw(void) override;
-	void Release(void) override;
+	void SubLoad(void) override;
+	void SubInit(void) override;
+	void SubUpdate(void) override;
+	void SubDraw(void) override;
+	void SubRelease(void) override;
 	SCENE_ID GetSceneID(void)const override { return SCENE_ID::GAME; }
 private:
 #pragma region ä÷êî
 	void SetContactEventRule(void);
 	void SetContactEventCallback(void);
 	void SetCollisionCollback(void);
+	void CreateMiniGame(void);
 #pragma endregion
 
 #pragma region ïœêî
