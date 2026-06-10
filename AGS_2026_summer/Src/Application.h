@@ -7,8 +7,8 @@ class Application
 public:
 
 	// スクリーンサイズ
-	static constexpr int SCREEN_SIZE_X = 640;
-	static constexpr int SCREEN_SIZE_Y = 480;
+	static constexpr int SCREEN_SIZE_X = 1980;
+	static constexpr int SCREEN_SIZE_Y = 1080;
 
 	// データパス関連
 	//-------------------------------------------
@@ -43,10 +43,16 @@ public:
 
 	Vector2 GetWindowSize(void) const;
 
+	void RequestExit(void);
+
+
 private:
 
 	// 静的インスタンス
 	static Application* instance_;
+	
+	// 終了要求
+	bool isRequestedExit_;
 
 	// 初期化失敗
 	bool isInitFail_;

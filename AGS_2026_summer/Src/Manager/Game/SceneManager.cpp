@@ -238,6 +238,18 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 
 	}
 
+	void SceneManager::ResetScene(std::shared_ptr<SceneBase> scene)
+	{
+		// ‘S‚Ä‰ğ•ú
+		for (auto& scene : scenes_) { scene->Release(); }
+		scenes_.clear();
+		scenes_.push_back(scene);
+
+		// V‚µ‚­Ï‚Ş
+		ChangeScene(scene);
+
+	}
+
 	void SceneManager::JumpScene(std::shared_ptr<SceneBase> scene)
 	{
 		UIManager::GetInstance().Clear();
