@@ -58,7 +58,7 @@ private:
 	bool isInitFail_;
 
 	// 解放失敗
-	bool isReleaseFail_;
+	bool isReleaseFail_ = false;
 
 	// デフォルトコンストラクタをprivateにして、
 	// 外部から生成できない様にする
