@@ -23,7 +23,7 @@ void FindingJ::SubInit(void)
 	rigidBody_.SetBodyType(RigidBody::BodyType::DYNAMIC);
 	rigidBody_.SetUseGravity(true);
 	rigidBody_.SetMass(1000);
-	rigidBody_.SetMoveSpeed(0.5f);
+	rigidBody_.SetMoveSpeed(1.25f);
 	trans_.pos = VGet(0.0f, 40.0f, 0.0f);
 }
 
@@ -71,5 +71,5 @@ void FindingJ::MoveInput(void)
 	{
 		moveVec = VNorm(moveVec);
 	}
-	rigidBody_.AddForce(VScale(moveVec, rigidBody_.GetMoveSpeed()));
+	trans_.pos = VAdd(trans_.pos, VScale(moveVec, rigidBody_.GetMoveSpeed()));
 }

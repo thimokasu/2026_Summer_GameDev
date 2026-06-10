@@ -53,6 +53,7 @@ void FindingJRunner::SubUpdate(void)
 	{
 		isDraw_ = false;
 	}
+	isDraw_ = true;
 }
 
 void FindingJRunner::SubDraw(void)

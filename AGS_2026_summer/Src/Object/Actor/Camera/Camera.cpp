@@ -50,7 +50,6 @@ void Camera::SetBeforeDraw(void)
 
 	// クリップ距離を設定する(SetDrawScreenでリセットされる)
 	SetCameraNearFar(VIEW_NEAR, VIEW_FAR);
-
 	switch (mode_)
 	{
 	case Camera::MODE::FIXED_POINT:
