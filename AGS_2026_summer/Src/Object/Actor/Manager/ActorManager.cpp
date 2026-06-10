@@ -1,6 +1,6 @@
 #include "ActorManager.h"
 #include<DxLib.h>
-#include"../../../Scene/GameSelect/GameKind.h"
+#include"../../../Scene/GameSelect/GameInfo.h"
 #include"../Factory/ActorFactory/ActorFactoryBase.h"
 #include"../Collider/ColliderBase.h"
 #include"../Factory/ActorFactory/Test/TestFactory.h"

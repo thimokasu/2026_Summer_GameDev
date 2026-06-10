@@ -3,7 +3,7 @@
 #include<vector>
 #include<unordered_map>
 
-#include"GameKind.h"
+#include"GameInfo.h"
 
 class GameSelectScene :
     public SceneBase
@@ -34,6 +34,12 @@ private:
 	void UpdateGameGroups(void);
 	void UpdateCursorIndex(void);
     void UpdateStageSelect(void);
+	void ChangeGame(GameInfo info);
+
+    void CreateGameOne(GameInfo info);
+    void CreateGameTwo(GameInfo info);
+    void CreateGameTherr(GameInfo info);
+    void CreateGameFour(GameInfo info);
 #pragma endregion
 
 #pragma region ïœêî
