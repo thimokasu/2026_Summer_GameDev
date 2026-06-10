@@ -233,7 +233,7 @@
     <ClInclude Include="Src\Manager\Generic\FPS.h" />
     <ClInclude Include="Src\Manager\Generic\KeyManager.h" />
     <ClInclude Include="Src\Manager\Generic\Loading.h" />
-    <ClInclude Include="Src\Scene\GameSelect\GameKind.h" />
+    <ClInclude Include="Src\Scene\GameSelect\GameInfo.h" />
     <ClInclude Include="Src\Scene\PauseScene.h" />
     <ClInclude Include="Src\Scene\PeopleSelectScene.h" />
     <ClInclude Include="Src\Scene\TitleScene.h" />

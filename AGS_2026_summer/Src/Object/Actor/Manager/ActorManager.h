@@ -5,7 +5,7 @@
 #include<unordered_map>
 #include"../ActorBase.h"
 #include"../EntityKind.h"
-#include"../../../Scene/GameSelect/GameKind.h"
+#include"../../../Scene/GameSelect/GameInfo.h"
 
 using EntityID = uint32_t;
 class ActorFactoryBase;

@@ -1,7 +1,11 @@
 #include "GameSelectScene.h"
 #include <DxLib.h>
-#include "../../Manager/Generic/KeyManager.h"
 #include <string>
+#include<memory>
+#include "../../Manager/Generic/KeyManager.h"
+#include"../../Manager/Game/SceneManager.h"
+#include"../GameScene/GameScene.h"
+#define REGISTER_GAME(kind,classNamecase)GAME_KIND::kind return std::make_unique<className>()
 
 GameSelectScene::GameSelectScene(void)
 {
@@ -89,7 +93,7 @@ void GameSelectScene::SubUpdate(void)
 		// 【スペースで決定】ステージを確定してGameSceneへ遷移！
 		if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down)
 		{
-			// TODO: シーン遷移処理
+			SceneManager::GetInstance().ChangeScene<GameScene>(gameInfo_);
 		}
 		break;
 	}
@@ -303,4 +307,42 @@ void GameSelectScene::UpdateStageSelect(void)
 			gameInfo_.stage_ = static_cast<STAGE_NUM>(static_cast<int>(gameInfo_.stage_) + 1);
 		}
 	}
+}
+
+void GameSelectScene::ChangeGame(GameInfo info)
+{
+	switch (info.playNum_)
+	{
+	case PLAY_NUM::ONE_PLAYER:
+		CreateGameOne(info);
+		break;
+	case PLAY_NUM::TWO_PLAYER:
+		CreateGameTwo(info);
+		break;
+	case PLAY_NUM::THREE_PLAYER:
+		CreateGameTherr(info);
+		break;
+	case PLAY_NUM::FOUR_PLAYER:
+		CreateGameFour(info);
+		break;
+	default:
+		break;
+	}
+}
+
+void GameSelectScene::CreateGameOne(GameInfo info)
+{
+}
+
+void GameSelectScene::CreateGameTwo(GameInfo info)
+{
+}
+
+void GameSelectScene::CreateGameTherr(GameInfo info)
+{
+}
+
+void GameSelectScene::CreateGameFour(GameInfo info)
+{
+
 }

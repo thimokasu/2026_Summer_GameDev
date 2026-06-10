@@ -1,6 +1,6 @@
 #pragma once
 #include<memory>
-#include"../../GameSelect/GameKind.h"
+#include"../../GameSelect/GameInfo.h"
 
 class ActorManager;
 class CollisionManager;

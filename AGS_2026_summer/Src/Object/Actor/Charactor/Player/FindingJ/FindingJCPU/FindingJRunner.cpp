@@ -1,7 +1,7 @@
 #include "FindingJRunner.h"
 #include <cmath> 
 #include"../../../../../../Manager/Game/SceneManager.h"
-#include"../../../../../../Scene/GameSelect/GameKind.h"
+#include"../../../../../../Scene/GameSelect/GameInfo.h"
 #include"../../../../Collider/ColliderBase.h"
 #include"../../../../Collider/ColliderCapsule.h"
 #include"../../../../Manager/ActorManager.h"
