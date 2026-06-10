@@ -13,24 +13,24 @@ std::shared_ptr<GameOverScene> GameOverScene::Create(void)
     return std::shared_ptr<GameOverScene>();
 }
 
-void GameOverScene::Load(void)
+void GameOverScene::SubLoad(void)
 {
 }
 
-void GameOverScene::Init(void)
+void GameOverScene::SubInit(void)
 {
 }
 
-void GameOverScene::Update(void)
+void GameOverScene::SubUpdate(void)
 {
 }
 
-void GameOverScene::Draw(void)
+void GameOverScene::SubDraw(void)
 {
 
 
 }
 
-void GameOverScene::Release(void)
+void GameOverScene::SubRelease(void)
 {
 }

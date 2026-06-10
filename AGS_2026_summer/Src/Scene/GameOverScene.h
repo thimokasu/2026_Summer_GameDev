@@ -16,11 +16,11 @@ public:
 	~GameOverScene(void);
 
 	static std::shared_ptr<GameOverScene> Create(void);
-	virtual void Load(void) override;
-	virtual void Init(void) override;
-	virtual void Update(void) override;
-	virtual void Draw(void) override;
-	virtual void Release(void) override;
+	virtual void SubLoad(void) override;
+	virtual void SubInit(void) override;
+	virtual void SubUpdate(void) override;
+	virtual void SubDraw(void) override;
+	virtual void SubRelease(void) override;
 	virtual SCENE_ID GetSceneID(void)const override { return SCENE_ID::GAMEOVER; }
 
 

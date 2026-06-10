@@ -11,7 +11,6 @@ enum class SCENE_ID
 
 	MULTI,
 	CONNECT,
-	PAUSE,
 	GAMEOVER,
 	GAMECLEAR,
 
