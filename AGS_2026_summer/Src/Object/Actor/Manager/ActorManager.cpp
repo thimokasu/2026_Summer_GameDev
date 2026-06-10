@@ -146,14 +146,53 @@ void ActorManager::SetFactory(GameInfo info)
 	switch (info.playNum_)
 	{
 	case PLAY_NUM::ONE_PLAYER:
+		OnePlayerGameFactory(info);
 		break;
 	case PLAY_NUM::TWO_PLAYER:
-
+		TwoPlayerGameFactory(info);
 		break;
 	case PLAY_NUM::THREE_PLAYER:
-
+		ThreePlayerGameFactory(info);
 		break;
 	case PLAY_NUM::FOUR_PLAYER:
+		FourPlayerGameFactory(info);
+		break;
+	}
+}
+
+void ActorManager::OnePlayerGameFactory(GameInfo info)
+{
+}
+
+void ActorManager::TwoPlayerGameFactory(GameInfo info)
+{
+}
+
+void ActorManager::ThreePlayerGameFactory(GameInfo info)
+{
+}
+
+void ActorManager::FourPlayerGameFactory(GameInfo info)
+{
+	switch (info.game_)
+	{
+	case GAME_KIND::FINDINGJ:
+		switch (info.stage_)
+		{
+		case STAGE_NUM::STAGE1:
+			actorFactory_ = std::make_unique<Stage1Factory>();
+			break;
+		case STAGE_NUM::STAGE2:
+			actorFactory_ = std::make_unique<Stage2Factory>();
+			break;
+		case STAGE_NUM::STAGE3:
+			actorFactory_ = std::make_unique<Stage3Factory>();
+			break;
+		default:
+			break;
+		}
+		break;
+	default:
 		break;
 	}
 }

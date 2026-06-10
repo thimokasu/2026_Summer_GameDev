@@ -9,6 +9,12 @@ class GameSelectScene :
     public SceneBase
 {
 public:
+
+    enum class SELECT_STATE {
+        SELECT_PLAYER_NUM, // 人数選択
+        SELECT_GAME,       // ゲーム選択
+        SELECT_STAGE,      // ステージ選択
+    };
             GameSelectScene(void);
         ~GameSelectScene(void);
         void SubLoad(void) override;
@@ -27,6 +33,7 @@ private:
 
 	void UpdateGameGroups(void);
 	void UpdateCursorIndex(void);
+    void UpdateStageSelect(void);
 #pragma endregion
 
 #pragma region 変数
@@ -37,5 +44,6 @@ private:
     const std::vector<GAME_KIND>* currentGroup_ = nullptr;
 	int cursorIndex_ = 0;
     GameInfo gameInfo_;
+    SELECT_STATE state_ = SELECT_STATE::SELECT_PLAYER_NUM;
 #pragma endregion
 };

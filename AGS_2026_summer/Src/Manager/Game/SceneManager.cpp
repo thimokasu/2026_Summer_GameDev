@@ -24,7 +24,6 @@ void SceneManager::CreateInstance(void)
 	{
 		instance_ = new SceneManager();
 	}
-	instance_->Init();
 }
 
 SceneManager& SceneManager::GetInstance(void)

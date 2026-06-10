@@ -6,9 +6,11 @@ enum class SCENE_ID
 	GAME_SELECT,
 	GAME,
 	RESULT,
+	
+	PAUSE,
+
 	MULTI,
 	CONNECT,
-	PAUSE,
 
 	MAX
 };

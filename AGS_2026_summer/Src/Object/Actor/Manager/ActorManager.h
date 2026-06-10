@@ -38,6 +38,10 @@ private:
 #pragma region ä÷êî
 	void BindID2Kind(void);
 	void SetFactory(GameInfo info);
+	void OnePlayerGameFactory(GameInfo info);
+	void TwoPlayerGameFactory(GameInfo info);
+	void ThreePlayerGameFactory(GameInfo info);
+	void FourPlayerGameFactory(GameInfo info);
 #pragma endregion
 
 };
