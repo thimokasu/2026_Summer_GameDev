@@ -52,9 +52,6 @@ void Resource::Load(void)
 
 	switch (type_)
 	{
-	case TYPE::IMG:
-		// ‰æ‘œ
-		handleId_ = LoadGraph(path_.c_str());
 		break;
 
 	case TYPE::IMGS:
