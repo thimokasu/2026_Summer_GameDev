@@ -17,14 +17,8 @@
 
 #include"../../Object/Actor/Manager/ActorManager.h"
 #include"../../Object/Actor/Camera/Camera.h"
-#include"../../Object/Actor/Stage/FindingJ/ReactionBlock.h"
-#include"../../Object/Actor/Charactor/Player/FindingJ/FindingJCPU/FindingJRunner.h"
 
-#include"../../Object/UI/UIBase.h"
-#include"../../Object/UI/FindingJ/Timer.h"
-#include"../../Object/UI/FindingJ/GameMessageUI.h"
-
-#include"MiniGameFactoryHeaders.h"
+#include"Game/MiniGameHeaders.h"
 
 
 GameScene::GameScene(void)
@@ -93,10 +87,8 @@ void GameScene::CreateMiniGame(GAME_KIND kind)
 	case GAME_KIND::TEST_FOUR:
 		break;
 	case GAME_KIND::FINDINGJ:
-		miniGameFactory_=std::make_unique<FindingJFactory>(actorMng_.get(), colMng_.get());
+		miniGame_ = std::make_unique<FindingJ>(actorMng_.get(), colMng_.get());
 		break;
 	}
-	auto g=miniGameFactory_->CreateMiniGame();
-	miniGame_ = std::move(g);
 }
 

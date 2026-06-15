@@ -174,12 +174,6 @@
     <ClCompile Include="Src\Scene\GameScene\Game\FourPlayer\FindingJ.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Scene\GameScene\MiniGameFactory\FourPlayer\FindingJFactory.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Scene\GameScene\MiniGameFactory\MiniGameFactory.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Application.h">
@@ -386,13 +380,7 @@
     <ClInclude Include="Src\Scene\GameScene\Game\FourPlayer\FindingJ.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Scene\GameScene\MiniGameFactory\MiniGameFactory.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Scene\GameScene\MiniGameFactory\FourPlayer\FindingJFactory.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Scene\GameScene\MiniGameFactoryHeaders.h">
+    <ClInclude Include="Src\Scene\GameScene\Game\MiniGameHeaders.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
