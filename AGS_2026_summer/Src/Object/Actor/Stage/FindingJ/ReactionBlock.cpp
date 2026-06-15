@@ -3,6 +3,7 @@
 #include"../../Collider/ColliderInfo.h"
 #include"../../Collider/ColliderBase.h"
 #include"../../Collider/ColliderBox.h"
+#include"../../../../Manager/Resource/ResourceManager.h"
 
 ReactionBlock::ReactionBlock(void)
 {
@@ -19,7 +20,8 @@ ReactionBlock::ReactionBlock(VECTOR pos)
 
 void ReactionBlock::SubLoad(void)
 {
-	trans_.modelId = MV1LoadModel("Data/Stage/ReactionBlock.mv1");
+	//trans_.modelId = MV1LoadModel("Data/Stage/ReactionBlock.mv1");
+	trans_.SetModel(ResourceManager::GetInstance().LoadModelDuplicate(SRC::REACTION_BLOCK));
 }
 
 void ReactionBlock::SubInit(void)
