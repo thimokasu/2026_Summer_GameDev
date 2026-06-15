@@ -39,6 +39,10 @@ void ResourceManager::Init(void)
 	static std::string PATH_EFF = Application::PATH_EFFECT;
 
 	Resource* res = nullptr;
+	res = new RES(RES_T::MODEL, PATH_MDL + "FindingJ/Stage/Block.mv1");
+	resourcesMap_.emplace(SRC::BLOCK, res);
+	res = new RES(RES_T::MODEL, PATH_MDL + "FindingJ/Stage/ReactionBlock.mv1");
+	resourcesMap_.emplace(SRC::REACTION_BLOCK, res);
 }
 
 void ResourceManager::Release(void)
