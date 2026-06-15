@@ -3,7 +3,7 @@
 #include"../../../Stage/FindingJ/ReactionBlock.h"
 #include"../../../Stage/FindingJ/StageLayout.h"
 #include"../../../../Common/RigidBody.h"
-#include"./../../../Charactor/Player/FindingJ/FindingJ.h"
+#include"./../../../Charactor/Player/FindingJ/FindingJPlayer.h"
 
 Stage2Factory::Stage2Factory()
 {
@@ -19,7 +19,7 @@ std::vector<std::unique_ptr<ActorBase>> Stage2Factory::CreateActors(void)
 	layout = Stage2::stage[0][0][0];
 	std::vector<std::unique_ptr<ActorBase>> actors;	
 	actors.push_back(
-		std::make_unique<FindingJ>());
+		std::make_unique<FindingJPlayer>());
 	
 
 	for (int h = 0; h < H; h++)

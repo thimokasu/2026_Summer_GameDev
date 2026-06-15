@@ -2,17 +2,18 @@
 #include"../../../Object/Actor/Manager/ActorManager.h"
 #include"../../../Manager/System/Collision/CollisionManager.h"
 
-GameBase::GameBase(GameInfo info, ActorManager* actMng, CollisionManager* colMng)
-	:gameInfo_(info)
-	,actorMng_(actMng)
+GameBase::GameBase(ActorManager* actMng, CollisionManager* colMng)
+	:
+	actorMng_(actMng)
 	,colMng_(colMng)
 {
 }
 
 void GameBase::Load(void)
 {
-	actorMng_->Load(gameInfo_);
 	SubLoad();
+	LoadSE();
+	LoadUI();
 }
 void GameBase::Init(void)
 {
@@ -25,6 +26,11 @@ void GameBase::Init(void)
 		}
 	}
 	SubInit();
+	InitSE();
+	InitUI();
+	SetContactEventRule();
+	SetContactEventCallback();
+	SetCollisionCollback();
 }
 void GameBase::Update(void)
 {

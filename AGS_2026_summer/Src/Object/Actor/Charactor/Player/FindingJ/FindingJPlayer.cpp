@@ -1,23 +1,25 @@
-#include "FindingJ.h"
+#include "FindingJPlayer.h"
 #include"../../../../../Manager/Generic/KeyManager.h"
 #include"../../../../../Manager/Game/SceneManager.h"
 #include"../../../Camera/Camera.h"
 #include"../../../Collider/ColliderBase.h"
 #include"../../../Collider/ColliderCapsule.h"
 
-FindingJ::FindingJ(void)
+FindingJPlayer::FindingJPlayer(void)
 {
 }
 
-FindingJ::~FindingJ(void)
+
+
+FindingJPlayer::~FindingJPlayer(void)
 {
 }
 
-void FindingJ::SubLoad(void)
+void FindingJPlayer::SubLoad(void)
 {
 }
 
-void FindingJ::SubInit(void)
+void FindingJPlayer::SubInit(void)
 {
 	entityKind_ = EntityKind::PLAYER;
 	rigidBody_.SetBodyType(RigidBody::BodyType::DYNAMIC);
@@ -27,20 +29,20 @@ void FindingJ::SubInit(void)
 	trans_.pos = VGet(0.0f, 40.0f, 0.0f);
 }
 
-void FindingJ::SubUpdate(void)
+void FindingJPlayer::SubUpdate(void)
 {
 	MoveInput();
 }
 
-void FindingJ::SubDraw(void)
+void FindingJPlayer::SubDraw(void)
 {
 }
 
-void FindingJ::SubRelease(void)
+void FindingJPlayer::SubRelease(void)
 {
 }
 
-void FindingJ::InitCollider(void)
+void FindingJPlayer::InitCollider(void)
 {
 	ColliderInfo info;
 	info.shape_ = ColliderShape::CAPSULE;
@@ -54,7 +56,7 @@ void FindingJ::InitCollider(void)
 	ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
 }
 
-void FindingJ::MoveInput(void)
+void FindingJPlayer::MoveInput(void)
 {
 	VECTOR moveVec = { 0.0f, 0.0f, 0.0f };
 

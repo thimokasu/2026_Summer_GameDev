@@ -1,14 +1,18 @@
 #pragma once
 #include<memory>
 #include"../../GameSelect/GameInfo.h"
-
+#include"../../../Manager/Game/UIManager.h"
+#include"../../../Manager/Game/SE.h"
+#include"../../../Manager/System/Collision/CollisionManager.h"
+#include"../../../Manager/System/EventSystem/EventManager.h"
 class ActorManager;
 class CollisionManager;
 
 class GameBase
 {
 public:
-	GameBase(GameInfo info, ActorManager* actMng, CollisionManager* colMng);
+	GameBase(void) = default;
+	GameBase(ActorManager* actMng, CollisionManager* colMng);
 	virtual ~GameBase(void) = default;
 
 	void Load(void);

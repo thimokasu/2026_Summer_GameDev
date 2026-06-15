@@ -139,12 +139,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Scene\GameScene\MiniGameFactory\FourPlayer\FindingJFactory.cpp" />
+    <ClCompile Include="Src\Scene\GameScene\Game\FourPlayer\FindingJ.cpp" />
+    <ClCompile Include="Src\Scene\GameScene\MiniGameFactory\MiniGameFactory.cpp" />
     <ClCompile Include="Src\Scene\GameSelect\GameSelectScene.cpp" />
     <ClCompile Include="Src\Scene\GameScene\Game\GameBase.cpp" />
     <ClCompile Include="Src\Manager\Game\SE.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJCPU\FindingJChaser.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJCPU\FindingJRunner.cpp" />
-    <ClCompile Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJ.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJPlayer.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\CharactorBase.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\FindingJ\ReactionBlock.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\FindingJ\Block.cpp" />
@@ -193,12 +196,16 @@
     <ClCompile Include="Src\Object\UI\UIBase.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Scene\GameScene\MiniGameFactoryHeaders.h" />
+    <ClInclude Include="Src\Scene\GameScene\MiniGameFactory\FourPlayer\FindingJFactory.h" />
+    <ClInclude Include="Src\Scene\GameScene\Game\FourPlayer\FindingJ.h" />
+    <ClInclude Include="Src\Scene\GameScene\MiniGameFactory\MiniGameFactory.h" />
     <ClInclude Include="Src\Scene\GameSelect\GameSelectScene.h" />
     <ClInclude Include="Src\Scene\GameScene\Game\GameBase.h" />
     <ClInclude Include="Src\Manager\Game\SE.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJCPU\FindingJChaser.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJCPU\FindingJRunner.h" />
-    <ClInclude Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJ.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJPlayer.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\CharactorBase.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FindingJ\ReactionBlock.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FindingJ\Block.h" />

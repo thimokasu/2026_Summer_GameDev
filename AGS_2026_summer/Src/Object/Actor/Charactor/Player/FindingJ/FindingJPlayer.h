@@ -1,11 +1,11 @@
 #pragma once
 #include "../../CharactorBase.h"
-class FindingJ :
+class FindingJPlayer :
     public CharactorBase
 {
     public:
-    FindingJ(void);
-    virtual ~FindingJ(void);
+        FindingJPlayer(void);
+    virtual ~FindingJPlayer(void);
     void SubLoad(void) override;
     void SubInit(void) override;
     void SubUpdate(void) override;

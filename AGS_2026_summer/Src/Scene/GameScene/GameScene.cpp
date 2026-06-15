@@ -1,5 +1,6 @@
 #include "GameScene.h"
 #include<DxLib.h>
+#include <EffekseerForDXLib.h>
 #include "../../Application.h"
 
 #include"../../Manager/Game/SceneManager.h"
@@ -23,7 +24,7 @@
 #include"../../Object/UI/FindingJ/Timer.h"
 #include"../../Object/UI/FindingJ/GameMessageUI.h"
 
-#include <EffekseerForDXLib.h>
+#include"MiniGameFactoryHeaders.h"
 
 
 GameScene::GameScene(void)
@@ -44,34 +45,17 @@ void GameScene::SubLoad(void)
 {
 	actorMng_ = std::make_unique<ActorManager>();
 	colMng_ = std::make_unique<CollisionManager>();
+	CreateMiniGame(gameInfo_.game_);
 	actorMng_->Load(gameInfo_);
-	CreateMiniGame();
-
-	auto msgUI = std::make_shared<GameMessageUI>(Vector2F(400.0f, 200.0f), Vector2F(400.0f, 100.0f));
-	msgUI->Load();
-	UIManager::GetInstance().AddRootUI(msgUI);
-	auto timerUI = std::make_shared<Timer>(Vector2F(50.0f, 50.0f), Vector2F(200.0f, 50.0f));
-	timerUI->Load();
-	timerUI->SetTimeUpCallback([this]()
-		{
-			EventManager::GetInstance().TriggerEvent(GameEventType::TIME_UP);
-		}
-	);
-	UIManager::GetInstance().AddRootUI(timerUI);
-	SE::GetInstance().Load(SOUND_TYPE::BGM, "Data/BGM/GameBGM.mp3");
+	miniGame_->Load();
 }
 
 void GameScene::SubInit(void)
 {
-	SetCollisionCollback();
-	SetContactEventRule();
-	SetContactEventCallback();
-	
 	miniGame_->Init();
 
 	SceneManager::GetInstance().GetCamera().SetCameraAngles(VGet(1.18f, 0.0f, 0.0f));
 	SceneManager::GetInstance().GetCamera().SetCameraPos(VGet(170.0f, 270.0f, 20.0f));
-
 }
 
 void GameScene::SubUpdate(void)
@@ -93,70 +77,26 @@ void GameScene::SubRelease(void)
 	SE::GetInstance().Release();
 }
 
-void GameScene::SetContactEventRule(void)
+
+void GameScene::CreateMiniGame(GAME_KIND kind)
 {
-	//イベントの発生ルールの設定
-	EventManager::GetInstance().SetEventRule(EntityKind::PLAYER, EntityKind::REACTION_BLOCK, GameEventType::REACTION_BLOCK);
-	EventManager::GetInstance().SetEventRule(EntityKind::FINDINGJ_CPU, EntityKind::REACTION_BLOCK, GameEventType::REACTION_BLOCK);
-	EventManager::GetInstance().SetEventRule(EntityKind::PLAYER, EntityKind::FINDINGJ_CPU, GameEventType::HAS_CAHGHT);
-}
-void GameScene::SetContactEventCallback(void)
-{
-	//イベントのコールバック関数の設定
-	EventManager::GetInstance().SetContactEventCallback(GameEventType::REACTION_BLOCK, [this](const ContactRule& rule)
-		{
-			auto entityKindA = rule.contactEvent_.entityA.entityKind_;
-			auto entityKindB = rule.contactEvent_.entityB.entityKind_;
-			if (entityKindA == EntityKind::FINDINGJ_CPU)
-			{
-				auto idA = rule.contactEvent_.entityA.entityID_;
-				auto actor = actorMng_->FindActorByID(idA);
-				auto& findingJCPU = dynamic_cast<FindingJRunner&>(*actor);
-				findingJCPU.Appear();
-			}
-			else if (entityKindB == EntityKind::FINDINGJ_CPU)
-			{
-				auto idB = rule.contactEvent_.entityB.entityID_;
-				auto actor = actorMng_->FindActorByID(idB);
-				auto& findingJCPU = dynamic_cast<FindingJRunner&>(*actor);
-				findingJCPU.Appear();
-			}
-		}
-	);
-	EventManager::GetInstance().SetContactEventCallback(GameEventType::HAS_CAHGHT, [this](const ContactRule& rule)
-		{
-			auto entityKindA = rule.contactEvent_.entityA.entityKind_;
-			auto entityKindB = rule.contactEvent_.entityB.entityKind_;
-			if (entityKindA == EntityKind::FINDINGJ_CPU)
-			{
-				auto idA = rule.contactEvent_.entityA.entityID_;
-				auto actor = actorMng_->FindActorByID(idA);
-				auto& findingJCPU = dynamic_cast<FindingJRunner&>(*actor);
-				findingJCPU.SetIsDraw(true);
-			}
-		}
-	);
+	switch (kind)
+	{
+	case GAME_KIND::NONE:
+		break;
+	case GAME_KIND::TEST_ONE:
+		break;
+	case GAME_KIND::TEST_TWO:
+		break;
+	case GAME_KIND::TEST_THREE:
+		break;
+	case GAME_KIND::TEST_FOUR:
+		break;
+	case GAME_KIND::FINDINGJ:
+		miniGameFactory_=std::make_unique<FindingJFactory>(actorMng_.get(), colMng_.get());
+		break;
+	}
+	auto g=miniGameFactory_->CreateMiniGame();
+	miniGame_ = std::move(g);
 }
 
-void GameScene::SetCollisionCollback(void)
-{
-auto onBeginContact = [this](uint32_t a, uint32_t b)
-	{
-		Entity entA{ a, actorMng_->GetEntityKind(a) };
-		Entity entB{ b, actorMng_->GetEntityKind(b) };
-		EventManager::GetInstance().OnBeginContact(entA, entB, CollisionResult{});
-	};
-auto onEndContact = [this](uint32_t a, uint32_t b)
-	{
-		Entity entA{ a, actorMng_->GetEntityKind(a) };
-		Entity entB{ b, actorMng_->GetEntityKind(b) };
-		EventManager::GetInstance().OnEndContact(entA, entB, CollisionResult{});
-	};
-colMng_->SetContactCallbacks(onBeginContact, onEndContact);
-}
-
-void GameScene::CreateMiniGame(void)
-{
-	auto minigame = std::make_unique<GameBase>(gameInfo_, actorMng_.get(), colMng_.get());
-	miniGame_ = std::move(minigame);
-}
