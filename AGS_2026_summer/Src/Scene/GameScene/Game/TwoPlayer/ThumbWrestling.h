@@ -1,11 +1,11 @@
 #pragma once
-#include"../GameBase.h"
-
-class FindingJ :public GameBase
+#include "../GameBase.h"
+class ThumbWrestling :
+    public GameBase
 {
 public:
-	FindingJ(ActorManager* actMng, CollisionManager* colMng);
-	~FindingJ(void);
+	ThumbWrestling(ActorManager* actMng, CollisionManager* colMng);
+	~ThumbWrestling(void);
 
 	void SubLoad(void)override;
 	void SubInit(void)override;
@@ -26,5 +26,5 @@ private:
 
 
 
-};
+}; };
 

@@ -37,6 +37,7 @@ protected:
 	virtual void LoadSE(void) {};
 	virtual void InitUI(void) {};
 	virtual void InitSE(void) {};
+	virtual void InitCamera(void) {};
 #pragma endregion
 
 #pragma region •Ï”

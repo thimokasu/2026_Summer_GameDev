@@ -28,6 +28,7 @@ void GameBase::Init(void)
 	SubInit();
 	InitSE();
 	InitUI();
+	InitCamera();
 	SetContactEventRule();
 	SetContactEventCallback();
 	SetCollisionCollback();

@@ -8,26 +8,33 @@ enum class GAME_KIND
 	// 1人用
 	ONE_PLAYER = 10,
 	TEST_ONE,
-
+	ATHLETIC,
 	//2人用
 	TWO_PLAYER = 20,
 	TEST_TWO,
-
-	//3人用
-	THREE_PLAYER = 30,
-	TEST_THREE,
+	THUMB_WRESTLING,
+	SURVIVAL_TETRIS,
 	//4人用
-	FOUR_PLAYER = 40,
+	ONE_VS_THERR = 30,
+
+	TWO_VS_TWO=40,
+	AIR_HOCKEY,
+
+
+	FOUR_PLAYER = 50,
 	TEST_FOUR,
 	FINDINGJ,
-
+	TEST_OB_COURAGE,
+	BUTTON_MASHING,
+	KEY_CLIMBER,
 };
 
 enum class PLAY_NUM
 {
 	ONE_PLAYER,
 	TWO_PLAYER,
-	THREE_PLAYER,
+	ONE_VS_THERR,
+	TWO_VS_TWO,
 	FOUR_PLAYER,
 };
 
@@ -50,6 +57,20 @@ struct GameInfo
 
 inline std::string GameInfo::GetGameName(void) const
 {
+	switch (playNum_)
+	{
+	case PLAY_NUM::ONE_PLAYER:
+		break;
+	case PLAY_NUM::TWO_PLAYER:
+		break;
+	case PLAY_NUM::ONE_VS_THERR:
+		break;
+	case PLAY_NUM::TWO_VS_TWO:
+		break;
+	case PLAY_NUM::FOUR_PLAYER:
+		break;
+	}
+
 	switch (game_)
 	{
 	case GAME_KIND::NONE:
@@ -58,20 +79,36 @@ inline std::string GameInfo::GetGameName(void) const
 		return "One Player";
 	case GAME_KIND::TEST_ONE:
 		return "Test One";
+
 	case GAME_KIND::TWO_PLAYER:
 		return "Two Player";
 	case GAME_KIND::TEST_TWO:
 		return "Test Two";
-	case GAME_KIND::THREE_PLAYER:
-		return "Three Player";
-	case GAME_KIND::TEST_THREE:
-		return "Test Three";
+	case GAME_KIND::THUMB_WRESTLING:
+		return "ThumbWrestling";
+	case GAME_KIND::SURVIVAL_TETRIS:
+		return "SurvivalTetris";
+
+	case GAME_KIND::ONE_VS_THERR:
+		return "OneVsTherr";
+	case GAME_KIND::AIR_HOCKEY:
+		return "AirHockey";
+
+	case GAME_KIND::TWO_VS_TWO:
+		return "TwoVsTwo";
+
 	case GAME_KIND::FOUR_PLAYER:
 		return "Four Player";
 	case GAME_KIND::TEST_FOUR:
 		return "Test Four";
 	case GAME_KIND::FINDINGJ:
 		return "FindingJ";
+	case GAME_KIND::TEST_OB_COURAGE:
+		return "TestObCourage";
+	case GAME_KIND::BUTTON_MASHING:
+		return "ButtonMashing";
+	case GAME_KIND::KEY_CLIMBER:
+		return "KeyClimber";
 	default:
 		return "Unknown";
 	}

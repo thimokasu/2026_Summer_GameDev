@@ -1,6 +1,10 @@
 #include "FindingJ.h"
 
+#include"../../../../Manager/Game/SceneManager.h"
+
 #include"../../../../Object/Actor/Manager/ActorManager.h"
+
+#include"../../../../Object/Actor/Camera/Camera.h"
 
 #include"../../../../Object/Actor/Charactor/Player/FindingJ/FindingJCPU/FindingJRunner.h"
 #include"../../../../Object/Actor/Charactor/Player/FindingJ/FindingJCPU/FindingJChaser.h"
@@ -78,7 +82,8 @@ void FindingJ::SetContactEventCallback(void)
 			}
 		}
 	);
-	}
+}
+
 void FindingJ::SetCollisionCollback(void)
 {
 	auto onBeginContact = [this](uint32_t a, uint32_t b)
@@ -94,7 +99,7 @@ void FindingJ::SetCollisionCollback(void)
 			EventManager::GetInstance().OnEndContact(entA, entB, CollisionResult{});
 		};
 	colMng_->SetContactCallbacks(onBeginContact, onEndContact);
-	}
+}
 
 void FindingJ::LoadUI(void)
 {
@@ -111,16 +116,26 @@ void FindingJ::LoadUI(void)
 	UIManager::GetInstance().AddRootUI(timerUI);
 
 }
+
 void FindingJ::LoadSE(void)
 {
 	SE::GetInstance().Load(SOUND_TYPE::BGM, "Data/BGM/GameBGM.mp3");
-
 }
+
 void FindingJ::InitUI(void)
 {
+
 }
+
 void FindingJ::InitSE(void)
 {
+
+}
+
+void FindingJ::InitCamera(void)
+{
+	SceneManager::GetInstance().GetCamera().SetCameraAngles(VGet(1.18f, 0.0f, 0.0f));
+	SceneManager::GetInstance().GetCamera().SetCameraPos(VGet(170.0f, 270.0f, 20.0f));
 }
 
 

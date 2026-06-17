@@ -192,6 +192,7 @@
     <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage2Factory.cpp" />
     <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage3Factory.cpp" />
     <ClCompile Include="Src\Object\UI\UIBase.cpp" />
+    <ClCompile Include="Src\Scene\GameScene\Game\TwoPlayer\ThumbWrestling.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Scene\GameScene\Game\FourPlayer\FindingJ.h" />
@@ -259,6 +260,7 @@
     <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage2Factory.h" />
     <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage3Factory.h" />
     <ClInclude Include="Src\Object\UI\UIBase.h" />
+    <ClInclude Include="Src\Scene\GameScene\Game\TwoPlayer\ThumbWrestling.h" />
     <Structure Include="Src\Manager\Game\SceneManager.h" />
     <ClInclude Include="Src\Manager\Game\SceneManager.h" />
     <ClInclude Include="Src\Application.h" />

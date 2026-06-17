@@ -108,7 +108,8 @@ void GameSelectScene::SubDraw(void)
 	{
 	case PLAY_NUM::ONE_PLAYER:   playNumStr = "1 PLAYER";   break;
 	case PLAY_NUM::TWO_PLAYER:   playNumStr = "2 PLAYERS";  break;
-	case PLAY_NUM::THREE_PLAYER: playNumStr = "3 PLAYERS";  break;
+	case PLAY_NUM::ONE_VS_THERR: playNumStr = "1VS3PLAYERS"; break;
+	case PLAY_NUM::TWO_VS_TWO: playNumStr = "2VS2PLAYERS"; break;
 	case PLAY_NUM::FOUR_PLAYER:  playNumStr = "4 PLAYERS";  break;
 	}
 
