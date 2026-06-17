@@ -1,7 +1,7 @@
 #pragma once
 #include<vector>
 #include<memory>
-#include"../../ActorBase.h"
+#include"../ActorBase.h"
 
 class ActorFactoryBase
 {

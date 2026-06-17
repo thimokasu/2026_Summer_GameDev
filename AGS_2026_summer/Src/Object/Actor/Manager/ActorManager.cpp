@@ -1,14 +1,14 @@
 #include "ActorManager.h"
 #include<DxLib.h>
 #include"../../../Scene/GameSelect/GameInfo.h"
-#include"../Factory/ActorFactory/ActorFactoryBase.h"
+#include"../Factory/ActorFactoryBase.h"
 #include"../Collider/ColliderBase.h"
-#include"../Factory/ActorFactory/Test/TestFactory.h"
-#include"../Factory/ActorFactory/FindingJ/Stage1Factory.h"
-#include"../Factory/ActorFactory/FindingJ/Stage2Factory.h"
-#include"../Factory/ActorFactory/FindingJ/Stage3Factory.h"
+#include"../Factory/Test/TestFactory.h"
+#include"../Factory/FindingJ/Stage1Factory.h"
+#include"../Factory/FindingJ/Stage2Factory.h"
+#include"../Factory/FindingJ/Stage3Factory.h"
 
-#include"../Charactor/Player/FindingJ/FindingJCPU/FindingJRunner.h"
+#include"../Charactor/FindingJ/FindingJCPU/FindingJRunner.h"
 #include"../../../Manager/Generic/KeyManager.h"
 
 ActorManager::ActorManager(void)
@@ -151,6 +151,7 @@ void ActorManager::SetFactory(GameInfo info)
 	case PLAY_NUM::TWO_PLAYER:
 		TwoPlayerGameFactory(info);
 		break;
+
 	case PLAY_NUM::FOUR_PLAYER:
 		FourPlayerGameFactory(info);
 		break;

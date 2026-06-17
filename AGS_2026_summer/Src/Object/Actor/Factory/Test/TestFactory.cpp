@@ -1,7 +1,7 @@
 #include "TestFactory.h"
-#include"../../../Shape/Box.h"
-#include"../../../Shape/Capsule.h"
-#include"../../../../Common/RigidBody.h"
+#include"../../Shape/Box.h"
+#include"../../Shape/Capsule.h"
+#include"../../../Common/RigidBody.h"
 #include<memory>
 #include<vector>
 

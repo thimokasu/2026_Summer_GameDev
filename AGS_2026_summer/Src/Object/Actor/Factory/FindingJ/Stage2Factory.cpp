@@ -1,27 +1,26 @@
-#include "Stage1Factory.h"
-#include"../../../Stage/FindingJ/Block.h"
-#include"../../../Stage/FindingJ/ReactionBlock.h"
-#include"../../../Stage/FindingJ/StageLayout.h"
-#include"../../../../Common/RigidBody.h"
-#include"./../../../Charactor/Player/FindingJ/FindingJPlayer.h"
+#include "Stage2Factory.h"
+#include"../../Stage/FindingJ/Block.h"
+#include"../../Stage/FindingJ/ReactionBlock.h"
+#include"../../Stage/FindingJ/StageLayout.h"
+#include"../../../Common/RigidBody.h"
+#include"../../Charactor/FindingJ/FindingJPlayer.h"
 
-
-Stage1Factory::Stage1Factory()
+Stage2Factory::Stage2Factory()
 {
 }
 
-Stage1Factory::~Stage1Factory()
+Stage2Factory::~Stage2Factory()
 {
 }
 
-std::vector<std::unique_ptr<ActorBase>> Stage1Factory::CreateActors(void)
+std::vector<std::unique_ptr<ActorBase>> Stage2Factory::CreateActors(void)
 {
 	StageLayout layout;
-	layout = Stage1::stage[0][0][0];
-	std::vector<std::unique_ptr<ActorBase>> actors;
-
+	layout = Stage2::stage[0][0][0];
+	std::vector<std::unique_ptr<ActorBase>> actors;	
 	actors.push_back(
 		std::make_unique<FindingJPlayer>());
+	
 
 	for (int h = 0; h < H; h++)
 	{
@@ -29,7 +28,7 @@ std::vector<std::unique_ptr<ActorBase>> Stage1Factory::CreateActors(void)
 		{
 			for (int w = 0; w < W; w++)
 			{
-				layout = Stage1::stage[h][d][w];
+				layout = Stage2::stage[h][d][w];
 				if (layout == StageLayout::Block)
 				{
 					actors.push_back(
@@ -38,7 +37,7 @@ std::vector<std::unique_ptr<ActorBase>> Stage1Factory::CreateActors(void)
 					actors.back()->SetEntityKind(EntityKind::STAGE);
 					actors.back()->GetRigidBody().SetBodyType(RigidBody::BodyType::STATIC);
 				}
-				else if(layout== StageLayout::ReactionBlock)
+				else if (layout == StageLayout::ReactionBlock)
 				{
 					actors.push_back(
 						std::make_unique<ReactionBlock>(

@@ -23,5 +23,5 @@ public:
 	void InitSE(void)override;
 	void InitCamera(void)override;
 private:
-}; 
+};
 
