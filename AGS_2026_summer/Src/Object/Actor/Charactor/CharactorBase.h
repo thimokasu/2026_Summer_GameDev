@@ -14,7 +14,10 @@ public:
 	void SubRelease(void) override;
 
 	void InitCollider(void) override;
+
+	void SetPlayNumber(int n) { playNumber_ = n; }
 private:
 	virtual void MoveInput(void) {};
+	int playNumber_;
 };
 

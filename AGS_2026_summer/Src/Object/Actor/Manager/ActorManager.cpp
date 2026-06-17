@@ -151,9 +151,6 @@ void ActorManager::SetFactory(GameInfo info)
 	case PLAY_NUM::TWO_PLAYER:
 		TwoPlayerGameFactory(info);
 		break;
-	case PLAY_NUM::THREE_PLAYER:
-		ThreePlayerGameFactory(info);
-		break;
 	case PLAY_NUM::FOUR_PLAYER:
 		FourPlayerGameFactory(info);
 		break;

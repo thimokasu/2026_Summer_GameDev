@@ -1,11 +1,11 @@
 #pragma once
-#include "../GameBase.h"
-class ThumbWrestling :
+#include "../../GameBase.h"
+class ButtonMushing :
     public GameBase
 {
 public:
-	ThumbWrestling(ActorManager* actMng, CollisionManager* colMng);
-	~ThumbWrestling(void);
+	ButtonMushing(ActorManager* actMng, CollisionManager* colMng);
+	~ButtonMushing(void);
 
 	void SubLoad(void)override;
 	void SubInit(void)override;
@@ -23,5 +23,8 @@ public:
 	void InitSE(void)override;
 	void InitCamera(void)override;
 private:
-}; 
+
+
+
+};
 

@@ -245,7 +245,6 @@ void GameSelectScene::UpdateGameGroups(void)
 		{
 		case PLAY_NUM::ONE_PLAYER:   currentGroup_ = &onePlayerGames_;   break;
 		case PLAY_NUM::TWO_PLAYER:   currentGroup_ = &twoPlayerGames_;   break;
-		case PLAY_NUM::THREE_PLAYER: currentGroup_ = &threePlayerGames_; break;
 		case PLAY_NUM::FOUR_PLAYER:  currentGroup_ = &fourPlayerGames_;  break;
 		}
 
@@ -319,9 +318,6 @@ void GameSelectScene::ChangeGame(GameInfo info)
 		break;
 	case PLAY_NUM::TWO_PLAYER:
 		CreateGameTwo(info);
-		break;
-	case PLAY_NUM::THREE_PLAYER:
-		CreateGameTherr(info);
 		break;
 	case PLAY_NUM::FOUR_PLAYER:
 		CreateGameFour(info);

@@ -139,6 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Actor\Charactor\Player\ButtonMashing\ButtonMashingPlayer.cpp" />
+    <ClCompile Include="Src\Scene\GameScene\Game\FourPlayer\ButtonMashing\ButtonMushing.cpp" />
     <ClCompile Include="Src\Scene\GameScene\Game\FourPlayer\FindingJ.cpp" />
     <ClCompile Include="Src\Scene\GameSelect\GameSelectScene.cpp" />
     <ClCompile Include="Src\Scene\GameScene\Game\GameBase.cpp" />
@@ -195,6 +197,9 @@
     <ClCompile Include="Src\Scene\GameScene\Game\TwoPlayer\ThumbWrestling.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Actor\Charactor\Player\ButtonMashing\ButtonMashingPlayer.h" />
+    <ClInclude Include="Src\Scene\GameScene\Game\FourPlayer\ButtonMashing\ButtonKind.h" />
+    <ClInclude Include="Src\Scene\GameScene\Game\FourPlayer\ButtonMashing\ButtonMushing.h" />
     <ClInclude Include="Src\Scene\GameScene\Game\FourPlayer\FindingJ.h" />
     <ClInclude Include="Src\Scene\GameScene\Game\MiniGameHeaders.h" />
     <ClInclude Include="Src\Scene\GameSelect\GameSelectScene.h" />
