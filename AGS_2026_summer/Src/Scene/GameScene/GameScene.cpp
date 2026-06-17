@@ -77,12 +77,6 @@ void GameScene::CreateMiniGame(GAME_KIND kind)
 	{
 	case GAME_KIND::NONE:
 		break;
-	case GAME_KIND::TEST_ONE:
-		break;
-	case GAME_KIND::TEST_TWO:
-		break;
-	case GAME_KIND::TEST_FOUR:
-		break;
 	case GAME_KIND::FINDINGJ:
 		miniGame_ = std::make_unique<FindingJ>(actorMng_.get(), colMng_.get());
 		break;

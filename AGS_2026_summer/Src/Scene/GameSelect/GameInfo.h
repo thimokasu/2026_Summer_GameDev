@@ -60,13 +60,9 @@ inline std::string GameInfo::GetGameName(void) const
 		return "None";
 	case GAME_KIND::ONE_PLAYER:
 		return "One Player";
-	case GAME_KIND::TEST_ONE:
-		return "Test One";
 
 	case GAME_KIND::TWO_PLAYER:
 		return "Two Player";
-	case GAME_KIND::TEST_TWO:
-		return "Test Two";
 	case GAME_KIND::THUMB_WRESTLING:
 		return "ThumbWrestling";
 	case GAME_KIND::SURVIVAL_TETRIS:
@@ -82,8 +78,6 @@ inline std::string GameInfo::GetGameName(void) const
 
 	case GAME_KIND::FOUR_PLAYER:
 		return "Four Player";
-	case GAME_KIND::TEST_FOUR:
-		return "Test Four";
 	case GAME_KIND::FINDINGJ:
 		return "FindingJ";
 	case GAME_KIND::TEST_OB_COURAGE:

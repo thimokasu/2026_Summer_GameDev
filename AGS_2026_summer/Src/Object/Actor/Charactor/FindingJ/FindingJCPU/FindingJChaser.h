@@ -1,5 +1,5 @@
 #pragma once
-#include"../../../CharactorBase.h"
+#include"../../CharactorBase.h"
 
 class FindingJChaser :
     public CharactorBase

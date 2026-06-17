@@ -6,9 +6,9 @@
 
 #include"../../../../Object/Actor/Camera/Camera.h"
 
-#include"../../../../Object/Actor/Charactor/Player/FindingJ/FindingJCPU/FindingJRunner.h"
-#include"../../../../Object/Actor/Charactor/Player/FindingJ/FindingJCPU/FindingJChaser.h"
-#include"../../../../Object/Actor/Charactor/Player/FindingJ/FindingJPlayer.h"
+#include"../../../../Object/Actor/Charactor/FindingJ/FindingJCPU/FindingJRunner.h"
+#include"../../../../Object/Actor/Charactor/FindingJ/FindingJCPU/FindingJChaser.h"
+#include"../../../../Object/Actor/Charactor/FindingJ/FindingJPlayer.h"
 
 #include"../../../../Object/UI/FindingJ/GameMessageUI.h"
 #include"../../../../Object/UI/FindingJ/Timer.h"

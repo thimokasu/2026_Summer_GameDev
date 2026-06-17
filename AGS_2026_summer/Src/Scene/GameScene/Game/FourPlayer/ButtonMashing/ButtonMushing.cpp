@@ -26,6 +26,7 @@ void ButtonMushing::SubInit(void)
 
 void ButtonMushing::SubUpdate(void)
 {
+
 }
 
 void ButtonMushing::SubDraw(void)

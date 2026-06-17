@@ -1,7 +1,7 @@
 #include "FindingJChaser.h"
-#include"../../../../Stage/FindingJ/StageLayout.h"
-#include"../../../../Collider/ColliderBase.h"
-#include"../../../../Collider/ColliderCapsule.h"
+#include"../../../Stage/FindingJ/StageLayout.h"
+#include"../../../Collider/ColliderBase.h"
+#include"../../../Collider/ColliderCapsule.h"
 FindingJChaser::FindingJChaser(void)
 {
 }
