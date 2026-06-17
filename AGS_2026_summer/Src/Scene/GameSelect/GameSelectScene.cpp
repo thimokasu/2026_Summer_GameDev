@@ -49,8 +49,6 @@ void GameSelectScene::SubUpdate(void)
 		break;
 
 	case SELECT_STATE::SELECT_GAME:
-		// 【修正ポイント】
-		// 先に「すでに左端（0）にいるか」を記録しておきます
 		isAlreadyLeftEndGame = (cursorIndex_ == 0);
 
 		UpdateCursorIndex(); // 左右でゲームを選ぶ処理（ここで左を押すと0に向かって進む）
@@ -74,8 +72,6 @@ void GameSelectScene::SubUpdate(void)
 		break;
 
 	case SELECT_STATE::SELECT_STAGE:
-		// 【修正ポイント】
-		// 先に「すでに最初のステージ（STAGE1）にいるか」を記録
 		isAlreadyFirstStage = (gameInfo_.stage_ == STAGE_NUM::STAGE1);
 
 		UpdateStageSelect(); // 左右でステージを変更する処理
@@ -188,10 +184,11 @@ void GameSelectScene::SetGameStageNum(void)
 void GameSelectScene::InitGameGroups(void)
 {
 	// テスト用のダミー割り当て (1人用、2人用にもテストデータを置いて確認できるようにします)
-	onePlayerGames_ = { GAME_KIND::TEST_ONE };
-	twoPlayerGames_ = { GAME_KIND::TEST_TWO };
-	threePlayerGames_ = {};
-	fourPlayerGames_ = { GAME_KIND::TEST_FOUR, GAME_KIND::FINDINGJ };
+	onePlayerGames_ = {};
+	twoPlayerGames_ = {};
+	oneVsThreeGames_ = {};
+	twoVsTwoGames_ = {};
+	fourPlayerGames_ = {  GAME_KIND::FINDINGJ };
 
 	currentGroup_ = &onePlayerGames_;
 	cursorIndex_ = 0;
@@ -238,19 +235,22 @@ void GameSelectScene::UpdateGameGroups(void)
 			isChangedPlayNum = true;
 		}
 	}
+
 	if (isChangedPlayNum)
 	{
 		cursorIndex_ = 0;
+		
 		switch (gameInfo_.playNum_)
 		{
 		case PLAY_NUM::ONE_PLAYER:   currentGroup_ = &onePlayerGames_;   break;
 		case PLAY_NUM::TWO_PLAYER:   currentGroup_ = &twoPlayerGames_;   break;
-		case PLAY_NUM::THREE_PLAYER: currentGroup_ = &threePlayerGames_; break;
+		case PLAY_NUM::ONE_VS_THERR: currentGroup_ = &oneVsThreeGames_; break;
+		case PLAY_NUM::TWO_VS_TWO: currentGroup_ = &twoVsTwoGames_; break;
 		case PLAY_NUM::FOUR_PLAYER:  currentGroup_ = &fourPlayerGames_;  break;
+		default:                     currentGroup_ = nullptr;            break;
 		}
 
-		// グループが変わったら、選択中ゲームの初期表示も更新
-		if (!currentGroup_->empty()) {
+		if (currentGroup_ != nullptr && !currentGroup_->empty()) {
 			gameInfo_.game_ = (*currentGroup_)[cursorIndex_];
 		}
 		else {
@@ -285,14 +285,8 @@ void GameSelectScene::UpdateCursorIndex(void)
 	}
 }
 
-// ========================================================
-// 【新設】左右キーでのステージ選択処理
-// ========================================================
 void GameSelectScene::UpdateStageSelect(void)
 {
-	// 本来はゲームごとに「最大ステージ数」を変えますが、
-	// 今回はSTAGE_NUM::MAX（3つ）を上限として制御します。
-
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::LEFT).down)
 	{
 		if (gameInfo_.stage_ > STAGE_NUM::STAGE1)
@@ -308,42 +302,4 @@ void GameSelectScene::UpdateStageSelect(void)
 			gameInfo_.stage_ = static_cast<STAGE_NUM>(static_cast<int>(gameInfo_.stage_) + 1);
 		}
 	}
-}
-
-void GameSelectScene::ChangeGame(GameInfo info)
-{
-	switch (info.playNum_)
-	{
-	case PLAY_NUM::ONE_PLAYER:
-		CreateGameOne(info);
-		break;
-	case PLAY_NUM::TWO_PLAYER:
-		CreateGameTwo(info);
-		break;
-	case PLAY_NUM::THREE_PLAYER:
-		CreateGameTherr(info);
-		break;
-	case PLAY_NUM::FOUR_PLAYER:
-		CreateGameFour(info);
-		break;
-	default:
-		break;
-	}
-}
-
-void GameSelectScene::CreateGameOne(GameInfo info)
-{
-}
-
-void GameSelectScene::CreateGameTwo(GameInfo info)
-{
-}
-
-void GameSelectScene::CreateGameTherr(GameInfo info)
-{
-}
-
-void GameSelectScene::CreateGameFour(GameInfo info)
-{
-
 }

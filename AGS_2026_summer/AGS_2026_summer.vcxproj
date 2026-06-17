@@ -143,9 +143,9 @@
     <ClCompile Include="Src\Scene\GameSelect\GameSelectScene.cpp" />
     <ClCompile Include="Src\Scene\GameScene\Game\GameBase.cpp" />
     <ClCompile Include="Src\Manager\Game\SE.cpp" />
-    <ClCompile Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJCPU\FindingJChaser.cpp" />
-    <ClCompile Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJCPU\FindingJRunner.cpp" />
-    <ClCompile Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJPlayer.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\FindingJ\FindingJCPU\FindingJChaser.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\FindingJ\FindingJCPU\FindingJRunner.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\FindingJ\FindingJPlayer.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\CharactorBase.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\FindingJ\ReactionBlock.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\FindingJ\Block.cpp" />
@@ -187,10 +187,10 @@
     <ClCompile Include="Src\main.cpp" />
     <ClCompile Include="Src\Utility\AsoUtility.cpp" />
     <ClCompile Include="Src\Scene\TitleScene.cpp" />
-    <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\Test\TestFactory.cpp" />
-    <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage1Factory.cpp" />
-    <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage2Factory.cpp" />
-    <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage3Factory.cpp" />
+    <ClCompile Include="Src\Object\Actor\Factory\Test\TestFactory.cpp" />
+    <ClCompile Include="Src\Object\Actor\Factory\FindingJ\Stage1Factory.cpp" />
+    <ClCompile Include="Src\Object\Actor\Factory\FindingJ\Stage2Factory.cpp" />
+    <ClCompile Include="Src\Object\Actor\Factory\FindingJ\Stage3Factory.cpp" />
     <ClCompile Include="Src\Object\UI\UIBase.cpp" />
     <ClCompile Include="Src\Scene\GameScene\Game\TwoPlayer\ThumbWrestling.cpp" />
   </ItemGroup>
@@ -200,9 +200,9 @@
     <ClInclude Include="Src\Scene\GameSelect\GameSelectScene.h" />
     <ClInclude Include="Src\Scene\GameScene\Game\GameBase.h" />
     <ClInclude Include="Src\Manager\Game\SE.h" />
-    <ClInclude Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJCPU\FindingJChaser.h" />
-    <ClInclude Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJCPU\FindingJRunner.h" />
-    <ClInclude Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJPlayer.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\FindingJ\FindingJCPU\FindingJChaser.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\FindingJ\FindingJCPU\FindingJRunner.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\FindingJ\FindingJPlayer.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\CharactorBase.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FindingJ\ReactionBlock.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FindingJ\Block.h" />
@@ -213,7 +213,7 @@
     <ClInclude Include="Src\Manager\System\Collision\CollisionResult.h" />
     <ClInclude Include="Src\Manager\System\EventSystem\EventInfo.h" />
     <ClInclude Include="Src\Manager\System\EventSystem\GameEventType.h" />
-    <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\ActorFactoryBase.h" />
+    <ClInclude Include="Src\Object\Actor\Factory\ActorFactoryBase.h" />
     <ClInclude Include="Src\Object\Actor\Manager\ActorManager.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FindingJ\StageLayout.h" />
     <ClInclude Include="Src\Object\UI\FindingJ\GameMessageUI.h" />
@@ -255,10 +255,10 @@
     <ClInclude Include="Src\Object\Common\AnimationController.h" />
     <ClInclude Include="Src\Object\Common\Transform.h" />
     <ClInclude Include="Src\Scene\SceneBase.h" />
-    <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\Test\TestFactory.h" />
-    <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage1Factory.h" />
-    <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage2Factory.h" />
-    <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage3Factory.h" />
+    <ClInclude Include="Src\Object\Actor\Factory\Test\TestFactory.h" />
+    <ClInclude Include="Src\Object\Actor\Factory\FindingJ\Stage1Factory.h" />
+    <ClInclude Include="Src\Object\Actor\Factory\FindingJ\Stage2Factory.h" />
+    <ClInclude Include="Src\Object\Actor\Factory\FindingJ\Stage3Factory.h" />
     <ClInclude Include="Src\Object\UI\UIBase.h" />
     <ClInclude Include="Src\Scene\GameScene\Game\TwoPlayer\ThumbWrestling.h" />
     <Structure Include="Src\Manager\Game\SceneManager.h" />

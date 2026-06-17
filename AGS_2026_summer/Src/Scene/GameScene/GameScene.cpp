@@ -81,8 +81,6 @@ void GameScene::CreateMiniGame(GAME_KIND kind)
 		break;
 	case GAME_KIND::TEST_TWO:
 		break;
-	case GAME_KIND::TEST_THREE:
-		break;
 	case GAME_KIND::TEST_FOUR:
 		break;
 	case GAME_KIND::FINDINGJ:

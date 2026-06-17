@@ -7,11 +7,9 @@ enum class GAME_KIND
 
 	// 1人用
 	ONE_PLAYER = 10,
-	TEST_ONE,
 	ATHLETIC,
 	//2人用
 	TWO_PLAYER = 20,
-	TEST_TWO,
 	THUMB_WRESTLING,
 	SURVIVAL_TETRIS,
 	//4人用
@@ -22,7 +20,6 @@ enum class GAME_KIND
 
 
 	FOUR_PLAYER = 50,
-	TEST_FOUR,
 	FINDINGJ,
 	TEST_OB_COURAGE,
 	BUTTON_MASHING,
@@ -57,20 +54,6 @@ struct GameInfo
 
 inline std::string GameInfo::GetGameName(void) const
 {
-	switch (playNum_)
-	{
-	case PLAY_NUM::ONE_PLAYER:
-		break;
-	case PLAY_NUM::TWO_PLAYER:
-		break;
-	case PLAY_NUM::ONE_VS_THERR:
-		break;
-	case PLAY_NUM::TWO_VS_TWO:
-		break;
-	case PLAY_NUM::FOUR_PLAYER:
-		break;
-	}
-
 	switch (game_)
 	{
 	case GAME_KIND::NONE:

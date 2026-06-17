@@ -1,9 +1,9 @@
 #include "FindingJPlayer.h"
-#include"../../../../../Manager/Generic/KeyManager.h"
-#include"../../../../../Manager/Game/SceneManager.h"
-#include"../../../Camera/Camera.h"
-#include"../../../Collider/ColliderBase.h"
-#include"../../../Collider/ColliderCapsule.h"
+#include"../../../../Manager/Generic/KeyManager.h"
+#include"../../../../Manager/Game/SceneManager.h"
+#include"../../Camera/Camera.h"
+#include"../../Collider/ColliderBase.h"
+#include"../../Collider/ColliderCapsule.h"
 
 FindingJPlayer::FindingJPlayer(void)
 {

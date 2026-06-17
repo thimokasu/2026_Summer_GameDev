@@ -1,6 +1,6 @@
 #pragma once
-#include"../../../CharactorBase.h"
-#include"../../../../Stage/FindingJ/StageLayout.h"
+#include"../../CharactorBase.h"
+#include"../../../Stage/FindingJ/StageLayout.h"
 class ActorManager;
 
 class FindingJRunner :
