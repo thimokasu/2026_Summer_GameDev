@@ -98,13 +98,6 @@ void PauseScene::AppearUpdate()
 
 void PauseScene::NormalUpdate()
 {
-	//PAUSEキーが押されたら、フェードアウトしてシーンを切り替える
-	if(KEY::GetIns().GetInfo(KEY::KEY_TYPE::PAUSE).down)
-	{
-		update_ = &PauseScene::DisappearUpdate;
-		draw_ = &PauseScene::ExpandDraw;
-		return;
-	}
 
 	//上キーでメニューの選択肢を上に、下キーで下に移動する
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_UP).down)

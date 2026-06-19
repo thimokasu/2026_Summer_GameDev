@@ -15,8 +15,8 @@ TitleScene::~TitleScene(void)
 void TitleScene::Load(void)
 {
 	ResourceManager& resMng = ResourceManager::GetInstance();
-	imgTitle_ = resMng.Load(SRC::TITLE).handleId_;
-	imgPush_ = resMng.Load(SRC::PUSH).handleId_;
+	 resMng.Load(SRC::TITLE).handleId_;
+	resMng.Load(SRC::PUSH).handleId_;
 }
 
 void TitleScene::Init(void)
@@ -33,8 +33,6 @@ void TitleScene::Update(void)
 		return;
 	}
 
-	
-
 	//スペース押したらゲームシーンへ
 	if (KeyManager::GetIns().GetInfo(KEY_TYPE::SPACE).down)
 	{
@@ -47,13 +45,12 @@ void TitleScene::Draw(void)
 {
 	DrawString(0, 0, "title", 0xffffff);
 
-
 	DrawGraph(0, 0, imgTitle_, TRUE);
 	DrawGraph(600, 700, imgPush_, TRUE);
-
-	
 }
 
 void TitleScene::Release(void)
 {
+	DeleteGraph(imgTitle_);
+	DeleteGraph(imgPush_);
 }

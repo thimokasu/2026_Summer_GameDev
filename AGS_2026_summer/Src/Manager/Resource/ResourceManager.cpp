@@ -39,6 +39,10 @@ void ResourceManager::Init(void)
 	static std::string PATH_EFF = Application::PATH_EFFECT;
 
 	Resource* res = nullptr;
+
+	res = new RES(RES_T::IMG, PATH_IMG + "title.png");
+	resourcesMap_.emplace(SRC::TITLE, res);
+
 }
 
 void ResourceManager::Release(void)

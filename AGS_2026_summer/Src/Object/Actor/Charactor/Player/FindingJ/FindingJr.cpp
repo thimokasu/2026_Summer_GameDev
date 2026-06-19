@@ -30,6 +30,10 @@ void FindingJ::SubInit(void)
 void FindingJ::SubUpdate(void)
 {
 	MoveInput();
+
+	//ƒvƒŒƒCƒ„[‚ÆCPU‚ÌÕ“Ëˆ—
+
+
 }
 
 void FindingJ::SubDraw(void)

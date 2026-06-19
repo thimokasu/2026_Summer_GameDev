@@ -9,14 +9,15 @@ public:
 	GameResultScene(void);
 	~GameResultScene(void)override;
 
-	// 読み込み
-	void Initialize();
 
-	// 更新ステップ
+	void Init();
 	void Update()override;
-	
-	// 描画ステップ
 	void Draw()override;
+	void Load(void)override;
+	void Release(void)override;
+	SCENE_ID GetSceneID(void)const override { return SCENE_ID::RESULT; }
+
 
 };
+
 
