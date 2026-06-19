@@ -133,7 +133,8 @@ void FindingJ::SetEventCallBack(void)
 	EventManager::GetInstance().SetContactEventCallback(GameEventType::TIME_UP, [this](const ContactRule& rule)
 		{
 			OffUpdate();
-
+			auto massage = UIManager::GetInstance().GetUI<GameMessageUI>(UINAME::FINDINGJ_MASSAGE);
+			massage->SetMassageState(GameMessageUI::MASSAGE_STATE::FINISH);
 		}
 	);
 }

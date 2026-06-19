@@ -30,8 +30,9 @@ void FindingJRunner::SubInit(void)
 	rigidBody_.SetUseGravity(true);
 	rigidBody_.SetMass(100);
 	rigidBody_.SetMoveSpeed(0.25f);
-	trans_.pos = VGet(100.0f, 40.0f, 100.0f);
-	isDraw_ = false; 
+	trans_.pos = VGet(180.0f, 40.0f, 100.0f);
+	isDraw_ = true; 
+	visibleTimer_ = 0.5;
 }
 void FindingJRunner::SubUpdate(void)
 {

@@ -102,7 +102,7 @@ namespace Stage3
         {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
         {b,b,b,b,b,r,b,b,r,b,r,b,b,r,b,b,b,b,b,},
         {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-        {b,b,r,b,b,b,b,r,b,r,b,r,b,b,b,b,r,b,b,},
+        {b,b,r,b,b,b,b,r,b,b,b,r,b,b,b,b,r,b,b,},
         {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
         {b,b,r,b,b,b,b,r,b,b,b,r,b,b,b,b,r,b,b,},
         {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
