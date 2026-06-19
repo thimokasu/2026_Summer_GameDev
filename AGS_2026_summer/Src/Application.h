@@ -50,9 +50,6 @@ private:
 
 	// 静的インスタンス
 	static Application* instance_;
-	
-	// 終了要求
-	bool isRequestedExit_;
 
 	// 初期化失敗
 	bool isInitFail_;

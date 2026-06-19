@@ -13,13 +13,18 @@ GameResultScene::~GameResultScene()
 {
 }
 
-void GameResultScene::Init()
+void GameResultScene::SubLoad()
+{
+	ResourceManager& resMng = ResourceManager::GetInstance();
+}
+
+
+void GameResultScene::SubInit()
 {
 }
 
-void GameResultScene::Update()
+void GameResultScene::SubUpdate()
 {
-
 	//エスケープ押したらメニューシーンへ
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::PAUSE).down)
 	{
@@ -28,16 +33,11 @@ void GameResultScene::Update()
 	}
 }
 
-void GameResultScene::Draw()
+void GameResultScene::SubDraw()
 {
 	DrawString(0, 0, "Result", 0xffffff);
 }
 
-void GameResultScene::Load(void)
-{
-	ResourceManager& resMng = ResourceManager::GetInstance();
-}
-
-void GameResultScene::Release(void)
+void GameResultScene::SubRelease(void)
 {
 }
