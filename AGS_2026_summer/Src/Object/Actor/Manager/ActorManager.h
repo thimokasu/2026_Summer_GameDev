@@ -5,7 +5,7 @@
 #include<unordered_map>
 #include"../ActorBase.h"
 #include"../EntityKind.h"
-#include"../../../Scene/GameSelect/GameKind.h"
+#include"../../../Scene/GameSelect/GameInfo.h"
 
 using EntityID = uint32_t;
 class ActorFactoryBase;
@@ -26,7 +26,8 @@ public:
 	EntityKind GetEntityKind(EntityID id) const;
 	//指定されたKindのActorを返す
 	std::vector<ActorBase*>FindActorsByKind(EntityKind kind)const;
-
+	//指定されたIDのActorを返す
+	ActorBase* FindActorByID(EntityID id) const;
 private:
 #pragma region 変数
 	std::vector<std::unique_ptr<ActorBase>> actors_;//アクターのリスト
@@ -37,6 +38,10 @@ private:
 #pragma region 関数
 	void BindID2Kind(void);
 	void SetFactory(GameInfo info);
+	void OnePlayerGameFactory(GameInfo info);
+	void TwoPlayerGameFactory(GameInfo info);
+	void ThreePlayerGameFactory(GameInfo info);
+	void FourPlayerGameFactory(GameInfo info);
 #pragma endregion
 
 };

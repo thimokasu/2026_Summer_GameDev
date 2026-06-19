@@ -15,7 +15,11 @@ public:
     void SubRelease(void)override;
 
     void InitCollider(void)override;
+    // “¥‚Ü‚ê‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚éŠÖ”
+    void StepOn();
 
 private:
     VECTOR halfSize_ = { 10.0f,10.0f,10.0f };
+    float emitIntensity_ = 0.0f;
+
 };

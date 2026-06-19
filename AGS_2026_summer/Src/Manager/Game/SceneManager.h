@@ -8,6 +8,7 @@
 
 #include"../../Application.h"
 #include"SceneId.h"
+
 class SceneBase;
 class Fader;
 class Camera;
@@ -52,6 +53,9 @@ public:
 	// 状態遷移
 	void ChangeScene(std::shared_ptr<SceneBase>scene);
 	void ChangeScene(SCENE_ID scene);
+	template<typename SceneType, typename...Args>
+	void ChangeScene(Args&&...args);
+
 	// シーンを新しく積む
 	void PushScene(std::shared_ptr<SceneBase>scene);
 	void PushScene(SCENE_ID scene);
@@ -105,4 +109,17 @@ private:
 #pragma endregion
 
 };
-
+/// <summary>
+/// 無限引数によるシーンの変更
+/// </summary>
+/// <typeparam name="SceneType"></typeparam>
+/// <typeparam name="...Args"></typeparam>
+/// <param name="...args"></param>
+/// 使い方
+/// SceneManager::Getinstance().ChangeScene<変更したいシーン>(引数)
+template<typename SceneType, typename ...Args>
+inline void SceneManager::ChangeScene(Args && ...args)
+{
+	auto nextScene = std::make_shared<SceneType>(std::forward<Args>(args)...);
+	ChangeScene(nextScene);
+}

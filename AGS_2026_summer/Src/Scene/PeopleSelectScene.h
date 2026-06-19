@@ -6,11 +6,11 @@ class PeopleSelectScene :
 	public:
 	PeopleSelectScene();
 	~PeopleSelectScene();
-    void Load(void)override;
-    void Init(void)override;
-    void Update(void)override;
-    void Draw(void)override;
-    void Release(void)override;
+    void SubLoad(void)override;
+    void SubInit(void)override;
+    void SubUpdate(void)override;
+    void SubDraw(void)override;
+    void SubRelease(void)override;
 private:
 };
 

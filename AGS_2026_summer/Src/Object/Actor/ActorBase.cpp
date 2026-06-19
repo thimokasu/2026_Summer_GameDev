@@ -40,6 +40,7 @@ void ActorBase::Release(void)
 	SubRelease();
 }
 
+
 void ActorBase::Move(void)
 {
 	trans_.pos = VAdd(trans_.pos, rigidBody_.GetVelocity());

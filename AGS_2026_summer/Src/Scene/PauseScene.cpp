@@ -32,35 +32,35 @@ PauseScene::PauseScene(void)
 
 	//ラムダ式でアクションを定義する
 	menuActions_["ゲームに戻る"] = [this]()
-	{
+		{
 
-		update_ = &PauseScene::DisappearUpdate;
-		draw_ = &PauseScene::ExpandDraw;
-	};
+			update_ = &PauseScene::DisappearUpdate;
+			draw_ = &PauseScene::ExpandDraw;
+		};
 
 	//ラムダ式の中でさらにラムダ式を定義している。YESを選択したときのアクションを定義している。
 	menuActions_["タイトルに戻る"] = [this]()
-	{
-
-		execYesAction_ = [this]()
 		{
-			SceneManager::GetInstance().ResetScene(std::make_shared<TitleScene>());
+
+			execYesAction_ = [this]()
+				{
+					SceneManager::GetInstance().ResetScene(std::make_shared<TitleScene>());
+				};
+			yesNoTitle_ = "タイトルに戻りますか？";
+			update_ = &PauseScene::YesNoUpdate;
+			draw_ = &PauseScene::YesNoDraw;
 		};
-		yesNoTitle_ = "タイトルに戻りますか？";
-		update_ = &PauseScene::YesNoUpdate;
-		draw_ = &PauseScene::YesNoDraw;
-	};
 
 	menuActions_["終了"] = [this]()
-	{
-		execYesAction_ = [this]()
 		{
-			Application::GetInstance().RequestExit();
+			execYesAction_ = [this]()
+				{
+					Application::GetInstance().RequestExit();
+				};
+			yesNoTitle_ = "ゲームを終了しますか？";
+			update_ = &PauseScene::YesNoUpdate;
+			draw_ = &PauseScene::YesNoDraw;
 		};
-		yesNoTitle_ = "ゲームを終了しますか？";
-		update_ = &PauseScene::YesNoUpdate;
-		draw_ = &PauseScene::YesNoDraw;
-	};
 
 }
 
@@ -68,18 +68,18 @@ PauseScene::~PauseScene(void)
 {
 }
 
-void PauseScene::Init(void) 
+void PauseScene::SubInit(void) 
 {
-	
+
 }
 
-void PauseScene::Update(void)
+void PauseScene::SubUpdate(void)
 {
 	//関数ポインタを呼び出す
 	(this->*update_)();
 }
 
-void PauseScene::Draw(void)
+void PauseScene::SubDraw(void)
 {
 	//関数ポインタを呼び出す
 	(this->*draw_)();
@@ -88,16 +88,22 @@ void PauseScene::Draw(void)
 void PauseScene::AppearUpdate()
 {
 	//フレームが一定数を超えたら、通常の更新と描画に切り替える
-	if(++frame_ >= expand_interval)
+	if (++frame_ >= expand_interval)
 	{
 		update_ = &PauseScene::NormalUpdate;
 		draw_ = &PauseScene::NormalDraw;
-		return;	
+		return;
 	}
 }
 
 void PauseScene::NormalUpdate()
 {
+	//PAUSEキーが押されたら、フェードアウトしてシーンを切り替える
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::PAUSE).down)
+	{
+		auto menuString = menuItems_[selectedMenuIndex_];
+		menuActions_[menuString]();
+	}
 
 	//上キーでメニューの選択肢を上に、下キーで下に移動する
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_UP).down)
@@ -112,7 +118,7 @@ void PauseScene::NormalUpdate()
 	}
 
 	//エンターキーが押されたら、選択されているメニューのアクションを実行する
-	if(KEY::GetIns().GetInfo(KEY::KEY_TYPE::ENTER).down)
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::ENTER).down)
 	{
 		auto menuString = menuItems_[selectedMenuIndex_];
 		menuActions_[menuString]();
@@ -182,8 +188,8 @@ void PauseScene::DrawFrame(float rate)
 void PauseScene::DrawMenu()
 {
 	//メニューの描画位置や、アイテムの高さ、色などを定数で定義する
-	constexpr int menu_top_offset = margin_size + 600;
-	constexpr int menu_left_offset = margin_size + 800;
+	constexpr int menu_top_offset = Application::SCREEN_SIZE_Y / 2;
+	constexpr int menu_left_offset = Application::SCREEN_SIZE_X / 2;
 	constexpr int menu_item_height = 80;
 	constexpr uint32_t menu_item_color = 0xffffff;
 	constexpr uint32_t indicator_color = 0xffaaaa;
@@ -199,13 +205,13 @@ void PauseScene::DrawMenu()
 		int x = menu_left_offset;
 		auto itemColor = menu_item_color;
 		if (menuItems_[selectedMenuIndex_] == item) {
-			DrawString(x-30,y,"→", indicator_color);
+			DrawString(x - 30, y, "→", indicator_color);
 			x += menu_indent_size;
 			itemColor = selected_item_color;
 		}
 
 		//アイテムの文字列を描画する
-		DrawFormatString(x, y, itemColor,"%s" ,item.c_str());
+		DrawFormatString(x, y, itemColor, "%s", item.c_str());
 		y += menu_item_height;
 	}
 
@@ -252,7 +258,7 @@ void PauseScene::YesNoDraw()
 	//半透明の白い四角形を描画する
 	DrawBox(left, top, right, bottom, 0x000000, true);
 	//四角形の枠線を描画する
-	DrawBoxAA(left, top, right, bottom, 0xffffff, false,3.0f);
+	DrawBoxAA(left, top, right, bottom, 0xffffff, false, 3.0f);
 
 	//YES/NOのタイトルを描画する
 	int x = left + 50;

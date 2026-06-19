@@ -1,17 +1,15 @@
-#include"KeyManager.h"
-
-#include<DxLib.h>
+#include "KeyManager.h"
+#include <DxLib.h>
+#include <cmath> // sqrtf用
 
 KeyManager* KeyManager::ins = nullptr;
 
-KeyManager::KeyManager():
+KeyManager::KeyManager() :
 	keyInfo(),
 	keyboardFormat(),
 	controllerButtonFormat()
 {
 }
-
-
 
 void KeyManager::Init(void)
 {
@@ -37,22 +35,22 @@ void KeyManager::Init(void)
 
 
 	SET_KEYBOARD(KEY_TYPE::MOVE_FRONT, KEY_INPUT_W);
-	//SET_KEYBOARD(KEY_TYPE::MOVE_FRONT, KEY_INPUT_UP);
 	SET_C_OTHERS(KEY_TYPE::MOVE_FRONT, CONTROLLER_OTHERS::LEFTSTICK_UP);
 
-
 	SET_KEYBOARD(KEY_TYPE::MOVE_BACK, KEY_INPUT_S);
-	//SET_KEYBOARD(KEY_TYPE::MOVE_BACK, KEY_INPUT_DOWN);
 	SET_C_OTHERS(KEY_TYPE::MOVE_BACK, CONTROLLER_OTHERS::LEFTSTICK_DOWN);
 
 	SET_KEYBOARD(KEY_TYPE::MOVE_RIGHT, KEY_INPUT_D);
-	//SET_KEYBOARD(KEY_TYPE::MOVE_RIGHT, KEY_INPUT_RIGHT);
 	SET_C_OTHERS(KEY_TYPE::MOVE_RIGHT, CONTROLLER_OTHERS::LEFTSTICK_RIGHT);
 
-
 	SET_KEYBOARD(KEY_TYPE::MOVE_LEFT, KEY_INPUT_A);
-	//SET_KEYBOARD(KEY_TYPE::MOVE_LEFT, KEY_INPUT_LEFT);
 	SET_C_OTHERS(KEY_TYPE::MOVE_LEFT, CONTROLLER_OTHERS::LEFTSTICK_LEFT);
+
+
+	SET_KEYBOARD(KEY_TYPE::MOVE_UP, KEY_INPUT_UP);
+	SET_KEYBOARD(KEY_TYPE::MOVE_DOWN, KEY_INPUT_DOWN);
+	SET_KEYBOARD(KEY_TYPE::MOVE_RIGHT_SET, KEY_INPUT_RIGHT);
+	SET_KEYBOARD(KEY_TYPE::MOVE_LEFT_SET, KEY_INPUT_LEFT);
 
 	SET_KEYBOARD(KEY_TYPE::SPACE, KEY_INPUT_SPACE);
 
@@ -71,7 +69,17 @@ void KeyManager::Init(void)
 	SET_KEYBOARD(KEY_TYPE::PAUSE, KEY_INPUT_ESCAPE);
 	SET_C_BUTTON(KEY_TYPE::PAUSE, XINPUT_BUTTON_START);
 
+	SET_KEYBOARD(KEY_TYPE::UP, KEY_INPUT_UP);
+	SET_KEYBOARD(KEY_TYPE::DOWN, KEY_INPUT_DOWN);
+	SET_KEYBOARD(KEY_TYPE::RIGHT, KEY_INPUT_RIGHT);
+	SET_KEYBOARD(KEY_TYPE::LEFT, KEY_INPUT_LEFT);
 	SET_KEYBOARD(KEY_TYPE::TAB, KEY_INPUT_TAB);
+
+	SET_C_BUTTON(KEY_TYPE::A, XINPUT_BUTTON_A);
+	SET_C_BUTTON(KEY_TYPE::B, XINPUT_BUTTON_B);
+	SET_C_BUTTON(KEY_TYPE::X, XINPUT_BUTTON_X);
+	SET_C_BUTTON(KEY_TYPE::Y, XINPUT_BUTTON_Y);
+
 
 	SET_KEYBOARD(KEY_TYPE::ENTER, KEY_INPUT_RETURN);
 	//SET_KEYBOARD(KEY_TYPE::ENTER, KEY_INPUT_SPACE);
@@ -79,44 +87,58 @@ void KeyManager::Init(void)
 	SET_C_BUTTON(KEY_TYPE::ENTER, XINPUT_BUTTON_B);
 	SET_C_BUTTON(KEY_TYPE::ENTER, XINPUT_BUTTON_A);
 
-
 	SET_MOUSE(KEY_TYPE::MOUSE_LEFT, MOUSE_INPUT_LEFT);
 	SET_MOUSE(KEY_TYPE::MOUSE_RIGHT, MOUSE_INPUT_RIGHT);
+
+	SET_KEYBOARD(KEY_TYPE::DEBUG, KEY_INPUT_0);
 }
 
 void KeyManager::Update(void)
 {
-	for (int i = 0; i < (int)KEY_TYPE::MAX; i++) {
-		keyInfo[i].prev = keyInfo[i].now;
+	// 全てのコントローラー分ループ
+	for (int p = 0; p < MAX_CONTROLLER_COUNT; p++) {
+		// DxLibの入力パッド指定用ID (DX_INPUT_PAD1 + 0, + 1, + 2, + 3)
+		int padNo = DX_INPUT_PAD1 + p;
 
-		bool b = false;
+		for (int i = 0; i < (int)KEY_TYPE::MAX; i++) {
+			keyInfo[p][i].prev = keyInfo[p][i].now;
 
-		for (auto& input : keyboardFormat[i]) {
-			if (b) { break; }
+			bool b = false;
 
-			if (CheckHitKey(input) != 0) { b = true; }
+			// キーボードとマウスはPCに1つしかないため、1P(p == 0)の時のみ判定する
+			if (p == 0) {
+				for (auto& input : keyboardFormat[i]) {
+					if (b) { break; }
+					if (CheckHitKey(input) != 0) { b = true; }
+				}
+				for (auto& input : mouse[i]) {
+					if (b) { break; }
+					if (GetMouseInput() & input) { b = true; }
+				}
+			}
+
+			// 各コントローラーのボタン入力判定
+			for (auto& input : controllerButtonFormat[i]) {
+				if (b) { break; }
+
+				XINPUT_STATE state = {};
+				if (GetJoypadXInputState(padNo, &state) != 0) { state = {}; }
+
+				if (state.Buttons[input] != 0) { b = true; }
+			}
+
+			// 各コントローラーのスティック・トリガー入力判定
+			for (CONTROLLER_OTHERS input : controllerOthersFormat[i]) {
+				if (b) { break; }
+
+				b = ControllerOthersInput(input, padNo);
+			}
+
+			keyInfo[p][i].now = b;
+
+			keyInfo[p][i].up = (keyInfo[p][i].prev && !keyInfo[p][i].now);
+			keyInfo[p][i].down = (!keyInfo[p][i].prev && keyInfo[p][i].now);
 		}
-		for (auto& input : controllerButtonFormat[i]) {
-			if (b) { break; }
-
-			XINPUT_STATE state = {};
-			if (GetJoypadXInputState(DX_INPUT_PAD1, &state) != 0) { state = {}; }
-
-			if (state.Buttons[input] != 0) { b = true; }
-		}
-		for (CONTROLLER_OTHERS input : controllerOthersFormat[i]) {
-			if (b) { break; }
-
-			b = ControllerOthersInput(input);
-		}
-		for (auto& input : mouse[i]) {
-			if (b) { break; }
-			if (GetMouseInput() & input) { b = true; }
-		}
-		keyInfo[i].now = b;
-
-		keyInfo[i].up = (keyInfo[i].prev && !keyInfo[i].now);
-		keyInfo[i].down = (!keyInfo[i].prev && keyInfo[i].now);
 	}
 }
 
@@ -125,12 +147,14 @@ void KeyManager::Release(void)
 	for (auto& input : keyboardFormat) { input.clear(); }
 	for (auto& input : controllerButtonFormat) { input.clear(); }
 	for (auto& input : controllerOthersFormat) { input.clear(); }
+	for (auto& input : mouse) { input.clear(); }
 }
 
-bool KeyManager::ControllerOthersInput(const CONTROLLER_OTHERS& input)
+// padNo 引数を追加して、特定のパッドから取得するように変更
+bool KeyManager::ControllerOthersInput(const CONTROLLER_OTHERS& input, int padNo)
 {
 	XINPUT_STATE state = {};
-	if (GetJoypadXInputState(DX_INPUT_PAD1, &state) != 0) { state = {}; }
+	if (GetJoypadXInputState(padNo, &state) != 0) { state = {}; }
 
 	short lenge = 10000;
 
@@ -149,7 +173,6 @@ bool KeyManager::ControllerOthersInput(const CONTROLLER_OTHERS& input)
 		if (state.ThumbLX < -lenge) { return true; }
 		break;
 
-
 	case KeyManager::CONTROLLER_OTHERS::RIGHTSTICK_UP:
 		if (state.ThumbRY > lenge) { return true; }
 		break;
@@ -163,7 +186,6 @@ bool KeyManager::ControllerOthersInput(const CONTROLLER_OTHERS& input)
 		if (state.ThumbRX < -lenge) { return true; }
 		break;
 
-
 	case KeyManager::CONTROLLER_OTHERS::LEFT_TRIGGER:
 		if (state.LeftTrigger > 0) { return true; }
 		break;
@@ -172,22 +194,23 @@ bool KeyManager::ControllerOthersInput(const CONTROLLER_OTHERS& input)
 		break;
 	default:
 		return false;
-		break;
 	}
 
 	return false;
 }
 
-
-const Vector2F KeyManager::GetRightStickVec(void)
+const Vector2F KeyManager::GetRightStickVec(int controllerIdx)
 {
 	XINPUT_STATE state = {};
-	if (GetJoypadXInputState(DX_INPUT_PAD1, &state) != 0) { return { 0.0f,0.0f }; }
+	int padNo = DX_INPUT_PAD1 + controllerIdx;
+
+	if (GetJoypadXInputState(padNo, &state) != 0) { return { 0.0f,0.0f }; }
 	short lenge = 10000;
 
 	Vector2F vec = { (abs(state.ThumbRX) > lenge) ? (float)state.ThumbRX : 0.0f,(abs(state.ThumbRY) > lenge) ? (float)-state.ThumbRY : 0.0f };
 
-	if (vec == 0.0f) { return{ 0.0f,0.0f }; }
+	// Vector2Fのオペレータオーバーロード依存を避けるため成分ごとに比較
+	if (vec.x == 0.0f && vec.y == 0.0f) { return{ 0.0f,0.0f }; }
 
 	return vec / sqrtf(vec.x * vec.x + vec.y * vec.y);
 }

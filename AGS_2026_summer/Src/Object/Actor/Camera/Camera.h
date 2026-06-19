@@ -87,6 +87,8 @@ public:
 	// ’Ç]‘ÎÛ‚Ìİ’è
 	void SetFollow(const Transform* follow);
 
+	void SetCameraAngles(const VECTOR& angles) { angles_ = angles; }
+	void SetCameraPos(const VECTOR& pos) { trans_.pos = pos; }
 private:
 
 	// ƒJƒƒ‰‚ª’Ç]‘ÎÛ‚Æ‚·‚éTransform
