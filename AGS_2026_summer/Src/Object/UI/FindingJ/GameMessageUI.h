@@ -1,6 +1,8 @@
 #pragma once
 #include "../UIBase.h"
+#include<functional>
 
+using StartCallBack = std::function<void()>;
 class GameMessageUI : public UIBase
 {
 public:
@@ -12,23 +14,29 @@ public:
     static constexpr const char* StrExplain = "FIND J";
     static constexpr const char* StrNone = "";
 
-    enum class MessageState
+    enum class MASSAGE_STATE
     {
-        None,
-        Start,
-        Finish,
-        Explain
+        NONE,
+        EXPLAIN,
+        START,
+        FINISH,
     };
 
-public:
+    enum class ANIM_PHASE
+    {
+        NONE=-1,
+        FADE_IN,
+        STAY,
+        FADE_OUT
+    };
+
     // UIBaseのコンストラクタに合わせる
     GameMessageUI(Vector2F pos, Vector2F size);
     virtual ~GameMessageUI() = default;
 
-    void SetState(MessageState state);
-    MessageState GetStateUI(void) const { return currentState_; }
-
-protected:
+    void SetStartCallBack(StartCallBack callBack) { startCallBack_ = std::move(callBack); }
+    void SetMassageState(MASSAGE_STATE state);
+private:
     // UIBaseの仮想関数をオーバーライド
     void SubLoad() override;
     void SubInit() override;
@@ -36,23 +44,21 @@ protected:
     void SubDraw() override;
     void SubRelease() override;
 
-private:
     void TextAnim(void);
 
+#pragma region 変数
     int fontHandle_ = -1;
-    MessageState currentState_ = MessageState::None;
-
-    unsigned int textColor_ = 0;
-    unsigned int edgeColor_ = 0;
-
-    enum class AnimPhase {
-        FadeIn,
-        Stay,
-        FadeOut,
-    };
-    AnimPhase animPhase_ = AnimPhase::FadeIn;
+    MASSAGE_STATE currentState_ = MASSAGE_STATE::EXPLAIN;
+    int textColor_ = 0;
+    int edgeColor_ = 0;
+    ANIM_PHASE animPhase_ = ANIM_PHASE::FADE_IN;
 
     float animTime_;
-    float scaleX_; // メンバ変数の意図を分かりやすくするためsizeからscaleへ名称変更
+    float scaleX_;
     float scaleY_;
+    StartCallBack startCallBack_;
+
+#pragma endregion
+
+
 };

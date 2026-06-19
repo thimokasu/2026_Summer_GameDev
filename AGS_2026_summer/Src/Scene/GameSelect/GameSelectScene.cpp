@@ -26,75 +26,69 @@ void GameSelectScene::SubInit(void)
 
 void GameSelectScene::SubUpdate(void)
 {
-	bool isAlreadyLeftEndGame = (cursorIndex_ == 0);
-	bool isAlreadyFirstStage = (gameInfo_.stage_ == STAGE_NUM::STAGE1);
-
 	// 現在の状態に応じて、呼ぶ更新関数を切り替える
 	switch (state_)
 	{
 	case SELECT_STATE::SELECT_PLAYER_NUM:
-		// 【左右キー】で人数を選ぶ処理に変更
-		UpdatePlayerNumLeftRight();
-
-		// 【スペースで決定】人数を確定してゲーム選択へ
-		if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down)
+		// 【右キー または スペース】人数を確定してゲーム選択へ
+		if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::B).down ||
+			KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down)
 		{
-			if (!currentGroup_->empty())
+			if (currentGroup_ != nullptr && !currentGroup_->empty())
 			{
 				state_ = SELECT_STATE::SELECT_GAME;
 				cursorIndex_ = 0; // ゲーム選択のカーソルをリセット
 				gameInfo_.game_ = (*currentGroup_)[cursorIndex_];
 			}
 		}
+		else
+		{
+			// 進むキーが押されていない時だけ、左右の人数切り替えを行う
+			UpdatePlayerNumLeftRight();
+		}
 		break;
 
 	case SELECT_STATE::SELECT_GAME:
-		isAlreadyLeftEndGame = (cursorIndex_ == 0);
-
-		UpdateCursorIndex(); // 左右でゲームを選ぶ処理
-
-		// 左右の移動処理が終わった「後」に判定
-		if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::LEFT).down)
+		// 【下キー】人数選択（一つ前）に戻る
+		if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::A).down ||
+			KEY::GetIns().GetInfo(KEY::KEY_TYPE::UP).down)
 		{
-			// 移動する前からすでに左端にいた、かつ、もう一回左が押されたなら人数選択に戻る
-			if (isAlreadyLeftEndGame)
-			{
-				state_ = SELECT_STATE::SELECT_PLAYER_NUM;
-			}
+			state_ = SELECT_STATE::SELECT_PLAYER_NUM;
 		}
-
-		// 【スペースで決定】ゲームを確定してステージ選択へ
-		if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down)
+		// 【右キー または スペース】ゲームを確定してステージ選択へ
+		else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::B).down ||
+			KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down)
 		{
 			state_ = SELECT_STATE::SELECT_STAGE;
-			gameInfo_.stage_ = STAGE_NUM::STAGE1;
+		}
+		else
+		{
+			// 戻る・進むキーが押されていない時だけ、左右のゲーム切り替えを行う
+			UpdateCursorIndex();
 		}
 		break;
 
 	case SELECT_STATE::SELECT_STAGE:
-		isAlreadyFirstStage = (gameInfo_.stage_ == STAGE_NUM::STAGE1);
-
-		UpdateStageSelect(); // 左右でステージを変更する処理
-
-		// 左右の移動処理が終わった「後」に判定
-		if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::LEFT).down)
+		// 【下キー】ゲーム選択（一つ前）に戻る
+		if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::A).down ||
+			KEY::GetIns().GetInfo(KEY::KEY_TYPE::UP).down)
 		{
-			// 移動する前からすでにSTAGE1にいた、かつ、もう一回左が押されたならゲーム選択に戻る
-			if (isAlreadyFirstStage)
-			{
-				state_ = SELECT_STATE::SELECT_GAME;
-			}
+			state_ = SELECT_STATE::SELECT_GAME;
 		}
-
-		// 【スペースで決定】ステージを確定してGameSceneへ遷移！
-		if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down)
+		// 【右キー または スペース】ステージを確定してGameSceneへ遷移！
+		else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::B).down ||
+			KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down)
 		{
 			SceneManager::GetInstance().ChangeScene<GameScene>(gameInfo_);
+		}
+		else
+		{
+			// 戻る・進むキーが押されていない時だけ、左右のステージ切り替えを行う
+			UpdateStageSelect();
 		}
 		break;
 	}
 }
-
 
 void GameSelectScene::SubDraw(void)
 {
@@ -106,6 +100,7 @@ void GameSelectScene::SubDraw(void)
 	unsigned int colorWhite = GetColor(255, 255, 255); // 白
 	unsigned int colorBlack = GetColor(0, 0, 0); // 黒
 	unsigned int colorSelectEdge = GetColor(255, 200, 0); // 選択中の強調色
+	unsigned int colorGray = GetColor(128, 128, 128); // ガイド用のグレー
 
 	// ========================================================
 	// 2. 上部：プレイ人数タブの描画 (左右で選択)
@@ -115,7 +110,7 @@ void GameSelectScene::SubDraw(void)
 	int tabStartX = 140;
 	int tabStartY = 40;
 
-	const char* tabLabels[] = { "一人", "２人", "３人", "４人" };
+	const char* tabLabels[] = { "1人", "２人", "３人", "４人" };
 
 	int currentPlayNumIdx = 0;
 	switch (gameInfo_.playNum_)
@@ -141,7 +136,7 @@ void GameSelectScene::SubDraw(void)
 			DrawBox(x1, y1, x2, y2, colorLineBlue, FALSE);
 			DrawString(x1 + 60, y1 + 18, tabLabels[i], colorWhite);
 		}
-		// ゲーム選択中などで、選ばれている人数タブ（赤だけど文字は黒など、お好みで）
+		// ゲーム選択中などで、選ばれている人数タブ
 		else if (i == currentPlayNumIdx)
 		{
 			DrawBox(x1, y1, x2, y2, colorFillRed, TRUE);
@@ -249,7 +244,30 @@ void GameSelectScene::SubDraw(void)
 		// 中央の枠の下あたりにステージ名を表示
 		DrawBox(centerX1 + 50, centerY2 - 50, centerX2 - 50, centerY2 - 10, colorBlack, TRUE);
 		DrawBox(centerX1 + 50, centerY2 - 50, centerX2 - 50, centerY2 - 10, colorSelectEdge, FALSE);
-		DrawString(centerX1 + 90, centerY2 - 35, stageStr.c_str(), GetColor(255,255,255));
+		DrawString(centerX1 + 90, centerY2 - 35, stageStr.c_str(), GetColor(255, 255, 255));
+	}
+
+	// ========================================================
+	// 7. 操作説明（操作ガイド）の描画
+	// ========================================================
+	int guideX = mainBoxX1 + 40;
+	int guideY = mainBoxY2 + 15; // メイン枠のすぐ下
+
+	// 基本操作テキストを組み立て
+	std::string chooseStr = "【左右キー】選択";
+	std::string decideStr = "【B / SPACE】決定";
+	std::string cancelStr = "【A / UPキー】戻る";
+
+	// 最初の状態（人数選択）の時は「戻る」を表示しない
+	if (state_ == SELECT_STATE::SELECT_PLAYER_NUM)
+	{
+		std::string guideText = chooseStr + "   " + decideStr;
+		DrawString(guideX, guideY, guideText.c_str(), colorBlack);
+	}
+	else
+	{
+		std::string guideText = chooseStr + "   " + decideStr + "   " + cancelStr;
+		DrawString(guideX, guideY, guideText.c_str(), colorBlack);
 	}
 }
 

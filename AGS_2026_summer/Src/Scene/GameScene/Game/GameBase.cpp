@@ -9,8 +9,9 @@ GameBase::GameBase(ActorManager* actMng, CollisionManager* colMng)
 {
 }
 
-void GameBase::Load(void)
+void GameBase::Load(GameInfo info)
 {
+	gameInfo_ = info;
 	SubLoad();
 	LoadSE();
 	LoadUI();
@@ -32,12 +33,16 @@ void GameBase::Init(void)
 	SetContactEventRule();
 	SetContactEventCallback();
 	SetCollisionCollback();
+	SetEventCallBack();
 }
 void GameBase::Update(void)
 {
+	if (isUpdate_)
+	{
 	actorMng_->Update();
 	colMng_->Update();
 	colMng_->Resolve();
+	}
 	SubUpdate();
 }
 void GameBase::Draw(void)

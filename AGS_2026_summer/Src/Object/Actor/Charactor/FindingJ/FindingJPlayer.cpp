@@ -25,7 +25,7 @@ void FindingJPlayer::SubInit(void)
 	rigidBody_.SetBodyType(RigidBody::BodyType::DYNAMIC);
 	rigidBody_.SetUseGravity(true);
 	rigidBody_.SetMass(1000);
-	rigidBody_.SetMoveSpeed(1.25f);
+	rigidBody_.SetMoveSpeed(1.0f);
 	trans_.pos = VGet(0.0f, 40.0f, 0.0f);
 }
 

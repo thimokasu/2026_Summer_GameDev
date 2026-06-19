@@ -53,7 +53,7 @@ void FindingJRunner::SubUpdate(void)
 	{
 		isDraw_ = false;
 	}
-	isDraw_ = true;
+	//isDraw_ = true;
 }
 
 void FindingJRunner::SubDraw(void)
@@ -103,8 +103,24 @@ void FindingJRunner::Think(void) // 思考
 			// 範囲外チェック
 			if (nextW < 0 || nextW >= W || nextD < 0 || nextD >= D) continue;
 
-			// ★壁判定を先に行う（壁ならこのマスのスコア計算自体を完全にスキップ！）
-			if (Stage3::stage[1][nextD][nextW] != StageLayout::None) continue;
+			switch (static_cast<STAGE_NUM>(stageNum_))
+			{
+			case STAGE_NUM::STAGE1:
+				// ★壁判定を先に行う（壁ならこのマスのスコア計算自体を完全にスキップ！）
+				if (Stage1::stage[1][nextD][nextW] != StageLayout::None) continue;
+				break;
+			case STAGE_NUM::STAGE2:
+				// ★壁判定を先に行う（壁ならこのマスのスコア計算自体を完全にスキップ！）
+				if (Stage2::stage[1][nextD][nextW] != StageLayout::None) continue;
+				break;
+			case STAGE_NUM::STAGE3:
+				// ★壁判定を先に行う（壁ならこのマスのスコア計算自体を完全にスキップ！）
+				if (Stage3::stage[1][nextD][nextW] != StageLayout::None) continue;
+				break;
+			case STAGE_NUM::MAX:
+				break;
+			}
+
 
 			// ★壁じゃないことを確認してからスコアを0で初期化
 			float score = 0.0f;
@@ -120,11 +136,34 @@ void FindingJRunner::Think(void) // 思考
 				score += (2000.0f / dist);    // 距離が近いほどペナルティが大きくなる
 			}
 
-			// 光る床を通るリスクを考慮
-			if (Stage3::stage[0][nextD][nextW] == StageLayout::ReactionBlock)
+			switch (static_cast<STAGE_NUM>(stageNum_))
+
 			{
-				score += ReactionBlockPenalty; // 光る床を通るとペナルティ
+			case STAGE_NUM::STAGE1:
+				// 光る床を通るリスクを考慮
+				if (Stage1::stage[0][nextD][nextW] == StageLayout::ReactionBlock)
+				{
+					score += ReactionBlockPenalty; // 光る床を通るとペナルティ
+				}
+				break;
+			case STAGE_NUM::STAGE2:
+				// 光る床を通るリスクを考慮
+				if (Stage2::stage[0][nextD][nextW] == StageLayout::ReactionBlock)
+				{
+					score += ReactionBlockPenalty; // 光る床を通るとペナルティ
+				}
+				break;
+			case STAGE_NUM::STAGE3:
+				// 光る床を通るリスクを考慮
+				if (Stage3::stage[0][nextD][nextW] == StageLayout::ReactionBlock)
+				{
+					score += ReactionBlockPenalty; // 光る床を通るとペナルティ
+				}
+				break;
+			case STAGE_NUM::MAX:
+				break;
 			}
+
 
 			// 最もスコアが低い（安全な）マスを更新
 			if (score < bestScore) {

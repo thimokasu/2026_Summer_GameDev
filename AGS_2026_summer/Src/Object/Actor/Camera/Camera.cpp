@@ -248,10 +248,10 @@ void Camera::SetBeforeDrawFree(void)
 {
 
 	// ƒJƒƒ‰‘€ì(‰ñ“])
-	ProcessRot(false);
+	//ProcessRot(false);
 
-	// ƒJƒƒ‰‘€ì(ˆÚ“®)
-	ProcessMove();
+	//// ƒJƒƒ‰‘€ì(ˆÚ“®)
+	//ProcessMove();
 
 	// Y²
 	rotY_ = Quaternion::AngleAxis(angles_.y, AsoUtility::AXIS_Y);

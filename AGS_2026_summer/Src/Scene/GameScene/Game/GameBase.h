@@ -15,12 +15,14 @@ public:
 	GameBase(ActorManager* actMng, CollisionManager* colMng);
 	virtual ~GameBase(void) = default;
 
-	void Load(void);
+	void Load(GameInfo info);
 	void Init(void);
 	void Update(void);
 	void Draw(void);
 	void Release(void);
 
+	void OnUpdate(void) { isUpdate_ = true; }
+	void OffUpdate(void) { isUpdate_ = false; }
 protected:
 #pragma region ä÷êî
 	virtual void SubLoad(void) {};
@@ -32,6 +34,7 @@ protected:
 	virtual void SetContactEventRule(void) {};
 	virtual void SetContactEventCallback(void) {};
 	virtual void SetCollisionCollback(void) {};
+	virtual void SetEventCallBack(void) {};
 
 	virtual void LoadUI(void) {};
 	virtual void LoadSE(void) {};
@@ -44,6 +47,7 @@ protected:
 	GameInfo gameInfo_;
 	ActorManager* actorMng_;
 	CollisionManager* colMng_;
+	bool isUpdate_ = false;
 #pragma endregion
 };
 

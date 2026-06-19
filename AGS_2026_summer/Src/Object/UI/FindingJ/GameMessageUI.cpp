@@ -4,8 +4,8 @@
 GameMessageUI::GameMessageUI(Vector2F pos, Vector2F size)
     : UIBase(pos, size)
     , fontHandle_(-1)
-    , currentState_(MessageState::Explain)
-    , animPhase_(AnimPhase::FadeIn)
+    , currentState_(MASSAGE_STATE::EXPLAIN)
+    , animPhase_(ANIM_PHASE::FADE_IN)
     , animTime_(0.0f)
     , scaleX_(0.0f)
     , scaleY_(0.0f)
@@ -26,109 +26,51 @@ void GameMessageUI::SubLoad(void)
 void GameMessageUI::SubInit(void)
 {
     uiName_ = UINAME::FINDINGJ_MASSAGE;
+    currentState_ = MASSAGE_STATE::EXPLAIN;
     animTime_ = 0.0f;
     scaleX_ = 0.0f;
     scaleY_ = 0.0f;
-    animPhase_ = AnimPhase::FadeIn;
-}
-
-void GameMessageUI::SetState(MessageState state)
-{
-    currentState_ = state;
-    animTime_ = 0.0f;
-    scaleX_ = 0.0f;
-    scaleY_ = 0.0f;
-    animPhase_ = AnimPhase::FadeIn;
-
-    switch (currentState_)
-    {
-    case MessageState::Start:
-        textColor_ = GetColor(0, 200, 255);
-        edgeColor_ = GetColor(255, 255, 255);
-        break;
-    case MessageState::Finish:
-        textColor_ = GetColor(255, 215, 0);
-        edgeColor_ = GetColor(255, 255, 255);
-        break;
-    case MessageState::Explain:
-        textColor_ = GetColor(255, 255, 255);
-        edgeColor_ = GetColor(0, 0, 0);
-        break;
-    default:
-        break;
-    }
+    animPhase_ = ANIM_PHASE::FADE_IN;
 }
 
 void GameMessageUI::SubUpdate(void)
 {
-    if (currentState_ != MessageState::None)
+    if (currentState_ != MASSAGE_STATE::NONE)
     {
         animTime_ += SceneManager::GetInstance().GetDeltaTime();
         TextAnim();
     }
-}
-
-void GameMessageUI::TextAnim(void)
-{
-    static constexpr float ChangeSpeedIN = 0.02f;
-    static constexpr float ChangeSpeedOut = 0.04f;
-    static constexpr float StayTimeSeconds = 2.0f; // DeltaTime(•b)‚É‡‚í‚¹‚é‚½‚ßŒ^‚ÆŠî€‚ð•ÏX
-
-    switch (animPhase_)
+    if (currentState_ == MASSAGE_STATE::START)
     {
-    case AnimPhase::FadeIn:
-        scaleX_ += ChangeSpeedIN;
-        scaleY_ += ChangeSpeedIN;
-
-        if (scaleX_ >= 1.0f)
+        if (animPhase_ == ANIM_PHASE::FADE_OUT)
         {
-            scaleX_ = 1.0f;
-            scaleY_ = 1.0f;
-            animTime_ = 0.0f;
-            animPhase_ = AnimPhase::Stay;
+            startCallBack_();
         }
-        break;
-
-    case AnimPhase::Stay:
-        if (animTime_ >= StayTimeSeconds)
+    }
+    if (currentState_ == MASSAGE_STATE::FINISH)
+    {
+        if (animPhase_ == ANIM_PHASE::FADE_OUT)
         {
-            animPhase_ = AnimPhase::FadeOut;
+            SceneManager::GetInstance().PushScene(SCENE_ID::PAUSE);
+            SetMassageState(MASSAGE_STATE::NONE);
+            animPhase_ = ANIM_PHASE::NONE;
         }
-        break;
-
-    case AnimPhase::FadeOut:
-        scaleX_ -= ChangeSpeedOut;
-        scaleY_ -= ChangeSpeedOut;
-
-        if (scaleX_ <= 0.0f)
-        {
-            scaleX_ = 0.0f;
-            scaleY_ = 0.0f;
-
-            if (currentState_ == MessageState::Explain)
-            {
-                SetState(MessageState::Start);
-                return;
-            }
-            SetState(MessageState::None);
-        }
-        break;
     }
 }
 
+
 void GameMessageUI::SubDraw(void)
 {
-    if (currentState_ == MessageState::None) return;
+    if (currentState_ == MASSAGE_STATE::NONE) return;
 
     const char* targetStr = nullptr;
     switch (currentState_)
     {
-    case MessageState::Start:   targetStr = StrStart;   break;
-    case MessageState::Finish:  targetStr = StrFinish;  break;
-    case MessageState::Explain: targetStr = StrExplain; break;
+    case MASSAGE_STATE::EXPLAIN: targetStr = StrExplain; break;
+    case MASSAGE_STATE::START:   targetStr = StrStart;   break;
+    case MASSAGE_STATE::FINISH:  targetStr = StrFinish;  break;
     default: return;
     }
-
     if (targetStr == nullptr) return;
 
     int stringWidth = 0;
@@ -146,7 +88,7 @@ void GameMessageUI::SubDraw(void)
     int drawY = static_cast<int>(absPos.y + size_.y / 2.0f);
 
     // ƒQ[ƒ€à–¾‚ÌŽž‚¾‚¯•¶Žš‚ÌŒã‚ë‚É‘Ñ‚ðo‚·
-    if (currentState_ == MessageState::Explain)
+    if (currentState_ == MASSAGE_STATE::EXPLAIN)
     {
         int paddingY = 20;
         int barTop = drawY - (int)cy - paddingY;
@@ -179,3 +121,76 @@ void GameMessageUI::SubRelease(void)
         fontHandle_ = -1;
     }
 }
+
+void GameMessageUI::SetMassageState(MASSAGE_STATE state)
+{
+    animTime_ = 0.0f;
+    scaleX_ = 0.0f;
+    scaleY_ = 0.0f;
+    animPhase_ = ANIM_PHASE::FADE_IN;
+    currentState_ = state;
+    switch (state)
+    {
+    case GameMessageUI::MASSAGE_STATE::NONE:
+        break;
+    case GameMessageUI::MASSAGE_STATE::EXPLAIN:
+        textColor_ = GetColor(255, 255, 255);
+        edgeColor_ = GetColor(0, 0, 0);
+        break;
+    case GameMessageUI::MASSAGE_STATE::START:
+        textColor_ = GetColor(0, 200, 255);
+        edgeColor_ = GetColor(255, 255, 255);
+        break;
+    case GameMessageUI::MASSAGE_STATE::FINISH:
+        textColor_ = GetColor(255, 215, 0);
+        edgeColor_ = GetColor(255, 255, 255);
+        break;
+    }
+
+}
+
+void GameMessageUI::TextAnim(void)
+{
+    static constexpr float ChangeSpeedIN = 0.02f;
+    static constexpr float ChangeSpeedOut = 0.04f;
+    static constexpr float StayTimeSeconds = 2.0f; // DeltaTime(•b)‚É‡‚í‚¹‚é‚½‚ßŒ^‚ÆŠî€‚ð•ÏX
+
+    switch (animPhase_)
+    {
+    case GameMessageUI::ANIM_PHASE::FADE_IN:
+        scaleX_ += ChangeSpeedIN;
+        scaleY_ += ChangeSpeedIN;
+
+        if (scaleX_ >= 1.0f)
+        {
+            scaleX_ = 1.0f;
+            scaleY_ = 1.0f;
+            animTime_ = 0.0f;
+            animPhase_ = ANIM_PHASE::STAY;
+        }
+        break;
+    case GameMessageUI::ANIM_PHASE::STAY:
+        if (animTime_ >= StayTimeSeconds)
+        {
+            animPhase_ = ANIM_PHASE::FADE_OUT;
+        }
+        break;
+    case GameMessageUI::ANIM_PHASE::FADE_OUT:
+        scaleX_ -= ChangeSpeedOut;
+        scaleY_ -= ChangeSpeedOut;
+
+        if (scaleX_ <= 0.0f)
+        {
+            scaleX_ = 0.0f;
+            scaleY_ = 0.0f;
+            if (currentState_ == MASSAGE_STATE::EXPLAIN)
+            {
+                SetMassageState(MASSAGE_STATE::START);
+                return;
+            }
+            SetMassageState(MASSAGE_STATE::NONE);
+        }
+        break;
+    }
+}
+

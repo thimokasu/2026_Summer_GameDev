@@ -6,6 +6,7 @@ enum class GameEventType
 
 	TEST,
 
+	START,
 	TIME_UP,
 	
 	//FindingJ

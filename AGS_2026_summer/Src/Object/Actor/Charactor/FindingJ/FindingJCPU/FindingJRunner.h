@@ -1,6 +1,7 @@
 #pragma once
 #include"../../CharactorBase.h"
 #include"../../../Stage/FindingJ/StageLayout.h"
+#include"../../../../../Scene/GameSelect/GameInfo.h"
 class ActorManager;
 
 class FindingJRunner :
@@ -28,7 +29,7 @@ public:
 	void InitCollider(void) override;
 
 	void Appear(void) { visibleTimer_ = AppearTime; isDraw_ = true; }
-    void SetStageNum(int sNum) { stageNum_ = sNum; }
+    void SetStageNum(STAGE_NUM sNum) { stageNum_ = sNum; }
 
 	// 敵の位置設定
     void SetEnemyPositions(const std::vector<VECTOR>&positions)
@@ -46,7 +47,7 @@ private:
     int lastStepTileD_; // 前回いたタイルのD座標
     float visibleTimer_; // 姿が見えている残り時間
     float timer_ = 0.0f; 
-    int stageNum_;
+    STAGE_NUM stageNum_;
 	AIState aiState_ = AIState::CHASER; // 初期状態は追いかける
 #pragma endregion
 
