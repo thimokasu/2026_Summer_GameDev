@@ -26,7 +26,6 @@ void GameSelectScene::SubInit(void)
 
 void GameSelectScene::SubUpdate(void)
 {
-
 	bool isAlreadyLeftEndGame = (cursorIndex_ == 0);
 	bool isAlreadyFirstStage = (gameInfo_.stage_ == STAGE_NUM::STAGE1);
 
@@ -34,7 +33,8 @@ void GameSelectScene::SubUpdate(void)
 	switch (state_)
 	{
 	case SELECT_STATE::SELECT_PLAYER_NUM:
-		UpdateGameGroups(); // 上下で人数を選ぶ処理
+		// 【左右キー】で人数を選ぶ処理に変更
+		UpdatePlayerNumLeftRight();
 
 		// 【スペースで決定】人数を確定してゲーム選択へ
 		if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down)
@@ -51,12 +51,12 @@ void GameSelectScene::SubUpdate(void)
 	case SELECT_STATE::SELECT_GAME:
 		isAlreadyLeftEndGame = (cursorIndex_ == 0);
 
-		UpdateCursorIndex(); // 左右でゲームを選ぶ処理（ここで左を押すと0に向かって進む）
+		UpdateCursorIndex(); // 左右でゲームを選ぶ処理
 
 		// 左右の移動処理が終わった「後」に判定
 		if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::LEFT).down)
 		{
-			// 移動する前からすでに左端にいた、かつ、もう一回左が押されたなら戻る
+			// 移動する前からすでに左端にいた、かつ、もう一回左が押されたなら人数選択に戻る
 			if (isAlreadyLeftEndGame)
 			{
 				state_ = SELECT_STATE::SELECT_PLAYER_NUM;
@@ -79,7 +79,7 @@ void GameSelectScene::SubUpdate(void)
 		// 左右の移動処理が終わった「後」に判定
 		if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::LEFT).down)
 		{
-			// 移動する前からすでにSTAGE1にいた、かつ、もう一回左が押されたなら戻る
+			// 移動する前からすでにSTAGE1にいた、かつ、もう一回左が押されたならゲーム選択に戻る
 			if (isAlreadyFirstStage)
 			{
 				state_ = SELECT_STATE::SELECT_GAME;
@@ -94,82 +94,162 @@ void GameSelectScene::SubUpdate(void)
 		break;
 	}
 }
+
+
 void GameSelectScene::SubDraw(void)
 {
 	// ========================================================
-	// 1. プレイ人数の文字列変換
+	// 1. カラー定義 (画像の色合い)
 	// ========================================================
-	std::string playNumStr = "";
+	unsigned int colorLineBlue = GetColor(45, 95, 160); // 紺色の枠線
+	unsigned int colorFillRed = GetColor(255, 0, 0); // 選択中タブの赤
+	unsigned int colorWhite = GetColor(255, 255, 255); // 白
+	unsigned int colorBlack = GetColor(0, 0, 0); // 黒
+	unsigned int colorSelectEdge = GetColor(255, 200, 0); // 選択中の強調色
+
+	// ========================================================
+	// 2. 上部：プレイ人数タブの描画 (左右で選択)
+	// ========================================================
+	int tabWidth = 160;
+	int tabHeight = 50;
+	int tabStartX = 140;
+	int tabStartY = 40;
+
+	const char* tabLabels[] = { "一人", "２人", "３人", "４人" };
+
+	int currentPlayNumIdx = 0;
 	switch (gameInfo_.playNum_)
 	{
-	case PLAY_NUM::ONE_PLAYER:   playNumStr = "1 PLAYER";   break;
-	case PLAY_NUM::TWO_PLAYER:   playNumStr = "2 PLAYERS";  break;
-	case PLAY_NUM::ONE_VS_THERR: playNumStr = "1VS3PLAYERS"; break;
-	case PLAY_NUM::TWO_VS_TWO: playNumStr = "2VS2PLAYERS"; break;
-	case PLAY_NUM::FOUR_PLAYER:  playNumStr = "4 PLAYERS";  break;
+	case PLAY_NUM::ONE_PLAYER:   currentPlayNumIdx = 0; break;
+	case PLAY_NUM::TWO_PLAYER:   currentPlayNumIdx = 1; break;
+	case PLAY_NUM::ONE_VS_THERR: currentPlayNumIdx = 2; break;
+	case PLAY_NUM::TWO_VS_TWO:   currentPlayNumIdx = 2; break;
+	case PLAY_NUM::FOUR_PLAYER:  currentPlayNumIdx = 3; break;
+	}
+
+	for (int i = 0; i < 4; ++i)
+	{
+		int x1 = tabStartX + (i * tabWidth);
+		int y1 = tabStartY;
+		int x2 = x1 + tabWidth;
+		int y2 = y1 + tabHeight;
+
+		// 人数選択モードかつ、現在のタブなら赤
+		if (i == currentPlayNumIdx && state_ == SELECT_STATE::SELECT_PLAYER_NUM)
+		{
+			DrawBox(x1, y1, x2, y2, colorFillRed, TRUE);
+			DrawBox(x1, y1, x2, y2, colorLineBlue, FALSE);
+			DrawString(x1 + 60, y1 + 18, tabLabels[i], colorWhite);
+		}
+		// ゲーム選択中などで、選ばれている人数タブ（赤だけど文字は黒など、お好みで）
+		else if (i == currentPlayNumIdx)
+		{
+			DrawBox(x1, y1, x2, y2, colorFillRed, TRUE);
+			DrawBox(x1, y1, x2, y2, colorLineBlue, FALSE);
+			DrawString(x1 + 60, y1 + 18, tabLabels[i], colorBlack);
+		}
+		else
+		{
+			DrawBox(x1, y1, x2, y2, colorWhite, TRUE);
+			DrawBox(x1, y1, x2, y2, colorLineBlue, FALSE);
+			DrawString(x1 + 60, y1 + 18, tabLabels[i], colorBlack);
+		}
 	}
 
 	// ========================================================
-	// 2. 現在のステージの文字列変換
+	// 3. 下部：ゲームリストの大枠
 	// ========================================================
-	std::string stageStr = "";
-	switch (gameInfo_.stage_)
+	int mainBoxX1 = 70;
+	int mainBoxY1 = tabStartY + tabHeight;
+	int mainBoxX2 = mainBoxX1 + (tabWidth * 4) + 140;
+	int mainBoxY2 = mainBoxY1 + 340;
+
+	// 背景白、枠線紺色
+	DrawBox(mainBoxX1, mainBoxY1, mainBoxX2, mainBoxY2, colorWhite, TRUE);
+	DrawBox(mainBoxX1, mainBoxY1, mainBoxX2, mainBoxY2, colorLineBlue, FALSE);
+
+	// ========================================================
+	// 4. 横並びの大きな3つのゲーム枠を描画
+	// ========================================================
+	// 中央の大きな枠の座標
+	int centerWidth = 340;
+	int centerHeight = 260;
+	int centerX1 = (mainBoxX1 + mainBoxX2) / 2 - (centerWidth / 2);
+	int centerY1 = mainBoxY1 + 40;
+	int centerX2 = centerX1 + centerWidth;
+	int centerY2 = centerY1 + centerHeight;
+
+	// 左側の枠の座標
+	int sideWidth = 180;
+	int sideHeight = 260;
+	int leftX1 = mainBoxX1 + 30;
+	int leftY1 = centerY1;
+	int leftX2 = leftX1 + sideWidth;
+	int leftY2 = leftY1 + sideHeight;
+
+	// 右側の枠の座標
+	int rightX2 = mainBoxX2 - 30;
+	int rightY1 = centerY1;
+	int rightX1 = rightX2 - sideWidth;
+	int rightY2 = rightY1 + sideHeight;
+
+	// 各枠を描画
+	DrawBox(leftX1, leftY1, leftX2, leftY2, colorLineBlue, FALSE);
+	DrawBox(centerX1, centerY1, centerX2, centerY2, colorLineBlue, FALSE);
+	DrawBox(rightX1, rightY1, rightX2, rightY2, colorLineBlue, FALSE);
+
+	// ゲーム選択中なら中央の枠を黄色（または赤）で強調
+	if (state_ == SELECT_STATE::SELECT_GAME)
 	{
-	case STAGE_NUM::STAGE1: stageStr = "STAGE 1"; break;
-	case STAGE_NUM::STAGE2: stageStr = "STAGE 2"; break;
-	case STAGE_NUM::STAGE3: stageStr = "STAGE 3"; break;
-	default:                stageStr = "UNKNOWN"; break;
+		DrawBox(centerX1 - 3, centerY1 - 3, centerX2 + 3, centerY2 + 3, colorSelectEdge, FALSE);
 	}
 
-	int totalGamesInGroup = currentGroup_ ? static_cast<int>(currentGroup_->size()) : 0;
-
 	// ========================================================
-	// 3. 画面へのデバッグ描画（状態に合わせて色が変わる）
+	// 5. 枠の中にゲーム名を表示するロジック
 	// ========================================================
-	unsigned int textColor = 0xFFFFFF;  // 白色 (通常)
-	unsigned int activeColor = 0x00FF00;  // 緑色 (現在操作中)
-	unsigned int alertColor = 0xFF0000;  // 赤色 (エラー・空)
+	int totalGames = currentGroup_ ? static_cast<int>(currentGroup_->size()) : 0;
 
-	unsigned int pNumColor = (state_ == SELECT_STATE::SELECT_PLAYER_NUM) ? activeColor : textColor;
-	unsigned int gameColor = (state_ == SELECT_STATE::SELECT_GAME) ? activeColor : textColor;
-	unsigned int stageColor = (state_ == SELECT_STATE::SELECT_STAGE) ? activeColor : textColor;
-
-	DrawString(50, 50, "--- GAME SELECT DEBUG ---", textColor);
-
-	// 人数情報
-	std::string infoPlayer = "1. [Player Num] : " + playNumStr;
-	DrawString(50, 100, infoPlayer.c_str(), pNumColor);
-
-	// ゲーム情報
-	std::string infoGame = "2. [Selected Game] : " + gameInfo_.GetGameName();
-	unsigned int actualGameColor = (gameInfo_.game_ == GAME_KIND::NONE) ? alertColor : gameColor;
-	DrawString(50, 140, infoGame.c_str(), actualGameColor);
-
-	// ステージ情報
-	std::string infoStage = "3. [Selected Stage] : " + stageStr;
-	// ゲームが確定していない、または人数選択中はステージ情報を少し暗く見せる処理をしても良いです
-	DrawString(50, 180, infoStage.c_str(), stageColor);
-
-	// 4. グループ内リストの簡易表示
-	DrawString(50, 240, "=== Current Group List ===", textColor);
-	if (totalGamesInGroup == 0)
+	if (totalGames > 0)
 	{
-		DrawString(70, 270, "( Empty )", 0x888888);
+		// ① 中央（現在選択中：cursorIndex_）
+		GameInfo centerInfo;
+		centerInfo.game_ = (*currentGroup_)[cursorIndex_];
+		DrawString(centerX1 + 40, centerY1 + (centerHeight / 2) - 10, centerInfo.GetGameName().c_str(), colorBlack);
+
+		// ② 左側（1つ前のゲーム：cursorIndex_ - 1 があれば表示）
+		if (cursorIndex_ > 0)
+		{
+			GameInfo leftInfo;
+			leftInfo.game_ = (*currentGroup_)[cursorIndex_ - 1];
+			DrawString(leftX1 + 20, leftY1 + (sideHeight / 2) - 10, leftInfo.GetGameName().c_str(), colorBlack);
+		}
+
+		// ③ 右側（1つ次のゲーム：cursorIndex_ + 1 があれば表示）
+		if (cursorIndex_ + 1 < totalGames)
+		{
+			GameInfo rightInfo;
+			rightInfo.game_ = (*currentGroup_)[cursorIndex_ + 1];
+			DrawString(rightX1 + 20, rightY1 + (sideHeight / 2) - 10, rightInfo.GetGameName().c_str(), colorBlack);
+		}
 	}
 	else
 	{
-		for (int i = 0; i < totalGamesInGroup; ++i)
-		{
-			// ゲーム選択中のみカーソル矢印を表示
-			std::string prefix = (i == cursorIndex_ && state_ == SELECT_STATE::SELECT_GAME) ? "-> " : "   ";
+		DrawString(centerX1 + 120, centerY1 + (centerHeight / 2) - 10, "No Game", colorBlack);
+	}
 
-			GameInfo tempInfo;
-			tempInfo.game_ = (*currentGroup_)[i];
-			std::string listItem = prefix + "Slot " + std::to_string(i) + " : " + tempInfo.GetGameName();
+	// ========================================================
+	// 6. ステージ選択中の表示
+	// ========================================================
+	if (state_ == SELECT_STATE::SELECT_STAGE)
+	{
+		std::string stageStr = "STAGE 1";
+		if (gameInfo_.stage_ == STAGE_NUM::STAGE2) stageStr = "STAGE 2";
+		if (gameInfo_.stage_ == STAGE_NUM::STAGE3) stageStr = "STAGE 3";
 
-			unsigned int color = (i == cursorIndex_ && state_ == SELECT_STATE::SELECT_GAME) ? activeColor : textColor;
-			DrawString(70, 270 + (i * 25), listItem.c_str(), color);
-		}
+		// 中央の枠の下あたりにステージ名を表示
+		DrawBox(centerX1 + 50, centerY2 - 50, centerX2 - 50, centerY2 - 10, colorBlack, TRUE);
+		DrawBox(centerX1 + 50, centerY2 - 50, centerX2 - 50, centerY2 - 10, colorSelectEdge, FALSE);
+		DrawString(centerX1 + 90, centerY2 - 35, stageStr.c_str(), GetColor(255,255,255));
 	}
 }
 
@@ -300,6 +380,51 @@ void GameSelectScene::UpdateStageSelect(void)
 		if (gameInfo_.stage_ < static_cast<STAGE_NUM>(static_cast<int>(STAGE_NUM::MAX) - 1))
 		{
 			gameInfo_.stage_ = static_cast<STAGE_NUM>(static_cast<int>(gameInfo_.stage_) + 1);
+		}
+	}
+}
+
+void GameSelectScene::UpdatePlayerNumLeftRight(void)
+{
+	bool isChangedPlayNum = false;
+	int currentNum = static_cast<int>(gameInfo_.playNum_);
+
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::LEFT).down)
+	{
+		if (currentNum > static_cast<int>(PLAY_NUM::ONE_PLAYER))
+		{
+			gameInfo_.playNum_ = static_cast<PLAY_NUM>(currentNum - 1);
+			isChangedPlayNum = true;
+		}
+	}
+
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::RIGHT).down)
+	{
+		if (currentNum < static_cast<int>(PLAY_NUM::FOUR_PLAYER))
+		{
+			gameInfo_.playNum_ = static_cast<PLAY_NUM>(currentNum + 1);
+			isChangedPlayNum = true;
+		}
+	}
+
+	if (isChangedPlayNum)
+	{
+		cursorIndex_ = 0;
+		switch (gameInfo_.playNum_)
+		{
+		case PLAY_NUM::ONE_PLAYER:   currentGroup_ = &onePlayerGames_;   break;
+		case PLAY_NUM::TWO_PLAYER:   currentGroup_ = &twoPlayerGames_;   break;
+		case PLAY_NUM::ONE_VS_THERR: currentGroup_ = &oneVsThreeGames_; break;
+		case PLAY_NUM::TWO_VS_TWO:   currentGroup_ = &twoVsTwoGames_;   break; // ここは構造に合わせて調整してください
+		case PLAY_NUM::FOUR_PLAYER:  currentGroup_ = &fourPlayerGames_;  break;
+		default:                     currentGroup_ = nullptr;            break;
+		}
+
+		if (currentGroup_ != nullptr && !currentGroup_->empty()) {
+			gameInfo_.game_ = (*currentGroup_)[cursorIndex_];
+		}
+		else {
+			gameInfo_.game_ = GAME_KIND::NONE;
 		}
 	}
 }

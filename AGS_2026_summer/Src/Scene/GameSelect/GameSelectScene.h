@@ -34,6 +34,7 @@ private:
     void UpdateGameGroups(void);
     void UpdateCursorIndex(void);
     void UpdateStageSelect(void);
+    void UpdatePlayerNumLeftRight(void);
 #pragma endregion
 
 #pragma region •Ï”
