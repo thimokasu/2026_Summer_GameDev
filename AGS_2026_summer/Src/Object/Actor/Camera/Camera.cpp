@@ -247,11 +247,11 @@ void Camera::SetBeforeDrawFixedPoint(void)
 void Camera::SetBeforeDrawFree(void)
 {
 
-	// カメラ操作(回転)
-	//ProcessRot(false);
+	 //カメラ操作(回転)
+	ProcessRot(false);
 
-	//// カメラ操作(移動)
-	//ProcessMove();
+	// カメラ操作(移動)
+	ProcessMove();
 
 	// Y軸
 	rotY_ = Quaternion::AngleAxis(angles_.y, AsoUtility::AXIS_Y);

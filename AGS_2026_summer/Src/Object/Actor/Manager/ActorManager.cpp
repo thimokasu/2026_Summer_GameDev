@@ -27,7 +27,7 @@ void ActorManager::Load(GameInfo info)
 	{
 		actors_.push_back(std::move(actor));
 	}
-	actors_.push_back(std::make_unique<FindingJRunner>(*this));
+	//actors_.push_back(std::make_unique<FindingJRunner>(*this));
 
 	for(auto&a:actors_)
 	{
@@ -160,6 +160,14 @@ void ActorManager::SetFactory(GameInfo info)
 
 void ActorManager::OnePlayerGameFactory(GameInfo info)
 {
+	switch (info.game_)
+	{
+	case GAME_KIND::TEST:
+		actorFactory_ = std::make_unique<TestFactory>();
+		break;
+	default:
+		break;
+	}
 }
 
 void ActorManager::TwoPlayerGameFactory(GameInfo info)

@@ -5,6 +5,8 @@ enum class GAME_KIND
 {
 	NONE = -1,
 
+	TEST,
+
 	// 1êlóp
 	ONE_PLAYER = 10,
 	ATHLETIC,
@@ -58,6 +60,9 @@ inline std::string GameInfo::GetGameName(void) const
 	{
 	case GAME_KIND::NONE:
 		return "None";
+	case GAME_KIND::TEST:
+		return "Test";
+
 	case GAME_KIND::ONE_PLAYER:
 		return "One Player";
 

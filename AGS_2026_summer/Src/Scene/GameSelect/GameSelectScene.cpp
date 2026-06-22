@@ -110,7 +110,7 @@ void GameSelectScene::SubDraw(void)
 	int tabStartX = 140;
 	int tabStartY = 40;
 
-	const char* tabLabels[] = { "1人", "２人", "３人", "４人" };
+	const char* tabLabels[] = { "1人", "２人","２VS２", "1VS3","4人"};
 
 	int currentPlayNumIdx = 0;
 	switch (gameInfo_.playNum_)
@@ -282,7 +282,7 @@ void GameSelectScene::SetGameStageNum(void)
 void GameSelectScene::InitGameGroups(void)
 {
 	// テスト用のダミー割り当て (1人用、2人用にもテストデータを置いて確認できるようにします)
-	onePlayerGames_ = {};
+	onePlayerGames_ = {GAME_KIND::TEST};
 	twoPlayerGames_ = {};
 	oneVsThreeGames_ = {};
 	twoVsTwoGames_ = {};

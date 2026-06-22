@@ -3,4 +3,6 @@
 #include"TwoPlayer/ThumbWrestling.h"
 
 
+#include"OnePlayer/TestGame.h"
+
 #include"FourPlayer/FindingJ.h"
