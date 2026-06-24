@@ -3,7 +3,6 @@
 #include"../../Collider/ColliderInfo.h"
 #include"../../Collider/ColliderBase.h"
 #include"../../Collider/ColliderBox.h"
-
 TestBox::TestBox(void)
 {
 }
@@ -12,6 +11,7 @@ TestBox::TestBox(VECTOR pos)
 {
 	trans_.pos = pos;
 	rigidBody_.SetBodyType(RigidBody::BodyType::STATIC);
+
 }
 
 TestBox::~TestBox(void)

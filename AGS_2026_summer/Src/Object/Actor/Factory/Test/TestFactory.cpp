@@ -16,8 +16,10 @@ std::vector<std::unique_ptr<ActorBase>> TestFactory::CreateActors(void)
     std::vector<std::unique_ptr<ActorBase>> actors;
 
     actors.push_back(std::make_unique<TestPlayer>());
-    actors.push_back(std::make_unique<TestFloor>());
-    actors.push_back(std::make_unique<TestBox>(VGet(0.0f,40.0f,0.0f)));
+    actors.push_back(std::make_unique<TestFloor>(VGet(0,0,0),VGet(-0.5f, 0.0f, 0.0f)));
+    actors.push_back(std::make_unique<TestFloor>(VGet(0,-50,-50),VGet(0,0,0)));
+    actors.push_back(std::make_unique<TestFloor>(VGet(0, 0, -200), VGet(0.5f, 0.0f, 0.0f)));
+   // actors.push_back(std::make_unique<TestBox>(VGet(0.0f,40.0f,0.0f)));
    
  return actors;
 }

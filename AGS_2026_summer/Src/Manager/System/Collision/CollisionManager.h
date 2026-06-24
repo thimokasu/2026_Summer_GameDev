@@ -5,6 +5,8 @@
 #include<functional>
 #include<map>
 #include"CollisionResult.h"
+#include"../../../Object/Common/RigidBody.h"
+#include"../../../Object/Common/Transform.h"
 
 class ActorBase;
 class ColliderBase;
@@ -77,6 +79,11 @@ private:
 		CollisionPairs& currentPairs, CollisionPairs& prevPairs,
 		CollisionPairs& beginPairs, CollisionPairs& endPairs
 	);
+
+	void ApplyBodyTorque(RigidBody& rb, Transform& trans, const VECTOR& r, const VECTOR& collisionForce, const VECTOR& normal, float sign);
+	void CancelLinearVelocity(RigidBody& rb, const VECTOR& normal, float sign);
+	void ApplyCollisionForces(CollisionResolve resolve, float totalInvMass);
+	void PositionIntegration(CollisionResolve resolve, float totalInvMass);
 #pragma endregion
 
 #pragma region ïœêî

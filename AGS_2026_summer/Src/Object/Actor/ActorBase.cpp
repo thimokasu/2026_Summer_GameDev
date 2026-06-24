@@ -17,6 +17,7 @@ void ActorBase::Load(void)
 
 void ActorBase::Init(void)
 {
+	rigidBody_.SetCentroid(trans_.pos);
 	SubInit();
 	InitCollider();
 }
@@ -44,4 +45,20 @@ void ActorBase::Release(void)
 void ActorBase::Move(void)
 {
 	trans_.pos = VAdd(trans_.pos, rigidBody_.GetVelocity());
+	
+	VECTOR angVel = rigidBody_.GetAngularVelocity();
+
+	float angle = VSize(angVel);
+
+	if (angle > 0.001f)
+	{
+		VECTOR axis = VScale(angVel, 1.0f / angle);
+
+		Quaternion rot = Quaternion::AngleAxis(angle, axis);
+
+		trans_.quaRot = rot.Mult(trans_.quaRot);
+
+		trans_.quaRot.Normalize();
+	}
+
 }

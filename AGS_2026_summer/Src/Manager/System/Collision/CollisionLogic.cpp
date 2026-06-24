@@ -103,6 +103,7 @@ CollisionResult CollisionLogic::DispatchCollision(CollisionPairType pairType, co
 }
 
 // 1. 球 × 球
+// 1. 球 × 球
 CollisionResult CollisionLogic::SphereToSphere(ColliderBase* a, ColliderBase* b)
 {
 	CollisionResult result;
@@ -124,15 +125,21 @@ CollisionResult CollisionLogic::SphereToSphere(ColliderBase* a, ColliderBase* b)
 	if (distSq < 0.0001f) {
 		result.normal = VGet(0.0f, 1.0f, 0.0f);
 		result.penetration = radiusSum;
+		// 重なっている場合は、とりあえずAの中心点
+		result.contactPoint = posA;
 	}
 	else {
 		float dist = sqrtf(distSq);
 		result.normal = VScale(diff, 1.0f / dist);
 		result.penetration = radiusSum - dist;
+
+		// ★追加：球Aの表面と球Bの表面のめり込んでいる中間地点を接触点とする
+		VECTOR pointA = VSub(posA, VScale(result.normal, sphereA->GetRadius()));
+		VECTOR pointB = VAdd(posB, VScale(result.normal, sphereB->GetRadius()));
+		result.contactPoint = VScale(VAdd(pointA, pointB), 0.5f); // 中点
 	}
 	return result;
 }
-
 // 2. 球 × カプセル
 CollisionResult CollisionLogic::SphereToCapsule(ColliderBase* a, ColliderBase* b)
 {
@@ -170,11 +177,18 @@ CollisionResult CollisionLogic::SphereToCapsule(ColliderBase* a, ColliderBase* b
 	if (distSq < 0.0001f) {
 		finalNormal = VGet(0.0f, 1.0f, 0.0f);
 		result.penetration = radiusSum;
+		// 完全に重なっている場合は、球の中心を暫定の接触点とする
+		result.contactPoint = sPos;
 	}
 	else {
 		float dist = sqrtf(distSq);
 		finalNormal = VScale(diff, 1.0f / dist);
 		result.penetration = radiusSum - dist;
+
+		// ★追加：球の表面とカプセルの表面がめり込んでいる中間地点を接触点とする
+		VECTOR pointOnSphere = VSub(sPos, VScale(finalNormal, sphere->GetRadius()));
+		VECTOR pointOnCapsule = VAdd(nearestP, VScale(finalNormal, capsule->GetRadius()));
+		result.contactPoint = VScale(VAdd(pointOnSphere, pointOnCapsule), 0.5f);
 	}
 
 	result.normal = swapped ? VScale(finalNormal, -1.0f) : finalNormal;
@@ -212,16 +226,19 @@ CollisionResult CollisionLogic::SphereToBox(ColliderBase* a, ColliderBase* b)
 	if (distSq > sRadius * sRadius) return result;
 
 	result.isHit = true;
-	VECTOR finalNormal;
+	VECTOR worldPointOnBox = box->Local2World(closestLocalP);
+	VECTOR finalNormal; // ★ここでローカル変数として正しく定義
+
 	if (distSq < 0.0001f) {
 		finalNormal = box->GetAxisY();
 		result.penetration = sRadius;
+		result.contactPoint = sWorldPos; // 重なっている場合は球の中心
 	}
 	else {
 		float dist = sqrtf(distSq);
-		VECTOR worldPointOnBox = box->Local2World(closestLocalP);
 		finalNormal = VScale(VSub(sWorldPos, worldPointOnBox), 1.0f / dist);
 		result.penetration = sRadius - dist;
+		result.contactPoint = worldPointOnBox; // ボックス上の最接近点を接触点とする
 	}
 
 	result.normal = swapped ? VScale(finalNormal, -1.0f) : finalNormal;
@@ -291,16 +308,22 @@ CollisionResult CollisionLogic::CapsuleToCapsule(ColliderBase* a, ColliderBase* 
 	if (distSq < 0.0001f) {
 		result.normal = VGet(0.0f, 1.0f, 0.0f);
 		result.penetration = radiusSum;
+		// 完全に重なっている場合は、カプセルAの最接近点
+		result.contactPoint = closestP1;
 	}
 	else {
 		float dist = sqrtf(distSq);
 		result.normal = VScale(diff, 1.0f / dist);
 		result.penetration = radiusSum - dist;
+
+		// ★追加：カプセルAの表面とカプセルBの表面のめり込みの中点を接触点とする
+		VECTOR pointA = VSub(closestP1, VScale(result.normal, r1));
+		VECTOR pointB = VAdd(closestP2, VScale(result.normal, r2));
+		result.contactPoint = VScale(VAdd(pointA, pointB), 0.5f);
 	}
 
 	return result;
 }
-
 // 5. カプセル × ボックス
 CollisionResult CollisionLogic::CapsuleToBox(ColliderBase* a, ColliderBase* b)
 {
@@ -360,21 +383,26 @@ CollisionResult CollisionLogic::CapsuleToBox(ColliderBase* a, ColliderBase* b)
 
 	result.isHit = true;
 	VECTOR finalNormal;
+	VECTOR worldPointOnBox = box->Local2World(bestClosestLocalP); // スコープ外に定義
 
 	if (maxPenetration > capRadius - 0.0001f)
 	{
 		finalNormal = box->GetAxisY();
 		result.penetration = capRadius;
+		// 深くめり込んでいる場合は、判定に使用したカプセルのセグメント点
+		result.contactPoint = box->Local2World(bestLocalPos);
 	}
 	else
 	{
 		VECTOR worldPointOnCapsule = box->Local2World(bestLocalPos);
-		VECTOR worldPointOnBox = box->Local2World(bestClosestLocalP);
 		VECTOR worldDiff = VSub(worldPointOnCapsule, worldPointOnBox);
 
 		float dist = capRadius - maxPenetration;
 		finalNormal = VScale(worldDiff, 1.0f / dist);
 		result.penetration = maxPenetration;
+
+		// ★追加：ボックス上で最もカプセルに近い点を接触点とする
+		result.contactPoint = worldPointOnBox;
 	}
 
 	result.normal = swapped ? VScale(finalNormal, -1.0f) : finalNormal;
@@ -444,9 +472,38 @@ CollisionResult CollisionLogic::BoxToBox(ColliderBase* a, ColliderBase* b)
 	result.penetration = minOverlap;
 	result.normal = bestAxis;
 
+	// 1. お互いの重心の真ん中をベースにした基本の衝突点を計算
+	VECTOR pointA = VSub(posA, VScale(result.normal, minOverlap * 0.5f));
+	VECTOR pointB = VAdd(posB, VScale(result.normal, minOverlap * 0.5f));
+	VECTOR baseContact = VScale(VAdd(pointA, pointB), 0.5f);
+
+	// 2. 平行判定 (ボックスAのローカル上軸などと、衝突法線が一致しているか)
+	// ※axisA[1] が真上を向いていると仮定。環境に合わせて axisA[0]?[2] の中で床と対向する軸にしてください
+	float cosAngle = fabsf(VDot(axisA[1], result.normal));
+	bool isParallel = (cosAngle > 0.98f); // ほぼ平行（0度・90度単位）
+
+	if (isParallel)
+	{
+		// ★【ここがポイント】
+		// 平行にベタッと当たっているなら、「一番若い端っこの角」を採用するのではなく、
+		// 接触面の上で、ボックスAの重心（posA）の真下に最も近い位置へ、接触点を強制的に引き寄せます。
+
+		// 重心からベースの衝突点へのベクトル
+		VECTOR toContact = VSub(baseContact, posA);
+
+		// 衝突法線（垂直成分）の距離だけを抜き出す
+		float verticalDist = VDot(toContact, result.normal);
+
+		// 接触点を「重心から法線方向に真っ直ぐ下ろした位置（横ズレ0の地点）」に上書きする！
+		result.contactPoint = VAdd(posA, VScale(result.normal, verticalDist));
+	}
+	else
+	{
+		// 傾いている（角から刺さった）ときは、従来通り実在する交点（中央値）にする
+		result.contactPoint = baseContact;
+	}
 	return result;
 }
-
 // 7. 各種モデル衝突（現在は未実装、空の構造体を返す）
 CollisionResult CollisionLogic::SphereToModel(ColliderBase* a, ColliderBase* b) { return CollisionResult(); }
 CollisionResult CollisionLogic::CapsuleToModel(ColliderBase* a, ColliderBase* b) { return CollisionResult(); }

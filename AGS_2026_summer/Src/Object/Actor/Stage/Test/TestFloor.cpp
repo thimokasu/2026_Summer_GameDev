@@ -11,6 +11,13 @@ TestFloor::TestFloor(void)
 
 TestFloor::TestFloor(VECTOR pos)
 {
+	trans_.pos = pos;
+}
+
+TestFloor::TestFloor(VECTOR pos, VECTOR deg)
+{
+	trans_.pos = pos;
+	trans_.quaRot = Quaternion::Euler(deg);
 }
 
 TestFloor::~TestFloor(void)

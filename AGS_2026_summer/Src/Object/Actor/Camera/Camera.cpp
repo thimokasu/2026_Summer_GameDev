@@ -207,6 +207,8 @@ void Camera::ProcessMove(void)
 		if (ins.GetInfo(KEY::KEY_TYPE::CAMERA_MOVE_BACK).now) { moveDir = AsoUtility::DIR_B; }
 		if (ins.GetInfo(KEY::KEY_TYPE::CAMERA_MOVE_RIGHT).now) { moveDir = AsoUtility::DIR_R; }
 		if (ins.GetInfo(KEY::KEY_TYPE::CAMERA_MOVE_LEFT).now) { moveDir = AsoUtility::DIR_L; }
+		if (ins.GetInfo(KEY::KEY_TYPE::CAMERA_MOVE_UP).now) { moveDir = AsoUtility::DIR_U; }
+		if (ins.GetInfo(KEY::KEY_TYPE::CAMERA_MOVE_DOWN).now) {moveDir = AsoUtility::DIR_D;	}
 	}
 	//else
 	//{

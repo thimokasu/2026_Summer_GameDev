@@ -7,6 +7,7 @@ public:
 
     TestFloor(void);
     TestFloor(VECTOR pos);
+    TestFloor(VECTOR pos, VECTOR deg);
     ~TestFloor(void);
 
 
