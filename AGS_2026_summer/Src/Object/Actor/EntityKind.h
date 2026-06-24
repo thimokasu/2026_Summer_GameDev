@@ -12,5 +12,10 @@ enum class EntityKind
 	//FindingJ
 	BLOCK,
 	REACTION_BLOCK,
-	FINDINGJ_CPU
+	FINDINGJ_CPU,
+
+	//SwordFight
+	SWORD,
+	CPU
+
 };

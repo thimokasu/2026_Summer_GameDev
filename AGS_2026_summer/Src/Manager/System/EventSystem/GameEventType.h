@@ -12,5 +12,8 @@ enum class GameEventType
 	HAS_CAHGHT,
 	REACTION_BLOCK,
 
+	//SwordFight
+	HIT_REACTION,
+
 	MAX
 };

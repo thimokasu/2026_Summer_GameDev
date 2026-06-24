@@ -108,9 +108,6 @@
     <ClCompile Include="Src\Manager\System\EventSystem\EventManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\Test\TestFactory.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Object\Actor\Charactor\CharactorBase.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -120,18 +117,6 @@
     <ClCompile Include="Src\Object\Actor\Stage\FindingJ\Block.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage1Factory.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage2Factory.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage3Factory.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJPlayer.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Scene\GameOverScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -139,12 +124,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Src\Scene\PeopleSelectScene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJCPU\FindingJChaser.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJCPU\FindingJRunner.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Src\Object\UI\FindingJ\GameMessageUI.cpp">
@@ -181,6 +160,36 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Src\Object\Actor\Charactor\Player\ButtonMashing\ButtonMashingPlayer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Actor\Charactor\FindingJ\FindingJCPU\FindingJChaser.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Actor\Charactor\FindingJ\FindingJCPU\FindingJRunner.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Actor\Charactor\FindingJ\FindingJPlayer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Scene\GameResultScene.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Actor\Factory\Test\TestFactory.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Actor\Factory\FindingJ\Stage1Factory.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Actor\Factory\FindingJ\Stage2Factory.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Actor\Factory\FindingJ\Stage3Factory.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Scene\GameScene\Game\TwoPlayer\SwordFight.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Actor\Charactor\SwordFight\SwordFightPlayer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -287,9 +296,6 @@
     <ClInclude Include="Src\Object\Actor\Manager\ActorManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\ActorFactoryBase.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Manager\System\Collision\CollisionManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -311,9 +317,6 @@
     <ClInclude Include="Src\Manager\System\EventSystem\EventManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\Test\TestFactory.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Object\Actor\Charactor\CharactorBase.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -326,18 +329,6 @@
     <ClInclude Include="Src\Object\Actor\Stage\FindingJ\StageLayout.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage1Factory.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage2Factory.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Factory\ActorFactory\FindingJ\Stage3Factory.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJPlayer.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Scene\GameOverScene.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -345,12 +336,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Src\Scene\PeopleSelectScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJCPU\FindingJChaser.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Charactor\Player\FindingJ\FindingJCPU\FindingJRunner.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Src\Object\UI\FindingJ\GameMessageUI.h">
@@ -402,6 +387,42 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Src\Scene\GameScene\Game\FourPlayer\ButtonMashing\ButtonKind.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Actor\Charactor\FindingJ\FindingJCPU\FindingJChaser.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Actor\Charactor\FindingJ\FindingJCPU\FindingJRunner.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Actor\Charactor\FindingJ\FindingJPlayer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Scene\GameResultScene.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Manager\Game\SceneId.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Actor\Factory\ActorFactoryBase.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Actor\Factory\Test\TestFactory.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Actor\Factory\FindingJ\Stage1Factory.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Actor\Factory\FindingJ\Stage2Factory.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Actor\Factory\FindingJ\Stage3Factory.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Scene\GameScene\Game\TwoPlayer\SwordFight.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordFightPlayer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

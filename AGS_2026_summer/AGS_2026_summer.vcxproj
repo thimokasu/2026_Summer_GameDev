@@ -196,6 +196,8 @@
     <ClCompile Include="Src\Object\Actor\Factory\FindingJ\Stage3Factory.cpp" />
     <ClCompile Include="Src\Object\UI\UIBase.cpp" />
     <ClCompile Include="Src\Scene\GameScene\Game\TwoPlayer\ThumbWrestling.cpp" />
+    <ClCompile Include="Src\Scene\GameScene\Game\TwoPlayer\SwordFight.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\SwordFight\SwordFightPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Object\Actor\Charactor\Player\ButtonMashing\ButtonMashingPlayer.h" />
@@ -269,6 +271,8 @@
     <ClInclude Include="Src\Object\Actor\Factory\FindingJ\Stage3Factory.h" />
     <ClInclude Include="Src\Object\UI\UIBase.h" />
     <ClInclude Include="Src\Scene\GameScene\Game\TwoPlayer\ThumbWrestling.h" />
+    <ClInclude Include="Src\Scene\GameScene\Game\TwoPlayer\SwordFight.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordFightPlayer.h" />
     <Structure Include="Src\Manager\Game\SceneManager.h" />
     <ClInclude Include="Src\Manager\Game\SceneManager.h" />
     <ClInclude Include="Src\Application.h" />

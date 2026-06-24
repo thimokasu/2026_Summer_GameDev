@@ -164,6 +164,27 @@ void ActorManager::OnePlayerGameFactory(GameInfo info)
 
 void ActorManager::TwoPlayerGameFactory(GameInfo info)
 {
+	switch (info.game_)
+	{
+	case GAME_KIND::SWORD_FIGHT:
+		switch (info.stage_)
+		{
+		case STAGE_NUM::STAGE1:
+			actorFactory_ = std::make_unique<Stage1Factory>();
+			break;
+		case STAGE_NUM::STAGE2:
+			actorFactory_ = std::make_unique<Stage2Factory>();
+			break;
+		case STAGE_NUM::STAGE3:
+			actorFactory_ = std::make_unique<Stage3Factory>();
+			break;
+		default:
+			break;
+		}
+		break;
+	default:
+		break;
+	}
 }
 
 void ActorManager::ThreePlayerGameFactory(GameInfo info)
