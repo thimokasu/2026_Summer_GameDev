@@ -409,7 +409,6 @@ CollisionResult CollisionLogic::CapsuleToBox(ColliderBase* a, ColliderBase* b)
 	return result;
 }
 
-// 6. ボックス × ボックス
 CollisionResult CollisionLogic::BoxToBox(ColliderBase* a, ColliderBase* b)
 {
 	CollisionResult result;
@@ -417,91 +416,84 @@ CollisionResult CollisionLogic::BoxToBox(ColliderBase* a, ColliderBase* b)
 	auto boxB = dynamic_cast<ColliderBox*>(b);
 	if (!boxA || !boxB) return result;
 
-	VECTOR posA = boxA->GetOwnerTransform().pos;
-	VECTOR posB = boxB->GetOwnerTransform().pos;
-	VECTOR axisA[3] = { boxA->GetAxisX(), boxA->GetAxisY(), boxA->GetAxisZ() };
-	VECTOR axisB[3] = { boxB->GetAxisX(), boxB->GetAxisY(), boxB->GetAxisZ() };
-	VECTOR hA = boxA->GetHalfSize();
-	VECTOR hB = boxB->GetHalfSize();
+	// --- 各種パラメータ取得 ---
+	VECTOR centerA = boxA->GetRotPos(boxA->GetColliderInfo().localPos_);
+	VECTOR sizeA = boxA->GetHalfSize();
+	VECTOR axesA[3] = { boxA->GetAxisX(), boxA->GetAxisY(), boxA->GetAxisZ() };
 
-	VECTOR L = VSub(posA, posB);
+	VECTOR centerB = boxB->GetRotPos(boxB->GetColliderInfo().localPos_);
+	VECTOR sizeB = boxB->GetHalfSize();
+	VECTOR axesB[3] = { boxB->GetAxisX(), boxB->GetAxisY(), boxB->GetAxisZ() };
 
-	float minOverlap = 1e10f;
-	VECTOR bestAxis = VGet(0.0f, 0.0f, 0.0f);
+	VECTOR T = VSub(centerB, centerA);
 
+	// --- SAT: 分離軸判定 ---
 	VECTOR testAxes[15];
-	for (int i = 0; i < 3; ++i) testAxes[i] = axisA[i];
-	for (int i = 0; i < 3; ++i) testAxes[i + 3] = axisB[i];
-
-	int axisIdx = 6;
+	for (int i = 0; i < 3; ++i) { testAxes[i] = axesA[i]; testAxes[i + 3] = axesB[i]; }
 	for (int i = 0; i < 3; ++i) {
 		for (int j = 0; j < 3; ++j) {
-			testAxes[axisIdx++] = VCross(axisA[i], axisB[j]);
+			testAxes[6 + i * 3 + j] = VCross(axesA[i], axesB[j]);
 		}
 	}
+
+	float minPenetration = FLT_MAX;
+	VECTOR minAxis = VGet(0, 0, 0);
 
 	for (int i = 0; i < 15; ++i) {
 		VECTOR axis = testAxes[i];
-		float axisLenSq = VDot(axis, axis);
-		if (axisLenSq < 0.0001f) continue;
+		if (VDot(axis, axis) < 0.00001f) continue;
+		axis = VNorm(axis);
 
-		axis = VScale(axis, 1.0f / sqrtf(axisLenSq));
+		float rA = sizeA.x * fabsf(VDot(axis, axesA[0])) +
+			sizeA.y * fabsf(VDot(axis, axesA[1])) +
+			sizeA.z * fabsf(VDot(axis, axesA[2]));
+		float rB = sizeB.x * fabsf(VDot(axis, axesB[0])) +
+			sizeB.y * fabsf(VDot(axis, axesB[1])) +
+			sizeB.z * fabsf(VDot(axis, axesB[2]));
 
-		float rA = hA.x * fabsf(VDot(axisA[0], axis)) + hA.y * fabsf(VDot(axisA[1], axis)) + hA.z * fabsf(VDot(axisA[2], axis));
-		float rB = hB.x * fabsf(VDot(axisB[0], axis)) + hB.y * fabsf(VDot(axisB[1], axis)) + hB.z * fabsf(VDot(axisB[2], axis));
+		float dist = fabsf(VDot(T, axis));
+		if (dist > rA + rB) return result; // 分離軸発見
 
-		float dist = fabsf(VDot(L, axis));
-		float overlap = (rA + rB) - dist;
-
-		if (overlap <= 0.0f) return result;
-
-		if (i >= 6) overlap *= 0.95f; // 面接触を優先
-
-		if (overlap < minOverlap) {
-			minOverlap = overlap;
-			bestAxis = axis;
+		float penetration = (rA + rB) - dist;
+		if (penetration < minPenetration) {
+			minPenetration = penetration;
+			minAxis = axis;
 		}
 	}
 
-	if (VDot(L, bestAxis) < 0)
-	{
-		bestAxis = VScale(bestAxis, -1.0f);
-	}
-
+	// --- 衝突確定 ---
 	result.isHit = true;
-	result.penetration = minOverlap;
-	result.normal = bestAxis;
+	result.penetration = minPenetration;
+	if (VDot(minAxis, T) < 0) minAxis = VScale(minAxis, -1.0f);
+	minAxis=VScale(minAxis,-1);
+	result.normal = minAxis;
 
-	// 1. お互いの重心の真ん中をベースにした基本の衝突点を計算
-	VECTOR pointA = VSub(posA, VScale(result.normal, minOverlap * 0.5f));
-	VECTOR pointB = VAdd(posB, VScale(result.normal, minOverlap * 0.5f));
-	VECTOR baseContact = VScale(VAdd(pointA, pointB), 0.5f);
+	// --- 高精度な接触点算出（貫通頂点の平均） ---
+	VECTOR contactPoint = VGet(0, 0, 0);
+	int count = 0;
 
-	// 2. 平行判定 (ボックスAのローカル上軸などと、衝突法線が一致しているか)
-	// ※axisA[1] が真上を向いていると仮定。環境に合わせて axisA[0]?[2] の中で床と対向する軸にしてください
-	float cosAngle = fabsf(VDot(axisA[1], result.normal));
-	bool isParallel = (cosAngle > 0.98f); // ほぼ平行（0度・90度単位）
+	auto CalculateContact = [&](ColliderBox* box, VECTOR otherCenter, VECTOR normal) {
+		for (int i = 0; i < 8; ++i) {
+			VECTOR v = box->GetVertexPos(i);
+			// 面の反対側にどれだけ深く入り込んでいるか（簡易判定）
+			float dist = VDot(VSub(v, otherCenter), normal);
+			if (dist > -0.1f) { // 面付近にある頂点を抽出
+				contactPoint = VAdd(contactPoint, v);
+				count++;
+			}
+		}
+		};
 
-	if (isParallel)
-	{
-		// ★【ここがポイント】
-		// 平行にベタッと当たっているなら、「一番若い端っこの角」を採用するのではなく、
-		// 接触面の上で、ボックスAの重心（posA）の真下に最も近い位置へ、接触点を強制的に引き寄せます。
+	CalculateContact(boxA, centerB, minAxis);
+	CalculateContact(boxB, centerA, VScale(minAxis, -1.0f));
 
-		// 重心からベースの衝突点へのベクトル
-		VECTOR toContact = VSub(baseContact, posA);
-
-		// 衝突法線（垂直成分）の距離だけを抜き出す
-		float verticalDist = VDot(toContact, result.normal);
-
-		// 接触点を「重心から法線方向に真っ直ぐ下ろした位置（横ズレ0の地点）」に上書きする！
-		result.contactPoint = VAdd(posA, VScale(result.normal, verticalDist));
+	if (count > 0) {
+		result.contactPoint = VScale(contactPoint, 1.0f / (float)count);
 	}
-	else
-	{
-		// 傾いている（角から刺さった）ときは、従来通り実在する交点（中央値）にする
-		result.contactPoint = baseContact;
+	else {
+		result.contactPoint = VScale(VAdd(centerA, centerB), 0.5f);
 	}
+
 	return result;
 }
 // 7. 各種モデル衝突（現在は未実装、空の構造体を返す）

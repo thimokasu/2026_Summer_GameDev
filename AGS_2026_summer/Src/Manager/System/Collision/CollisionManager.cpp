@@ -36,6 +36,16 @@ void CollisionManager::ClearColliders(void)
 	prevPairs_.clear();
 }
 
+void CollisionManager::DebugDraw(void)
+{
+	for (auto& p : debugContactPoint_)
+	{
+		DrawSphere3D(p, 2, 16, 0xff0000, 0x0000ff, true);
+	}
+	debugContactPoint_.clear();
+}
+
+
 void CollisionManager::DiffPairs(CollisionPairs& currentPairs, CollisionPairs& prevPairs, CollisionPairs& beginPairs, CollisionPairs& endPairs)
 {
 	//ペアの配列をソート
@@ -174,7 +184,7 @@ void CollisionManager::ApplyBodyTorque(RigidBody& rb, Transform& trans, const VE
 	VECTOR torque = VCross(r, VScale(collisionForce, sign));
 
 	// 物理計算が暴走しないためのトルク上限設定（必要に応じて調整してください）
-	float maxTorque = 1;
+	float maxTorque = 2.85;
 	float torqueMag = sqrtf(VDot(torque, torque));
 
 	if (torqueMag > maxTorque)
@@ -214,6 +224,7 @@ void CollisionManager::ApplyCollisionForces(CollisionResolve resolve, float tota
 	float invMassA = rbA.GetInverseMass();
 	float invMassB = rbB.GetInverseMass();
 
+	debugContactPoint_.push_back(resolve.result.contactPoint);
 	VECTOR rA = VSub(resolve.result.contactPoint, transA.pos);
 	VECTOR rB = VSub(resolve.result.contactPoint, transB.pos);
 

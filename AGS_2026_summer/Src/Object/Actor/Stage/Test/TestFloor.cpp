@@ -20,6 +20,13 @@ TestFloor::TestFloor(VECTOR pos, VECTOR deg)
 	trans_.quaRot = Quaternion::Euler(deg);
 }
 
+TestFloor::TestFloor(VECTOR size, VECTOR pos, VECTOR deg)
+{
+	halfSize_ = size;
+	trans_.pos = pos;
+	trans_.quaRot = Quaternion::Euler(deg);
+}
+
 TestFloor::~TestFloor(void)
 {
 }

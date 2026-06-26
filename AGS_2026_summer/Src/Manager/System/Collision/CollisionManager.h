@@ -70,7 +70,7 @@ public:
 		onBegin_ = onBegin;
 		onEnd_ = onEnd;
 	}
-
+	void DebugDraw(void);
 private:
 #pragma region ŠÖ”
 
@@ -87,6 +87,8 @@ private:
 #pragma endregion
 
 #pragma region •Ï”
+	std::vector<VECTOR>debugContactPoint_;
+
 	CollisionPairs prevPairs_;
 
 	ContactCallback onBegin_;

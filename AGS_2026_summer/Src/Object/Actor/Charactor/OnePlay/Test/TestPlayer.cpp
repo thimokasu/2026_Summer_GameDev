@@ -7,7 +7,7 @@
 #include"../../../Collider/ColliderBase.h"
 #include"../../../Collider/ColliderCapsule.h"
 #include"../../../Collider/ColliderBox.h"
-
+#include"../../../Collider/ColliderSphere.h"
 TestPlayer::TestPlayer(void)
 {
 }
@@ -50,31 +50,39 @@ void TestPlayer::SubRelease(void)
 
 void TestPlayer::InitCollider(void)
 {
-	ColliderInfo info;
-	info.shape_ = ColliderShape::CAPSULE;
-	info.layer_ = ColliderLayer::ACTOR;
-	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE });
-	float radius = 10.0f;
-	VECTOR localPosTop = VGet(0.0f, 10.0f, 0.0f);
-	VECTOR localPosDown = VGet(0.0f, -10.0f, 0.0f);
-	std::unique_ptr<ColliderCapsule>collider =
-		std::make_unique<ColliderCapsule>(info, radius, localPosTop, localPosDown, *this);
-	ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
-	
+//	ColliderInfo info;
+//	info.shape_ = ColliderShape::CAPSULE;
+//	info.layer_ = ColliderLayer::ACTOR;
+//	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE });
+//	float radius = 10.0f;
+//	VECTOR localPosTop = VGet(0.0f, 10.0f, 0.0f);
+//	VECTOR localPosDown = VGet(0.0f, -10.0f, 0.0f);
+//	std::unique_ptr<ColliderCapsule>collider =
+//		std::make_unique<ColliderCapsule>(info, radius, localPosTop, localPosDown, *this);
+//	ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
+//	
 
-	//	ColliderInfo info;
-	//info.shape_ = ColliderShape::BOX;
+	//ColliderInfo info;
+	//info.shape_ = ColliderShape::SPHERE;
 	//info.layer_ = ColliderLayer::ACTOR;
-	//info.mask_ = ColliderBase::SetMask({  Layer::ACTOR,Layer::STAGE });
-	//info.localPos_ = { 0.0f,0.0f,0.0f };
-	//info.localRot_ = { 0.0f,0.0f,0.0f };
-	//info.isTrigger_ = false;
-	//info.isActive_ = true;
-	//info.debugColor_ = GetColor(0, 255, 0);
-	//VECTOR halfSize_ = { 20.0f,20.0f,20.0f };
-	//std::unique_ptr<ColliderBase> collider =
-	//	std::make_unique<ColliderBox>(info, halfSize_, *this);
-	//ownColliders_.emplace(static_cast<int>(ColliderShape::BOX), std::move(collider));
+	//info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE });
+	//float radius = 10.0f;
+	//std::unique_ptr<ColliderSphere>collider = std::make_unique<ColliderSphere>(info, radius, *this);
+	//ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
+
+		ColliderInfo info;
+	info.shape_ = ColliderShape::BOX;
+	info.layer_ = ColliderLayer::ACTOR;
+	info.mask_ = ColliderBase::SetMask({  Layer::ACTOR,Layer::STAGE });
+	info.localPos_ = { 0.0f,0.0f,0.0f };
+	info.localRot_ = { 0.0f,0.0f,0.0f };
+	info.isTrigger_ = false;
+	info.isActive_ = true;
+	info.debugColor_ = GetColor(0, 255, 0);
+	VECTOR halfSize_ = {20.0f,20.0f,20.0f };
+	std::unique_ptr<ColliderBase> collider =
+		std::make_unique<ColliderBox>(info, halfSize_, *this);
+	ownColliders_.emplace(static_cast<int>(ColliderShape::BOX), std::move(collider));
 
 }
 void TestPlayer::MoveInput(void)
