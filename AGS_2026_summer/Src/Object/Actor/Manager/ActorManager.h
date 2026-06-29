@@ -48,7 +48,7 @@ private:
 	std::vector<std::shared_ptr<ActorBase>>actors_;
 	std::unordered_map<EntityID, EntityKind>id2Kind_;
 
-	std::unique_ptr<ActorFactoryBase>actorFactory_;
+	std::vector<std::unique_ptr<ActorFactoryBase>> actorFactory_;
 
 
 	int entityId_ = 0;

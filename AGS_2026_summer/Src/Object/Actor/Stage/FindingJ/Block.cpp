@@ -19,6 +19,7 @@ Block::Block(VECTOR pos)
 
 void Block::SubLoad(void)
 {
+	trans_.modelId = MV1LoadModel("Data/Stage/ReactionBlock.mv1");
 }
 
 void Block::SubInit(void)

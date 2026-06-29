@@ -19,20 +19,19 @@ struct GameInfo
 };
 namespace OnePlayer
 {
-	enum class Game { A, B, };
-	namespace A {
-		enum class Stage { Stage1, Stage2, Stage3, }; 
+	enum class Game { FindingJ };
+	namespace FindingJ {
+		enum class Stage { Stage1 };
+		enum class Charactor { Player, CPU };
 	}
-	namespace B {
-		enum class Stage { Stage1, Stage2, Stage3, };
-	}
+	
 }
 
 namespace TwoPlayer
 {
-	enum class Game { A, B, };
-	namespace A {
-		enum class Stage { Stage1, Stage2, Stage3, };
+	enum class Game { SwordFight, B, };
+	namespace SwordFight {
+		enum class Stage { Stage1 };
 	}
 	namespace B {
 		enum class Stage { Stage1, Stage2, Stage3, };

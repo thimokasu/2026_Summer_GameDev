@@ -30,8 +30,8 @@ void ChaserAIComponent::UpdatePlayer()
 void ChaserAIComponent::WanderBehavior()
 {
 	// 現在のタイルインデックスを算出
-	int curW = static_cast<int>(x_ / TileSize);
-	int curD = static_cast<int>(z_ / TileSize);
+	int curW = static_cast<int>(x_ / FJ::TileSize);
+	int curD = static_cast<int>(z_ / FJ::TileSize);
 
 	std::vector<VECTOR> selectablePositions;
 
@@ -41,7 +41,7 @@ void ChaserAIComponent::WanderBehavior()
 			int nextD = curD + dd;
 
 			// 範囲外チェック
-			if (nextW < 0 || nextW >= W || nextD < 0 || nextD >= D) continue;
+			if (nextW < 0 || nextW >= FJ::W || nextD < 0 || nextD >= FJ::D) continue;
 
 			// 高さ1が壁なら通れない
 			if (Stage3::stage[1][nextD][nextW] != StageLayout::None) continue;
@@ -53,7 +53,7 @@ void ChaserAIComponent::WanderBehavior()
 			if (nextW == prevW_ && nextD == prevD_) continue;
 
 			// 条件に合うマスの中心座標をリストに追加していく
-			pos_ = VGet(nextW * TileSize + (TileSize / 2.0f), 0, nextD * TileSize + (TileSize / 2.0f));
+			pos_ = VGet(nextW * FJ::TileSize + (FJ::TileSize / 2.0f), 0, nextD * FJ::TileSize + (FJ::TileSize / 2.0f));
 			//selectablePositions.push_back(moveTilePos);
 		}
 	}

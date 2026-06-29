@@ -21,6 +21,9 @@
 #include"../../Actor/Factory/ActorFactory/FindingJ/Stage1Factory.h"
 #include"../../Actor/Factory/ActorFactory/FindingJ/Stage2Factory.h"
 #include"../../Actor/Factory/ActorFactory/FindingJ/Stage3Factory.h"
+#include "../../Actor/Factory/ActorFactory/SwordFight/Stage.h"
+
+#include "../../Actor/Factory/ActorFactory/FindingJ/Player/Character.h"
 
 #include "../../../Manager/Generic/KeyManager.h"
 
@@ -41,53 +44,16 @@ void ActorManager::Load(void)
 
 void ActorManager::Load(GameInfo info)
 {
-	//ÉvÉåÉCÉÑÅ[
-	auto player = std::make_shared<Capsule>(8.0f, VGet(0.0f, 10.0f, 0.0f), VGet(0.0f, -10.0f, 0.0f));
-	player->SetEntityKind(EntityKind::CHASER);
-	player->GetTransform().pos = VGet(180.0f, 28.0f, 20.0f);
-	auto rb = std::make_shared<RigidBody>();
-	rb->SetBodyType(RigidBody::BodyType::DYNAMIC);
-	rb->SetMoveSpeed(3);
-	rb->SetJumpPower(0);
-	player->AddComponent(rb);
-	player->AddComponent(std::make_shared<PlayerInputComponent>(
-		KEY_INPUT_W, KEY_INPUT_S,
-		KEY_INPUT_A, KEY_INPUT_D,
-		KEY_INPUT_Q, KEY_INPUT_E));
-	player->SetEntityKind(EntityKind::CHASER);
-	player->GetComponent<PlayerInputComponent>().SetJumpKey(KEY_INPUT_SPACE);
-	actors_.push_back(player);
-
-	//CPU(ì¶Ç∞ÇÈë§)
-	auto  runner = std::make_shared<Capsule>(8.0f, VGet(0.0f, 10.0f, 0.0f), VGet(0.0f, -10.0f, 0.0f));
-	runner->SetEntityKind(EntityKind::RUNNER);
-	runner->GetTransform().pos = VGet(180.0f, 28.0f, 182.0f);
-	auto rbRunner = std::make_shared<RigidBody>();
-	rbRunner->SetBodyType(RigidBody::BodyType::DYNAMIC);
-	rbRunner->SetMoveSpeed(5);
-	rbRunner->SetJumpPower(30);
-	runner->AddComponent(rbRunner);
-	runner->AddComponent(std::make_shared<RunnerAIComponent>());
-	actors_.push_back(runner);
-
-	//CPU(ãS)
-	//auto chaser = std::make_shared<Capsule>(8.0f, VGet(0.0f, 10.0f, 0.0f), VGet(0.0f, -10.0f, 0.0f));
-	//chaser->SetEntityKind(EntityKind::CHASER);
-	//chaser->GetTransform().pos = VGet(10.0f, 100.0f, 20.0f);
-	//auto rbChaser = std::make_shared<RigidBody>();
-	//rbChaser->SetBodyType(RigidBody::BodyType::DYNAMIC);
-	//rbChaser->SetMoveSpeed(5);
-	//rbChaser->SetJumpPower(30);
-	//chaser->AddComponent(rbChaser);
-	//chaser->AddComponent(std::make_shared<ChaserAIComponent>());
-	//actors_.push_back(chaser);
-
 	SetFactory(info);
 
-	for (auto& actor : actorFactory_->CreateActors())
+	for (auto& actor : actorFactory_)
 	{
-		actors_.push_back(actor);
+		for (auto& create : actor->CreateActors())
+		{
+			actors_.push_back(create);
+		}
 	}
+	
 }
 
 void ActorManager::Init(void)
@@ -107,9 +73,6 @@ void ActorManager::Update(void)
 	{
 		actor->Update();
 	}
-
-
-
 }
 
 void ActorManager::Draw(void)
@@ -174,9 +137,10 @@ void ActorManager::SetFactory(GameInfo info)
 	case GAMEKMODE::OnePlayer:
 		switch (static_cast<OnePlayer::Game>(info.gameID))
 		{
-		case OnePlayer::Game::A:
+		case OnePlayer::Game::FindingJ:
 			if (info.stageID == 0)
 			{
+				actorFactory_.push_back(std::make_unique<Stage3Factory>());
 			}
 			else if (info.stageID == 1)
 			{
@@ -185,31 +149,17 @@ void ActorManager::SetFactory(GameInfo info)
 			{
 			}
 			break;
-		case OnePlayer::Game::B:
-			if (info.stageID == 0)
-			{
-			}
-			else if (info.stageID == 1)
-			{
-			}
-			else if (info.stageID == 2)
-			{
-			}
-			break;
+
 		}
 		break;
 	case GAMEKMODE::TwoPlayer:
 		switch (static_cast<TwoPlayer::Game>(info.gameID))
 		{
-		case TwoPlayer::Game::A:
-			if (info.stageID == 0)
+		case TwoPlayer::Game::SwordFight:
+			if (info.stageID == (int)TwoPlayer::SwordFight::Stage::Stage1)
 			{
-			}
-			else if (info.stageID == 1)
-			{
-			}
-			else if (info.stageID == 2)
-			{
+				actorFactory_.push_back(std::make_unique<Stage>());
+				break;
 			}
 			break;
 		case TwoPlayer::Game::B:
@@ -258,17 +208,17 @@ void ActorManager::SetFactory(GameInfo info)
 		case FourPlayer::Game::FindingJ:
 			if (info.stageID == 0)
 			{
-				actorFactory_ = std::make_unique<Stage1Factory>();
+				actorFactory_.push_back(std::make_unique<Stage1Factory>());
 				break;
 			}
 			else if (info.stageID == 1)
 			{
-				actorFactory_ = std::make_unique<Stage2Factory>();
+				actorFactory_.push_back(std::make_unique<Stage2Factory>());
 				break;
 			}
 			else if (info.stageID == 2)
 			{
-				actorFactory_ = std::make_unique<Stage3Factory>();
+				actorFactory_.push_back(std::make_unique<Stage3Factory>());
 				break;
 			}
 			break;
@@ -286,5 +236,8 @@ void ActorManager::SetFactory(GameInfo info)
 		}
 		break;
 	}
+
+	actorFactory_.push_back(std::make_unique<Character>(info));
+
 }
 

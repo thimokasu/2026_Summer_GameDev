@@ -24,9 +24,9 @@
 
 GameScene::GameScene(void)
 {
-	gameInfo_.gameMode = GAMEKMODE::FourPlayer;
-	gameInfo_.gameID = static_cast<Game>(FourPlayer::Game::FindingJ);
-	gameInfo_.stageID = static_cast<int>(FourPlayer::FindingJ::Stage::Stage3);
+	gameInfo_.gameMode = GAMEKMODE::TwoPlayer;
+	gameInfo_.gameID = static_cast<Game>(TwoPlayer::Game::SwordFight);
+	gameInfo_.stageID = static_cast<int>(TwoPlayer::SwordFight::Stage::Stage1);
 	SE::GetInstance().Load(SOUND_TYPE::BGM, "Data/BGM/GameBGM.mp3");
 }
 

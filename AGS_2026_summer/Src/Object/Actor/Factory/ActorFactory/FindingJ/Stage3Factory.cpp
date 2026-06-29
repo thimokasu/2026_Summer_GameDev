@@ -21,18 +21,18 @@ std::vector<std::shared_ptr<ActorBase>> Stage3Factory::CreateActors()
 
 	std::vector<std::shared_ptr<ActorBase>>actors;
 
-	for (int h = 0; h < H; h++)
+	for (int h = 0; h < FJ::H; h++)
 	{
-		for (int d = 0; d < D; d++)
+		for (int d = 0; d < FJ::D; d++)
 		{
-			for (int w = 0; w < W; w++)
+			for (int w = 0; w < FJ::W; w++)
 			{
 				layout = Stage3::stage[h][d][w];
 				if (layout == StageLayout::Block)
 				{
 					actors.push_back(
 						std::make_shared<Block>(
-							VGet(w * TileSize, h * TileSize, d * TileSize)));
+							VGet(w * FJ::TileSize, h * FJ::TileSize, d * FJ::TileSize)));
 					actors.back()->AddComponent(rb);
 					actors.back()->SetEntityKind(EntityKind::STAGE);
 				}
@@ -40,7 +40,7 @@ std::vector<std::shared_ptr<ActorBase>> Stage3Factory::CreateActors()
 				{
 					actors.push_back(
 						std::make_shared<ReactionBlock>(
-							VGet(w * TileSize, h * TileSize, d * TileSize)));
+							VGet(w * FJ::TileSize, h * FJ::TileSize, d * FJ::TileSize)));
 					actors.back()->AddComponent(rb);
 					actors.back()->SetEntityKind(EntityKind::REACTION_BLOCK);
 				}

@@ -5,9 +5,9 @@
 ContactRule ContactRuleTable::Query(ContactRule rule)
 {
 
-    if (rule.contactEvent_.entityA.entityKind == EntityKind::REACTION_BLOCK && rule.contactEvent_.entityB.entityKind == EntityKind::CPU)
+    if (rule.contactEvent_.entityA.entityKind == EntityKind::REACTION_BLOCK && rule.contactEvent_.entityB.entityKind == EntityKind::RUNNER)
     {
-        rule.eventType_ = GameEventType::TEST;
+        rule.eventType_ = GameEventType::REACTION_BLOCK;
     }
     if (rule.contactEvent_.entityA.entityKind == EntityKind::RUNNER && rule.contactEvent_.entityB.entityKind == EntityKind::REACTION_BLOCK)
     {

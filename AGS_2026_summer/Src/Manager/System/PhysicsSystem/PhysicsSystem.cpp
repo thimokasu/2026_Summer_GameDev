@@ -45,7 +45,7 @@ void PhysicsSystem::Update(const std::vector<std::shared_ptr<ActorBase>>& object
         float yKeep = rb.GetVelocity().y;
 
         // ===== 減速（ダンピング） =====
-        newVel = VScale(newVel, 0.975);
+        newVel = VScale(newVel, 0.86);
 
         rb.SetVelocity(newVel);
 

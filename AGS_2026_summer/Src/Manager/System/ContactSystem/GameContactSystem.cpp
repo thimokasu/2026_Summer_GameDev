@@ -43,7 +43,7 @@ void GameContactSystem::Procese(ContactRule rule)
 	case GameEventType::REACTION_BLOCK:
 		if (eventCallback_)
 		{
-			eventCallback_(event.contactEvent_.entityB.entityId);
+			eventCallback_(event.contactEvent_.entityA.entityId);
 		}
 		break;
 	case GameEventType::HAS_CAUGHT:
