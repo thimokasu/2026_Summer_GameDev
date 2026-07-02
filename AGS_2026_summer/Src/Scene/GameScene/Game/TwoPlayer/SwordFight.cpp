@@ -49,6 +49,7 @@ void SwordFight::SetContactEventCallback(void)
 	EventManager::GetInstance().SetContactEventCallback(GameEventType::HIT_REACTION, [this](const ContactRule& rule)
 		{
 		
+
 		}
 	);
 
