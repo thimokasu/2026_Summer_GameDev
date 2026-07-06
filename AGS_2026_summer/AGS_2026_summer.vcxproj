@@ -139,6 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_Cook.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_Dash.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_HoldWalk.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_Walk.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\IdleState.cpp" />
     <ClCompile Include="Src\Object\UI\FeedJ\FoodUI.cpp" />
     <ClCompile Include="Src\Object\Actor\Item\FeedJ\Container\ContainerBase.cpp" />
     <ClCompile Include="Src\Object\Actor\Item\FeedJ\Food\FoodBase.cpp" />
@@ -209,6 +214,12 @@
     <ClCompile Include="Src\Object\Actor\Stage\FeedJ\Storage\StorageBase.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_Cook.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_Dash.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_HoldWalk.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_Walk.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\IdleState.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\IState.h" />
     <ClInclude Include="Src\Object\UI\FeedJ\FoodUI.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\Container\ContainerBase.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\FoodBase.h" />
