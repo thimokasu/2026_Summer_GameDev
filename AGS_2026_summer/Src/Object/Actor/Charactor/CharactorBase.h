@@ -20,6 +20,7 @@ public:
 	void SubRelease(void) override;
 
 	void InitCollider(void) override;
+	virtual void InitRigidBody(void) {};
 	virtual void CreateState(void) {};
 
 	void SetPlayNumber(int n) { playNumber_ = n; }
@@ -38,7 +39,7 @@ public:
 	virtual void SetState(void) {};
 private:
 	virtual void MoveInput(void) {};
-	void ReturnToIdle();
+	virtual void ReturnToIdle() {};
 	int playNumber_;	
 	std::unordered_map<std::type_index, std::unique_ptr<IState>>stateMap_;
 	IState* currentState_ = nullptr;

@@ -1,6 +1,6 @@
 #pragma once
-#include "IState.h"
-class IdleState :
+#include "../../../IState.h"
+class FeedJ_IdleState :
     public IState
 {
 public:

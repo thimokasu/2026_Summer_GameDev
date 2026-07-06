@@ -24,8 +24,12 @@ private:
 
         MAX,
     };
-    void MoveInput(void) override;
+#pragma region ŠÖ”
+    void InitRigidBody(void)override;
     void ActionInput(void);
+    void ReturnToIdle(void)override;
+#pragma endregion
+
 
 #pragma region •Ï”
 

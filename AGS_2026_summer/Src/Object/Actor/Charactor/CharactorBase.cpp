@@ -1,5 +1,4 @@
 #include "CharactorBase.h"
-#include"IdleState.h"
 
 CharactorBase::CharactorBase(void)
 {
@@ -12,12 +11,11 @@ CharactorBase::~CharactorBase(void)
 void CharactorBase::SubLoad(void)
 {
 	CreateState();
-	AddState(std::make_unique<IdleState>());
-	ChangeState<IdleState>();
 }
 
 void CharactorBase::SubInit(void)
 {
+	InitRigidBody();
 }
 
 void CharactorBase::SubUpdate(void)
@@ -46,10 +44,5 @@ void CharactorBase::SubRelease(void)
 
 void CharactorBase::InitCollider(void)
 {
-}
-
-void CharactorBase::ReturnToIdle()
-{
-	ChangeState<IdleState>();
 }
 
