@@ -302,6 +302,7 @@
     <ClInclude Include="Src\Object\Actor\Stage\Test\TestBox.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FeedJ\StationBase.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FeedJ\Storage\StorageBase.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\StateBehavior.h" />
     <Structure Include="Src\Manager\Game\SceneManager.h" />
     <ClInclude Include="Src\Manager\Game\SceneManager.h" />
     <ClInclude Include="Src\Application.h" />

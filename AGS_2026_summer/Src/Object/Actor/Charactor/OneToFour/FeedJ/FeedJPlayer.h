@@ -13,6 +13,8 @@ class FeedJPlayer :
         void SubDraw(void) override;
         void SubRelease(void) override;
         void InitCollider(void) override;
+
+        void Test(void);
 private:
     enum class STATE
     {
