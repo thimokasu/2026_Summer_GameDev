@@ -165,6 +165,9 @@ void ActorManager::OnePlayerGameFactory(GameInfo info)
 	case GAME_KIND::TEST:
 		actorFactory_ = std::make_unique<TestFactory>();
 		break;
+	case GAME_KIND::UNICYCLE:
+		actorFactory_ = std::make_unique<TestFactory>();
+		break;
 	default:
 		break;
 	}

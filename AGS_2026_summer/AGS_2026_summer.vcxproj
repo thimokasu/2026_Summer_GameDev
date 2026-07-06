@@ -144,6 +144,7 @@
     <ClCompile Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_HoldWalk.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_Walk.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\IdleState.cpp" />
+    <ClCompile Include="Src\Object\Actor\Factory\Unicycle\UnicycleFactory.cpp" />
     <ClCompile Include="Src\Object\UI\FeedJ\FoodUI.cpp" />
     <ClCompile Include="Src\Object\Actor\Item\FeedJ\Container\ContainerBase.cpp" />
     <ClCompile Include="Src\Object\Actor\Item\FeedJ\Food\FoodBase.cpp" />
@@ -212,6 +213,7 @@
     <ClCompile Include="Src\Object\Actor\Stage\Test\TestBox.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\FeedJ\StationBase.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\FeedJ\Storage\StorageBase.cpp" />
+    <ClCompile Include="Src\Scene\GameScene\Game\AnyPlayer\Unicycle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_Cook.h" />
@@ -220,6 +222,7 @@
     <ClInclude Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_Walk.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\IdleState.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\IState.h" />
+    <ClInclude Include="Src\Object\Actor\Factory\Unicycle\UnicycleFactory.h" />
     <ClInclude Include="Src\Object\UI\FeedJ\FoodUI.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\Container\ContainerBase.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\FoodBase.h" />
@@ -301,6 +304,7 @@
     <ClInclude Include="Src\Object\Actor\Stage\Test\TestBox.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FeedJ\StationBase.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FeedJ\Storage\StorageBase.h" />
+    <ClInclude Include="Src\Scene\GameScene\Game\AnyPlayer\Unicycle.h" />
     <Structure Include="Src\Manager\Game\SceneManager.h" />
     <ClInclude Include="Src\Manager\Game\SceneManager.h" />
     <ClInclude Include="Src\Application.h" />

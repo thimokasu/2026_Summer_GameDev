@@ -26,6 +26,8 @@ enum class GAME_KIND
 	TEST_OB_COURAGE,
 	BUTTON_MASHING,
 	KEY_CLIMBER,
+	//ëSêlêîëŒâû(Ç≈Ç´ÇΩÇÁ)
+	UNICYCLE,
 };
 
 enum class PLAY_NUM
@@ -91,6 +93,8 @@ inline std::string GameInfo::GetGameName(void) const
 		return "ButtonMashing";
 	case GAME_KIND::KEY_CLIMBER:
 		return "KeyClimber";
+	case GAME_KIND::UNICYCLE:
+		return "Unicycle";
 	default:
 		return "Unknown";
 	}

@@ -10,11 +10,8 @@
 
 #include"../../Charactor/OnePlay/Test/TestPlayer.h"
 
-UnicycleFactory::UnicycleFactory()
-{
-}
 
-std::vector<std::unique_ptr<ActorBase>> UnicycleFactory::CreateActors(void)
+std::vector<std::unique_ptr<ActorBase>> TestFactory::CreateActors(void)
 {
     std::vector<std::unique_ptr<ActorBase>> actors;
 
@@ -26,4 +23,3 @@ std::vector<std::unique_ptr<ActorBase>> UnicycleFactory::CreateActors(void)
    
  return actors;
 }
-

@@ -1,11 +1,9 @@
 #pragma once
 #include "../ActorFactoryBase.h"
-class UnicycleFactory :
+class TestFactory :
     public ActorFactoryBase
 {
 public:
-	UnicycleFactory();
-	~UnicycleFactory() = default;
 	std::vector<std::unique_ptr<ActorBase>> CreateActors(void) override;
 };
 

@@ -234,6 +234,12 @@
     <ClCompile Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_Cook.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Scene\GameScene\Game\AnyPlayer\Unicycle.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Actor\Factory\Unicycle\UnicycleFactory.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Application.h">
@@ -507,6 +513,12 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_Cook.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Scene\GameScene\Game\AnyPlayer\Unicycle.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Actor\Factory\Unicycle\UnicycleFactory.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

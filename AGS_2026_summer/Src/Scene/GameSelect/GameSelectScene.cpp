@@ -282,7 +282,7 @@ void GameSelectScene::SetGameStageNum(void)
 void GameSelectScene::InitGameGroups(void)
 {
 	// テスト用のダミー割り当て (1人用、2人用にもテストデータを置いて確認できるようにします)
-	onePlayerGames_ = {GAME_KIND::TEST};
+	onePlayerGames_ = {GAME_KIND::TEST, GAME_KIND::UNICYCLE};
 	twoPlayerGames_ = {};
 	oneVsThreeGames_ = {};
 	twoVsTwoGames_ = {};
