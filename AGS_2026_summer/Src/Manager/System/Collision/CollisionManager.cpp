@@ -179,6 +179,8 @@ void CollisionManager::ApplyBodyTorque(RigidBody& rb, Transform& trans, const VE
 	// DYNAMIC（物理演算対象）でなければ処理しない
 	if (rb.GetBodyType() != RigidBody::BodyType::DYNAMIC) return;
 
+	if (!rb.IsUsingGravity())return;
+
 	// トルク計算：トルク = レバーアーム(r) × 力(force)
 	// signはAかBかで向きを反転させるために使用
 	VECTOR torque = VCross(r, VScale(collisionForce, sign));
