@@ -204,9 +204,6 @@
     <ClCompile Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\FeedJPlayer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Item\FeedJ\ItemBase.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Object\Actor\Item\FeedJ\Food\FoodBase.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -219,9 +216,6 @@
     <ClCompile Include="Src\Object\UI\FeedJ\FoodUI.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Charactor\IdleState.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_Walk.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -232,6 +226,15 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_Cook.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_HoldState.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_IdleState.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Actor\Item\ItemBase.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -476,9 +479,6 @@
     <ClInclude Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\FeedJPlayer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Item\FeedJ\ItemBase.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\FoodBase.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -494,9 +494,6 @@
     <ClInclude Include="Src\Object\Actor\Charactor\IState.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Charactor\IdleState.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_Walk.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -507,6 +504,33 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_Cook.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_HoldState.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJStateHeaders.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_IdleState.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Actor\Item\FeedJ\InterFace\FeedJ_ICookable.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Actor\Item\FeedJ\InterFace\FeedJ_ICooker.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Actor\Item\FeedJ\InterFace\FeedJ_IPlaceble.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Actor\Item\FeedJ\InterFace\FeedJ_IThrowble.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Actor\Item\ItemBase.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Actor\Charactor\StateBehavior.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

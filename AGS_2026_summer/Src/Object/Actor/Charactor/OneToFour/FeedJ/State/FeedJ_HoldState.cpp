@@ -1,15 +1,13 @@
-#include "FeedJ_IdleState.h"
-#include<DxLib.h>
+#include "FeedJ_HoldState.h"
 #include"../../../../../../Manager/Generic/KeyManager.h"
 #include"../../../CharactorBase.h"
 #include"FeedJStateHeaders.h"
 
-void FeedJ_IdleState::EnterT(FeedJPlayer* owner)
+void FeedJ_HoldState::EnterT(FeedJPlayer* owner)
 {
-	isLoop_ = true;
 }
 
-void FeedJ_IdleState::HandleInputT(FeedJPlayer* owner)
+void FeedJ_HoldState::HandleInputT(FeedJPlayer* owner)
 {
 	if (KEY::GetIns().GetInfo(KEY_TYPE::MOVE_FRONT).now ||
 		KEY::GetIns().GetInfo(KEY_TYPE::MOVE_LEFT).now ||
@@ -17,7 +15,7 @@ void FeedJ_IdleState::HandleInputT(FeedJPlayer* owner)
 		KEY::GetIns().GetInfo(KEY_TYPE::MOVE_RIGHT).now
 		)
 	{
-		owner->ChangeState<FeedJ_Walk>();
+		owner->ChangeState<FeedJ_HoldWalk>();
 	}
 	else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::L_KEY_ACTOIN).now)
 	{
@@ -25,16 +23,21 @@ void FeedJ_IdleState::HandleInputT(FeedJPlayer* owner)
 		dashState->SetDashVec(owner->GetTransform().GetForward());
 		owner->ChangeState<FeedJ_Dash>();
 	}
-	else
+	else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::J_KEY_ACTION).down)
 	{
 		owner->ChangeState<FeedJ_IdleState>();
 	}
+	else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::K_KEY_ACTION).down)
+	{
+		owner->ChangeState<FeedJ_IdleState>();
+	}
+
 }
 
-void FeedJ_IdleState::UpdateT(FeedJPlayer* owner)
+void FeedJ_HoldState::UpdateT(FeedJPlayer* owner)
 {
 }
 
-void FeedJ_IdleState::ExitT(FeedJPlayer* owner)
+void FeedJ_HoldState::ExitT(FeedJPlayer* owner)
 {
 }
