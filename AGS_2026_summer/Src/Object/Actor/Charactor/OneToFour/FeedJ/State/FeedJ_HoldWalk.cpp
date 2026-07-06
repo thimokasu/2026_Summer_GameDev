@@ -33,7 +33,7 @@ void FeedJ_HoldWalk::HandleInputT(FeedJPlayer* owner)
 		owner->ChangeState<FeedJ_IdleState>();
 	}
 	else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::K_KEY_ACTION).down)
-	
+	{
 		auto* item = owner->GetHoldItem();
 		owner->ReleaseHoldItem();
 

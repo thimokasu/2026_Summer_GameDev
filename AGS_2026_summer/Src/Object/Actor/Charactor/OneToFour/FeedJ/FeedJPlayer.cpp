@@ -59,9 +59,7 @@ void FeedJPlayer::InitCollider(void)
 	collider = std::make_unique<ColliderCapsule>(info, radius2, localPosTop, localPosDown, *this);
 	ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
 }
-void FeedJPlayer::Test(void)
-{
-}
+
 void FeedJPlayer::InitRigidBody(void)
 {
 	rigidBody_.SetUseGravity(true);
