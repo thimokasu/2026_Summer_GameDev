@@ -139,6 +139,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\UI\FeedJ\FoodUI.cpp" />
+    <ClCompile Include="Src\Object\Actor\Item\FeedJ\Container\ContainerBase.cpp" />
+    <ClCompile Include="Src\Object\Actor\Item\FeedJ\Food\FoodBase.cpp" />
+    <ClCompile Include="Src\Object\Actor\Item\FeedJ\ItemBase.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\FeedJPlayer.cpp" />
+    <ClCompile Include="Src\Scene\GameScene\Game\OneToFour\FeedJ\FeedJ.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\Player\ButtonMashing\ButtonMashingPlayer.cpp" />
     <ClCompile Include="Src\Scene\GameScene\Game\FourPlayer\ButtonMashing\ButtonMushing.cpp" />
     <ClCompile Include="Src\Scene\GameScene\Game\FourPlayer\FindingJ.cpp" />
@@ -199,8 +205,16 @@
     <ClCompile Include="Src\Object\Actor\Stage\Test\TestFloor.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\OnePlay\Test\TestPlayer.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\Test\TestBox.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\FeedJ\StationBase.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\FeedJ\Storage\StorageBase.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\UI\FeedJ\FoodUI.h" />
+    <ClInclude Include="Src\Object\Actor\Item\FeedJ\Container\ContainerBase.h" />
+    <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\FoodBase.h" />
+    <ClInclude Include="Src\Object\Actor\Item\FeedJ\ItemBase.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\FeedJPlayer.h" />
+    <ClInclude Include="Src\Scene\GameScene\Game\OneToFour\FeedJ\FeedJ.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\Player\ButtonMashing\ButtonMashingPlayer.h" />
     <ClInclude Include="Src\Scene\GameScene\Game\FourPlayer\ButtonMashing\ButtonKind.h" />
     <ClInclude Include="Src\Scene\GameScene\Game\FourPlayer\ButtonMashing\ButtonMushing.h" />
@@ -274,6 +288,8 @@
     <ClInclude Include="Src\Object\Actor\Stage\Test\TestFloor.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\OnePlay\Test\TestPlayer.h" />
     <ClInclude Include="Src\Object\Actor\Stage\Test\TestBox.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\FeedJ\StationBase.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\FeedJ\Storage\StorageBase.h" />
     <Structure Include="Src\Manager\Game\SceneManager.h" />
     <ClInclude Include="Src\Manager\Game\SceneManager.h" />
     <ClInclude Include="Src\Application.h" />
