@@ -223,6 +223,7 @@
     <ClInclude Include="Src\Object\Actor\Charactor\IdleState.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\IState.h" />
     <ClInclude Include="Src\Object\Actor\Factory\Unicycle\UnicycleFactory.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\Unicycle\StageLayout.h" />
     <ClInclude Include="Src\Object\UI\FeedJ\FoodUI.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\Container\ContainerBase.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\FoodBase.h" />

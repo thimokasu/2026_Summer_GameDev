@@ -521,5 +521,8 @@
     <ClInclude Include="Src\Object\Actor\Factory\Unicycle\UnicycleFactory.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Object\Actor\Stage\Unicycle\StageLayout.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

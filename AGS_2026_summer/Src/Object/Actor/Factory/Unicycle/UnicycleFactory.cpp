@@ -5,10 +5,11 @@
 #include"../../Shape/Capsule.h"
 #include"../../../Common/RigidBody.h"
 
-#include"../../Stage/Test/TestFloor.h"
-#include"../../Stage/Test/TestBox.h"
-
+#include "../../Stage/Unicycle/StageLayout.h"
+#include "../../Stage/FindingJ/Block.h"
 #include"../../Charactor/OnePlay/Test/TestPlayer.h"
+
+
 
 
 UnicycleFactory::UnicycleFactory()
@@ -19,11 +20,21 @@ std::vector<std::unique_ptr<ActorBase>> UnicycleFactory::CreateActors(void)
 {
     std::vector<std::unique_ptr<ActorBase>> actors;
 
-    actors.push_back(std::make_unique<TestPlayer>());
-    actors.push_back(std::make_unique<TestFloor>(VGet(0,-50,-50),VGet(0,0,0)));
-    //actors.push_back(std::make_unique<TestFloor>(VGet(0,0,0),VGet(-0.5f, 0.0f, 0.0f)));
-    //actors.push_back(std::make_unique<TestFloor>(VGet(0, 0, -200), VGet(0.5f, 0.0f, 0.0f)));
-   // actors.push_back(std::make_unique<TestBox>(VGet(0.0f,40.0f,0.0f)));
+   actors.push_back(std::make_unique<TestPlayer>());
+    for (int d = 0; d < D; d++)
+    {
+        for (int w = 0; w < W; w++)
+        {
+            if (Stage1::stage[d][w] == StageLayout::Block)
+            {
+                actors.push_back(
+                    std::make_unique<Block>(
+                        VGet(w * TileSize, 0.0f, d * TileSize)));
+                actors.back()->GetRigidBody().SetBodyType(RigidBody::BodyType::STATIC);
+                actors.back()->SetEntityKind(EntityKind::STAGE);
+            }
+        }
+    }
    
  return actors;
 }

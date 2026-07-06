@@ -61,6 +61,7 @@ void Unicycle::LoadSE(void)
 
 void Unicycle::InitUI(void)
 {
+	OnUpdate();
 }
 
 void Unicycle::InitSE(void)
