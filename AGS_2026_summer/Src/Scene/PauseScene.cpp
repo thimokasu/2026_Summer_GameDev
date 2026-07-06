@@ -3,6 +3,7 @@
 #include"../Manager/Resource/ResourceManager.h"
 #include"../Manager/Generic/KeyManager.h"
 #include"../Manager/Game/SceneManager.h"
+#include"GameSelect/GameSelectScene.h"
 #include"TitleScene.h"
 #include"../Manager/Game/SceneId.h"
 #include<functional>
@@ -26,6 +27,7 @@ PauseScene::PauseScene(void)
 	//メニューの内容と、選択したときのアクションを定義する
 	menuItems_ = {
 		"ゲームに戻る",
+		"ゲームセレクトに戻る",
 		"タイトルに戻る",
 		"終了"
 	};
@@ -36,6 +38,17 @@ PauseScene::PauseScene(void)
 
 			update_ = &PauseScene::DisappearUpdate;
 			draw_ = &PauseScene::ExpandDraw;
+		};
+
+	menuActions_["ゲームセレクトに戻る"] = [this]()
+		{
+			execYesAction_ = [this]()
+				{
+					SceneManager::GetInstance().ResetScene(std::make_shared<GameSelectScene>());
+				};
+			yesNoTitle_ = "セレクト画面に戻りますか？";
+			update_ = &PauseScene::YesNoUpdate;
+			draw_ = &PauseScene::YesNoDraw;
 		};
 
 	//ラムダ式の中でさらにラムダ式を定義している。YESを選択したときのアクションを定義している。
@@ -219,6 +232,11 @@ void PauseScene::DrawMenu()
 }
 void PauseScene::YesNoUpdate()
 {
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::PAUSE).down)
+	{
+		update_ = &PauseScene::NormalUpdate;
+		draw_ = &PauseScene::NormalDraw;
+	}
 	//左右キーでYESとNOを切り替える
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT_SET).down || KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_RIGHT_SET).down)
 	{

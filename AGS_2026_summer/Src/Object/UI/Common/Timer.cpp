@@ -30,7 +30,7 @@ void Timer::SubLoad()
 
 void Timer::SubInit()
 {
-    uiName_ = UINAME::FINDINGJ_TIMER;
+    uiName_ = UINAME::TIMER;
 }
 
 void Timer::SubUpdate()

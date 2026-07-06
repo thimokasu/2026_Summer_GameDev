@@ -1,7 +1,8 @@
 #pragma once
 #include "../UIBase.h"
 #include<functional>
-
+#include<string>
+#include<unordered_map>
 using StartCallBack = std::function<void()>;
 class GameMessageUI : public UIBase
 {
@@ -36,6 +37,9 @@ public:
 
     void SetStartCallBack(StartCallBack callBack) { startCallBack_ = std::move(callBack); }
     void SetMassageState(MASSAGE_STATE state);
+
+    void SetMassageText(MASSAGE_STATE state, const std::string& text);
+
 private:
     // UIBaseの仮想関数をオーバーライド
     void SubLoad() override;
@@ -47,6 +51,10 @@ private:
     void TextAnim(void);
 
 #pragma region 変数
+    // 状態ごとのテキストを保持するマップ
+    std::unordered_map<MASSAGE_STATE, std::string> messageMap_;
+    std::string currentText_ = "";
+
     int fontHandle_ = -1;
     MASSAGE_STATE currentState_ = MASSAGE_STATE::EXPLAIN;
     int textColor_ = 0;

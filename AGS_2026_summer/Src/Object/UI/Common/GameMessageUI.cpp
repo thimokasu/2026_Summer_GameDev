@@ -25,7 +25,7 @@ void GameMessageUI::SubLoad(void)
 
 void GameMessageUI::SubInit(void)
 {
-    uiName_ = UINAME::FINDINGJ_MASSAGE;
+    uiName_ = UINAME::MASSAGE;
     currentState_ = MASSAGE_STATE::EXPLAIN;
     animTime_ = 0.0f;
     scaleX_ = 0.0f;
@@ -63,31 +63,28 @@ void GameMessageUI::SubDraw(void)
 {
     if (currentState_ == MASSAGE_STATE::NONE) return;
 
-    const char* targetStr = nullptr;
-    switch (currentState_)
-    {
-    case MASSAGE_STATE::EXPLAIN: targetStr = StrExplain; break;
-    case MASSAGE_STATE::START:   targetStr = StrStart;   break;
-    case MASSAGE_STATE::FINISH:  targetStr = StrFinish;  break;
-    default: return;
+    // マップから現在の状態のテキストを取得
+    std::string text = "";
+    if (messageMap_.count(currentState_)) {
+        text = messageMap_[currentState_];
     }
-    if (targetStr == nullptr) return;
+
+    // 文字列が空なら描画しない
+    if (text.empty()) return;
+    const char* targetStr = text.c_str();
 
     int stringWidth = 0;
     int stringHeight = 0;
-    GetDrawStringSizeToHandle(&stringWidth, &stringHeight, nullptr, targetStr, (int)strlen(targetStr), fontHandle_);
+    GetDrawStringSizeToHandle(&stringWidth, &stringHeight, nullptr, targetStr, (int)text.length(), fontHandle_);
 
     float cx = stringWidth / 2.0f;
     float cy = stringHeight / 2.0f;
 
-    // UIBaseから絶対座標を取得
     Vector2F absPos = GetAbsolutePos();
-
-    // UIBaseのsize_の中心を描画の基準点（画面中央など）にする
     int drawX = static_cast<int>(absPos.x + size_.x / 2.0f);
     int drawY = static_cast<int>(absPos.y + size_.y / 2.0f);
 
-    // ゲーム説明の時だけ文字の後ろに帯を出す
+    // EXPLAIN状態の帯は「特定のゲーム」で必要ならフラグで制御するとより汎用的です
     if (currentState_ == MASSAGE_STATE::EXPLAIN)
     {
         int paddingY = 20;
@@ -95,7 +92,6 @@ void GameMessageUI::SubDraw(void)
         int barBottom = drawY + (int)cy + paddingY;
 
         SetDrawBlendMode(DX_BLENDMODE_ALPHA, 160);
-        // 親から与えられた横幅（size_.x）いっぱいに帯を描画
         DrawBox(static_cast<int>(absPos.x), barTop, static_cast<int>(absPos.x + size_.x), barBottom, GetColor(0, 0, 0), TRUE);
         SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
     }
@@ -113,6 +109,7 @@ void GameMessageUI::SubDraw(void)
     );
 }
 
+// SetMassageState は元のままでOK
 void GameMessageUI::SubRelease(void)
 {
     if (fontHandle_ != -1)
@@ -147,6 +144,11 @@ void GameMessageUI::SetMassageState(MASSAGE_STATE state)
         break;
     }
 
+}
+
+void GameMessageUI::SetMassageText(MASSAGE_STATE state, const std::string& text)
+{
+	messageMap_[state] = text;
 }
 
 void GameMessageUI::TextAnim(void)

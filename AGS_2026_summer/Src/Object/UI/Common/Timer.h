@@ -13,6 +13,7 @@ public:
     virtual ~Timer() = default;
     void SetTimeUpCallBack(TimeUpCallBack callBack) { timeUpCallback_ = std::move(callBack); }
     void SetUpdate(bool flag) { isUpdate_ = flag; }
+    void SetTime(int time) { time_ = time; }
 protected:
     // UIBaseの仮想関数をオーバーライド
     void SubLoad() override;

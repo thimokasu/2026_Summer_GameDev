@@ -4,6 +4,7 @@
 #include"../../Stage/FindingJ/StageLayout.h"
 #include"../../../Common/RigidBody.h"
 #include"../../Charactor/FindingJ/FindingJPlayer.h"
+#include"../../Charactor/FindingJ/FindingJCPU/FindingJRunner.h"
 
 Stage2Factory::Stage2Factory()
 {
@@ -20,7 +21,6 @@ std::vector<std::unique_ptr<ActorBase>> Stage2Factory::CreateActors(void)
 	std::vector<std::unique_ptr<ActorBase>> actors;	
 	actors.push_back(
 		std::make_unique<FindingJPlayer>());
-	
 
 	for (int h = 0; h < H; h++)
 	{

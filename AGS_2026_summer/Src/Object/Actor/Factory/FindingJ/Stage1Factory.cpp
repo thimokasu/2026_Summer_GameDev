@@ -4,7 +4,7 @@
 #include"../../Stage/FindingJ/StageLayout.h"
 #include"../../../Common/RigidBody.h"
 #include"../../Charactor/FindingJ/FindingJPlayer.h"
-
+#include"../../Charactor/FindingJ/FindingJCPU/FindingJRunner.h"
 
 Stage1Factory::Stage1Factory()
 {

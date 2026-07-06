@@ -166,8 +166,8 @@
     <ClCompile Include="Src\Manager\System\Collision\CollisionLogic.cpp" />
     <ClCompile Include="Src\Manager\System\Collision\CollisionManager.cpp" />
     <ClCompile Include="Src\Object\Actor\Manager\ActorManager.cpp" />
-    <ClCompile Include="Src\Object\UI\FindingJ\GameMessageUI.cpp" />
-    <ClCompile Include="Src\Object\UI\FindingJ\Timer.cpp" />
+    <ClCompile Include="Src\Object\UI\Common\GameMessageUI.cpp" />
+    <ClCompile Include="Src\Object\UI\Common\Timer.cpp" />
     <ClCompile Include="Src\Manager\Game\UIManager.cpp" />
     <ClCompile Include="Src\Scene\GameOverScene.cpp" />
     <ClCompile Include="Src\Scene\GameScene\GameScene.cpp" />
@@ -251,8 +251,8 @@
     <ClInclude Include="Src\Object\Actor\Factory\ActorFactoryBase.h" />
     <ClInclude Include="Src\Object\Actor\Manager\ActorManager.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FindingJ\StageLayout.h" />
-    <ClInclude Include="Src\Object\UI\FindingJ\GameMessageUI.h" />
-    <ClInclude Include="Src\Object\UI\FindingJ\Timer.h" />
+    <ClInclude Include="Src\Object\UI\Common\GameMessageUI.h" />
+    <ClInclude Include="Src\Object\UI\Common\Timer.h" />
     <ClInclude Include="Src\Manager\Game\UIManager.h" />
     <ClInclude Include="Src\Object\UI\UIName.h" />
     <ClInclude Include="Src\Object\UI\UIType.h" />

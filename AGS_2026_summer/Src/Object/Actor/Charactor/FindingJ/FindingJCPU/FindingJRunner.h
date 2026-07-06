@@ -15,8 +15,8 @@ public:
     };
 
 	static constexpr float DecisionInterval = 0.1f; // 思考する間隔
-    static constexpr float ReactionBlockPenalty = 4.38f;
-	static constexpr float AppearTime = 0.1f; // 出現してから完全に見えるまでの時間
+    static constexpr float ReactionBlockPenalty = 9.0f;
+	static constexpr float AppearTime = 0.25f; // 出現してから完全に見えるまでの時間
 
     FindingJRunner(ActorManager&actMana);
     virtual ~FindingJRunner(void);
