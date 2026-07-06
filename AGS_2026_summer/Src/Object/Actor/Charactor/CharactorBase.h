@@ -31,15 +31,15 @@ public:
 	void AddState(std::unique_ptr<T>state);
 
 	template<typename T>
-	void ChangeState(void);
+	void ChangeState(void);	//遷移したいステートを<>のなかにクラス名を宣言
 
 	template<typename T>
 	T* GetState(void);
 
-	virtual void SetState(void) {};
+	virtual void SetState(void) {};	//ステート初期化　AddState(std::make_unique<>());
 private:
 	virtual void MoveInput(void) {};
-	virtual void ReturnToIdle() {};
+	virtual void ReturnToIdle() {};		//オーバーライドでIdleStateへのChangeStateを実装しとく
 	int playNumber_;	
 	std::unordered_map<std::type_index, std::unique_ptr<IState>>stateMap_;
 	IState* currentState_ = nullptr;

@@ -16,8 +16,8 @@ public:
 
 	virtual void Exit(CharactorBase* owner) = 0;
 
-	void InCreaseStateFrame(void) { stateFrame_++; }
-	void DecreaseIdleTime(void) { idleTime_--; }
+	void InCreaseStateFrame(void) { stateFrame_++; }	//現ステート経過時間増加
+	void DecreaseIdleTime(void) { idleTime_--; }	//IdleStateに切り替わるまでの時間を減少
 
 	int GetIdleTime(void) const { return idleTime_; }
 	const char* GetName(void) { return typeid(*this).name(); }
@@ -27,9 +27,9 @@ public:
 	void OnCanChange(void) { canChange_ = true; }
 protected:
 
-	bool canChange_ = false;
-	bool isLoop_ = false;
-	int idleTime_ = 0;
-	int stateFrame_ = 0;
-	int nextInputStartTime_ = 0;
+	bool canChange_ = false;//ステート経過中に途中で別ステートに切り替えれるかどうか
+	bool isLoop_ = false;	//ループするかどうか（しない場合idleTimeが０になったらIdleStateに遷移）
+	int idleTime_ = 0;		//IdleStateへの遷移するまでの時間
+	int stateFrame_ = 0;	//現ステートの経過フレーム数
+	int nextInputStartTime_ = 0;	//canChangeをOnOffするための時間　０で即抜け
 };
