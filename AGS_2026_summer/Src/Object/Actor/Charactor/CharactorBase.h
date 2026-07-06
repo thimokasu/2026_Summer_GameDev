@@ -1,7 +1,7 @@
 #pragma once
 #include "../ActorBase.h"
-class CharactorBase :
-    public ActorBase
+
+class CharactorBase :public ActorBase
 {
 public:
 	CharactorBase(void);

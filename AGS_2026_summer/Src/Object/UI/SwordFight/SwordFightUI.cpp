@@ -1,21 +1,22 @@
-#include "GameMessageUI.h"
+#include "SwordFightUI.h"
 #include "../../../Manager/Game/SceneManager.h"
 
-GameMessageUI::GameMessageUI(Vector2F pos, Vector2F size)
+
+SwordFightUI::SwordFightUI(Vector2F pos, Vector2F size)
     : UIBase(pos, size)
     , fontHandle_(-1)
-    , currentState_(MessageState::Explain)
+    , currentState_(MessageState::Idle)
     , animPhase_(AnimPhase::FadeIn)
     , animTime_(0.0f)
     , scaleX_(0.0f)
     , scaleY_(0.0f)
 {
-    type_ = UITYPE::TEXT; 
+    type_ = UITYPE::TEXT;
     textColor_ = GetColor(255, 255, 255);
     edgeColor_ = GetColor(0, 0, 0);
 }
 
-void GameMessageUI::SubLoad(void)
+void SwordFightUI::SubLoad()
 {
     if (fontHandle_ == -1)
     {
@@ -23,9 +24,9 @@ void GameMessageUI::SubLoad(void)
     }
 }
 
-void GameMessageUI::SubInit(void)
+void SwordFightUI::SubInit()
 {
-    uiName_ = UINAME::FINDINGJ_MASSAGE;
+    uiName_ = UINAME::SWORD_FIGHT_MASSAGE;
     animTime_ = 0.0f;
     scaleX_ = 0.0f;
     scaleY_ = 0.0f;
@@ -33,7 +34,7 @@ void GameMessageUI::SubInit(void)
 }
 
 
-void GameMessageUI::SetState(MessageState state)
+void SwordFightUI::SetState(MessageState state)
 {
     currentState_ = state;
     animTime_ = 0.0f;
@@ -51,17 +52,19 @@ void GameMessageUI::SetState(MessageState state)
         textColor_ = GetColor(255, 215, 0);
         edgeColor_ = GetColor(255, 255, 255);
         break;
-    case MessageState::Explain:
+    case MessageState::Idle:
         textColor_ = GetColor(255, 255, 255);
         edgeColor_ = GetColor(0, 0, 0);
         break;
+    case MessageState::Draw:
+        textColor_ = GetColor(255, 255, 255);
+		edgeColor_ = GetColor(0, 0, 0);
     default:
         break;
     }
 }
 
-
-void GameMessageUI::SubUpdate(void)
+void SwordFightUI::SubUpdate()
 {
     if (currentState_ != MessageState::None)
     {
@@ -69,8 +72,7 @@ void GameMessageUI::SubUpdate(void)
         TextAnim();
     }
 }
-
-void GameMessageUI::TextAnim(void)
+void SwordFightUI::TextAnim(void)
 {
     static constexpr float ChangeSpeedIN = 0.02f;
     static constexpr float ChangeSpeedOut = 0.04f;
@@ -107,7 +109,7 @@ void GameMessageUI::TextAnim(void)
             scaleX_ = 0.0f;
             scaleY_ = 0.0f;
 
-            if (currentState_ == MessageState::Explain)
+            if (currentState_ == MessageState::Idle)
             {
                 SetState(MessageState::Start);
                 return;
@@ -118,7 +120,8 @@ void GameMessageUI::TextAnim(void)
     }
 }
 
-void GameMessageUI::SubDraw(void)
+
+void SwordFightUI::SubDraw()
 {
     if (currentState_ == MessageState::None) return;
 
@@ -127,7 +130,8 @@ void GameMessageUI::SubDraw(void)
     {
     case MessageState::Start:   targetStr = StrStart;   break;
     case MessageState::Finish:  targetStr = StrFinish;  break;
-    case MessageState::Explain: targetStr = StrExplain; break;
+    case MessageState::Idle: targetStr = StrIdle; break;
+    case MessageState::Draw: targetStr = StrDraw; break;
     default: return;
     }
 
@@ -148,7 +152,7 @@ void GameMessageUI::SubDraw(void)
     int drawY = static_cast<int>(absPos.y + size_.y / 2.0f);
 
     // ÉQÅ[ÉÄê‡ñæÇÃéûÇæÇØï∂éöÇÃå„ÇÎÇ…ë—ÇèoÇ∑
-    if (currentState_ == MessageState::Explain)
+    if (currentState_ == MessageState::Idle)
     {
         int paddingY = 20;
         int barTop = drawY - (int)cy - paddingY;
@@ -173,7 +177,7 @@ void GameMessageUI::SubDraw(void)
     );
 }
 
-void GameMessageUI::SubRelease(void)
+void SwordFightUI::SubRelease()
 {
     if (fontHandle_ != -1)
     {

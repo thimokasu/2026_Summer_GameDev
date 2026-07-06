@@ -7,6 +7,7 @@
 #include"../Factory/FindingJ/Stage1Factory.h"
 #include"../Factory/FindingJ/Stage2Factory.h"
 #include"../Factory/FindingJ/Stage3Factory.h"
+#include"../Factory/SwordFight/SwordFightStage1Factory.h"
 
 #include"../Charactor/FindingJ/FindingJCPU/FindingJRunner.h"
 #include"../../../Manager/Generic/KeyManager.h"
@@ -171,12 +172,6 @@ void ActorManager::TwoPlayerGameFactory(GameInfo info)
 		{
 		case STAGE_NUM::STAGE1:
 			actorFactory_ = std::make_unique<Stage1Factory>();
-			break;
-		case STAGE_NUM::STAGE2:
-			actorFactory_ = std::make_unique<Stage2Factory>();
-			break;
-		case STAGE_NUM::STAGE3:
-			actorFactory_ = std::make_unique<Stage3Factory>();
 			break;
 		default:
 			break;

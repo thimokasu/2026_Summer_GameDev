@@ -15,5 +15,6 @@ public:
     void InitCollider(void) override;
 
 private:
-    void MoveInput(void) override;
+    virtual void MoveInput(void) override;
 };
+

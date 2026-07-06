@@ -198,9 +198,13 @@
     <ClCompile Include="Src\Scene\GameScene\Game\TwoPlayer\ThumbWrestling.cpp" />
     <ClCompile Include="Src\Scene\GameScene\Game\TwoPlayer\SwordFight.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\SwordFight\SwordFightPlayer.cpp" />
+    <ClCompile Include="Src\Object\UI\SwordFight\SwordFightUI.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\SwordFight\StageBlock.cpp" />
+    <ClCompile Include="Src\Object\Actor\Factory\SwordFight\SwordFightStage1Factory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Object\Actor\Charactor\Player\ButtonMashing\ButtonMashingPlayer.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\SwordFight\SwordFightStageLayOut.h" />
     <ClInclude Include="Src\Scene\GameScene\Game\FourPlayer\ButtonMashing\ButtonKind.h" />
     <ClInclude Include="Src\Scene\GameScene\Game\FourPlayer\ButtonMashing\ButtonMushing.h" />
     <ClInclude Include="Src\Scene\GameScene\Game\FourPlayer\FindingJ.h" />
@@ -273,6 +277,9 @@
     <ClInclude Include="Src\Scene\GameScene\Game\TwoPlayer\ThumbWrestling.h" />
     <ClInclude Include="Src\Scene\GameScene\Game\TwoPlayer\SwordFight.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordFightPlayer.h" />
+    <ClInclude Include="Src\Object\UI\SwordFight\SwordFightUI.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\SwordFight\StageBlock.h" />
+    <ClInclude Include="Src\Object\Actor\Factory\SwordFight\SwordFightStage1Factory.h" />
     <Structure Include="Src\Manager\Game\SceneManager.h" />
     <ClInclude Include="Src\Manager\Game\SceneManager.h" />
     <ClInclude Include="Src\Application.h" />
