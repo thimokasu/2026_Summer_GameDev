@@ -128,4 +128,31 @@ namespace Stage3
 }
     } };
 
+    //namespace StageCircle
+    //{
+    //    constexpr std::array<std::array<StageLayout, SW::W>, SW::D> stage =
+    //    { {
+    //        {n,n,n,n,n,n,n,b,b,b,b,b,b,n,n,n,n,n,n,n,},
+    //        {n,n,n,n,n,b,b,b,b,b,b,b,b,b,b,n,n,n,n,n,},
+    //        {n,n,n,n,b,b,b,b,b,b,b,b,b,b,b,b,n,n,n,n,},
+    //        {n,n,n,b,b,b,b,b,b,b,b,b,b,b,b,b,b,n,n,n,},
+    //        {n,n,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,n,n,},
+    //        {n,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,n,},
+    //        {n,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,n,},
+    //        {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+    //        {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+    //        {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+    //        {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+    //        {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+    //        {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+    //        {n,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,n,},
+    //        {n,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,n,},
+    //        {n,n,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,n,n,},
+    //        {n,n,n,b,b,b,b,b,b,b,b,b,b,b,b,b,b,n,n,n,},
+    //        {n,n,n,n,b,b,b,b,b,b,b,b,b,b,b,b,n,n,n,n,},
+    //        {n,n,n,n,n,b,b,b,b,b,b,b,b,b,b,n,n,n,n,n,},
+    //        {n,n,n,n,n,n,n,b,b,b,b,b,b,n,n,n,n,n,n,n,},
+    //    } };
+    //}
+
 }

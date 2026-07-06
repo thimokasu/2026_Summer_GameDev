@@ -7,9 +7,12 @@
 #include"../Factory/FindingJ/Stage1Factory.h"
 #include"../Factory/FindingJ/Stage2Factory.h"
 #include"../Factory/FindingJ/Stage3Factory.h"
+#include "../Factory/Unicycle/UnicycleFactory.h"
 
 #include"../Charactor/FindingJ/FindingJCPU/FindingJRunner.h"
 #include"../../../Manager/Generic/KeyManager.h"
+
+
 
 ActorManager::ActorManager(void)
 {
@@ -166,7 +169,7 @@ void ActorManager::OnePlayerGameFactory(GameInfo info)
 		actorFactory_ = std::make_unique<TestFactory>();
 		break;
 	case GAME_KIND::UNICYCLE:
-		actorFactory_ = std::make_unique<TestFactory>();
+		actorFactory_ = std::make_unique<UnicycleFactory>();
 		break;
 	default:
 		break;

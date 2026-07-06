@@ -1,4 +1,4 @@
-#include "TestFactory.h"
+#include "UnicycleFactory.h"
 #include<memory>
 #include<vector>
 #include"../../Shape/Box.h"
@@ -11,7 +11,11 @@
 #include"../../Charactor/OnePlay/Test/TestPlayer.h"
 
 
-std::vector<std::unique_ptr<ActorBase>> TestFactory::CreateActors(void)
+UnicycleFactory::UnicycleFactory()
+{
+}
+
+std::vector<std::unique_ptr<ActorBase>> UnicycleFactory::CreateActors(void)
 {
     std::vector<std::unique_ptr<ActorBase>> actors;
 
