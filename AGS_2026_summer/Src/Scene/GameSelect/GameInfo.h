@@ -15,17 +15,24 @@ enum class GAME_KIND
 	THUMB_WRESTLING,
 	SURVIVAL_TETRIS,
 	//4人用
+	//1VS3
 	ONE_VS_THERR = 30,
 
+	//2VS2
 	TWO_VS_TWO=40,
 	AIR_HOCKEY,
-
 
 	FOUR_PLAYER = 50,
 	FINDINGJ,
 	TEST_OB_COURAGE,
 	BUTTON_MASHING,
 	KEY_CLIMBER,
+
+	//1~4人用
+	ONE_TO_FOUR_PLAYER = 60,
+	FEEDJ,
+
+	MAX
 };
 
 enum class PLAY_NUM
@@ -35,6 +42,9 @@ enum class PLAY_NUM
 	ONE_VS_THERR,
 	TWO_VS_TWO,
 	FOUR_PLAYER,
+	ONETOFOURPLAYER,
+
+	MAX
 };
 
 enum class STAGE_NUM
@@ -80,7 +90,6 @@ inline std::string GameInfo::GetGameName(void) const
 
 	case GAME_KIND::TWO_VS_TWO:
 		return "TwoVsTwo";
-
 	case GAME_KIND::FOUR_PLAYER:
 		return "Four Player";
 	case GAME_KIND::FINDINGJ:
@@ -91,6 +100,10 @@ inline std::string GameInfo::GetGameName(void) const
 		return "ButtonMashing";
 	case GAME_KIND::KEY_CLIMBER:
 		return "KeyClimber";
+	case GAME_KIND::ONE_TO_FOUR_PLAYER:
+		return"OneToFourPlayer";
+	case GAME_KIND::FEEDJ:
+		return "FeedJ";
 	default:
 		return "Unknown";
 	}

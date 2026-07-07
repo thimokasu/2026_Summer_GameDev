@@ -23,6 +23,7 @@ void Block::SubLoad(void)
 
 void Block::SubInit(void)
 {
+	entityKind_ = EntityKind::BLOCK;
 }
 
 void Block::SubUpdate(void)

@@ -110,7 +110,7 @@ void GameSelectScene::SubDraw(void)
 	int tabStartX = 140;
 	int tabStartY = 40;
 
-	const char* tabLabels[] = { "1êl", "ÇQêl","ÇQVSÇQ", "1VS3","4êl"};
+	const char* tabLabels[] = { "1êl", "ÇQêl","ÇQVSÇQ", "1VS3","4êl","1Å`4êl"};
 
 	int currentPlayNumIdx = 0;
 	switch (gameInfo_.playNum_)
@@ -118,11 +118,12 @@ void GameSelectScene::SubDraw(void)
 	case PLAY_NUM::ONE_PLAYER:   currentPlayNumIdx = 0; break;
 	case PLAY_NUM::TWO_PLAYER:   currentPlayNumIdx = 1; break;
 	case PLAY_NUM::ONE_VS_THERR: currentPlayNumIdx = 2; break;
-	case PLAY_NUM::TWO_VS_TWO:   currentPlayNumIdx = 2; break;
-	case PLAY_NUM::FOUR_PLAYER:  currentPlayNumIdx = 3; break;
+	case PLAY_NUM::TWO_VS_TWO:   currentPlayNumIdx = 3; break;
+	case PLAY_NUM::FOUR_PLAYER:  currentPlayNumIdx = 4; break;
+	case PLAY_NUM::ONETOFOURPLAYER: currentPlayNumIdx = 5; break;
 	}
 
-	for (int i = 0; i < 4; ++i)
+	for (int i = 0; i <(int)PLAY_NUM::MAX; ++i)
 	{
 		int x1 = tabStartX + (i * tabWidth);
 		int y1 = tabStartY;
@@ -287,6 +288,7 @@ void GameSelectScene::InitGameGroups(void)
 	oneVsThreeGames_ = {};
 	twoVsTwoGames_ = {};
 	fourPlayerGames_ = {  GAME_KIND::FINDINGJ };
+	oneToFourPlayGames_ = { GAME_KIND::FEEDJ };
 
 	currentGroup_ = &onePlayerGames_;
 	cursorIndex_ = 0;
@@ -327,7 +329,7 @@ void GameSelectScene::UpdateGameGroups(void)
 
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::DOWN).down)
 	{
-		if (gameInfo_.playNum_ < PLAY_NUM::FOUR_PLAYER)
+		if (gameInfo_.playNum_ < PLAY_NUM::MAX)
 		{
 			gameInfo_.playNum_ = static_cast<PLAY_NUM>(static_cast<int>(gameInfo_.playNum_) + 1);
 			isChangedPlayNum = true;
@@ -345,6 +347,7 @@ void GameSelectScene::UpdateGameGroups(void)
 		case PLAY_NUM::ONE_VS_THERR: currentGroup_ = &oneVsThreeGames_; break;
 		case PLAY_NUM::TWO_VS_TWO: currentGroup_ = &twoVsTwoGames_; break;
 		case PLAY_NUM::FOUR_PLAYER:  currentGroup_ = &fourPlayerGames_;  break;
+		case PLAY_NUM::ONETOFOURPLAYER: currentGroup_ = &onePlayerGames_; break;
 		default:                     currentGroup_ = nullptr;            break;
 		}
 
@@ -418,7 +421,7 @@ void GameSelectScene::UpdatePlayerNumLeftRight(void)
 
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::RIGHT).down)
 	{
-		if (currentNum < static_cast<int>(PLAY_NUM::FOUR_PLAYER))
+		if (currentNum <= static_cast<int>(PLAY_NUM::MAX))
 		{
 			gameInfo_.playNum_ = static_cast<PLAY_NUM>(currentNum + 1);
 			isChangedPlayNum = true;
@@ -435,6 +438,7 @@ void GameSelectScene::UpdatePlayerNumLeftRight(void)
 		case PLAY_NUM::ONE_VS_THERR: currentGroup_ = &oneVsThreeGames_; break;
 		case PLAY_NUM::TWO_VS_TWO:   currentGroup_ = &twoVsTwoGames_;   break; // Ç±Ç±ÇÕç\ë¢Ç…çáÇÌÇπÇƒí≤êÆÇµÇƒÇ≠ÇæÇ≥Ç¢
 		case PLAY_NUM::FOUR_PLAYER:  currentGroup_ = &fourPlayerGames_;  break;
+		case PLAY_NUM::ONETOFOURPLAYER: currentGroup_ = &oneToFourPlayGames_; break;
 		default:                     currentGroup_ = nullptr;            break;
 		}
 

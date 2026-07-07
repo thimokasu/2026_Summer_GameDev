@@ -33,7 +33,7 @@ void FindingJ::SubInit(void)
 	{
 		auto& findingJCPU = dynamic_cast<FindingJRunner&>(*c);
 		findingJCPU.SetStageNum(gameInfo_.stage_);
-	}
+	}	
 	time = -4;
 }
 void FindingJ::SubUpdate(void)
@@ -116,22 +116,7 @@ void FindingJ::SetContactEventCallback(void)
 	);
 }
 
-void FindingJ::SetCollisionCollback(void)
-{
-	auto onBeginContact = [this](uint32_t a, uint32_t b)
-		{
-			Entity entA{ a, actorMng_->GetEntityKind(a) };
-			Entity entB{ b, actorMng_->GetEntityKind(b) };
-			EventManager::GetInstance().OnBeginContact(entA, entB, CollisionResult{});
-		};
-	auto onEndContact = [this](uint32_t a, uint32_t b)
-		{
-			Entity entA{ a, actorMng_->GetEntityKind(a) };
-			Entity entB{ b, actorMng_->GetEntityKind(b) };
-			EventManager::GetInstance().OnEndContact(entA, entB, CollisionResult{});
-		};
-	colMng_->SetContactCallbacks(onBeginContact, onEndContact);
-}
+
 
 void FindingJ::SetEventCallBack(void)
 {
@@ -183,6 +168,7 @@ void FindingJ::LoadSE(void)
 
 void FindingJ::InitUI(void)
 {
+
 	auto msgUI = UIManager::GetInstance().GetUI<GameMessageUI>(UINAME::MASSAGE);
 	msgUI->SetMassageText(GameMessageUI::MASSAGE_STATE::EXPLAIN, "FIND J");
 	msgUI->SetMassageText(GameMessageUI::MASSAGE_STATE::START, "START!");

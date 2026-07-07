@@ -39,7 +39,6 @@ PauseScene::PauseScene(void)
 			update_ = &PauseScene::DisappearUpdate;
 			draw_ = &PauseScene::ExpandDraw;
 		};
-
 	menuActions_["ゲームセレクトに戻る"] = [this]()
 		{
 			execYesAction_ = [this]()
@@ -50,7 +49,6 @@ PauseScene::PauseScene(void)
 			update_ = &PauseScene::YesNoUpdate;
 			draw_ = &PauseScene::YesNoDraw;
 		};
-
 	//ラムダ式の中でさらにラムダ式を定義している。YESを選択したときのアクションを定義している。
 	menuActions_["タイトルに戻る"] = [this]()
 		{

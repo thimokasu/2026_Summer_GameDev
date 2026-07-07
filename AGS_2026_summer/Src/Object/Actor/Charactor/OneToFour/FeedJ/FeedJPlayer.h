@@ -1,5 +1,8 @@
 #pragma once
 #include "../../CharactorBase.h"
+
+class ItemBase;
+
 class FeedJPlayer :
     public CharactorBase
 {
@@ -14,12 +17,19 @@ class FeedJPlayer :
         void SubRelease(void) override;
         void InitCollider(void) override;
 
-        void Test(void);
+        void OnContactTrigger(void) { isContactTrigger_ = true; }
+        void OffContactTrigger(void) { isContactTrigger_ = false; }
+
+		void SetHoldItem(ItemBase* item) { holdItem_ = item; isHold_ = true; }
+		void ReleaseHoldItem(void) { holdItem_ = nullptr; isHold_ = false; }
+		ItemBase* GetHoldItem(void) { return holdItem_; }
+        void CreateState(void)override;
 private:
     enum class STATE
     {
         IDLE,
         WALK,
+        HOLD,
         HOLD_WALK,
         DASH,
         COOK,
@@ -34,7 +44,9 @@ private:
 
 
 #pragma region 変数
-
+    bool isContactTrigger_ = false; //コンタクト用トリガーが起動してるかどうか
+	bool isHold_ = false; //アイテムを持っているかどうか
+	ItemBase* holdItem_ = nullptr; //持っているアイテムのポインタ
 #pragma endregion
 
 };

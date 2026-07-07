@@ -1,6 +1,5 @@
 #pragma once
 #include"../../Common/Transform.h"
-
 enum class ColliderLayer
 {
 	NONE = 0,

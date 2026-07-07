@@ -34,7 +34,7 @@ namespace Stage1
                 {b,b,b,r,b,b,b,b,r,b,r,b,b,b,b,r,b,b,b,},
                 {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
                 {b,b,b,b,r,b,b,b,r,b,r,b,b,b,r,b,b,b,b,},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,} 
+                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,}
             }
         },
         { // ===== çÇÇ≥ 1 =====

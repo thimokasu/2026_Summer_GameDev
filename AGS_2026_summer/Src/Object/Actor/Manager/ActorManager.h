@@ -27,7 +27,7 @@ public:
 	//Žw’è‚³‚ê‚½Kind‚ÌActor‚ð•Ô‚·
 	std::vector<ActorBase*>FindActorsByKind(EntityKind kind)const;
 	//Žw’è‚³‚ê‚½ID‚ÌActor‚ð•Ô‚·
-	ActorBase* FindActorByID(EntityID id) const;
+	ActorBase* FindActorByID(EntityID id) const;	
 	//ŠO•”‚©‚çActors‚ÉPush‚·‚é
 	void AddActor(std::unique_ptr<ActorBase> actor) { actors_.push_back(std::move(actor)); }
 private:
@@ -44,6 +44,7 @@ private:
 	void TwoPlayerGameFactory(GameInfo info);
 	void ThreePlayerGameFactory(GameInfo info);
 	void FourPlayerGameFactory(GameInfo info);
+	void OneToFourPlayerGameFactory(GameInfo info);
 #pragma endregion
 
 };
