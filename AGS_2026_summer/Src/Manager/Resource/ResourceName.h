@@ -7,6 +7,11 @@ enum class SRC
 	BLOCK,
 	REACTION_BLOCK,
 
+	//SwordFight
+	STAGE,
+	AIRPLANE,
+	YATCH,
+
 	TITLE,
 	PUSH,
 	RESULT,

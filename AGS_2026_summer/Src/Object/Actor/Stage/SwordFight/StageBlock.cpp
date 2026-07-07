@@ -13,6 +13,7 @@ StageBlock::~StageBlock(void)
 
 StageBlock::StageBlock(VECTOR pos)
 {
+	trans_.pos = pos;
 }
 
 void StageBlock::SubLoad(void)

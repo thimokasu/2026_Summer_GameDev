@@ -39,10 +39,20 @@ void ResourceManager::Init(void)
 	static std::string PATH_EFF = Application::PATH_EFFECT;
 
 	Resource* res = nullptr;
+
+	// FindingJ
 	res = new RES(RES_T::MODEL, PATH_MDL + "FindingJ/Stage/Block.mv1");
 	resourcesMap_.emplace(SRC::BLOCK, res);
-	res = new RES(RES_T::MODEL, PATH_MDL + "FindingJ/Stage/ReactionBlock.mv1");
+	res = new RES(RES_T::MODEL, PATH_MDL + "Stage/ReactionBlock.mv1");
 	resourcesMap_.emplace(SRC::REACTION_BLOCK, res);
+
+	// SwordFight
+	res = new RES(RES_T::MODEL, PATH_MDL + "Stage/SwordFightStage.mv1");
+	resourcesMap_.emplace(SRC::STAGE, res);
+	res = new RES(RES_T::MODEL, PATH_MDL + "Stage/AirPlane.mv1");
+	resourcesMap_.emplace(SRC::AIRPLANE, res);
+	res = new RES(RES_T::MODEL, PATH_MDL + "Stage/Yatch.mv1");
+	resourcesMap_.emplace(SRC::YATCH, res);
 
 	res = new RES(RES_T::IMG, PATH_IMG + "title.png");
 	resourcesMap_.emplace(SRC::TITLE, res);

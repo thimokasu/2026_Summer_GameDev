@@ -265,10 +265,10 @@ void GameSelectScene::InitGameGroups(void)
 {
 	// テスト用のダミー割り当て (1人用、2人用にもテストデータを置いて確認できるようにします)
 	onePlayerGames_ = {};
-	twoPlayerGames_ = {};
+	twoPlayerGames_ = { GAME_KIND::SWORD_FIGHT };
 	oneVsThreeGames_ = {};
 	twoVsTwoGames_ = {};
-	fourPlayerGames_ = {  GAME_KIND::FINDINGJ ,GAME_KIND::SWORD_FIGHT};
+	fourPlayerGames_ = {  GAME_KIND::FINDINGJ ,};
 
 	currentGroup_ = &onePlayerGames_;
 	cursorIndex_ = 0;
