@@ -12,5 +12,13 @@ enum class EntityKind
 	//FindingJ
 	BLOCK,
 	REACTION_BLOCK,
-	FINDINGJ_CPU
+	FINDINGJ_CPU,
+
+	//FeedJ
+	PLAYER_CONTACT_TRIGGER,
+	STATION,
+	FOOD,
+	CONTAINER,
+
+
 };

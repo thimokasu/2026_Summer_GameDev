@@ -1,8 +1,8 @@
 #pragma once
 enum class UINAME
 {
-	//Common
-	TIMER,
-	MASSAGE,
+	//FindingJ
+	FINDINGJ_TIMER,
+	FINDINGJ_MASSAGE,
 
 };

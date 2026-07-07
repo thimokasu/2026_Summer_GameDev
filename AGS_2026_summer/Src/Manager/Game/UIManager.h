@@ -38,8 +38,6 @@ std::shared_ptr<T> UIManager::GetUI(UINAME name)
 {
 	for (auto& ui : rootUIList_)
 	{
-		auto a = ui->GetUIName();
-		auto b = name;
 		if (ui->GetUIName() == name)
 		{
 			return std::dynamic_pointer_cast<T>(ui);

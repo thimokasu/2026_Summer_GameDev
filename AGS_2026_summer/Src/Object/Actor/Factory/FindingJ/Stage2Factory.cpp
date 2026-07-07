@@ -4,7 +4,6 @@
 #include"../../Stage/FindingJ/StageLayout.h"
 #include"../../../Common/RigidBody.h"
 #include"../../Charactor/FindingJ/FindingJPlayer.h"
-#include"../../Charactor/FindingJ/FindingJCPU/FindingJRunner.h"
 
 Stage2Factory::Stage2Factory()
 {
@@ -21,6 +20,7 @@ std::vector<std::unique_ptr<ActorBase>> Stage2Factory::CreateActors(void)
 	std::vector<std::unique_ptr<ActorBase>> actors;	
 	actors.push_back(
 		std::make_unique<FindingJPlayer>());
+	
 
 	for (int h = 0; h < H; h++)
 	{
@@ -34,7 +34,6 @@ std::vector<std::unique_ptr<ActorBase>> Stage2Factory::CreateActors(void)
 					actors.push_back(
 						std::make_unique<Block>(
 							VGet(w * TileSize, h * TileSize, d * TileSize)));
-					actors.back()->SetEntityKind(EntityKind::STAGE);
 					actors.back()->GetRigidBody().SetBodyType(RigidBody::BodyType::STATIC);
 				}
 				else if (layout == StageLayout::ReactionBlock)
@@ -42,7 +41,6 @@ std::vector<std::unique_ptr<ActorBase>> Stage2Factory::CreateActors(void)
 					actors.push_back(
 						std::make_unique<ReactionBlock>(
 							VGet(w * TileSize, h * TileSize, d * TileSize)));
-					actors.back()->SetEntityKind(EntityKind::REACTION_BLOCK);
 					actors.back()->GetRigidBody().SetBodyType(RigidBody::BodyType::STATIC);
 				}
 				else

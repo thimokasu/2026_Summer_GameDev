@@ -25,16 +25,16 @@ namespace Stage1
         { // ===== çÇÇ≥ 0 =====
             {
                 {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-                {b,b,b,b,r,b,b,b,r,b,r,b,b,b,r,b,b,b,b,},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+                {b,b,b,b,b,b,b,b,r,b,r,b,b,b,b,b,b,b,b,},
+                {b,b,b,b,b,r,b,b,b,b,b,b,b,r,b,b,b,b,b,},
                 {b,b,b,r,b,b,b,b,r,b,r,b,b,b,b,r,b,b,b,},
-                {b,r,b,b,b,r,b,r,b,b,b,r,b,r,b,b,b,r,b,},
+                {b,r,b,b,b,b,b,r,b,b,b,r,b,b,b,b,b,r,b,},
                 {b,b,b,b,r,b,b,b,b,r,b,b,b,b,b,b,b,b,b,},
-                {b,r,b,b,b,r,b,r,b,b,b,r,b,r,b,b,b,r,b,},
+                {b,r,b,b,b,b,b,r,b,b,b,r,b,b,b,b,b,r,b,},
                 {b,b,b,r,b,b,b,b,r,b,r,b,b,b,b,r,b,b,b,},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-                {b,b,b,b,r,b,b,b,r,b,r,b,b,b,r,b,b,b,b,},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,} 
+                {b,b,b,b,b,r,b,b,b,b,b,b,b,r,b,b,b,b,b,},
+                {b,b,b,b,b,b,b,b,r,b,r,b,b,b,b,b,b,b,b,},
+                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,}
             }
         },
         { // ===== çÇÇ≥ 1 =====
@@ -62,30 +62,30 @@ namespace Stage2
          { // ===== çÇÇ≥ 0 =====
      {
          {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-         {b,r,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,r,b,},
-         {b,b,b,b,b,b,b,b,b,r,b,b,b,b,b,b,b,b,b,},
+         {b,r,b,b,b,b,b,b,b,r,b,b,b,b,b,b,b,r,b,},
+         {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
          {b,b,b,b,b,b,b,r,b,b,b,r,b,b,b,b,b,b,b,},
-         {b,r,b,b,b,b,b,b,r,b,r,b,b,b,b,b,b,r,b,},
-         {b,b,b,b,b,b,r,b,b,b,b,b,r,b,b,b,b,b,b,},
-         {b,r,b,b,b,b,b,b,r,b,r,b,b,b,b,b,b,r,b,},
+         {b,b,b,b,b,b,b,b,r,b,r,b,b,b,b,b,b,b,b,},
+         {b,r,b,b,b,b,r,b,b,b,b,b,r,b,b,b,b,r,b,},
+         {b,b,b,b,b,b,b,b,r,b,r,b,b,b,b,b,b,b,b,},
          {b,b,b,b,b,b,b,r,b,b,b,r,b,b,b,b,b,b,b,},
-         {b,b,b,b,b,b,b,b,b,r,b,b,b,b,b,b,b,b,b,},
-         {b,r,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,r,b,},
+         {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+         {b,r,b,b,b,b,b,b,b,r,b,b,b,b,b,b,b,r,b,},
          {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,}
      }
  },
  { // ===== çÇÇ≥ 1 =====
      {
          {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-         {b,n,n,n,n,n,n,n,n,b,n,n,n,n,n,n,n,n,b,},
-         {b,n,b,b,b,b,b,b,n,n,n,b,b,b,b,b,b,n,b,},
+         {b,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,b,},
+         {b,n,b,b,b,b,b,b,n,b,n,b,b,b,b,b,b,n,b,},
          {b,n,n,n,n,n,n,n,n,b,n,n,n,n,n,n,n,n,b,},
          {b,n,b,b,b,b,n,b,n,n,n,b,n,b,b,b,b,n,b,},
          {b,n,n,n,n,n,n,b,n,b,n,b,n,n,n,n,n,n,b,},
          {b,n,b,b,b,b,n,b,n,n,n,b,n,b,b,b,b,n,b,},
          {b,n,n,n,n,n,n,n,n,b,n,n,n,n,n,n,n,n,b,},
-         {b,n,b,b,b,b,b,b,n,n,n,b,b,b,b,b,b,n,b,},
-         {b,n,n,n,n,n,n,n,n,b,n,n,n,n,n,n,n,n,b,},
+         {b,n,b,b,b,b,b,b,n,b,n,b,b,b,b,b,b,n,b,},
+         {b,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,b,},
          {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,}
      }
  }
