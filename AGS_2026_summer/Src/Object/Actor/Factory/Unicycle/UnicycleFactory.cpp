@@ -8,6 +8,7 @@
 #include "../../Stage/Unicycle/StageLayout.h"
 #include "../../Stage/FindingJ/Block.h"
 #include"../../Charactor/OnePlay/Test/TestPlayer.h"
+#include "../../Charactor/OnePlay/Unicycle/UnicyclePlayer.h"
 
 
 
@@ -20,7 +21,7 @@ std::vector<std::unique_ptr<ActorBase>> UnicycleFactory::CreateActors(void)
 {
     std::vector<std::unique_ptr<ActorBase>> actors;
 
-   actors.push_back(std::make_unique<TestPlayer>());
+   actors.push_back(std::make_unique<UnicyclePlayer>());
     for (int d = 0; d < D; d++)
     {
         for (int w = 0; w < W; w++)
