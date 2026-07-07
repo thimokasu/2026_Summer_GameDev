@@ -139,26 +139,27 @@ void FindingJ::SetEventCallBack(void)
 
 void FindingJ::LoadUI(void)
 {
-	auto msgUI = std::make_shared<GameMessageUI>(Vector2F(400.0f, 200.0f), Vector2F(400.0f, 100.0f));
-	UIManager::GetInstance().AddRootUI(msgUI);
-	msgUI->Load();
-	msgUI->Init();
-	msgUI->SetStartCallBack([this]()
+	// ローカル変数ではなく、メンバ変数に代入する
+	msgUI_ = std::make_shared<GameMessageUI>(Vector2F(400.0f, 200.0f), Vector2F(400.0f, 100.0f));
+	msgUI_->Load();
+	msgUI_->Init();
+	msgUI_->SetStartCallBack([this]()
 		{
 			EventManager::GetInstance().TriggerEvent(GameEventType::START);
 		}
 	);
+	UIManager::GetInstance().AddRootUI(msgUI_);
 
-	auto timerUI = std::make_shared<Timer>(Vector2F(50.0f, 50.0f), Vector2F(200.0f, 50.0f));
-	UIManager::GetInstance().AddRootUI(timerUI);
-	timerUI->Load();
-	timerUI->Init();
-	timerUI->SetTimeUpCallBack([this]()
+	// 同様に timerUI もメンバ変数に代入
+	timerUI_ = std::make_shared<Timer>(Vector2F(50.0f, 50.0f), Vector2F(200.0f, 50.0f));
+	timerUI_->Load();
+	timerUI_->Init();
+	timerUI_->SetTimeUpCallBack([this]()
 		{
 			EventManager::GetInstance().TriggerEvent(GameEventType::TIME_UP);
 		}
 	);
-
+	UIManager::GetInstance().AddRootUI(timerUI_);
 }
 
 void FindingJ::LoadSE(void)

@@ -1,5 +1,7 @@
 #pragma once
 #include"../GameBase.h"
+class GameMessageUI;
+class Timer;
 
 class FindingJ :public GameBase
 {
@@ -23,6 +25,8 @@ public:
 	void InitSE(void)override;
 	void InitCamera(void)override;
 private:
+	std::shared_ptr<GameMessageUI> msgUI_; 
+	std::shared_ptr<Timer> timerUI_;
 	float time = 0;
 };
 
