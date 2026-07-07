@@ -1,0 +1,14 @@
+#pragma once
+enum class STATION_KIND
+{
+	NONE=-1,
+	NORMAL,
+	CUTTING,
+	DISH,
+	SERVE,
+	CUCAMBER,
+	LETTUCE,
+	TOMATO,
+
+	MAX,
+};

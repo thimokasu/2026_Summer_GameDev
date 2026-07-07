@@ -15,7 +15,6 @@ public:
 
 	void SetContactEventRule(void)override;
 	void SetContactEventCallback(void)override;
-	void SetCollisionCollback(void)override;
 	void SetEventCallBack(void)override;
 
 	void LoadUI(void)override;

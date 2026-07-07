@@ -25,7 +25,7 @@ public:
 
 	void SetPlayNumber(int n) { playNumber_ = n; }
 
-	void ChangeState(IState* newState);
+	//void ChangeState(IState* newState);
 
 	template<typename T>
 	void AddState(std::unique_ptr<T>state);

@@ -116,22 +116,7 @@ void FindingJ::SetContactEventCallback(void)
 	);
 }
 
-void FindingJ::SetCollisionCollback(void)
-{
-	auto onBeginContact = [this](uint32_t a, uint32_t b)
-		{
-			Entity entA{ a, actorMng_->GetEntityKind(a) };
-			Entity entB{ b, actorMng_->GetEntityKind(b) };
-			EventManager::GetInstance().OnBeginContact(entA, entB, CollisionResult{});
-		};
-	auto onEndContact = [this](uint32_t a, uint32_t b)
-		{
-			Entity entA{ a, actorMng_->GetEntityKind(a) };
-			Entity entB{ b, actorMng_->GetEntityKind(b) };
-			EventManager::GetInstance().OnEndContact(entA, entB, CollisionResult{});
-		};
-	colMng_->SetContactCallbacks(onBeginContact, onEndContact);
-}
+
 
 void FindingJ::SetEventCallBack(void)
 {
