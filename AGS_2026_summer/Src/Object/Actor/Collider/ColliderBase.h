@@ -52,11 +52,6 @@ public:
 	VECTOR GetRotPos(const VECTOR& localPos)const;
 	//デバッグ描画するかどうか
 	void SetIsDebug(bool isDebug) { isDebug_ = isDebug;}
-
-	//エンティティの種類を取得
-	EntityKind GetEntityKind(void) { return colliderInfo_.kind_; }
-	//設定
-	void SetEnityKind(EntityKind kind) { colliderInfo_.kind_ = kind; }
 protected:
 #pragma region 関数
 	virtual void DrawDebug(int color) {};//デバッグ描画

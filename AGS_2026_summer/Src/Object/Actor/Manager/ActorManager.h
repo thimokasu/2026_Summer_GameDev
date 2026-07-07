@@ -44,7 +44,6 @@ private:
 	void TwoPlayerGameFactory(GameInfo info);
 	void ThreePlayerGameFactory(GameInfo info);
 	void FourPlayerGameFactory(GameInfo info);
-	void OneToFourPlayerGameFactory(GameInfo info);
 #pragma endregion
 
 };

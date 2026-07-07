@@ -1,11 +1,10 @@
 #pragma once
 #include "../../ActorBase.h"
-class ItemBase;
-
 class StationBase :
     public ActorBase
 {
 public:
+
 	StationBase(void);
 	~StationBase(void);
 
@@ -16,16 +15,8 @@ public:
 	void SubRelease(void) override;
 	void InitCollider(void)override;
 
-	void SetHoldItem(ItemBase* item){heldItem_ = item;	isHold_ = true;}
-	void ReleaseHoldItem() { heldItem_ = nullptr;	isHold_ = false; }
-	ItemBase* GetHoldItem() { return heldItem_; }
-
-
 private:
-#pragma region ïœêî
-	ItemBase* heldItem_;
-	bool isHold_ = false;
-#pragma endregion
+
 
 };
 
