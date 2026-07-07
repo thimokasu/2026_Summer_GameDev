@@ -6,6 +6,12 @@
 
 #include"../../../../Object/Actor/Camera/Camera.h"
 
+#include"../../../../Object/Actor/Charactor/SwordFight/SwordFightPlayer.h"
+#include"../../../../Object/UI/FindingJ/GameMessageUI.h"
+
+#include"../../../../Object/UI/FindingJ/Timer.h"
+
+
 
 
 SwordFight::SwordFight(ActorManager* actMng, CollisionManager* colMng)

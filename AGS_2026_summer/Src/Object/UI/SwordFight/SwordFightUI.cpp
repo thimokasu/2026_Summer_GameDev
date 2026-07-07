@@ -58,7 +58,7 @@ void SwordFightUI::SetState(MessageState state)
         break;
     case MessageState::Draw:
         textColor_ = GetColor(255, 255, 255);
-		edgeColor_ = GetColor(0, 0, 0);
+		edgeColor_ = GetColor(255, 0, 0);
     default:
         break;
     }
