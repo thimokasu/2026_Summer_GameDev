@@ -21,6 +21,7 @@ void FindingJPlayer::SubLoad(void)
 
 void FindingJPlayer::SubInit(void)
 {
+	entityKind_ = EntityKind::PLAYER;
 	rigidBody_.SetBodyType(RigidBody::BodyType::DYNAMIC);
 	rigidBody_.SetUseGravity(true);
 	rigidBody_.SetMass(1000);

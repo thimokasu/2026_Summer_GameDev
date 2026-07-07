@@ -26,6 +26,7 @@ void FindingJRunner::SubLoad(void)
 
 void FindingJRunner::SubInit(void)
 {
+	entityKind_ = EntityKind::FINDINGJ_CPU;
 	rigidBody_.SetUseGravity(true);
 	rigidBody_.SetMass(100);
 	rigidBody_.SetMoveSpeed(0.25f);

@@ -24,7 +24,7 @@ void GameBase::Init(void)
 	{
 		for (const auto& [shape, collider] : actor->GetOwnColliders())
 		{
-			colMng_->AddCollider(collider.get(), (int)collider.get()->GetEntityKind());
+			colMng_->AddCollider(collider.get(), actor->GetEntityID());
 		}
 	}
 	SubInit();

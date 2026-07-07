@@ -25,7 +25,7 @@ void ActorManager::Load(GameInfo info)
 	{
 		actors_.push_back(std::move(actor));
 	}
-	//actors_.push_back(std::make_unique<FindingJRunner>(*this));
+	actors_.push_back(std::make_unique<FindingJRunner>(*this));
 
 	for(auto&a:actors_)
 	{
