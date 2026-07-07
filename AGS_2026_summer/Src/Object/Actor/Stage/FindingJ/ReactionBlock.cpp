@@ -56,6 +56,7 @@ void ReactionBlock::InitCollider(void)
 	ColliderInfo info;
 	info.shape_ = ColliderShape::BOX;
 	info.layer_ = ColliderLayer::STAGE;
+	info.kind_ = EntityKind::REACTION_BLOCK;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
 	info.localPos_ = { 0.0f,0.0f,0.0f };
 	info.localRot_ = { 0.0f,0.0f,0.0f };

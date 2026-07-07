@@ -1,7 +1,7 @@
 #pragma once
 #include "../../CharactorBase.h"
 
-class ItemBaes;
+class ItemBase;
 
 class FeedJPlayer :
     public CharactorBase
@@ -20,9 +20,10 @@ class FeedJPlayer :
         void OnContactTrigger(void) { isContactTrigger_ = true; }
         void OffContactTrigger(void) { isContactTrigger_ = false; }
 
-		void SetHoldItem(ItemBaes* item) { holdItem_ = item; isHold_ = true; }
+		void SetHoldItem(ItemBase* item) { holdItem_ = item; isHold_ = true; }
 		void ReleaseHoldItem(void) { holdItem_ = nullptr; isHold_ = false; }
-		ItemBaes* GetHoldItem(void) { return holdItem_; }
+		ItemBase* GetHoldItem(void) { return holdItem_; }
+        void CreateState(void)override;
 private:
     enum class STATE
     {
@@ -45,7 +46,7 @@ private:
 #pragma region 変数
     bool isContactTrigger_ = false; //コンタクト用トリガーが起動してるかどうか
 	bool isHold_ = false; //アイテムを持っているかどうか
-	ItemBaes* holdItem_ = nullptr; //持っているアイテムのポインタ
+	ItemBase* holdItem_ = nullptr; //持っているアイテムのポインタ
 #pragma endregion
 
 };

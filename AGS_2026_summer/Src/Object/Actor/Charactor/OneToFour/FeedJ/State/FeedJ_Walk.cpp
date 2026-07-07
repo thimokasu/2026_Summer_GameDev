@@ -17,12 +17,17 @@ void FeedJ_Walk::HandleInputT(FeedJPlayer* owner)
 		KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_BACK).now ||
 		KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT).now)
 	{
+		int a = 0;
 	}
 	else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::L_KEY_ACTOIN).now)
 	{
 		auto* dashState = dynamic_cast<FeedJ_Dash*>(owner->GetState<FeedJ_Dash>());
 		dashState->SetDashVec(moveVec_);
 		owner->ChangeState<FeedJ_Dash>();
+	}
+	else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::J_KEY_ACTION).down)
+	{
+		owner->OnContactTrigger();
 	}
 	else
 	{
@@ -32,11 +37,12 @@ void FeedJ_Walk::HandleInputT(FeedJPlayer* owner)
 
 void FeedJ_Walk::UpdateT(FeedJPlayer* owner)
 {
-	owner->ChangeState<FeedJ_HoldState>();
 	VECTOR moveVec = { 0.0f,0.0f,0.0f };
 
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_FRONT).now) moveVec.z += 1.0f;
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_BACK).now) moveVec.z -= 1.0f;
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_FRONT).now) {
+		moveVec.z += 1.0f;
+	}
+		if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_BACK).now) moveVec.z -= 1.0f;
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_RIGHT).now) moveVec.x += 1.0f;
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT).now) moveVec.x -= 1.0f;
 

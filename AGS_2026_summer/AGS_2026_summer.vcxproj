@@ -139,6 +139,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Actor\Factory\FeedJ\FeedJStage1Factory.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\FeedJ\FeedJFloor.cpp" />
+    <ClCompile Include="Src\Object\Actor\Item\FeedJ\FeedJ_ItemIdle.cpp" />
     <ClCompile Include="Src\Object\Actor\Item\FeedJ\Container\CuttingBoard.cpp" />
     <ClCompile Include="Src\Object\Actor\Item\FeedJ\Container\Dish.cpp" />
     <ClCompile Include="Src\Object\Actor\Item\FeedJ\Food\AfterCooking\Cucamber.cpp" />
@@ -227,7 +230,15 @@
     <ClCompile Include="Src\Object\Actor\Item\FeedJ\Food\AfterCooking\Tomato.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FeedJStageLayout.h" />
+    <ClInclude Include="Src\Object\Actor\Factory\FactorysHeadersh.h" />
+    <ClInclude Include="Src\Object\Actor\Factory\FeedJ\FeedJStage1Factory.h" />
+    <ClInclude Include="Src\Object\Actor\Item\FeedJ\FeedJItemHeaders.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\FeedJ\FeedJFloor.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\FeedJ\FeedJStageHeaders.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\FeedJ\FeedJStageLayout.h" />
+    <ClInclude Include="Src\Object\Actor\Item\FeedJ\FeedJ_ItemIdle.h" />
+    <ClInclude Include="Src\Object\Actor\Item\FeedJ\IFoodState.h" />
+    <ClInclude Include="Src\Object\Actor\Item\FeedJ\InterFace\FeedJ_Drop.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\Container\CuttingBoard.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\Container\Dish.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\AfterCooking\Cucamber.h" />
@@ -244,6 +255,7 @@
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\InterFace\FeedJ_ICooker.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\InterFace\FeedJ_IPlaceble.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\InterFace\FeedJ_IThrowble.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\FeedJ\StationKind.h" />
     <ClInclude Include="Src\Object\UI\FeedJ\FoodUI.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\Container\ContainerBase.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\FoodBase.h" />

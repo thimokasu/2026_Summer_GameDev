@@ -1,48 +1,63 @@
-#include "Block.h"
+#include "FeedJFloor.h"
 #include<memory>
 #include"../../Collider/ColliderInfo.h"
 #include"../../Collider/ColliderBase.h"
 #include"../../Collider/ColliderBox.h"
 
-Block::Block(void)
+FeedJFloor::FeedJFloor(void)
 {
 }
 
-Block::~Block(void)
-{
-}
-
-Block::Block(VECTOR pos)
+FeedJFloor::FeedJFloor(VECTOR pos)
 {
 	trans_.pos = pos;
+
 }
 
-void Block::SubLoad(void)
+FeedJFloor::FeedJFloor(VECTOR pos, VECTOR deg)
+{
+	trans_.pos = pos;
+	trans_.quaRot = Quaternion::Euler(deg);
+}
+
+FeedJFloor::FeedJFloor(VECTOR size, VECTOR pos, VECTOR deg)
+{
+	halfSize_ = size;
+	trans_.pos = pos;
+	trans_.quaRot = Quaternion::Euler(deg);
+}
+
+FeedJFloor::~FeedJFloor(void)
 {
 }
 
-void Block::SubInit(void)
+void FeedJFloor::SubLoad(void)
 {
 }
 
-void Block::SubUpdate(void)
+void FeedJFloor::SubInit(void)
+{
+	rigidBody_.SetBodyType(RigidBody::BodyType::STATIC);
+
+}
+
+void FeedJFloor::SubUpdate(void)
 {
 }
 
-void Block::SubDraw(void)
+void FeedJFloor::SubDraw(void)
 {
 }
 
-void Block::SubRelease(void)
+void FeedJFloor::SubRelease(void)
 {
 }
 
-void Block::InitCollider(void)
+void FeedJFloor::InitCollider(void)
 {
 	ColliderInfo info;
 	info.shape_ = ColliderShape::BOX;
 	info.layer_ = ColliderLayer::STAGE;
-	info.kind_ = EntityKind::BLOCK;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
 	info.localPos_ = { 0.0f,0.0f,0.0f };
 	info.localRot_ = { 0.0f,0.0f,0.0f };
@@ -53,3 +68,4 @@ void Block::InitCollider(void)
 		std::make_unique<ColliderBox>(info, halfSize_, *this);
 	ownColliders_.emplace(static_cast<int>(ColliderShape::BOX), std::move(collider));
 }
+

@@ -60,9 +60,20 @@ void FeedJPlayer::InitCollider(void)
 	ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
 }
 
+void FeedJPlayer::CreateState(void)
+{
+	AddState(std::make_unique<FeedJ_IdleState>());
+	AddState(std::make_unique<FeedJ_Cook>());
+	AddState(std::make_unique<FeedJ_Walk>());
+	AddState(std::make_unique<FeedJ_HoldWalk>());
+	AddState(std::make_unique<FeedJ_HoldState>());
+	AddState(std::make_unique<FeedJ_Dash>());
+}
+
 void FeedJPlayer::InitRigidBody(void)
 {
 	rigidBody_.SetUseGravity(true);
+	rigidBody_.SetMoveSpeed(1);
 }
 void FeedJPlayer::ActionInput(void)
 {

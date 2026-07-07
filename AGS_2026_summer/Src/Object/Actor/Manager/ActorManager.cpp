@@ -4,9 +4,7 @@
 #include"../Factory/ActorFactoryBase.h"
 #include"../Collider/ColliderBase.h"
 #include"../Factory/Test/TestFactory.h"
-#include"../Factory/FindingJ/Stage1Factory.h"
-#include"../Factory/FindingJ/Stage2Factory.h"
-#include"../Factory/FindingJ/Stage3Factory.h"
+#include"../Factory/FactorysHeadersh.h"
 
 #include"../Charactor/FindingJ/FindingJCPU/FindingJRunner.h"
 #include"../../../Manager/Generic/KeyManager.h"
@@ -155,6 +153,9 @@ void ActorManager::SetFactory(GameInfo info)
 	case PLAY_NUM::FOUR_PLAYER:
 		FourPlayerGameFactory(info);
 		break;
+	case PLAY_NUM::ONETOFOURPLAYER:
+		OneToFourPlayerGameFactory(info);
+		break;
 	}
 }
 
@@ -198,6 +199,28 @@ void ActorManager::FourPlayerGameFactory(GameInfo info)
 			break;
 		}
 		break;
+	default:
+		break;
+	}
+}
+
+void ActorManager::OneToFourPlayerGameFactory(GameInfo info)
+{
+	switch (info.game_)
+	{
+	case GAME_KIND::FEEDJ:
+		switch (info.stage_)
+		{
+		case STAGE_NUM::STAGE1:
+			actorFactory_ = std::make_unique<FeedJStage1Factory>();
+			break;
+		case STAGE_NUM::STAGE2:
+			break;
+		case STAGE_NUM::STAGE3:
+			break;
+		default:
+			break;
+		}
 	default:
 		break;
 	}

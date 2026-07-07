@@ -35,7 +35,6 @@ std::vector<std::unique_ptr<ActorBase>> Stage1Factory::CreateActors(void)
 					actors.push_back(
 						std::make_unique<Block>(
 							VGet(w * TileSize, h * TileSize, d * TileSize)));
-					actors.back()->SetEntityKind(EntityKind::STAGE);
 					actors.back()->GetRigidBody().SetBodyType(RigidBody::BodyType::STATIC);
 				}
 				else if(layout== StageLayout::ReactionBlock)
@@ -43,7 +42,6 @@ std::vector<std::unique_ptr<ActorBase>> Stage1Factory::CreateActors(void)
 					actors.push_back(
 						std::make_unique<ReactionBlock>(
 							VGet(w * TileSize, h * TileSize, d * TileSize)));
-					actors.back()->SetEntityKind(EntityKind::REACTION_BLOCK);
 					actors.back()->GetRigidBody().SetBodyType(RigidBody::BodyType::STATIC);
 				}
 				else

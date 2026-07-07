@@ -26,7 +26,6 @@ void FindingJRunner::SubLoad(void)
 
 void FindingJRunner::SubInit(void)
 {
-	entityKind_ = EntityKind::FINDINGJ_CPU;
 	rigidBody_.SetUseGravity(true);
 	rigidBody_.SetMass(100);
 	rigidBody_.SetMoveSpeed(0.25f);
@@ -71,6 +70,7 @@ void FindingJRunner::InitCollider(void)
 	ColliderInfo info;
 	info.shape_ = ColliderShape::CAPSULE;
 	info.layer_ = ColliderLayer::ACTOR;
+	info.kind_ = EntityKind::FINDINGJ_CPU;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE });
 	float radius = 10.0f;
 	VECTOR localPosTop = VGet(0.0f, 10.0f, 0.0f);

@@ -2,7 +2,8 @@
 #include"../../../../../../Manager/Generic/KeyManager.h"
 #include"../../../CharactorBase.h"
 #include"FeedJStateHeaders.h"
-
+#include"../../../../Item/FeedJ/Food/FoodBase.h"
+#include"../../../../Item/FeedJ/Container/ContainerBase.h"
 void FeedJ_HoldState::EnterT(FeedJPlayer* owner)
 {
 }
@@ -25,13 +26,22 @@ void FeedJ_HoldState::HandleInputT(FeedJPlayer* owner)
 	}
 	else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::J_KEY_ACTION).down)
 	{
+		auto*item = owner->GetHoldItem();
+		if (auto food = dynamic_cast<FoodBase*>(item))
+		{
+			
+		}
+		else if (auto container = dynamic_cast<ContainerBase*>(item))
+		{
+			
+		}
+
 		owner->ChangeState<FeedJ_IdleState>();
 	}
 	else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::K_KEY_ACTION).down)
 	{
 		owner->ChangeState<FeedJ_IdleState>();
 	}
-
 }
 
 void FeedJ_HoldState::UpdateT(FeedJPlayer* owner)
