@@ -33,7 +33,7 @@ protected:
 
 	virtual void SetContactEventRule(void) {};
 	virtual void SetContactEventCallback(void) {};
-	void SetCollisionCollback(void);
+	virtual void SetCollisionCollback(void) {};
 	virtual void SetEventCallBack(void) {};
 
 	virtual void LoadUI(void) {};

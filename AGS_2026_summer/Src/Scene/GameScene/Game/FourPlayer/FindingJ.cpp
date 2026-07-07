@@ -10,8 +10,8 @@
 #include"../../../../Object/Actor/Charactor/FindingJ/FindingJCPU/FindingJChaser.h"
 #include"../../../../Object/Actor/Charactor/FindingJ/FindingJPlayer.h"
 
-#include"../../../../Object/UI/FindingJ/GameMessageUI.h"
-#include"../../../../Object/UI/FindingJ/Timer.h"
+#include"../../../../Object/UI/Common/GameMessageUI.h"
+#include"../../../../Object/UI/Common/Timer.h"
 
 FindingJ::FindingJ(ActorManager* actMng, CollisionManager* colMng)
 	:GameBase(actMng,colMng)
@@ -24,7 +24,7 @@ FindingJ::~FindingJ(void)
 
 void FindingJ::SubLoad(void)
 {
-
+	actorMng_->AddActor(std::make_unique<FindingJRunner>(*actorMng_));
 }
 void FindingJ::SubInit(void)
 {
@@ -34,12 +34,25 @@ void FindingJ::SubInit(void)
 		auto& findingJCPU = dynamic_cast<FindingJRunner&>(*c);
 		findingJCPU.SetStageNum(gameInfo_.stage_);
 	}
+	time = -4;
 }
 void FindingJ::SubUpdate(void)
 {
+	time += SceneManager::GetInstance().GetDeltaTime();
+	if (time > 15)
+	{
+		time = 0;
+		auto a = actorMng_->FindActorsByKind(EntityKind::FINDINGJ_CPU);
+		for (auto& actor : a)
+		{
+			auto& runner = dynamic_cast<FindingJRunner&>(*actor);
+			runner.Appear();
+		}
+	}
 }
 void FindingJ::SubDraw(void)
 {
+	DrawFormatString(0, 140, 0xffffff, "time:%2f", time);
 }
 void FindingJ::SubRelease(void)
 {
@@ -95,22 +108,37 @@ void FindingJ::SetContactEventCallback(void)
 				findingJCPU.SetIsDraw(true);
 				OffUpdate();
 			}
-			auto ui = UIManager::GetInstance().GetUI<Timer>(UINAME::FINDINGJ_TIMER);
+			auto ui = UIManager::GetInstance().GetUI<Timer>(UINAME::TIMER);
 			ui->SetUpdate(false);
-			auto massage = UIManager::GetInstance().GetUI<GameMessageUI>(UINAME::FINDINGJ_MASSAGE);
+			auto massage = UIManager::GetInstance().GetUI<GameMessageUI>(UINAME::MASSAGE);
 			massage->SetMassageState(GameMessageUI::MASSAGE_STATE::FINISH);
 		}
 	);
 }
 
-
+void FindingJ::SetCollisionCollback(void)
+{
+	auto onBeginContact = [this](uint32_t a, uint32_t b)
+		{
+			Entity entA{ a, actorMng_->GetEntityKind(a) };
+			Entity entB{ b, actorMng_->GetEntityKind(b) };
+			EventManager::GetInstance().OnBeginContact(entA, entB, CollisionResult{});
+		};
+	auto onEndContact = [this](uint32_t a, uint32_t b)
+		{
+			Entity entA{ a, actorMng_->GetEntityKind(a) };
+			Entity entB{ b, actorMng_->GetEntityKind(b) };
+			EventManager::GetInstance().OnEndContact(entA, entB, CollisionResult{});
+		};
+	colMng_->SetContactCallbacks(onBeginContact, onEndContact);
+}
 
 void FindingJ::SetEventCallBack(void)
 {
 	EventManager::GetInstance().SetContactEventCallback(GameEventType::START, [this](const ContactRule& rule)
 		{
 			OnUpdate();
-			auto ui = UIManager::GetInstance().GetUI<Timer>(UINAME::FINDINGJ_TIMER);
+			auto ui = UIManager::GetInstance().GetUI<Timer>(UINAME::TIMER);
 			ui->SetUpdate(true);
 		}
 	);
@@ -118,7 +146,7 @@ void FindingJ::SetEventCallBack(void)
 	EventManager::GetInstance().SetContactEventCallback(GameEventType::TIME_UP, [this](const ContactRule& rule)
 		{
 			OffUpdate();
-			auto massage = UIManager::GetInstance().GetUI<GameMessageUI>(UINAME::FINDINGJ_MASSAGE);
+			auto massage = UIManager::GetInstance().GetUI<GameMessageUI>(UINAME::MASSAGE);
 			massage->SetMassageState(GameMessageUI::MASSAGE_STATE::FINISH);
 		}
 	);
@@ -129,6 +157,7 @@ void FindingJ::LoadUI(void)
 	auto msgUI = std::make_shared<GameMessageUI>(Vector2F(400.0f, 200.0f), Vector2F(400.0f, 100.0f));
 	UIManager::GetInstance().AddRootUI(msgUI);
 	msgUI->Load();
+	msgUI->Init();
 	msgUI->SetStartCallBack([this]()
 		{
 			EventManager::GetInstance().TriggerEvent(GameEventType::START);
@@ -138,6 +167,7 @@ void FindingJ::LoadUI(void)
 	auto timerUI = std::make_shared<Timer>(Vector2F(50.0f, 50.0f), Vector2F(200.0f, 50.0f));
 	UIManager::GetInstance().AddRootUI(timerUI);
 	timerUI->Load();
+	timerUI->Init();
 	timerUI->SetTimeUpCallBack([this]()
 		{
 			EventManager::GetInstance().TriggerEvent(GameEventType::TIME_UP);
@@ -153,7 +183,13 @@ void FindingJ::LoadSE(void)
 
 void FindingJ::InitUI(void)
 {
+	auto msgUI = UIManager::GetInstance().GetUI<GameMessageUI>(UINAME::MASSAGE);
+	msgUI->SetMassageText(GameMessageUI::MASSAGE_STATE::EXPLAIN, "FIND J");
+	msgUI->SetMassageText(GameMessageUI::MASSAGE_STATE::START, "START!");
+	msgUI->SetMassageText(GameMessageUI::MASSAGE_STATE::FINISH, "FINISH!");
 
+	auto timer = UIManager::GetInstance().GetUI<Timer>(UINAME::TIMER);
+	timer->SetTime(60);
 }
 
 void FindingJ::InitSE(void)

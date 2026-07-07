@@ -45,6 +45,9 @@ void ButtonMushing::SetContactEventCallback(void)
 {
 }
 
+void ButtonMushing::SetCollisionCollback(void)
+{
+}
 
 void ButtonMushing::LoadUI(void)
 {

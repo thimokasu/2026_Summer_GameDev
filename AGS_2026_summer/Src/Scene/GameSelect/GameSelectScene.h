@@ -43,7 +43,6 @@ private:
     std::vector<GAME_KIND>oneVsThreeGames_;
     std::vector<GAME_KIND>twoVsTwoGames_;
 	std::vector<GAME_KIND>fourPlayerGames_;
-    std::vector<GAME_KIND>oneToFourPlayGames_;
     const std::vector<GAME_KIND>* currentGroup_ = nullptr;
 	int cursorIndex_ = 0;
     GameInfo gameInfo_;

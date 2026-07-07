@@ -3,7 +3,6 @@
 class FeedJ :
     public GameBase
 {
-public	:
 	FeedJ(ActorManager* actMng, CollisionManager* colMng);
 	~FeedJ(void);
 
@@ -15,6 +14,7 @@ public	:
 
 	void SetContactEventRule(void)override;
 	void SetContactEventCallback(void)override;
+	void SetCollisionCollback(void)override;
 	void SetEventCallBack(void)override;
 
 	void LoadUI(void)override;

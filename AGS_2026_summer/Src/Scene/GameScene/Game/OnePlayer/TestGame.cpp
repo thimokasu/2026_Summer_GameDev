@@ -38,7 +38,9 @@ void TestGame::SetContactEventCallback(void)
 {
 }
 
-
+void TestGame::SetCollisionCollback(void)
+{
+}
 
 void TestGame::SetEventCallBack(void)
 {

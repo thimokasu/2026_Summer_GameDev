@@ -43,6 +43,9 @@ void ThumbWrestling::SetContactEventCallback(void)
 {
 }
 
+void ThumbWrestling::SetCollisionCollback(void)
+{
+}
 
 void ThumbWrestling::LoadUI(void)
 {

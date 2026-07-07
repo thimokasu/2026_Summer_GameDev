@@ -105,8 +105,11 @@ void SceneManager::Update(void)
 	else
 	{
 		scenes_.back()->Update();
+		if (scenes_.back()->GetSceneID() != SCENE_ID::PAUSE)
+		{
 		UIManager::GetInstance().Update();
 		EventManager::GetInstance().Update();
+		}
 	}
 	camera_->Update();
 
@@ -211,7 +214,6 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 		scenes_.push_back(scene);
 		scenes_.back()->Load();
 		scenes_.back()->Init();
-		UIManager::GetInstance().Init();
 		sceneID_ = scenes_.back()->GetSceneID();
 
 	}

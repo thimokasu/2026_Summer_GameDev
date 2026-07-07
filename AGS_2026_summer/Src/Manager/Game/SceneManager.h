@@ -94,7 +94,7 @@ private:
 	float totalGameTime_;
 	//デルタタイム
 	std::chrono::system_clock::time_point preTime_;
-	float deltaTime_;
+	float deltaTime_=0;
 	//カメラ
 	std::unique_ptr<Camera> camera_;
 	int mainScreen_;

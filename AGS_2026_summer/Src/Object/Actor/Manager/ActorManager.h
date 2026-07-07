@@ -28,6 +28,8 @@ public:
 	std::vector<ActorBase*>FindActorsByKind(EntityKind kind)const;
 	//指定されたIDのActorを返す
 	ActorBase* FindActorByID(EntityID id) const;
+	//外部からActorsにPushする
+	void AddActor(std::unique_ptr<ActorBase> actor) { actors_.push_back(std::move(actor)); }
 private:
 #pragma region 変数
 	std::vector<std::unique_ptr<ActorBase>> actors_;//アクターのリスト
@@ -42,7 +44,6 @@ private:
 	void TwoPlayerGameFactory(GameInfo info);
 	void ThreePlayerGameFactory(GameInfo info);
 	void FourPlayerGameFactory(GameInfo info);
-	void OneToFourPlayerGameFactory(GameInfo info);
 #pragma endregion
 
 };

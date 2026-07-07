@@ -25,7 +25,7 @@ void FindingJPlayer::SubInit(void)
 	rigidBody_.SetBodyType(RigidBody::BodyType::DYNAMIC);
 	rigidBody_.SetUseGravity(true);
 	rigidBody_.SetMass(1000);
-	rigidBody_.SetMoveSpeed(1.0f);
+	rigidBody_.SetMoveSpeed(1.5f);
 	trans_.pos = VGet(0.0f, 40.0f, 0.0f);
 }
 
@@ -47,7 +47,6 @@ void FindingJPlayer::InitCollider(void)
 	ColliderInfo info;
 	info.shape_ = ColliderShape::CAPSULE;
 	info.layer_ = ColliderLayer::ACTOR;
-	info.kind_ = EntityKind::PLAYER;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE });
 	float radius = 10.0f;
 	VECTOR localPosTop = VGet(0.0f, 10.0f, 0.0f);

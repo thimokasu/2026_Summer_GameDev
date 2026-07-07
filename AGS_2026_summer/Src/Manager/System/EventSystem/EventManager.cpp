@@ -34,6 +34,7 @@ void EventManager::OnBeginContact(Entity a, Entity b, CollisionResult result)
 {
     touching_[a.entityID_].insert(b.entityID_);
     touching_[b.entityID_].insert(a.entityID_);
+
     contactRules_.push_back(
         ContactRule{ ContactEventInfo{ ContactEventInfo::Type::BEGIN, a, b }, GameEventType::NONE }
     );

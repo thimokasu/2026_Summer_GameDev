@@ -139,14 +139,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Src\Object\Actor\Factory\FeedJ\FeedJStage1Factory.cpp" />
-    <ClCompile Include="Src\Object\Actor\Stage\FeedJ\FeedJFloor.cpp" />
-    <ClCompile Include="Src\Object\Actor\Item\FeedJ\FeedJ_ItemIdle.cpp" />
-    <ClCompile Include="Src\Object\Actor\Item\FeedJ\Container\CuttingBoard.cpp" />
-    <ClCompile Include="Src\Object\Actor\Item\FeedJ\Container\Dish.cpp" />
-    <ClCompile Include="Src\Object\Actor\Item\FeedJ\Food\AfterCooking\Cucamber.cpp" />
-    <ClCompile Include="Src\Object\Actor\Item\FeedJ\Food\AfterCooking\Lettuce.cpp" />
-    <ClCompile Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_HoldState.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_Cook.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_Dash.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_HoldWalk.cpp" />
@@ -155,7 +147,7 @@
     <ClCompile Include="Src\Object\UI\FeedJ\FoodUI.cpp" />
     <ClCompile Include="Src\Object\Actor\Item\FeedJ\Container\ContainerBase.cpp" />
     <ClCompile Include="Src\Object\Actor\Item\FeedJ\Food\FoodBase.cpp" />
-    <ClCompile Include="Src\Object\Actor\Item\ItemBase.cpp" />
+    <ClCompile Include="Src\Object\Actor\Item\FeedJ\ItemBase.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\FeedJPlayer.cpp" />
     <ClCompile Include="Src\Scene\GameScene\Game\OneToFour\FeedJ\FeedJ.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\Player\ButtonMashing\ButtonMashingPlayer.cpp" />
@@ -174,8 +166,8 @@
     <ClCompile Include="Src\Manager\System\Collision\CollisionLogic.cpp" />
     <ClCompile Include="Src\Manager\System\Collision\CollisionManager.cpp" />
     <ClCompile Include="Src\Object\Actor\Manager\ActorManager.cpp" />
-    <ClCompile Include="Src\Object\UI\FindingJ\GameMessageUI.cpp" />
-    <ClCompile Include="Src\Object\UI\FindingJ\Timer.cpp" />
+    <ClCompile Include="Src\Object\UI\Common\GameMessageUI.cpp" />
+    <ClCompile Include="Src\Object\UI\Common\Timer.cpp" />
     <ClCompile Include="Src\Manager\Game\UIManager.cpp" />
     <ClCompile Include="Src\Scene\GameOverScene.cpp" />
     <ClCompile Include="Src\Scene\GameScene\GameScene.cpp" />
@@ -220,30 +212,8 @@
     <ClCompile Include="Src\Object\Actor\Stage\Test\TestBox.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\FeedJ\StationBase.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\FeedJ\Storage\StorageBase.cpp" />
-    <ClCompile Include="Src\Object\Actor\Stage\FeedJ\StationCutting.cpp" />
-    <ClCompile Include="Src\Object\Actor\Stage\FeedJ\StationNormal.cpp" />
-    <ClCompile Include="Src\Object\Actor\Stage\FeedJ\StationDish.cpp" />
-    <ClCompile Include="Src\Object\Actor\Stage\FeedJ\StationServe.cpp" />
-    <ClCompile Include="Src\Object\Actor\Stage\FeedJ\Storage\StorageCucamber.cpp" />
-    <ClCompile Include="Src\Object\Actor\Stage\FeedJ\Storage\StorageLettuce.cpp" />
-    <ClCompile Include="Src\Object\Actor\Stage\FeedJ\Storage\StorageTomato.cpp" />
-    <ClCompile Include="Src\Object\Actor\Item\FeedJ\Food\AfterCooking\Tomato.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Src\Object\Actor\Factory\FactorysHeadersh.h" />
-    <ClInclude Include="Src\Object\Actor\Factory\FeedJ\FeedJStage1Factory.h" />
-    <ClInclude Include="Src\Object\Actor\Item\FeedJ\FeedJItemHeaders.h" />
-    <ClInclude Include="Src\Object\Actor\Stage\FeedJ\FeedJFloor.h" />
-    <ClInclude Include="Src\Object\Actor\Stage\FeedJ\FeedJStageHeaders.h" />
-    <ClInclude Include="Src\Object\Actor\Stage\FeedJ\FeedJStageLayout.h" />
-    <ClInclude Include="Src\Object\Actor\Item\FeedJ\FeedJ_ItemIdle.h" />
-    <ClInclude Include="Src\Object\Actor\Item\FeedJ\IFoodState.h" />
-    <ClInclude Include="Src\Object\Actor\Item\FeedJ\InterFace\FeedJ_Drop.h" />
-    <ClInclude Include="Src\Object\Actor\Item\FeedJ\Container\CuttingBoard.h" />
-    <ClInclude Include="Src\Object\Actor\Item\FeedJ\Container\Dish.h" />
-    <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\AfterCooking\Cucamber.h" />
-    <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\AfterCooking\Lettuce.h" />
-    <ClInclude Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_HoldState.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJStateHeaders.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_Cook.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_Dash.h" />
@@ -251,15 +221,10 @@
     <ClInclude Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_Walk.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_IdleState.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\IState.h" />
-    <ClInclude Include="Src\Object\Actor\Item\FeedJ\InterFace\FeedJ_ICookable.h" />
-    <ClInclude Include="Src\Object\Actor\Item\FeedJ\InterFace\FeedJ_ICooker.h" />
-    <ClInclude Include="Src\Object\Actor\Item\FeedJ\InterFace\FeedJ_IPlaceble.h" />
-    <ClInclude Include="Src\Object\Actor\Item\FeedJ\InterFace\FeedJ_IThrowble.h" />
-    <ClInclude Include="Src\Object\Actor\Stage\FeedJ\StationKind.h" />
     <ClInclude Include="Src\Object\UI\FeedJ\FoodUI.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\Container\ContainerBase.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\FoodBase.h" />
-    <ClInclude Include="Src\Object\Actor\Item\ItemBase.h" />
+    <ClInclude Include="Src\Object\Actor\Item\FeedJ\ItemBase.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\FeedJPlayer.h" />
     <ClInclude Include="Src\Scene\GameScene\Game\OneToFour\FeedJ\FeedJ.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\Player\ButtonMashing\ButtonMashingPlayer.h" />
@@ -286,8 +251,8 @@
     <ClInclude Include="Src\Object\Actor\Factory\ActorFactoryBase.h" />
     <ClInclude Include="Src\Object\Actor\Manager\ActorManager.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FindingJ\StageLayout.h" />
-    <ClInclude Include="Src\Object\UI\FindingJ\GameMessageUI.h" />
-    <ClInclude Include="Src\Object\UI\FindingJ\Timer.h" />
+    <ClInclude Include="Src\Object\UI\Common\GameMessageUI.h" />
+    <ClInclude Include="Src\Object\UI\Common\Timer.h" />
     <ClInclude Include="Src\Manager\Game\UIManager.h" />
     <ClInclude Include="Src\Object\UI\UIName.h" />
     <ClInclude Include="Src\Object\UI\UIType.h" />
@@ -338,14 +303,6 @@
     <ClInclude Include="Src\Object\Actor\Stage\FeedJ\StationBase.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FeedJ\Storage\StorageBase.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\StateBehavior.h" />
-    <ClInclude Include="Src\Object\Actor\Stage\FeedJ\StationCutting.h" />
-    <ClInclude Include="Src\Object\Actor\Stage\FeedJ\StationNormal.h" />
-    <ClInclude Include="Src\Object\Actor\Stage\FeedJ\StationDish.h" />
-    <ClInclude Include="Src\Object\Actor\Stage\FeedJ\StationServe.h" />
-    <ClInclude Include="Src\Object\Actor\Stage\FeedJ\Storage\StorageCucamber.h" />
-    <ClInclude Include="Src\Object\Actor\Stage\FeedJ\Storage\StorageLettuce.h" />
-    <ClInclude Include="Src\Object\Actor\Stage\FeedJ\Storage\StorageTomato.h" />
-    <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\AfterCooking\Tomato.h" />
     <Structure Include="Src\Manager\Game\SceneManager.h" />
     <ClInclude Include="Src\Manager\Game\SceneManager.h" />
     <ClInclude Include="Src\Application.h" />
