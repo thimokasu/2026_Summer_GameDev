@@ -14,6 +14,7 @@ FindingJRunner::FindingJRunner(ActorManager& actMana)
 	lastStepTileD_(0),
 	visibleTimer_(0.0f)
 {
+
 }
 
 FindingJRunner::~FindingJRunner(void)

@@ -2,7 +2,7 @@
 #include"../../Collider/ColliderInfo.h"
 #include"../../Collider/ColliderBase.h"
 #include"../../Collider/ColliderBox.h"
-
+#include"../../../../Manager/Resource/ResourceManager.h"
 StageBlock::StageBlock(void)
 {
 }
@@ -18,10 +18,15 @@ StageBlock::StageBlock(VECTOR pos)
 
 void StageBlock::SubLoad(void)
 {
+	trans_.SetModel(ResourceManager::GetInstance().LoadModelDuplicate(SRC::STAGE));
 }
 
 void StageBlock::SubInit(void)
 {
+	trans_.scl.x = 0.05f;
+	trans_.scl.z = 0.05f;
+	trans_.scl.y = 0.05f;
+	trans_.Update();
 }
 
 void StageBlock::SubUpdate(void)

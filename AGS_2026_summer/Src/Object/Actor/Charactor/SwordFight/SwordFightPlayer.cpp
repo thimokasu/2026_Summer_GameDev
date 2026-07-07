@@ -5,7 +5,7 @@
 #include"../../Collider/ColliderBase.h"
 #include"../../Collider/ColliderCapsule.h"
 
-
+#include"../../../../Manager/Resource/ResourceManager.h"
 
 SwordFightPlayer::SwordFightPlayer(void)
 {
@@ -17,6 +17,7 @@ SwordFightPlayer::~SwordFightPlayer(void)
 
 void SwordFightPlayer::SubLoad(void)
 {
+	trans_.SetModel(ResourceManager::GetInstance().LoadModelDuplicate(SRC::P1));
 }
 
 void SwordFightPlayer::SubInit(void)
@@ -62,7 +63,4 @@ void SwordFightPlayer::MoveInput(void)
 
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_FRONT).now) moveVec.z += 1.0f;
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_BACK).now) moveVec.z -= 1.0f;
-
-
-
 }

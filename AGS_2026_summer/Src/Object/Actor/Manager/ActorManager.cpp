@@ -28,7 +28,7 @@ void ActorManager::Load(GameInfo info)
 	{
 		actors_.push_back(std::move(actor));
 	}
-	actors_.push_back(std::make_unique<FindingJRunner>(*this));
+	//actors_.push_back(std::make_unique<FindingJRunner>(*this));
 
 	for(auto&a:actors_)
 	{
@@ -171,7 +171,7 @@ void ActorManager::TwoPlayerGameFactory(GameInfo info)
 		switch (info.stage_)
 		{
 		case STAGE_NUM::STAGE1:
-			actorFactory_ = std::make_unique<Stage1Factory>();
+			actorFactory_ = std::make_unique<SwordFightStage1Factory>();
 			break;
 		default:
 			break;

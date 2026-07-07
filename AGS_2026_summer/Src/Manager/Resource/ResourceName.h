@@ -11,6 +11,7 @@ enum class SRC
 	STAGE,
 	AIRPLANE,
 	YATCH,
+	P1,
 
 	TITLE,
 	PUSH,

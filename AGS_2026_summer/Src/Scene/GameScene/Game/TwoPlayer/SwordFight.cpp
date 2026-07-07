@@ -16,6 +16,8 @@
 
 SwordFight::SwordFight(ActorManager* actMng, CollisionManager* colMng)
 {
+	actorMng_ = actMng;
+	colMng_ = colMng;
 }
 
 SwordFight::~SwordFight(void)
