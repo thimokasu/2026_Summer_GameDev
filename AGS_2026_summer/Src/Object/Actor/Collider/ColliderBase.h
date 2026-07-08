@@ -53,6 +53,7 @@ public:
 	//デバッグ描画するかどうか
 	void SetIsDebug(bool isDebug) { isDebug_ = isDebug;}
 
+	void SetActive(bool flag) { colliderInfo_.isActive_ = flag; }
 protected:
 #pragma region 関数
 	virtual void DrawDebug(int color) {};//デバッグ描画

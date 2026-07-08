@@ -128,6 +128,7 @@ void CollisionManager::Update(void)
 			auto idB = colliders_[j].entityID_;
 			//小さいほうのIDをファーストにしてペアを正規化
 			currentPairs.push_back({ (std::min)(idA, idB), (std::max)(idA, idB) });
+			if (a->GetColliderInfo().isTrigger_ || b->GetColliderInfo().isTrigger_)continue;
 			//押し戻しや衝突点を保存する
 			resolve_.push_back(CollisionResolve{ &a->GetOwnerActor(),&b->GetOwnerActor(),result });
 		}
@@ -141,6 +142,10 @@ void CollisionManager::Update(void)
 	{
 		for (auto [idA, idB] : begins)
 		{
+			if (idA == 0&&idB==1)
+			{
+				int a = 0;
+			}
 			onBegin_(idA, idB);
 		}
 	}
@@ -186,7 +191,7 @@ void CollisionManager::ApplyBodyTorque(RigidBody& rb, Transform& trans, const VE
 	VECTOR torque = VCross(r, VScale(collisionForce, sign));
 
 	// 物理計算が暴走しないためのトルク上限設定（必要に応じて調整してください）
-	float maxTorque = 2.85;
+	float maxTorque = 0.01f;
 	float torqueMag = sqrtf(VDot(torque, torque));
 
 	if (torqueMag > maxTorque)

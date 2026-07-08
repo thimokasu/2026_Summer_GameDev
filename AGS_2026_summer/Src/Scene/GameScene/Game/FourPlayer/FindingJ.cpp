@@ -43,6 +43,7 @@ void FindingJ::SubUpdate(void)
 	if (start > 500) {
 		isUpdate_ = true;
 		timerUI_->SetUpdate(true);
+		start = 0;
 	}
 
 	time += SceneManager::GetInstance().GetDeltaTime();

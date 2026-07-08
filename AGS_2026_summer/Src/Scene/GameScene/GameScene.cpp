@@ -56,7 +56,7 @@ void GameScene::SubUpdate(void)
 	miniGame_->Update();
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::TAB).down)
 	{
-		SceneManager::GetInstance().GetCamera().CameraMoveStop();
+		SceneManager::GetInstance().GetCamera().StopMove();
 	}
 }
 

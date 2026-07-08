@@ -6,8 +6,8 @@ class FeedJFloor :
 public  :
     FeedJFloor(void);
     FeedJFloor(VECTOR pos);
-    FeedJFloor(VECTOR pos, VECTOR deg);
-    FeedJFloor(VECTOR size, VECTOR pos, VECTOR deg);
+    FeedJFloor(VECTOR pos, VECTOR size);
+    FeedJFloor( VECTOR pos, VECTOR size, VECTOR deg = VGet(0, 0, 0));
     ~FeedJFloor(void);
 
 
@@ -20,6 +20,6 @@ public  :
     void InitCollider(void)override;
 
 private:
-    VECTOR halfSize_ = { 100.0f,10.0f,100.0f };
+    VECTOR halfSize_ = { 1000.0f,10.0f,1000.0f };
 };
 

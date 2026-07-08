@@ -248,8 +248,7 @@ void Camera::SetBeforeDrawFixedPoint(void)
 
 void Camera::SetBeforeDrawFree(void)
 {
-	if (isStop_)return;
-
+	if (isStopMove_)return;
 	 //ƒJƒƒ‰‘€ì(‰ñ“])
 	ProcessRot(false);
 

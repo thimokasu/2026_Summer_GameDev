@@ -90,8 +90,9 @@ public:
 	void SetCameraAngles(const VECTOR& angles) { angles_ = angles; }
 	void SetCameraPos(const VECTOR& pos) { trans_.pos = pos; }
 
-	void CameraMoveStop(void) { isStop_ = true; }
+	void StopMove(void) { isStopMove_ = true; }
 private:
+	bool isStopMove_=false;
 
 	// カメラが追従対象とするTransform
 	const Transform* followTransform_;
@@ -107,8 +108,6 @@ private:
 
 	// 注視点
 	VECTOR targetPos_;
-
-	bool isStop_ = false;
 
 	// カメラを初期位置に戻す
 	void SetDefault(void);

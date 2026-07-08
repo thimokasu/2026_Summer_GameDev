@@ -20,7 +20,11 @@ void FeedJ_IdleState::HandleInputT(FeedJPlayer* owner)
 	{
 		owner->ChangeState<FeedJ_Walk>();
 	}
-	else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::L_KEY_ACTOIN).now)
+	else
+	{
+		owner->ChangeState<FeedJ_IdleState>();
+	}
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::L_KEY_ACTOIN).down)
 	{
 		auto* dashState = dynamic_cast<FeedJ_Dash*>(owner->GetState<FeedJ_Dash>());
 		dashState->SetDashVec(owner->GetTransform().GetForward());
@@ -44,10 +48,6 @@ void FeedJ_IdleState::HandleInputT(FeedJPlayer* owner)
 
 			}
 		}
-	}
-	else
-	{
-		owner->ChangeState<FeedJ_IdleState>();
 	}
 }
 
