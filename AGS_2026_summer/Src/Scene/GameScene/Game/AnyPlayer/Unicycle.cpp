@@ -6,6 +6,9 @@
 
 #include"../../../../Object/Actor/Camera/Camera.h"
 
+#include "../../../../Object/Actor/Charactor/OnePlay/Unicycle/UnicyclePlayer.h"
+#include "../../../../Object/UI/FindingJ/GameMessageUI.h"
+
 Unicycle::Unicycle(ActorManager* actMng, CollisionManager* colMng)
 	:GameBase(actMng, colMng)
 {
@@ -29,6 +32,15 @@ void Unicycle::SubUpdate(void)
 
 void Unicycle::SubDraw(void)
 {
+	//ÉJÉÅÉâç¿ïW
+	DrawFormatString(0,0,0xffffff,"Camera Position: %f, %f, %f",
+		SceneManager::GetInstance().GetCamera().GetPos().x,
+		SceneManager::GetInstance().GetCamera().GetPos().y,
+		SceneManager::GetInstance().GetCamera().GetPos().z);
+	DrawFormatString(0, 20, 0xffffff, "Camera Angles: %f, %f, %f",
+		SceneManager::GetInstance().GetCamera().GetAngles().x,
+		SceneManager::GetInstance().GetCamera().GetAngles().y,
+		SceneManager::GetInstance().GetCamera().GetAngles().z);
 }
 
 void Unicycle::SubRelease(void)
@@ -53,6 +65,14 @@ void Unicycle::SetEventCallBack(void)
 
 void Unicycle::LoadUI(void)
 {
+	//auto msgUI = std::make_shared<GameMessageUI>(Vector2F(400.0f, 200.0f), Vector2F(400.0f, 100.0f));
+	//UIManager::GetInstance().AddRootUI(msgUI);
+	//msgUI->Load();
+	//msgUI->SetStartCallBack([this]()
+	//	{
+	//		EventManager::GetInstance().TriggerEvent(GameEventType::START);
+	//	}
+	//);
 }
 
 void Unicycle::LoadSE(void)
@@ -70,6 +90,13 @@ void Unicycle::InitSE(void)
 
 void Unicycle::InitCamera(void)
 {
-	SceneManager::GetInstance().GetCamera().SetCameraAngles(VGet(1.18f, 0.0f, 0.0f));
-	SceneManager::GetInstance().GetCamera().SetCameraPos(VGet(170.0f, 270.0f, 20.0f));
+	SceneManager::GetInstance().GetCamera().ChangeMode(Camera::MODE::FOLLOW);
+	auto player = actorMng_->FindActorsByKind(EntityKind::PLAYER);
+	for (auto& p : player)
+	{
+		auto& player = dynamic_cast<UnicyclePlayer&>(*p);
+		SceneManager::GetInstance().GetCamera().SetFollow(&player.GetTransform());
+	}
+	SceneManager::GetInstance().GetCamera().SetCameraAngles(VGet(0.73f, 0.0f, 0.0f));
+
 }

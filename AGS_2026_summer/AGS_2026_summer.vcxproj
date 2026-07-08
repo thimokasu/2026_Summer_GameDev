@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\UI\Unicycle\Distance.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_Cook.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_Dash.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_HoldWalk.cpp" />
@@ -217,6 +218,7 @@
     <ClCompile Include="Src\Object\Actor\Charactor\OnePlay\Unicycle\UnicyclePlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\UI\Unicycle\Distance.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_Cook.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_Dash.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJ_HoldWalk.h" />

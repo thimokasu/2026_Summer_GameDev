@@ -1,5 +1,7 @@
 #pragma once
 #include "../../CharactorBase.h"
+class AnimationController;
+
 class UnicyclePlayer :
     public CharactorBase
 {
@@ -15,4 +17,13 @@ public:
 
 private:
     void MoveInput(void) override;
+
+private:
+
+    //ìãèÊé“
+    Transform riderTrans_;
+	VECTOR riderOffset_ = VGet(0.0f, 0.0f, 0.0f);
+    std::unique_ptr<AnimationController> riderAnimation_;
+
+    
 };

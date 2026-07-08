@@ -18,67 +18,126 @@ constexpr int D = 100;
 namespace Stage1
 {
     // DsW—ñ‚Ì2ŸŒ³”z—ñ
-    constexpr std::array<std::array<StageLayout, W>, D> stage = { {
+    constexpr std::array<std::array<StageLayout, W>, D> stage = {{
+
         // y0 - 9s–Úz
-        {n, b, b, b, n}, 
-        {n, b, b, b, n}, 
         {n, b, b, b, n},
         {n, b, b, b, n},
         {n, b, b, b, n},
-        {n, n, b, b, n}, 
-        {n, n, n, b, n}, 
-        {n, n, n, b, b}, 
-        {n, n, n, b, b}, 
+        {n, b, b, b, n},
+        {n, b, b, b, n},
+        {n, n, b, b, n},
+        {n, n, n, b, n},
         {n, n, n, b, b},
+        {n, n, n, b, b},
+        {n, n, n, b, b},
+
         // y10 - 19s–Úz
-        {n, n, n, b, b}, 
-        {n, n, b, b, n}, 
-        {n, n, b, b, n}, 
-        {n, n, b, b, n}, 
+        {n, n, n, b, b},
+        {n, n, b, b, n},
+        {n, n, b, b, n},
+        {n, n, b, b, n},
         {n, b, b, n, n},
+        {n, b, b, n, n},
+        {n, b, n, n, n},
+        {b, b, n, n, n},
+        {b, b, n, n, n},
+        {b, b, n, n, n},
+
+        // y20 - 29s–Úz
+        {b, b, n, n, n},
+        {n, b, n, n, n},
+        {n, b, b, n, n},
+        {n, b, b, n, n},
+        {n, n, b, n, n},
+        {n, b, b, b, n},
+        {n, b, b, b, n},
+        {n, b, b, b, n},
+        {n, b, b, b, n},
+        {n, b, b, b, n},
+
+        // y30 - 39s–Úz
+        {n, n, b, n, n},
+        {n, n, b, n, n}, 
+        {n, n, b, n, n}, 
+        {n, n, b, n, n}, 
+        {n, n, b, n, n},
+        {n, n, b, n, n}, 
+        {n, n, b, n, n}, 
+        {n, n, b, n, n}, 
+        {n, n, b, n, n}, 
+        {n, n, b, n, n},
+
+        // y40 - 49s–Úz
+        {n, n, b, b, n}, 
+        {n, n, n, b, b}, 
+        {n, n, n, n, b}, 
+        {n, n, n, n, b}, 
+        {n, n, n, b, b},
+        {n, n, b, b, n}, 
+        {n, n, b, n, n},
         {n, b, b, n, n}, 
         {n, b, n, n, n}, 
-        {b, b, n, n, n}, 
-        {b, b, n, n, n}, 
         {b, b, n, n, n},
-        // y20 - 29s–Úz
-        {b, b, b, b, b}, 
-        {b, b, b, b, b}, 
-        {b, b, b, b, b}, 
-        {b, b, b, b, b}, 
-        {b, b, b, b, b},
-        {b, b, b, b, b}, 
-        {b, b, b, b, b}, 
-        {b, b, b, b, b}, 
-        {b, b, b, b, b}, 
-        {b, b, b, b, b},
 
-            // y30 - 39s–Úz
-            {b, n, n, n, b}, {b, n, n, n, b}, {b, n, n, n, b}, {b, b, n, b, b}, {b, b, n, b, b},
-            {b, n, n, n, b}, {b, n, n, n, b}, {b, n, n, n, b}, {b, b, n, b, b}, {b, b, n, b, b},
+        // y50 - 59s–Úz
+        {b, n, n, n, n},
+        {b, n, n, n, n},
+        {b, b, n, n, n},
+        {n, b, b, n, n},
+        {n, n, b, n, n},
+        {n, n, b, b, n},
+        {n, n, b, b, n}, 
+        {n, n, b, b, n}, 
+        {n, n, b, b, n}, 
+        {n, n, b, b, n},
 
-            // y40 - 49s–Úz
-            {n, b, b, b, n}, {n, b, b, b, n}, {n, n, n, n, n}, {b, n, b, n, b}, {b, n, b, n, b},
-            {n, n, n, n, n}, {n, b, b, b, n}, {n, b, b, b, n}, {n, n, n, n, n}, {b, b, n, b, b},
+        // y60 - 69s–Úz
+        {n, n, n, n, n}, 
+        {n, n, n, n, n}, 
+        {n, n, n, n, n}, 
+        {n, n, n, n, n}, 
+        {n, n, n, n, n},
+        {n, n, n, n, n},
+        {n, n, n, n, n},
+        {n, n, n, n, n},
+        {n, n, n, n, n}, 
+        {n, n, n, n, n},
 
-            // y50 - 59s–Úz
-            {b, n, b, n, b}, {n, b, n, b, n}, {b, n, b, n, b}, {n, n, n, n, n}, {b, b, n, n, n},
-            {n, n, n, b, b}, {n, b, b, b, n}, {n, n, n, n, n}, {b, n, n, n, b}, {b, n, n, n, b},
+        // y70 - 79s–Úz
+        {n, n, n, n, n}, 
+        {n, n, n, n, n}, 
+        {n, n, n, n, n}, 
+        {n, n, n, n, n}, 
+        {n, n, n, n, n},
+        {n, n, n, n, n}, 
+        {n, n, n, n, n},
+        {n, n, n, n, n},
+        {n, n, n, n, n},
+        {n, n, n, n, n},
 
-            // y60 - 69s–Úz
-            {b, n, n, n, n}, {b, b, n, n, n}, {b, b, b, n, n}, {n, b, b, b, n}, {n, n, b, b, b},
-            {n, n, n, b, b}, {n, n, n, n, b}, {n, n, n, b, b}, {n, n, b, b, b}, {n, b, b, b, n},
+        // y80 - 89s–Úz
+        {n, n, n, n, n}, 
+        {n, n, n, n, n}, 
+        {n, n, n, n, n}, 
+        {n, n, n, n, n},
+        {n, n, n, n, n},
+        {n, n, n, n, n},
+        {n, n, n, n, n}, 
+        {n, n, n, n, n}, 
+        {n, n, n, n, n},
+        {n, n, n, n, n},
 
-            // y70 - 79s–Úz
-            {n, n, n, n, n}, {n, b, n, b, n}, {n, n, n, n, n}, {n, b, n, b, n}, {n, n, n, n, n},
-            {b, n, n, n, b}, {n, n, n, n, n}, {b, n, n, n, b}, {n, n, n, n, n}, {n, b, n, b, n},
-
-            // y80 - 89s–Úz
-            {n, n, n, n, n}, {b, n, n, n, n}, {n, n, n, n, b}, {n, n, b, n, n}, {n, n, n, n, n},
-            {n, b, n, b, n}, {n, n, n, n, n}, {b, n, n, n, b}, {n, n, n, n, n}, {n, n, b, n, n},
-
-            // y90 - 99s–Úz
-            {n, n, n, n, n}, {n, n, n, n, n}, {n, n, n, n, n}, {n, n, n, n, n}, {n, n, n, n, n},
-            {n, n, n, n, n}, {n, n, n, n, n}, {n, n, n, n, n}, {n, n, n, n, n}, {n, n, n, n, n}
-        } };
+        // y90 - 99s–Úz
+        {n, n, n, n, n}, 
+        {n, n, n, n, n}, 
+        {n, n, n, n, n}, 
+        {n, n, n, n, n}, 
+        {n, n, n, n, n},
+        {n, n, n, n, n}, 
+        {n, n, n, n, n}, 
+        {n, n, n, n, n}, 
+        {n, n, n, n, n},
+        {n, n, n, n, n}
+   } };
 }

@@ -7,6 +7,8 @@
 
 #include "../../../../../Utility/AsoUtility.h"
 
+#include "../../../../Common/AnimationController.h"
+
 UnicyclePlayer::UnicyclePlayer(void)
 {
 }
@@ -17,11 +19,13 @@ UnicyclePlayer::~UnicyclePlayer(void)
 
 void UnicyclePlayer::SubLoad(void)
 {
-	trans_.modelId = MV1LoadModel("Data/Unicycle/Player/Redcycle.mv1");
+	trans_.modelId = MV1LoadModel("Data/Unicycle/Player/RedcycleOnly.mv1");
+	riderTrans_.modelId = MV1LoadModel("Data/Unicycle/Player/Redcycler.mv1");
 }
 
 void UnicyclePlayer::SubInit(void)
 {
+	//一輪車の初期化
 	entityKind_ = EntityKind::PLAYER;
 	rigidBody_.SetBodyType(RigidBody::BodyType::DYNAMIC);
 	rigidBody_.SetUseGravity(true);
@@ -31,16 +35,43 @@ void UnicyclePlayer::SubInit(void)
 	float scale = 0.5f;
 	trans_.scl = VGet(scale, scale, scale);
 	trans_.quaRotLocal = Quaternion::Euler(VGet(0.0f, AsoUtility::Deg2RadD(180.0f), 0.0f));
+
+	//搭乗者の初期化
+	riderTrans_.scl = VGet(scale, scale, scale);
+	riderTrans_.quaRotLocal = Quaternion::Euler(VGet(0.0f, AsoUtility::Deg2RadD(180.0f), 0.0f));
+
+	//アニメーションの登録
+	animationController_ = std::make_unique<AnimationController>(trans_.modelId);
+	animationController_->AddInFbx(0, 60.0f, 0);
+
+	riderAnimation_ = std::make_unique<AnimationController>(riderTrans_.modelId);
+	riderAnimation_->AddInFbx(0, 60.0f, 0);
 }
 
 void UnicyclePlayer::SubUpdate(void)
 {
 	MoveInput();
+	VECTOR moveVec = { 0.0f, 0.0f, 1.0f };
+
+	trans_.pos = VAdd(trans_.pos, VScale(moveVec, rigidBody_.GetMoveSpeed()));
+
+	//アニメーションの更新
+	riderAnimation_->Play(0, true);
+	animationController_->Play(0, true);
+	animationController_->Update();
+	riderAnimation_->Update();
+
+	//搭乗者の位置を一輪車に合わせる
+	riderTrans_.pos = VAdd(trans_.pos, riderOffset_);
+
+	riderTrans_.Update();
+
 }
 
 void UnicyclePlayer::SubDraw(void)
 {
 	MV1DrawModel(trans_.modelId);
+	MV1DrawModel(riderTrans_.modelId);
 }
 
 void UnicyclePlayer::SubRelease(void)
@@ -65,8 +96,8 @@ void UnicyclePlayer::MoveInput(void)
 {
 	VECTOR moveVec = { 0.0f, 0.0f, 0.0f };
 
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_FRONT).now) moveVec.z += 1.0f;
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_BACK).now) moveVec.z -= 1.0f;
+	//if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_FRONT).now) moveVec.z += 1.0f;
+	//if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_BACK).now) moveVec.z -= 1.0f;
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_RIGHT).now) moveVec.x += 1.0f;
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT).now) moveVec.x -= 1.0f;
 
