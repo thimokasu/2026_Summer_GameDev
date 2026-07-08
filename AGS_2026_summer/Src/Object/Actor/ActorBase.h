@@ -45,7 +45,7 @@ public:
 	//アクティブ状態設定
 	void SetIsActive(bool isActive) { isActive_ = isActive; }
 	//自身のコライダーリスト取得
-	const std::map<int, std::unique_ptr<ColliderBase>>& GetOwnColliders(void) const { return ownColliders_; }
+	const std::multimap<int, std::unique_ptr<ColliderBase>>& GetOwnColliders(void) const { return ownColliders_; }
 	//描画状態取得
 	bool IsDraw(void) const { return isDraw_; }
 	//描画状態設定
@@ -79,6 +79,6 @@ protected:
 	//アクティブ状態
 	bool isActive_;
 	//自身のコライダーリスト
-	std::map<int, std::unique_ptr<ColliderBase>> ownColliders_;
+	std::multimap<int, std::unique_ptr<ColliderBase>> ownColliders_;
 #pragma endregion
 };

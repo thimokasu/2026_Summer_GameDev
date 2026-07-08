@@ -51,7 +51,7 @@ void FeedJPlayer::InitCollider(void)
 	//プレイヤーの正面より少し前に配置
 	info.shape_ = ColliderShape::CAPSULE;
 	info.layer_ = ColliderLayer::ACTOR_TRIGGER;
-	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE });
+	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR_TRIGGER });
 	float radius2 = 10.0f;
 	localPosTop = VGet(0.0f, 10.0f, 10.0f);
 	localPosDown = VGet(0.0f, -10.0f, 10.0f);
