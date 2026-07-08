@@ -2,7 +2,7 @@
 #include"../../../Collider/ColliderBase.h"
 #include"../../../Collider/ColliderCapsule.h"
 #include"State/FeedJStateHeaders.h"
-
+#include"../../../../../Manager/Generic/KeyManager.h"
 FeedJPlayer::FeedJPlayer(void)
 {
 }
@@ -19,15 +19,18 @@ void FeedJPlayer::SubLoad(void)
 void FeedJPlayer::SubInit(void)
 {
 	CharactorBase::SubInit();
+	entityKind_ = EntityKind::PLAYER;
 }
 
 void FeedJPlayer::SubUpdate(void)
 {
 	CharactorBase::SubUpdate();
+	if (!KEY::GetIns().GetInfo(KEY::KEY_TYPE::J_KEY_ACTION).now)isContactTrigger_ = false;
 }
 
 void FeedJPlayer::SubDraw(void)
 {
+	DrawFormatString(0, 10, 0xffffff, "State:%s", currentState_->GetName());
 }
 
 void FeedJPlayer::SubRelease(void)
@@ -39,7 +42,7 @@ void FeedJPlayer::InitCollider(void)
 	ColliderInfo info;
 	info.shape_ = ColliderShape::CAPSULE;
 	info.layer_ = ColliderLayer::ACTOR;
-	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE });
+	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE,Layer::FOOD,Layer::STATION,Layer::CONTAINER});
 	float radius = 10.0f;
 	VECTOR localPosTop = VGet(0.0f, 10.0f, 0.0f);
 	VECTOR localPosDown = VGet(0.0f, -10.0f, 0.0f);
@@ -51,7 +54,7 @@ void FeedJPlayer::InitCollider(void)
 	//プレイヤーの正面より少し前に配置
 	info.shape_ = ColliderShape::CAPSULE;
 	info.layer_ = ColliderLayer::ACTOR_TRIGGER;
-	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR_TRIGGER });
+	info.mask_ = ColliderBase::SetMask({ Layer::FOOD,Layer::STATION,Layer::CONTAINER });
 	float radius2 = 10.0f;
 	localPosTop = VGet(0.0f, 10.0f, 10.0f);
 	localPosDown = VGet(0.0f, -10.0f, 10.0f);

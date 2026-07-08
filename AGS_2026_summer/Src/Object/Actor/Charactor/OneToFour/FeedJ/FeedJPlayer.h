@@ -19,6 +19,7 @@ class FeedJPlayer :
 
         void OnContactTrigger(void) { isContactTrigger_ = true; }
         void OffContactTrigger(void) { isContactTrigger_ = false; }
+        bool GetContactTrigger(void) { return isContactTrigger_; }
 
 		void SetHoldItem(ItemBase* item) { holdItem_ = item; isHold_ = true; }
 		void ReleaseHoldItem(void) { holdItem_ = nullptr; isHold_ = false; }

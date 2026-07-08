@@ -14,13 +14,13 @@ FeedJFloor::FeedJFloor(VECTOR pos)
 
 }
 
-FeedJFloor::FeedJFloor(VECTOR pos, VECTOR deg)
+FeedJFloor::FeedJFloor(VECTOR pos, VECTOR size)
 {
 	trans_.pos = pos;
-	trans_.quaRot = Quaternion::Euler(deg);
+	halfSize_ = size;
 }
 
-FeedJFloor::FeedJFloor(VECTOR size, VECTOR pos, VECTOR deg)
+FeedJFloor::FeedJFloor(VECTOR pos, VECTOR size, VECTOR deg)
 {
 	halfSize_ = size;
 	trans_.pos = pos;

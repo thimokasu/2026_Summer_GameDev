@@ -42,7 +42,7 @@ public:
 
 
 	void PlaceItem(ActorBase* owner)override;
-	void Throw(ActorBase* owner)override;
+	void Throw(ActorBase* target)override;
 	void OnCook(void)override;
 
 	void OnPickUp(bool isPickUp) {isPickUp_ = isPickUp; }

@@ -15,7 +15,6 @@ enum class EntityKind
 	FINDINGJ_CPU,
 
 	//FeedJ
-	PLAYER_CONTACT_TRIGGER,
 	STATION,
 	FOOD,
 	CONTAINER,

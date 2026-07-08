@@ -8,6 +8,11 @@ enum class ColliderLayer
 	ACTOR_TRIGGER,
 	STAGE,
 
+	//FeedJ
+	FOOD,
+	STATION,
+	CONTAINER,
+
 	MAX
 };
 

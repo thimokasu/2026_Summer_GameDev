@@ -19,7 +19,11 @@ void FeedJ_Walk::HandleInputT(FeedJPlayer* owner)
 	{
 		int a = 0;
 	}
-	else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::L_KEY_ACTOIN).now)
+	else
+	{
+		owner->ChangeState<FeedJ_IdleState>();
+	}
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::L_KEY_ACTOIN).down)
 	{
 		auto* dashState = dynamic_cast<FeedJ_Dash*>(owner->GetState<FeedJ_Dash>());
 		dashState->SetDashVec(moveVec_);
@@ -28,10 +32,6 @@ void FeedJ_Walk::HandleInputT(FeedJPlayer* owner)
 	else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::J_KEY_ACTION).down)
 	{
 		owner->OnContactTrigger();
-	}
-	else
-	{
-		owner->ChangeState<FeedJ_IdleState>();
 	}
 }
 
@@ -55,6 +55,8 @@ void FeedJ_Walk::UpdateT(FeedJPlayer* owner)
 		moveVec = VNorm(moveVec);
 	}
 	moveVec_ = moveVec;
+	float yaw = atan2f(moveVec.x,moveVec.z);
+	owner->GetTransform().quaRot = Quaternion::Euler(0.0f, yaw, 0.0f);
 	owner->GetTransform().pos = VAdd(owner->GetTransform().pos, VScale(moveVec, owner->GetRigidBody().GetMoveSpeed()));
 }
 void FeedJ_Walk::ExitT(FeedJPlayer* owner)

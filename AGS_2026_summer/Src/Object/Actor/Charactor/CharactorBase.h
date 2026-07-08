@@ -37,7 +37,7 @@ public:
 	T* GetState(void);
 
 	virtual void SetState(void) {};	//ステート初期化　AddState(std::make_unique<>());
-private:
+protected:
 	virtual void MoveInput(void) {};
 	virtual void ReturnToIdle() {};		//オーバーライドでIdleStateへのChangeStateを実装しとく
 	int playNumber_;	
