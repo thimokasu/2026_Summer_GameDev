@@ -60,7 +60,7 @@ void FoodBase::Throw(ActorBase* target)
 	auto& pos = target->GetTransform().pos;
 	auto forward = target->GetTransform().GetForward();
 	trans_.pos = VAdd(pos, VScale(forward, 15));
-	trans_.pos.y = 40;
+	trans_.pos.y = 30;
 	rigidBody_.SetVelocity(VGet(0, 0, 0));
 	rigidBody_.AddForce(VScale(forward, 30));
 }
@@ -124,7 +124,7 @@ void FoodBase::Drop( ActorBase* target)
 	auto& pos = target->GetTransform().pos;
 	auto forward = target->GetTransform().GetForward();
 	trans_.pos = VAdd(pos, VScale(forward, 15));
-	trans_.pos.y = 40;
+	trans_.pos.y = 30;
 	rigidBody_.SetVelocity(VGet(0, 0, 0));
 }
 

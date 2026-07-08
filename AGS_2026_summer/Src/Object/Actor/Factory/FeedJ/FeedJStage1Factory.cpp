@@ -18,7 +18,7 @@ std::vector<std::unique_ptr<ActorBase>> FeedJStage1Factory::CreateActors(void)
 	actors.emplace_back(std::make_unique<Tomato>());
 	actors.emplace_back(std::make_unique<FeedJPlayer>());
 	actors.emplace_back(std::make_unique<FeedJFloor>());
-
+	actors.emplace_back(std::make_unique<StationNormal>());
 	return actors;
 }
 

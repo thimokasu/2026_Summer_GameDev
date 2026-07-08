@@ -50,6 +50,7 @@ void FeedJ::SetContactEventRule(void)
 
 void FeedJ::SetContactEventCallback(void)
 {
+#pragma region player:food
 	EventManager::GetInstance().SetContactEventCallback(GameEventType::PLAYER_CONTACT_FOOD, [this](const ContactRule& rule)
 		{
 			auto entityKindA = rule.contactEvent_.entityA.entityKind_;
@@ -84,6 +85,30 @@ void FeedJ::SetContactEventCallback(void)
 			}
 		}
 	);
+#pragma endregion
+#pragma region player:contaier
+
+#pragma endregion
+#pragma region food:station
+	EventManager::GetInstance().SetContactEventCallback(GameEventType::FOOD_STATION, [this](const ContactRule& rule)
+		{});
+#pragma endregion
+#pragma region food:contaier
+
+#pragma endregion
+#pragma region container:station
+
+#pragma endregion
+#pragma region player->item:staion
+
+#pragma endregion
+#pragma region plaeyr:station->item
+
+#pragma endregion
+
+
+
+
 }
 
 
