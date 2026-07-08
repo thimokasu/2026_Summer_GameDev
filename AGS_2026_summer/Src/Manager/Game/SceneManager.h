@@ -9,6 +9,11 @@
 #include"../../Application.h"
 #include"SceneId.h"
 
+
+// „§‚µ‚Ü‚¹‚ñ‚ªA‚Ç‚¤‚µ‚Ä‚àg‚¢‚½‚¢•û‚Í
+#define mainCamera SceneManager::GetInstance().GetCamera()
+
+
 class SceneBase;
 class Fader;
 class Camera;

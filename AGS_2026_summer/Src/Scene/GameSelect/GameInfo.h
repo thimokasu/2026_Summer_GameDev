@@ -89,7 +89,7 @@ inline std::string GameInfo::GetGameName(void) const
 	case GAME_KIND::KEY_CLIMBER:
 		return "KeyClimber";
 	case GAME_KIND::SWORD_FIGHT:
-		return "SwordFight";
+		return "ƒ`ƒƒƒ“ƒoƒ‰";
 	default:
 		return "Unknown";
 	}

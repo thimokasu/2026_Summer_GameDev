@@ -13,9 +13,9 @@ constexpr StageLayout b = StageLayout::Block;
 constexpr StageLayout n = StageLayout::None;
 constexpr StageLayout r = StageLayout::ReactionBlock;
 
-constexpr int TileSize = 20;
-constexpr int W = 19;
-constexpr int D = 11;
+constexpr int TileSize = 150;
+constexpr int W = 150;
+constexpr int D = 150;
 constexpr int H = 2;
 
 namespace Stage1
@@ -24,19 +24,13 @@ namespace Stage1
     constexpr std::array<std::array<std::array<StageLayout, W>, D>, H> stage = { {
         { // ===== 高さ 0 =====
             {
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-                {b,b,b,b,b,r,b,b,b,r,b,b,b,r,b,b,b,b,b,},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-                {b,r,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,r,b,},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-                {b,b,b,b,b,r,b,b,b,r,b,b,b,r,b,b,b,b,b,},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-                {b,r,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,r,b,},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-                {b,b,b,b,b,r,b,b,b,r,b,b,b,r,b,b,b,b,b,},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,}
+                // 各高さごとにD行W列の2次元配列をH個用意
+     
+                 b
+                 
+        
             }
         }
-        
+
     } };
 }

@@ -239,6 +239,8 @@ void Camera::ProcessMove(void)
 
 }
 
+
+
 void Camera::SetBeforeDrawFixedPoint(void)
 {
 	// ‰½‚à‚µ‚È‚¢
