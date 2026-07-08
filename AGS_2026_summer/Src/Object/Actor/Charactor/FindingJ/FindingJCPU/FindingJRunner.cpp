@@ -36,6 +36,10 @@ void FindingJRunner::SubInit(void)
 }
 void FindingJRunner::SubUpdate(void)
 {
+	if (!isinvisible_) {
+		isDraw_ = true; 
+		return;
+	}
 	auto players = actorManager_.FindActorsByKind(EntityKind::PLAYER);
 	for (const auto& p : players)
 	{
@@ -54,7 +58,7 @@ void FindingJRunner::SubUpdate(void)
 	{
 		isDraw_ = false;
 	}
-	//isDraw_ = true;
+	
 }
 
 void FindingJRunner::SubDraw(void)
@@ -78,6 +82,11 @@ void FindingJRunner::InitCollider(void)
 	std::unique_ptr<ColliderCapsule>collider =
 		std::make_unique<ColliderCapsule>(info, radius, localPosTop, localPosDown, *this);
 	ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
+}
+
+void FindingJRunner::StopInvisible(void)
+{
+	isinvisible_ = false;
 }
 
 void FindingJRunner::Think(void) // évçl

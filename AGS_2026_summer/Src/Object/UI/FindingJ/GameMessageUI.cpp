@@ -2,15 +2,15 @@
 #include "../../../Manager/Game/SceneManager.h"
 
 GameMessageUI::GameMessageUI(Vector2F pos, Vector2F size)
-    : UIBase(pos, size)
-    , fontHandle_(-1)
-    , currentState_(MASSAGE_STATE::EXPLAIN)
-    , animPhase_(ANIM_PHASE::FADE_IN)
-    , animTime_(0.0f)
-    , scaleX_(0.0f)
-    , scaleY_(0.0f)
+    :UIBase(pos, size)
 {
-    type_ = UITYPE::TEXT; 
+    fontHandle_ = -1;
+    currentState_ = MASSAGE_STATE::EXPLAIN;
+    animPhase_ = ANIM_PHASE::FADE_IN;
+    animTime_ = 0.0f;
+    scaleX_ = 0.0f;
+    scaleY_ = 0.0f;
+    type_ = UITYPE::TEXT;
     textColor_ = GetColor(255, 255, 255);
     edgeColor_ = GetColor(0, 0, 0);
 }
@@ -43,8 +43,9 @@ void GameMessageUI::SubUpdate(void)
     if (currentState_ == MASSAGE_STATE::START)
     {
         if (animPhase_ == ANIM_PHASE::FADE_OUT)
-        {
-            startCallBack_();
+        {        
+            //startCallBack_();
+            
         }
     }
     if (currentState_ == MASSAGE_STATE::FINISH)

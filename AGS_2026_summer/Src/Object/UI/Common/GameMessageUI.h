@@ -64,7 +64,7 @@ private:
     float animTime_;
     float scaleX_;
     float scaleY_;
-    StartCallBack startCallBack_;
+    StartCallBack startCallBack_=nullptr;
 
 #pragma endregion
 

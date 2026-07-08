@@ -36,7 +36,7 @@ public:
 	{
 		enemyPositions_ = positions;
 	}
-
+    void StopInvisible(void);
 private:
 #pragma region  •Ï”
 
@@ -49,6 +49,7 @@ private:
     float timer_ = 0.0f; 
     STAGE_NUM stageNum_;
 	AIState aiState_ = AIState::CHASER; // ‰Šúó‘Ô‚Í’Ç‚¢‚©‚¯‚é
+    bool isinvisible_ = true;
 #pragma endregion
 
 #pragma region ŠÖ”

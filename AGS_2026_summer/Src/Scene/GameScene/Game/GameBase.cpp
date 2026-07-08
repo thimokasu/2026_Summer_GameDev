@@ -28,13 +28,13 @@ void GameBase::Init(void)
 		}
 	}
 	SubInit();
-	InitSE();
-	InitUI();
 	InitCamera();
 	SetContactEventRule();
 	SetContactEventCallback();
 	SetCollisionCollback();
 	SetEventCallBack();
+	InitSE();
+	InitUI();
 }
 void GameBase::Update(void)
 {

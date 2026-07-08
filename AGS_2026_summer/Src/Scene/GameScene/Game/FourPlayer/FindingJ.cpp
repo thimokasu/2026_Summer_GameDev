@@ -38,6 +38,13 @@ void FindingJ::SubInit(void)
 }
 void FindingJ::SubUpdate(void)
 {
+	static int start = 0;
+	start++;
+	if (start > 500) {
+		isUpdate_ = true;
+		timerUI_->SetUpdate(true);
+	}
+
 	time += SceneManager::GetInstance().GetDeltaTime();
 	if (time > 15)
 	{
@@ -133,32 +140,29 @@ void FindingJ::SetEventCallBack(void)
 			OffUpdate();
 			auto massage = UIManager::GetInstance().GetUI<GameMessageUI>(UINAME::MASSAGE);
 			massage->SetMassageState(GameMessageUI::MASSAGE_STATE::FINISH);
+			auto a = actorMng_->FindActorsByKind(EntityKind::FINDINGJ_CPU);
+			for (auto& actor : a)
+			{
+				auto& runner = dynamic_cast<FindingJRunner&>(*actor);
+				runner.StopInvisible();
+			}
 		}
 	);
 }
 
 void FindingJ::LoadUI(void)
 {
-	// ローカル変数ではなく、メンバ変数に代入する
 	msgUI_ = std::make_shared<GameMessageUI>(Vector2F(400.0f, 200.0f), Vector2F(400.0f, 100.0f));
 	msgUI_->Load();
 	msgUI_->Init();
-	msgUI_->SetStartCallBack([this]()
-		{
-			EventManager::GetInstance().TriggerEvent(GameEventType::START);
-		}
-	);
+
 	UIManager::GetInstance().AddRootUI(msgUI_);
 
 	// 同様に timerUI もメンバ変数に代入
 	timerUI_ = std::make_shared<Timer>(Vector2F(50.0f, 50.0f), Vector2F(200.0f, 50.0f));
 	timerUI_->Load();
 	timerUI_->Init();
-	timerUI_->SetTimeUpCallBack([this]()
-		{
-			EventManager::GetInstance().TriggerEvent(GameEventType::TIME_UP);
-		}
-	);
+
 	UIManager::GetInstance().AddRootUI(timerUI_);
 }
 
@@ -169,14 +173,24 @@ void FindingJ::LoadSE(void)
 
 void FindingJ::InitUI(void)
 {
+	msgUI_->SetMassageText(GameMessageUI::MASSAGE_STATE::EXPLAIN, "FIND J");
+	msgUI_->SetMassageText(GameMessageUI::MASSAGE_STATE::START, "START!");
+	msgUI_->SetMassageText(GameMessageUI::MASSAGE_STATE::FINISH, "FINISH!");
 
-	auto msgUI = UIManager::GetInstance().GetUI<GameMessageUI>(UINAME::MASSAGE);
-	msgUI->SetMassageText(GameMessageUI::MASSAGE_STATE::EXPLAIN, "FIND J");
-	msgUI->SetMassageText(GameMessageUI::MASSAGE_STATE::START, "START!");
-	msgUI->SetMassageText(GameMessageUI::MASSAGE_STATE::FINISH, "FINISH!");
+//	msgUI_->SetStartCallBack([this]()
+//	{
+//		EventManager::GetInstance().TriggerEvent(GameEventType::START);
+//	}
+//);
 
-	auto timer = UIManager::GetInstance().GetUI<Timer>(UINAME::TIMER);
-	timer->SetTime(60);
+	timerUI_ = UIManager::GetInstance().GetUI<Timer>(UINAME::TIMER);
+	timerUI_->SetTime(60);
+
+	timerUI_->SetTimeUpCallBack([this]()
+		{
+			EventManager::GetInstance().TriggerEvent(GameEventType::TIME_UP);
+		}
+	);
 }
 
 void FindingJ::InitSE(void)
