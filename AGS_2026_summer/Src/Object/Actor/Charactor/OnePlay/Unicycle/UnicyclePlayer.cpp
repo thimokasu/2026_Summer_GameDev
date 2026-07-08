@@ -5,6 +5,8 @@
 #include"../../../Collider/ColliderBase.h"
 #include"../../../Collider/ColliderCapsule.h"
 
+#include "../../../../../Utility/AsoUtility.h"
+
 UnicyclePlayer::UnicyclePlayer(void)
 {
 }
@@ -25,7 +27,10 @@ void UnicyclePlayer::SubInit(void)
 	rigidBody_.SetUseGravity(true);
 	rigidBody_.SetMass(1000);
 	rigidBody_.SetMoveSpeed(1.0f);
-	trans_.pos = VGet(0.0f, 40.0f, 0.0f);
+	trans_.pos = VGet(10.0f, 80.0f, 0.0f);
+	float scale = 0.5f;
+	trans_.scl = VGet(scale, scale, scale);
+	trans_.quaRotLocal = Quaternion::Euler(VGet(0.0f, AsoUtility::Deg2RadD(180.0f), 0.0f));
 }
 
 void UnicyclePlayer::SubUpdate(void)
@@ -48,9 +53,9 @@ void UnicyclePlayer::InitCollider(void)
 	info.shape_ = ColliderShape::CAPSULE;
 	info.layer_ = ColliderLayer::ACTOR;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE });
-	float radius = 10.0f;
+	float radius = 5.0f;
 	VECTOR localPosTop = VGet(0.0f, 10.0f, 0.0f);
-	VECTOR localPosDown = VGet(0.0f, -10.0f, 0.0f);
+	VECTOR localPosDown = VGet(0.0f, 5.0f, 0.0f);
 	std::unique_ptr<ColliderCapsule>collider =
 		std::make_unique<ColliderCapsule>(info, radius, localPosTop, localPosDown, *this);
 	ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
