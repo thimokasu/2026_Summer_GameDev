@@ -32,6 +32,10 @@ enum class GAME_KIND
 	ONE_TO_FOUR_PLAYER = 60,
 	FEEDJ,
 
+	
+	//‘Sl”‘Î‰(‚Å‚«‚½‚ç)
+	UNICYCLE,
+
 	MAX
 };
 
@@ -104,6 +108,8 @@ inline std::string GameInfo::GetGameName(void) const
 		return"OneToFourPlayer";
 	case GAME_KIND::FEEDJ:
 		return "FeedJ";
+	case GAME_KIND::UNICYCLE:
+		return "Unicycle";
 	default:
 		return "Unknown";
 	}

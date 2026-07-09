@@ -5,4 +5,7 @@ enum class UINAME
 	TIMER,
 	MASSAGE,
 
+	//Unicycle
+	UNICYCLE_DISTANCE,
+	UNICYCLE_COUNT_TIMER,
 };

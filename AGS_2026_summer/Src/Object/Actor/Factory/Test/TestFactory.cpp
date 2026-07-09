@@ -11,6 +11,7 @@
 #include"../../Charactor/OnePlay/Test/TestPlayer.h"
 
 
+
 std::vector<std::unique_ptr<ActorBase>> TestFactory::CreateActors(void)
 {
     std::vector<std::unique_ptr<ActorBase>> actors;
@@ -23,3 +24,4 @@ std::vector<std::unique_ptr<ActorBase>> TestFactory::CreateActors(void)
    
  return actors;
 }
+

@@ -89,6 +89,10 @@ void GameScene::CreateMiniGame(GAME_KIND kind)
 		break;
 	case GAME_KIND::FEEDJ:
 		miniGame_ = std::make_unique<FeedJ>(actorMng_.get(), colMng_.get());
+		break;
+	case GAME_KIND::UNICYCLE:
+		miniGame_ = std::make_unique<Unicycle>(actorMng_.get(), colMng_.get());
+		break;
 	}
 }
 

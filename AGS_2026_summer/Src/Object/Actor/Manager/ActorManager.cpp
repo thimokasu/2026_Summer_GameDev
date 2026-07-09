@@ -5,9 +5,15 @@
 #include"../Collider/ColliderBase.h"
 #include"../Factory/Test/TestFactory.h"
 #include"../Factory/FactorysHeadersh.h"
+#include"../Factory/FindingJ/Stage1Factory.h"
+#include"../Factory/FindingJ/Stage2Factory.h"
+#include"../Factory/FindingJ/Stage3Factory.h"
+#include "../Factory/Unicycle/UnicycleFactory.h"
 
 #include"../Charactor/FindingJ/FindingJCPU/FindingJRunner.h"
 #include"../../../Manager/Generic/KeyManager.h"
+
+
 
 ActorManager::ActorManager(void)
 {
@@ -164,6 +170,9 @@ void ActorManager::OnePlayerGameFactory(GameInfo info)
 	{
 	case GAME_KIND::TEST:
 		actorFactory_ = std::make_unique<TestFactory>();
+		break;
+	case GAME_KIND::UNICYCLE:
+		actorFactory_ = std::make_unique<UnicycleFactory>();
 		break;
 	default:
 		break;
