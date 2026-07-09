@@ -16,6 +16,7 @@ void StationBase::SubLoad(void)
 
 void StationBase::SubInit(void)
 {
+	entityKind_ = EntityKind::STATION;
 }
 
 void StationBase::SubUpdate(void)
@@ -41,4 +42,9 @@ void StationBase::InitCollider(void)
 		std::make_unique<ColliderBox>(info, fSize, *this);
 	ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
 
+}
+
+void StationBase::InitRigidBody(void)
+{
+	rigidBody_.SetBodyType(RigidBody::BodyType::KINEMATIC);
 }

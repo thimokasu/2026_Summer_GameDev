@@ -26,6 +26,14 @@ void FoodBase::SubInit(void)
 void FoodBase::SubUpdate(void)
 {
 	if (player_ != nullptr)isDraw_ = false;
+	if (station_)
+	{
+		trans_.pos = VAdd(station_->GetTransform().pos, localOffset_);
+	}
+	else if (container_)
+	{
+		trans_.pos = VAdd(container_->GetTransform().pos, localOffset_);
+	}
 }
 
 void FoodBase::SubDraw(void)
@@ -51,10 +59,6 @@ void FoodBase::InitCollider(void)
 
 }
 
-void FoodBase::PlaceItem(ActorBase* owner)
-{
-}
-
 void FoodBase::Throw(ActorBase* target)
 {
 	auto& pos = target->GetTransform().pos;
@@ -63,14 +67,18 @@ void FoodBase::Throw(ActorBase* target)
 	trans_.pos.y = 30;
 	rigidBody_.SetVelocity(VGet(0, 0, 0));
 	rigidBody_.AddForce(VScale(forward, 30));
+	rigidBody_.SetUseGravity(true);
 }
 
 void FoodBase::OnCook(void)
 {
 }
 
+
+
 void FoodBase::AttachToPlayer(FeedJPlayer* player)
 {
+	Detach();
 	player_ = player;
 	for (auto& [shape,col] : ownColliders_)
 	{
@@ -80,22 +88,28 @@ void FoodBase::AttachToPlayer(FeedJPlayer* player)
 
 void FoodBase::AttachToContainer(ContainerBase* container, VECTOR localOffset)
 {
+	Detach();
 	container_ = container;
 	localOffset_ = localOffset;
 	for (auto& [shape, col] : ownColliders_)
 	{
 		col->SetActive(false);
 	}
+	rigidBody_.SetUseGravity(false);
+	rigidBody_.SetVelocity(VGet(0, 0, 0));
 }
 
 void FoodBase::AttachToStation(StationBase* station, VECTOR localOffset)
 {
+	Detach();
 	station_ = station;
-	localOffset_ = localOffset;
+	localOffset_ = localOffset;	
 	for (auto& [shape, col] : ownColliders_)
 	{
 		col->SetActive(false);
 	}
+	rigidBody_.SetUseGravity(false);
+	rigidBody_.SetVelocity(VGet(0, 0, 0));
 }
 
 void FoodBase::Detach(void)
@@ -117,6 +131,7 @@ void FoodBase::Detach(void)
 	{
 		col->SetActive(true);
 	}
+	localOffset_ = VGet(0, 0, 0);
 }
 
 void FoodBase::Drop( ActorBase* target)
@@ -126,6 +141,7 @@ void FoodBase::Drop( ActorBase* target)
 	trans_.pos = VAdd(pos, VScale(forward, 15));
 	trans_.pos.y = 30;
 	rigidBody_.SetVelocity(VGet(0, 0, 0));
+	rigidBody_.SetUseGravity(true);
 }
 
 void FoodBase::DrawCookTime(void)

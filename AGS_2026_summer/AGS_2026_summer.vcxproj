@@ -233,6 +233,7 @@
     <ClInclude Include="Src\Object\Actor\Factory\FactorysHeadersh.h" />
     <ClInclude Include="Src\Object\Actor\Factory\FeedJ\FeedJStage1Factory.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\FeedJItemHeaders.h" />
+    <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\FoodKind.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FeedJ\FeedJFloor.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FeedJ\FeedJStageHeaders.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FeedJ\FeedJStageLayout.h" />
@@ -253,7 +254,6 @@
     <ClInclude Include="Src\Object\Actor\Charactor\IState.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\InterFace\FeedJ_ICookable.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\InterFace\FeedJ_ICooker.h" />
-    <ClInclude Include="Src\Object\Actor\Item\FeedJ\InterFace\FeedJ_IPlaceble.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\InterFace\FeedJ_IThrowble.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FeedJ\StationKind.h" />
     <ClInclude Include="Src\Object\UI\FeedJ\FoodUI.h" />

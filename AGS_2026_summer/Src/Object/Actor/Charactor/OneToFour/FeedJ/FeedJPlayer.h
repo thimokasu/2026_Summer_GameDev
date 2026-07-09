@@ -22,9 +22,12 @@ class FeedJPlayer :
         bool GetContactTrigger(void) { return isContactTrigger_; }
 
 		void SetHoldItem(ItemBase* item) { holdItem_ = item; isHold_ = true; }
-		void ReleaseHoldItem(void) { holdItem_ = nullptr; isHold_ = false; }
-		ItemBase* GetHoldItem(void) { return holdItem_; }
+        void ReleaseHoldItem(void) { holdItem_ = nullptr; isHold_ = false; }
+		ItemBase* GetHoldItem(void) { return holdItem_; } 
         void CreateState(void)override;
+
+        void SetIsContact(bool flag) { isContact_ = flag; }
+        bool GetIsContact(void) { return isContact_; }
 private:
     enum class STATE
     {
@@ -46,6 +49,7 @@ private:
 
 #pragma region 変数
     bool isContactTrigger_ = false; //コンタクト用トリガーが起動してるかどうか
+    bool isContact_ = false;        //アイテムをドロップするのか置くのか判断するための接触状態
 	bool isHold_ = false; //アイテムを持っているかどうか
 	ItemBase* holdItem_ = nullptr; //持っているアイテムのポインタ
 #pragma endregion

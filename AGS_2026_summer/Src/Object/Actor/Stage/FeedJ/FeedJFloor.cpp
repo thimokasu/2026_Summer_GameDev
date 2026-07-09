@@ -58,7 +58,7 @@ void FeedJFloor::InitCollider(void)
 	ColliderInfo info;
 	info.shape_ = ColliderShape::BOX;
 	info.layer_ = ColliderLayer::STAGE;
-	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
+	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR ,Layer::FOOD,Layer::STATION,Layer::CONTAINER});
 	info.localPos_ = { 0.0f,0.0f,0.0f };
 	info.localRot_ = { 0.0f,0.0f,0.0f };
 	info.isTrigger_ = false;

@@ -59,7 +59,7 @@ protected:
 	virtual void SubRelease(void) {};
 
 	virtual void InitCollider(void) {};
-
+	virtual void InitRigidBody(void) {};
 	void Move(void);
 #pragma endregion
 

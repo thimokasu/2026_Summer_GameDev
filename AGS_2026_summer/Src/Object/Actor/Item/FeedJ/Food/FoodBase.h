@@ -6,16 +6,16 @@
 #include<map>
 #include"../InterFace/FeedJ_ICookable.h"
 #include"../InterFace/FeedJ_IThrowble.h"
-#include"../InterFace/FeedJ_IPlaceble.h"
 #include"../InterFace/FeedJ_Drop.h"
 #include"../IFoodState.h"
+#include"FoodKind.h"
 
 class FeedJPlayer;
 class ContainerBase;
 class StationBase;
 
 class FoodBase :
-    public ItemBase,public FeedJ_ICookable,public FeedJ_IThrowble,public FeedJ_IPlaceble,public FeedJ_Drop
+    public ItemBase,public FeedJ_ICookable,public FeedJ_IThrowble,public FeedJ_Drop
 {
 public:  
     enum class STATE
@@ -41,7 +41,6 @@ public:
     void InitCollider(void)override;
 
 
-	void PlaceItem(ActorBase* owner)override;
 	void Throw(ActorBase* target)override;
 	void OnCook(void)override;
 
@@ -67,7 +66,8 @@ public:
 
 	void Drop(ActorBase* target)override;
 
-private:
+	FOOD_KIND GetFoodKind(void) { return kind_; }
+protected:
 #pragma region ä÷êî
     //í≤óùéûä‘ÇÃécÇËÇï`âÊÇ∑ÇÈ
 	void DrawCookTime(void);
@@ -90,6 +90,8 @@ private:
 
 	std::unordered_map<std::type_index, std::unique_ptr<IFoodState>>stateMap_;
 	IFoodState* currentState_ = nullptr;
+
+	FOOD_KIND kind_ = FOOD_KIND::NONE;
 #pragma endregion
 
 
