@@ -10,6 +10,7 @@ class UIBase : public std::enable_shared_from_this<UIBase>
 {
 public:
 	UIBase(Vector2F pos, Vector2F size);
+	UIBase(Vector2F pos);
 	virtual ~UIBase() = default;
 
 	void Load(void);

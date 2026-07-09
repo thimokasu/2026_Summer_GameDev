@@ -31,7 +31,7 @@ void UnicyclePlayer::SubInit(void)
 	rigidBody_.SetUseGravity(true);
 	rigidBody_.SetMass(1000);
 	rigidBody_.SetMoveSpeed(1.0f);
-	trans_.pos = VGet(10.0f, 80.0f, 0.0f);
+	trans_.pos = VGet(50.0f, 5.0f, 0.0f);
 	float scale = 0.5f;
 	trans_.scl = VGet(scale, scale, scale);
 	trans_.quaRotLocal = Quaternion::Euler(VGet(0.0f, AsoUtility::Deg2RadD(180.0f), 0.0f));
@@ -46,6 +46,12 @@ void UnicyclePlayer::SubInit(void)
 
 	riderAnimation_ = std::make_unique<AnimationController>(riderTrans_.modelId);
 	riderAnimation_->AddInFbx(0, 60.0f, 0);
+
+	//ìãèÊé“ÇÃà íuÇàÍó÷é‘Ç…çáÇÌÇπÇÈ
+	riderTrans_.pos = VAdd(trans_.pos, riderOffset_);
+	riderTrans_.Update();
+	trans_.Update();
+
 }
 
 void UnicyclePlayer::SubUpdate(void)
@@ -84,7 +90,7 @@ void UnicyclePlayer::InitCollider(void)
 	info.shape_ = ColliderShape::CAPSULE;
 	info.layer_ = ColliderLayer::ACTOR;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE });
-	float radius = 5.0f;
+	float radius = 8.0f;
 	VECTOR localPosTop = VGet(0.0f, 10.0f, 0.0f);
 	VECTOR localPosDown = VGet(0.0f, 5.0f, 0.0f);
 	std::unique_ptr<ColliderCapsule>collider =

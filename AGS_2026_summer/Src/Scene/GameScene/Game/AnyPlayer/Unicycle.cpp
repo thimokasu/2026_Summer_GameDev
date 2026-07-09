@@ -7,7 +7,12 @@
 #include"../../../../Object/Actor/Camera/Camera.h"
 
 #include "../../../../Object/Actor/Charactor/OnePlay/Unicycle/UnicyclePlayer.h"
+
 #include "../../../../Object/UI/FindingJ/GameMessageUI.h"
+#include "../../../../Object/UI/Unicycle/Distance.h"
+#include "../../../../Object/UI/Unicycle/CountTimer.h"
+
+#include "../../../../Application.h"
 
 Unicycle::Unicycle(ActorManager* actMng, CollisionManager* colMng)
 	:GameBase(actMng, colMng)
@@ -61,18 +66,48 @@ void Unicycle::SetCollisionCollback(void)
 
 void Unicycle::SetEventCallBack(void)
 {
+	EventManager::GetInstance().SetContactEventCallback(GameEventType::START, [this](const ContactRule& rule)
+		{
+			OnUpdate();
+		});
 }
 
 void Unicycle::LoadUI(void)
 {
-	//auto msgUI = std::make_shared<GameMessageUI>(Vector2F(400.0f, 200.0f), Vector2F(400.0f, 100.0f));
-	//UIManager::GetInstance().AddRootUI(msgUI);
-	//msgUI->Load();
-	//msgUI->SetStartCallBack([this]()
-	//	{
-	//		EventManager::GetInstance().TriggerEvent(GameEventType::START);
-	//	}
-	//);
+	//距離UIの生成
+	auto distanceUI = std::make_shared<Distance>(
+		Vector2F(Application::SCREEN_SIZE_X / 2, Application::SCREEN_SIZE_Y));
+
+	UIManager::GetInstance().AddRootUI(distanceUI);
+
+	//開始カウントUI
+	auto countUI = std::make_shared<CountTimer>(
+		Vector2F(Application::SCREEN_SIZE_X / 2, Application::SCREEN_SIZE_Y / 2));
+
+	UIManager::GetInstance().AddRootUI(countUI);
+	countUI->Load();
+	//スタート時のコールバック関数を設定
+	countUI->SetStartCallBack([this]()
+		{
+			EventManager::GetInstance().TriggerEvent(GameEventType::START);
+		}
+	);
+
+	//プレイヤーのTransformを取得してUIに設定
+	setUI_ = [this, distanceUI](std::uint32_t playerID)
+		{
+			
+			auto actor = actorMng_->FindActorByID(playerID);
+			if (actor)
+			{
+				auto& player = dynamic_cast<UnicyclePlayer&>(*actor);
+				distanceUI->SetTrans(&player.GetTransform());
+				distanceUI->Load();
+			}
+
+		};
+
+
 }
 
 void Unicycle::LoadSE(void)
@@ -81,7 +116,13 @@ void Unicycle::LoadSE(void)
 
 void Unicycle::InitUI(void)
 {
-	OnUpdate();
+	auto player = actorMng_->FindActorsByKind(EntityKind::PLAYER);
+	for (auto& p : player)
+	{
+		auto& player = dynamic_cast<UnicyclePlayer&>(*p);
+		setUI_(player.GetEntityID());
+	}
+	
 }
 
 void Unicycle::InitSE(void)

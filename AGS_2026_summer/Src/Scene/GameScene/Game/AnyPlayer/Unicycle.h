@@ -1,6 +1,9 @@
 #pragma once
 #include"../GameBase.h"
 
+using SetUI = std::function<void(std::uint32_t)>;
+
+
 class Unicycle :public GameBase
 {
 public:
@@ -24,5 +27,8 @@ public:
 	void InitSE(void)override;
 	void InitCamera(void)override;
 private:
+
+	SetUI setUI_;
+
 };
 

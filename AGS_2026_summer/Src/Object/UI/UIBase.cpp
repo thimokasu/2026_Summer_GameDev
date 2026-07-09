@@ -5,6 +5,12 @@ UIBase::UIBase(Vector2F pos, Vector2F size)
 {
 }
 
+UIBase::UIBase(Vector2F pos)
+	: pos_(pos),isActive_(true), type_(UITYPE::NONE)
+{
+
+}
+
 
 void UIBase::Load(void)
 {
