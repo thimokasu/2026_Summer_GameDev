@@ -26,6 +26,7 @@ void FeedJPlayer::SubUpdate(void)
 {
 	CharactorBase::SubUpdate();
 	if (!KEY::GetIns().GetInfo(KEY::KEY_TYPE::J_KEY_ACTION).now)isContactTrigger_ = false;
+	if (!KEY::GetIns().GetInfo(KEY::KEY_TYPE::K_KEY_ACTION).now)isCook_ = false;
 }
 
 void FeedJPlayer::SubDraw(void)

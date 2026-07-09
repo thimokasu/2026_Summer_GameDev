@@ -36,17 +36,17 @@ void FeedJ_IdleState::HandleInputT(FeedJPlayer* owner)
 	}
 	else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::K_KEY_ACTION).down)
 	{
-		auto item = owner->GetHoldItem();
-		if (item != nullptr)
+		auto* item = owner->GetHoldItem();
+		if (auto food = dynamic_cast<FoodBase*>(item))
 		{
-			if (auto f = dynamic_cast<FoodBase*>(item))
-			{
-				
-			}
-			else if (auto c = dynamic_cast<ContainerBase*>(item))
-			{
-
-			}
+			food->Detach();
+			food->Throw(owner);
+			owner->ReleaseHoldItem();
+			owner->ChangeState<FeedJ_IdleState>();
+		}
+		else if (item == nullptr)
+		{
+			owner->SetIsCook(true);
 		}
 	}
 }

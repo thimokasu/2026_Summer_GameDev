@@ -28,6 +28,9 @@ class FeedJPlayer :
 
         void SetIsContact(bool flag) { isContact_ = flag; }
         bool GetIsContact(void) { return isContact_; }
+
+        void SetIsCook(bool flag) { isCook_ = flag; }
+        bool GetIsCook(void) { return isCook_; }
 private:
     enum class STATE
     {
@@ -50,6 +53,7 @@ private:
 #pragma region 変数
     bool isContactTrigger_ = false; //コンタクト用トリガーが起動してるかどうか
     bool isContact_ = false;        //アイテムをドロップするのか置くのか判断するための接触状態
+    bool isCook_ = false;           //調理をするかどうか
 	bool isHold_ = false; //アイテムを持っているかどうか
 	ItemBase* holdItem_ = nullptr; //持っているアイテムのポインタ
 #pragma endregion

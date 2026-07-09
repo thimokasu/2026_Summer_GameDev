@@ -132,46 +132,75 @@ void FeedJ::SetContactEventCallback(void)
 				//ステーションがコンテナを保持している
 				if (auto contaier = dynamic_cast<ContainerBase*>(station->GetHoldItem()))
 				{
-					auto f = dynamic_cast<FoodBase*>(player->GetHoldItem());
-					player->ReleaseHoldItem();
-					player->ChangeState<FeedJ_IdleState>();
-					contaier->SetSlot(f);
-					f->AttachToContainer(contaier, VGet(0, 5, 0));
-				}
-				else
-				{
-					if (auto container = dynamic_cast<ContainerBase*>(player->GetHoldItem()))
+					//プレイヤーが食材を所持している
+					if (auto f = dynamic_cast<FoodBase*>(player->GetHoldItem()))
 					{
-						container->Detach();
-						container->AttachToStation(station, VGet(0, 10, 0));
-						container->SetIsAttachStation(true);
-						station->SetHoldItem(container);
 						player->ReleaseHoldItem();
 						player->ChangeState<FeedJ_IdleState>();
+						contaier->SetSlot(f);
+						f->AttachToContainer(contaier, VGet(0, 5, 0));
+					}
+				}
+				//ステーションがコンテナーを保持していない
+				else
+				{
+					//プレイヤーがコンテナを所持している
+					if (auto container = dynamic_cast<ContainerBase*>(player->GetHoldItem()))
+					{
+						//ステーションが食材を所持している場合
+						if (auto f = dynamic_cast<FoodBase*>(station->GetHoldItem()))
+						{
+							container->Detach();
+							f->AttachToContainer(container, VGet(0, 5, 0));
+							container->AttachToStation(station, VGet(0, 10, 0));
+							container->SetIsAttachStation(true);
+							contaier->SetSlot(f);
+							station->SetHoldItem(container);
+							player->ReleaseHoldItem();
+							player->ChangeState<FeedJ_IdleState>();
+						}
+						//ステーションが何も所持していない場合
+						else if (!station->GetHoldItem())
+						{
+							container->Detach();
+							container->AttachToStation(station, VGet(0, 10, 0));
+							container->SetIsAttachStation(true);
+							station->SetHoldItem(container);
+							player->ReleaseHoldItem();
+							player->ChangeState<FeedJ_IdleState>();
+						}
 					}
 				}
 			}
 			//アイテムを未所持
 			else
 			{
-				//ステーションがアイテムを所持している場合
-				//プレイヤーにアタッチする
-				if (auto item = station->GetHoldItem())
+				//調理フラグがONの場合
+				if (player->GetIsCook())
 				{
-					if (auto food = dynamic_cast<FoodBase*>(item))
+
+				}
+				else
+				{
+					//ステーションがアイテムを所持している場合
+					//プレイヤーにアタッチする
+					if (auto item = station->GetHoldItem())
 					{
-						food->Detach();
-						food->AttachToPlayer(player);
+						if (auto food = dynamic_cast<FoodBase*>(item))
+						{
+							food->Detach();
+							food->AttachToPlayer(player);
+						}
+						else if (auto container = dynamic_cast<ContainerBase*>(item))
+						{
+							container->Detach();
+							container->AttachToPlayer(player, VGet(0, 0, 20));
+							container->SetIsAttachStation(false);
+						}
+						station->ReleaseHoldItem();
+						player->SetHoldItem(item);
+						player->ChangeState<FeedJ_HoldState>();
 					}
-					else if (auto container = dynamic_cast<ContainerBase*>(item))
-					{
-						container->Detach();
-						container->AttachToPlayer(player, VGet(0, 0, 20));
-						container->SetIsAttachStation(false);
-					}
-					station->ReleaseHoldItem();
-					player->SetHoldItem(item);
-					player->ChangeState<FeedJ_HoldState>();
 				}
 			}
 		});
