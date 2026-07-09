@@ -14,9 +14,6 @@ TitleScene::~TitleScene(void)
 
 void TitleScene::SubLoad(void)
 {
-	ResourceManager& resMng = ResourceManager::GetInstance();
-	 resMng.Load(SRC::TITLE).handleId_;
-	resMng.Load(SRC::PUSH).handleId_;
 }
 
 void TitleScene::SubInit(void)
@@ -36,10 +33,7 @@ void TitleScene::SubUpdate(void)
 
 void TitleScene::SubDraw(void)
 {
-	DrawString(0, 0, "title", 0xffffff);
-
-	DrawGraph(0, 0, imgTitle_, TRUE);
-	DrawGraph(600, 700, imgPush_, TRUE);
+	
 }
 
 void TitleScene::SubRelease(void)

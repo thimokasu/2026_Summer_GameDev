@@ -52,6 +52,10 @@ public:
 	VECTOR GetRotPos(const VECTOR& localPos)const;
 	//デバッグ描画するかどうか
 	void SetIsDebug(bool isDebug) { isDebug_ = isDebug;}
+
+	// モデルのハンドルID
+	int modelId_;
+
 protected:
 #pragma region 関数
 	virtual void DrawDebug(int color) {};//デバッグ描画
