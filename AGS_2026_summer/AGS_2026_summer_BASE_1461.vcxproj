@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{fcde2c73-2ce5-4127-adaa-ce3a5865f058}</ProjectGuid>
+    <RootNamespace>AGS2026summer</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(DXLIB_DIR)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(DXLIB_DIR)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(DXLIB_DIR)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(DXLIB_DIR)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Src\Object\Actor\Charactor\Player\ButtonMashing\ButtonMashingPlayer.cpp" />
+    <ClCompile Include="Src\Scene\GameScene\Game\FourPlayer\ButtonMashing\ButtonMushing.cpp" />
+    <ClCompile Include="Src\Scene\GameScene\Game\FourPlayer\FindingJ.cpp" />
+    <ClCompile Include="Src\Scene\GameSelect\GameSelectScene.cpp" />
+    <ClCompile Include="Src\Scene\GameScene\Game\GameBase.cpp" />
+    <ClCompile Include="Src\Manager\Game\SE.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\FindingJ\FindingJCPU\FindingJChaser.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\FindingJ\FindingJCPU\FindingJRunner.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\FindingJ\FindingJPlayer.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\CharactorBase.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\FindingJ\ReactionBlock.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\FindingJ\Block.cpp" />
+    <ClCompile Include="Src\Manager\System\EventSystem\EventManager.cpp" />
+    <ClCompile Include="Src\Manager\System\Collision\CollisionLogic.cpp" />
+    <ClCompile Include="Src\Manager\System\Collision\CollisionManager.cpp" />
+    <ClCompile Include="Src\Object\Actor\Manager\ActorManager.cpp" />
+    <ClCompile Include="Src\Object\UI\FindingJ\GameMessageUI.cpp" />
+    <ClCompile Include="Src\Object\UI\FindingJ\Timer.cpp" />
+    <ClCompile Include="Src\Manager\Game\UIManager.cpp" />
+    <ClCompile Include="Src\Scene\GameOverScene.cpp" />
+    <ClCompile Include="Src\Scene\GameScene\GameScene.cpp" />
+    <ClCompile Include="Src\Object\Actor\Shape\Sphere.cpp" />
+    <ClCompile Include="Src\Object\Actor\Shape\Capsule.cpp" />
+    <ClCompile Include="Src\Object\Actor\Shape\Box.cpp" />
+    <ClCompile Include="Src\Object\Actor\Collider\ColliderSphere.cpp" />
+    <ClCompile Include="Src\Object\Actor\Collider\ColliderCapsule.cpp" />
+    <ClCompile Include="Src\Object\Actor\Shape\ShapeBase.cpp" />
+    <ClCompile Include="Src\Object\Common\RigidBody.cpp" />
+    <ClCompile Include="Src\Common\IntVector3.cpp" />
+    <ClCompile Include="Src\Common\Quaternion.cpp" />
+    <ClCompile Include="Src\Common\Vector2.cpp" />
+    <ClCompile Include="Src\Manager\Generic\FPS.cpp" />
+    <ClCompile Include="Src\Manager\Generic\KeyManager.cpp" />
+    <ClCompile Include="Src\Manager\Generic\Loading.cpp" />
+    <ClCompile Include="Src\Manager\Resource\ResourceManager.cpp" />
+    <ClCompile Include="Src\Manager\Resource\Resource.cpp" />
+    <ClCompile Include="Src\Object\Actor\ActorBase.cpp" />
+    <ClCompile Include="Src\Object\Actor\Camera\Camera.cpp" />
+    <ClCompile Include="Src\Object\Actor\Collider\ColliderBase.cpp" />
+    <ClCompile Include="Src\Object\Actor\Collider\ColliderBox.cpp" />
+    <ClCompile Include="Src\Object\Common\AnimationController.cpp" />
+    <ClCompile Include="Src\Object\Common\Transform.cpp" />
+    <ClCompile Include="Src\Scene\PauseScene.cpp" />
+    <ClCompile Include="Src\Scene\PeopleSelectScene.cpp" />
+    <ClCompile Include="Src\Scene\SceneBase.cpp" />
+    <ClCompile Include="Src\Manager\Game\SceneManager.cpp" />
+    <ClCompile Include="Src\Application.cpp" />
+    <ClCompile Include="Src\main.cpp" />
+    <ClCompile Include="Src\Utility\AsoUtility.cpp" />
+    <ClCompile Include="Src\Scene\TitleScene.cpp" />
+    <ClCompile Include="Src\Object\Actor\Factory\Test\TestFactory.cpp" />
+    <ClCompile Include="Src\Object\Actor\Factory\FindingJ\Stage1Factory.cpp" />
+    <ClCompile Include="Src\Object\Actor\Factory\FindingJ\Stage2Factory.cpp" />
+    <ClCompile Include="Src\Object\Actor\Factory\FindingJ\Stage3Factory.cpp" />
+    <ClCompile Include="Src\Object\UI\UIBase.cpp" />
+    <ClCompile Include="Src\Scene\GameScene\Game\TwoPlayer\ThumbWrestling.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Src\Object\Actor\Charactor\Player\ButtonMashing\ButtonMashingPlayer.h" />
+    <ClInclude Include="Src\Scene\GameScene\Game\FourPlayer\ButtonMashing\ButtonKind.h" />
+    <ClInclude Include="Src\Scene\GameScene\Game\FourPlayer\ButtonMashing\ButtonMushing.h" />
+    <ClInclude Include="Src\Scene\GameScene\Game\FourPlayer\FindingJ.h" />
+    <ClInclude Include="Src\Scene\GameScene\Game\MiniGameHeaders.h" />
+    <ClInclude Include="Src\Scene\GameSelect\GameSelectScene.h" />
+    <ClInclude Include="Src\Scene\GameScene\Game\GameBase.h" />
+    <ClInclude Include="Src\Manager\Game\SE.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\FindingJ\FindingJCPU\FindingJChaser.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\FindingJ\FindingJCPU\FindingJRunner.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\FindingJ\FindingJPlayer.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\CharactorBase.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\FindingJ\ReactionBlock.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\FindingJ\Block.h" />
+    <ClInclude Include="Src\Manager\System\EventSystem\EventManager.h" />
+    <ClInclude Include="Src\Manager\System\Collision\CollisionLogic.h" />
+    <ClInclude Include="Src\Manager\System\Collision\CollisionManager.h" />
+    <ClInclude Include="Src\Manager\System\Collision\CollisionPairType.h" />
+    <ClInclude Include="Src\Manager\System\Collision\CollisionResult.h" />
+    <ClInclude Include="Src\Manager\System\EventSystem\EventInfo.h" />
+    <ClInclude Include="Src\Manager\System\EventSystem\GameEventType.h" />
+    <ClInclude Include="Src\Object\Actor\Factory\ActorFactoryBase.h" />
+    <ClInclude Include="Src\Object\Actor\Manager\ActorManager.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\FindingJ\StageLayout.h" />
+    <ClInclude Include="Src\Object\UI\FindingJ\GameMessageUI.h" />
+    <ClInclude Include="Src\Object\UI\FindingJ\Timer.h" />
+    <ClInclude Include="Src\Manager\Game\UIManager.h" />
+    <ClInclude Include="Src\Object\UI\UIName.h" />
+    <ClInclude Include="Src\Object\UI\UIType.h" />
+    <ClInclude Include="Src\Scene\GameOverScene.h" />
+    <ClInclude Include="Src\Scene\GameScene\GameScene.h" />
+    <ClInclude Include="Src\Object\Actor\Shape\Sphere.h" />
+    <ClInclude Include="Src\Object\Actor\Shape\Capsule.h" />
+    <ClInclude Include="Src\Object\Actor\Shape\Box.h" />
+    <ClInclude Include="Src\Object\Actor\Collider\ColliderSphere.h" />
+    <ClInclude Include="Src\Object\Actor\Collider\ColliderCapsule.h" />
+    <ClInclude Include="Src\Object\Actor\Shape\ShapeBase.h" />
+    <ClInclude Include="Src\Object\Common\RigidBody.h" />
+    <ClInclude Include="Src\Common\CRC.h" />
+    <ClInclude Include="Src\Common\IntVector3.h" />
+    <ClInclude Include="Src\Common\Quaternion.h" />
+    <ClInclude Include="Src\Common\Vector2.h" />
+    <ClInclude Include="Src\Manager\Generic\FPS.h" />
+    <ClInclude Include="Src\Manager\Generic\KeyManager.h" />
+    <ClInclude Include="Src\Manager\Generic\Loading.h" />
+    <ClInclude Include="Src\Scene\GameSelect\GameInfo.h" />
+    <ClInclude Include="Src\Scene\PauseScene.h" />
+    <ClInclude Include="Src\Scene\PeopleSelectScene.h" />
+    <ClInclude Include="Src\Scene\TitleScene.h" />
+    <ClInclude Include="Src\Manager\Resource\ResourceManager.h" />
+    <ClInclude Include="Src\Manager\Resource\Resource.h" />
+    <ClInclude Include="Src\Manager\Resource\ResourceName.h" />
+    <ClInclude Include="Src\Manager\Resource\ResourceType.h" />
+    <ClInclude Include="Src\Object\Actor\ActorBase.h" />
+    <ClInclude Include="Src\Object\Actor\Camera\Camera.h" />
+    <ClInclude Include="Src\Object\Actor\Collider\ColliderBase.h" />
+    <ClInclude Include="Src\Object\Actor\Collider\ColliderBox.h" />
+    <ClInclude Include="Src\Object\Actor\Collider\ColliderInfo.h" />
+    <ClInclude Include="Src\Object\Actor\Collider\ColliderShape.h" />
+    <ClInclude Include="Src\Object\Actor\EntityKind.h" />
+    <ClInclude Include="Src\Object\Common\AnimationController.h" />
+    <ClInclude Include="Src\Object\Common\Transform.h" />
+    <ClInclude Include="Src\Scene\SceneBase.h" />
+    <ClInclude Include="Src\Object\Actor\Factory\Test\TestFactory.h" />
+    <ClInclude Include="Src\Object\Actor\Factory\FindingJ\Stage1Factory.h" />
+    <ClInclude Include="Src\Object\Actor\Factory\FindingJ\Stage2Factory.h" />
+    <ClInclude Include="Src\Object\Actor\Factory\FindingJ\Stage3Factory.h" />
+    <ClInclude Include="Src\Object\UI\UIBase.h" />
+    <ClInclude Include="Src\Scene\GameScene\Game\TwoPlayer\ThumbWrestling.h" />
+    <Structure Include="Src\Manager\Game\SceneManager.h" />
+    <ClInclude Include="Src\Manager\Game\SceneManager.h" />
+    <ClInclude Include="Src\Application.h" />
+    <ClInclude Include="Src\main.h" />
+    <ClInclude Include="Src\Utility\AsoUtility.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

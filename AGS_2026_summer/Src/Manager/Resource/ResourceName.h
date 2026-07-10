@@ -12,6 +12,7 @@ enum class SRC
 	AIRPLANE,
 	YATCH,
 	P1,
+	P1_IDLE,
 	
 
 	TITLE,

@@ -17,23 +17,22 @@ constexpr int TileSize = 20;
 constexpr int W = 19;
 constexpr int D = 11;
 constexpr int H = 2;
-
 namespace Stage1
 {
     constexpr std::array<std::array<std::array<StageLayout, W>, D>, H> stage = { {
        { // ===== çÇÇ≥ 0 =====
            {
                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-               {b,b,b,b,b,r,b,b,b,r,b,b,b,r,b,b,b,b,b,},
                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-               {b,r,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,r,b,},
                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-               {b,b,b,b,b,r,b,b,b,r,b,b,b,r,b,b,b,b,b,},
                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-               {b,r,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,r,b,},
                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-               {b,b,b,b,b,r,b,b,b,r,b,b,b,r,b,b,b,b,b,},
-               {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,}
+               {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+               {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+               {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+               {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+               {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+               {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
            }
        }  } };
 }

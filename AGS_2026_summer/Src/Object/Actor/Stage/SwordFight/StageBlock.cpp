@@ -27,7 +27,7 @@ void StageBlock::SubInit(void)
 	trans_.scl.z = 10.0f;
 	trans_.scl.y = 10.0f;
 	trans_.Update();*/
-	trans_.pos = VGet(0.0f, -300.0f, 0.0f);
+	//trans_.pos = pos;
 }
 
 void StageBlock::SubUpdate(void)
@@ -55,5 +55,5 @@ void StageBlock::InitCollider(void)
 	info.debugColor_ = GetColor(0, 255, 0);
 	std::unique_ptr<ColliderBase> collider =
 		std::make_unique<ColliderBox>(info, halfSize_, *this);
-	ownColliders_.emplace(static_cast<int>(ColliderShape::MESH), std::move(collider));
+	ownColliders_.emplace(static_cast<int>(ColliderShape::BOX), std::move(collider));
 }
