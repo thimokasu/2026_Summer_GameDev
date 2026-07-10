@@ -13,6 +13,10 @@ enum class GameEventType
 	HAS_CAHGHT,
 	REACTION_BLOCK,
 
+	//Unicycle
+	PLAYER_FALL,
+
+
 	//FeedJ
 	PLAYER_CONTACT_FOOD,
 	PLAYER_CONATCT_CONTAINER,

@@ -11,6 +11,7 @@
 #include "../../../../Object/UI/FindingJ/GameMessageUI.h"
 #include "../../../../Object/UI/Unicycle/Distance.h"
 #include "../../../../Object/UI/Unicycle/CountTimer.h"
+#include "../../../../Object/UI/Unicycle/MessageImageUI.h"
 
 #include "../../../../Application.h"
 
@@ -66,15 +67,50 @@ void Unicycle::SetEventCallBack(void)
 		{
 			OnUpdate();
 		});
+
+	//プレイヤーが落下したときのイベント
+	auto player = actorMng_->FindActorsByKind(EntityKind::PLAYER);
+	for (auto& p : player)
+	{
+		auto& player = dynamic_cast<UnicyclePlayer&>(*p);
+		player.SetFallCallBack([this, &player]()
+			{
+				OffUpdate();
+				//プレイヤーを画面外に飛ばす
+				player.FallAfterGameEnd();
+				//メッセージUIの表示
+				auto massage = UIManager::GetInstance().GetUI<GameMessageUI>(UINAME::MASSAGE);
+				massage->SetMassageState(GameMessageUI::MASSAGE_STATE::FINISH);
+				VECTOR pos = SceneManager::GetInstance().GetCamera().GetPos();
+				//固定カメラに切り替え
+				SceneManager::GetInstance().GetCamera().ChangeMode(Camera::MODE::FREE);
+				SceneManager::GetInstance().GetCamera().SetCameraAngles(VGet(0.73f, 0.0f, 0.0f));
+				SceneManager::GetInstance().GetCamera().SetCameraPos(VGet(pos.x, pos.y,pos.z));
+			}
+		);
+	}
+
+	//ゴール時のイベント
+	distanceUI_->SetGoalCallBack([this]()
+		{
+			OffUpdate();
+			ImageUI_->SetActive(true);
+		}
+	);
 }
 
 void Unicycle::LoadUI(void)
 {
 	//距離UIの生成
-	auto distanceUI = std::make_shared<Distance>(
+	distanceUI_ = std::make_shared<Distance>(
 		Vector2F(Application::SCREEN_SIZE_X / 2, Application::SCREEN_SIZE_Y));
+	UIManager::GetInstance().AddRootUI(distanceUI_);
 
-	UIManager::GetInstance().AddRootUI(distanceUI);
+	//画像UI
+	ImageUI_ = std::make_shared<MessageImageUI>(
+		Vector2F(Application::SCREEN_SIZE_X / 2, Application::SCREEN_SIZE_Y / 2));
+	ImageUI_->Load();
+	UIManager::GetInstance().AddRootUI(ImageUI_);
 
 	//開始カウントUI
 	auto countUI = std::make_shared<CountTimer>(
@@ -90,34 +126,40 @@ void Unicycle::LoadUI(void)
 	);
 
 	//プレイヤーのTransformを取得してUIに設定
-	setUI_ = [this, distanceUI](std::uint32_t playerID)
-		{
-			
+	setUI_ = [this](std::uint32_t playerID)
+	{
+		if (distanceUI_) {
 			auto actor = actorMng_->FindActorByID(playerID);
 			if (actor)
 			{
 				auto& player = dynamic_cast<UnicyclePlayer&>(*actor);
-				distanceUI->SetTrans(&player.GetTransform());
-				distanceUI->Load();
+				distanceUI_->SetTrans(&player.GetTransform());
+				distanceUI_->Load();
 			}
-
-		};
-
-
+		}
+	};
 }
 
 void Unicycle::LoadSE(void)
 {
+	msgUI_ = std::make_shared<GameMessageUI>(Vector2F(400.0f, 200.0f), Vector2F(400.0f, 100.0f));
+	msgUI_->Load();
+	msgUI_->Init();
 }
 
 void Unicycle::InitUI(void)
 {
+	//メッセージUIの初期化
+	msgUI_->SetMassageText(GameMessageUI::MASSAGE_STATE::FINISH, "FINISH!");
+
 	auto player = actorMng_->FindActorsByKind(EntityKind::PLAYER);
 	for (auto& p : player)
 	{
 		auto& player = dynamic_cast<UnicyclePlayer&>(*p);
 		setUI_(player.GetEntityID());
 	}
+
+	UIManager::GetInstance().AddRootUI(msgUI_);
 	
 }
 

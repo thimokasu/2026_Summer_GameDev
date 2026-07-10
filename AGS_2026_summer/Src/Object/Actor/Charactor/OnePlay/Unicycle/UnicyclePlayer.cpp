@@ -57,9 +57,6 @@ void UnicyclePlayer::SubInit(void)
 void UnicyclePlayer::SubUpdate(void)
 {
 	MoveInput();
-	VECTOR moveVec = { 0.0f, 0.0f, 1.0f };
-
-	trans_.pos = VAdd(trans_.pos, VScale(moveVec, rigidBody_.GetMoveSpeed()));
 
 	//アニメーションの更新
 	riderAnimation_->Play(0, true);
@@ -69,8 +66,14 @@ void UnicyclePlayer::SubUpdate(void)
 
 	//搭乗者の位置を一輪車に合わせる
 	riderTrans_.pos = VAdd(trans_.pos, riderOffset_);
-
+	riderTrans_.quaRot = trans_.quaRot;
 	riderTrans_.Update();
+
+	//落下時
+	if(trans_.pos.y < -1.0f)
+	{
+		if (fallCallBack_)fallCallBack_();
+	}
 
 }
 
@@ -101,8 +104,8 @@ void UnicyclePlayer::InitCollider(void)
 void UnicyclePlayer::MoveInput(void)
 {
 	VECTOR moveVec = { 0.0f, 0.0f, 0.0f };
-
-	//if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_FRONT).now) moveVec.z += 1.0f;
+	//if (!KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_FRONT).now)return;
+	moveVec.z += 1.0f;
 	//if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_BACK).now) moveVec.z -= 1.0f;
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_RIGHT).now) moveVec.x += 1.0f;
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT).now) moveVec.x -= 1.0f;
@@ -114,6 +117,9 @@ void UnicyclePlayer::MoveInput(void)
 	if (VSize(moveVec) > 0.0f)
 	{
 		moveVec = VNorm(moveVec);
+
+		// 移動方向を向く
+		trans_.quaRot = Quaternion::Euler(VGet(0.0f, atan2f(moveVec.x, moveVec.z), 0.0f));
 	}
 	trans_.pos = VAdd(trans_.pos, VScale(moveVec, rigidBody_.GetMoveSpeed()));
 }

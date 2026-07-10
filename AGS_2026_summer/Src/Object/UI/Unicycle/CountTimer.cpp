@@ -36,14 +36,29 @@ void CountTimer::SubInit()
 void CountTimer::SubUpdate()
 {
 
+   if (!isUpdate_)
+   {
+       return;
+   }
+
    time_ -= SceneManager::GetInstance().GetDeltaTime();
+
+   if (time_ < -1.0f)
+   {
+       isUpdate_ = false;
+
+       if (startCallBack_)
+       {
+           startCallBack_();
+       }
+   }
    
 }
 
 void CountTimer::SubDraw()
 {
 
-    if (time_ < -1.0f) { isUpdate_ = false; startCallBack_(); return; }
+    if (time_ < -1.0f) {return; }
 
 
     // Œ»Ý‚Ì•b(0`2)

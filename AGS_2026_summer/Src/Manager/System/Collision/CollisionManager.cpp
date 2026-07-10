@@ -287,6 +287,8 @@ void CollisionManager::PositionIntegration(CollisionResolve resolve, float total
 	float ratioA = invMassA / totalInvMass;
 	float ratioB = invMassB / totalInvMass;
 
+
+
 	if (invMassA > 0.0f)
 	{
 		transA.pos = VAdd(transA.pos, VScale(resolve.result.normal, resolve.result.penetration * ratioA));

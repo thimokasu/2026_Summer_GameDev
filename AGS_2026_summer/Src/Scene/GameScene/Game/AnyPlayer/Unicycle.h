@@ -1,5 +1,8 @@
 #pragma once
 #include"../GameBase.h"
+class GameMessageUI;
+class Distance;
+class MessageImageUI;
 
 using SetUI = std::function<void(std::uint32_t)>;
 
@@ -26,7 +29,9 @@ public:
 	void InitSE(void)override;
 	void InitCamera(void)override;
 private:
-
+	std::shared_ptr<GameMessageUI> msgUI_;
+	std::shared_ptr<Distance> distanceUI_;
+	std::shared_ptr<MessageImageUI> ImageUI_;
 	SetUI setUI_;
 
 };

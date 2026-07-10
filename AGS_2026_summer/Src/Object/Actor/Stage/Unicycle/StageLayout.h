@@ -13,7 +13,7 @@ constexpr StageLayout n = StageLayout::None;
 
 constexpr int TileSize = 20;
 constexpr int W = 5;
-constexpr int D = 100; 
+constexpr int D = 105; 
 
 namespace Stage1
 {
@@ -138,6 +138,13 @@ namespace Stage1
         {n, n, n, b, n}, 
         {n, n, b, b, n}, 
         {n, b, b, b, n},
-        {b, b, b, b, b}
+        {b, b, b, b, b},
+        // Åy100 - 109çsñ⁄Åz
+        { b, b, b, b, b },
+        { b, b, b, b, b },
+        { b, b, b, b, b },
+        { b, b, b, b, b },
+        { b, b, b, b, b },
+     
    } };
 }

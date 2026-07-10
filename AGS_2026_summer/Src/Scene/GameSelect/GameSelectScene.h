@@ -9,12 +9,19 @@ class GameSelectScene :
     public SceneBase
 {
 public:
+    static const std::string PATH_GAMESELECTSCENE;
 
-    enum class SELECT_STATE {
-        SELECT_PLAYER_NUM, // 人数選択
-        SELECT_GAME,       // ゲーム選択
-        SELECT_STAGE,      // ステージ選択
+
+    // アニメーションのフェーズを分けるための定数
+    const int SCALE_UP_TIME = 5;   // 拡大する時間（5フレーム）
+    const int SCALE_DOWN_TIME = 20; // 縮小する時間（15フレーム）
+
+    enum class SELECT_STATE
+    {
+        SELECTING,
+        TRANSITIONING,
     };
+
     GameSelectScene(void);
     ~GameSelectScene(void);
     void SubLoad(void) override;
@@ -27,14 +34,25 @@ private:
 #pragma region  関数
     void SetGameStageNum(void);
 
+    void LoadImages(void);
+
     void InitGameGroups(void);
     void InitUI(void) override;
     void InitSE(void) override;
 
-    void UpdateGameGroups(void);
-    void UpdateCursorIndex(void);
+    using Update_t = void(GameSelectScene::*)(void);
+    using Draw_t = void(GameSelectScene::*)(void);
+
+    Update_t update_;
+    Draw_t draw_;
+
+    void UpdatePlayNumSelect(void);
+    void UpdateGameSelect(void);
     void UpdateStageSelect(void);
-    void UpdatePlayerNumLeftRight(void);
+
+    void DrawPlayNumSelect(void);
+    void DrawGameSelect(void);
+    void DrawStageSelect(void);
 #pragma endregion
 
 #pragma region 変数
@@ -45,8 +63,12 @@ private:
 	std::vector<GAME_KIND>fourPlayerGames_;
     std::vector<GAME_KIND>oneToFourPlayGames_;
     const std::vector<GAME_KIND>* currentGroup_ = nullptr;
+    std::unordered_map<GAME_KIND, int>gameImageHandles_;
 	int cursorIndex_ = 0;
     GameInfo gameInfo_;
-    SELECT_STATE state_ = SELECT_STATE::SELECT_PLAYER_NUM;
+    SELECT_STATE state_ = SELECT_STATE::SELECTING;
+    int transitionTimer_ = 0;
+    int backImage_ = -1;
+    int fontHandle_ = -1; // クラスのメンバ変数として追加
 #pragma endregion
 };

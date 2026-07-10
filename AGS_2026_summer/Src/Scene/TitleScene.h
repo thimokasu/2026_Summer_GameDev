@@ -16,8 +16,9 @@ public:
 private:
 
 	int imgTitle_;
+    int logo_;
 	int imgPush_;
-
+    float angle_ = 0.0f; // —h‚ê—p‚ÌŠp“x—p•Ï”
 
 };
 

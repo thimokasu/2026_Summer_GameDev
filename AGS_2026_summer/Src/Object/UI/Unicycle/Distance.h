@@ -1,7 +1,9 @@
 #pragma once
 #include "../UIBase.h"
 #include "../../../Common/IntVector3.h"
+#include <functional>
 class Transform;
+using GoalCallBack = std::function<void()>;
 
 
 class Distance : public UIBase
@@ -13,6 +15,9 @@ public:
     void SetUpdate(bool flag) { isUpdate_ = flag; }
     //プレイヤー位置を保持
     void SetTrans(const Transform* follow) { Transform_ = follow; }
+	//ゴール時のコールバック関数を設定
+    void SetGoalCallBack(GoalCallBack callBack) { goalCallBack_ = std::move(callBack); }
+
 
 public:
 
@@ -42,6 +47,9 @@ private:
     float StartPos_;
     //縁取りカラー
     IntVector3 bgColor_;
+
+	//ゴール時のコールバック関数
+	GoalCallBack goalCallBack_;
 
     
 };
