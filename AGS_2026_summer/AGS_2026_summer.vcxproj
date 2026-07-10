@@ -201,6 +201,12 @@
     <ClCompile Include="Src\Object\UI\SwordFight\SwordFightUI.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\SwordFight\StageBlock.cpp" />
     <ClCompile Include="Src\Object\Actor\Factory\SwordFight\SwordFightStage1Factory.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFight_Attack.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFight_Idle.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFIght_Walk.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFight_Damage.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFight_Block.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFight_Lose.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Object\Actor\Charactor\Player\ButtonMashing\ButtonMashingPlayer.h" />
@@ -280,6 +286,12 @@
     <ClInclude Include="Src\Object\UI\SwordFight\SwordFightUI.h" />
     <ClInclude Include="Src\Object\Actor\Stage\SwordFight\StageBlock.h" />
     <ClInclude Include="Src\Object\Actor\Factory\SwordFight\SwordFightStage1Factory.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFight_Attack.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFight_Idle.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFIght_Walk.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFight_Damage.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFight_Block.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFight_Lose.h" />
     <Structure Include="Src\Manager\Game\SceneManager.h" />
     <ClInclude Include="Src\Manager\Game\SceneManager.h" />
     <ClInclude Include="Src\Application.h" />
