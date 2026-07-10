@@ -1,5 +1,8 @@
 #pragma once
 #include "../UIBase.h"
+#include<functional>
+
+using ChangeSceneCallBack = std::function<void()>;
 
 class MessageImageUI :
     public UIBase
@@ -8,6 +11,7 @@ class MessageImageUI :
     MessageImageUI(Vector2F pos);
     virtual ~MessageImageUI() = default;
 
+    void SetChangeSceneCallBack(ChangeSceneCallBack callback) { changeSceneCallBack_ = std::move(callback); }
 private:
     // UIBaseの仮想関数をオーバーライド
     void SubLoad() override;
@@ -18,6 +22,6 @@ private:
 
     int imageHandle_ = -1;  
     int alpha_ = 255;
-
+    ChangeSceneCallBack changeSceneCallBack_=nullptr;
 };
 

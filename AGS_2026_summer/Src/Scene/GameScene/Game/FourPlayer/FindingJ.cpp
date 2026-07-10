@@ -38,6 +38,7 @@ void FindingJ::SubInit(void)
 }
 void FindingJ::SubUpdate(void)
 {
+	SceneManager::GetInstance().GetCamera().StopMove();
 	static int start = 0;
 	start++;
 	if (start > 500) {
@@ -203,6 +204,7 @@ void FindingJ::InitCamera(void)
 {
 	SceneManager::GetInstance().GetCamera().SetCameraAngles(VGet(1.18f, 0.0f, 0.0f));
 	SceneManager::GetInstance().GetCamera().SetCameraPos(VGet(170.0f, 270.0f, 20.0f));
+
 }
 
 

@@ -29,6 +29,7 @@ void MessageImageUI::SubDraw()
         {
             alpha_ = 0;
             isActive_ = false;
+            changeSceneCallBack_();
         }
 
         SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha_);

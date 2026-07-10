@@ -166,7 +166,7 @@ void GameSelectScene::UpdatePlayNumSelect(void)
 			gameInfo_.game_ = GAME_KIND::NONE;
 		}
 	}
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down)
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down&&state_==SELECT_STATE::SELECTING)
 	{
 		state_ = SELECT_STATE::TRANSITIONING;
 		transitionTimer_ = 0;
@@ -244,6 +244,10 @@ void GameSelectScene::UpdateStageSelect(void)
 		{
 			gameInfo_.stage_ = static_cast<STAGE_NUM>(static_cast<int>(gameInfo_.stage_) + 1);
 		}
+	}
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down)
+	{
+		SceneManager::GetInstance().ChangeScene<GameScene>(gameInfo_);
 	}
 }
 

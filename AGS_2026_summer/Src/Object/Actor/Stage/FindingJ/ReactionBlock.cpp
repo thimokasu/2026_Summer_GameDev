@@ -20,7 +20,6 @@ ReactionBlock::ReactionBlock(VECTOR pos)
 
 void ReactionBlock::SubLoad(void)
 {
-	//trans_.modelId = MV1LoadModel("Data/Stage/ReactionBlock.mv1");
 	trans_.SetModel(ResourceManager::GetInstance().LoadModelDuplicate(SRC::REACTION_BLOCK));
 }
 
@@ -29,6 +28,7 @@ void ReactionBlock::SubInit(void)
 	const float scale = 0.113f;
 	trans_.scl = VGet(scale, scale, scale);
 	entityKind_ = EntityKind::REACTION_BLOCK;
+	trans_.Update();
 }
 
 void ReactionBlock::SubUpdate(void)

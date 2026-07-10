@@ -151,7 +151,6 @@ void Unicycle::InitUI(void)
 {
 	//メッセージUIの初期化
 	msgUI_->SetMassageText(GameMessageUI::MASSAGE_STATE::FINISH, "FINISH!");
-
 	auto player = actorMng_->FindActorsByKind(EntityKind::PLAYER);
 	for (auto& p : player)
 	{
@@ -160,7 +159,9 @@ void Unicycle::InitUI(void)
 	}
 
 	UIManager::GetInstance().AddRootUI(msgUI_);
-	
+	ImageUI_->SetChangeSceneCallBack([this]() {
+		SceneManager::GetInstance().PushScene(SCENE_ID::PAUSE);
+		});
 }
 
 void Unicycle::InitSE(void)
@@ -177,5 +178,5 @@ void Unicycle::InitCamera(void)
 		SceneManager::GetInstance().GetCamera().SetFollow(&player.GetTransform());
 	}
 	SceneManager::GetInstance().GetCamera().SetCameraAngles(VGet(0.73f, 0.0f, 0.0f));
-
+	SceneManager::GetInstance().GetCamera().StopMove();
 }
