@@ -194,3 +194,4 @@ void GameMessageUI::SetMassageText(MASSAGE_STATE state, const std::string& text)
 {
     messageMap_[state] = text;
 }
+

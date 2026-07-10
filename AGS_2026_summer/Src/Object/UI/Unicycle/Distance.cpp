@@ -5,7 +5,7 @@
 Distance::Distance(Vector2F pos)
     : UIBase(pos)
     , distance_(0.0f)
-    , isUpdate_(false)
+    , isUpdate_(true)
     , fontHandle_(-1)
     , scale_(0.2f)
     , textColor_(0)
@@ -38,7 +38,19 @@ void Distance::SubInit()
 
 void Distance::SubUpdate()
 {
+
+    if (!isUpdate_)
+    {
+        return;
+    }
+
 	distance_ = (Transform_->pos.z - StartPos_)/20;
+    if(distance_>100.0f)
+    {
+        distance_ = 100.0f;
+		goalCallBack_();
+        isUpdate_ = false;
+	}
 }
 
 void Distance::SubDraw()
@@ -70,7 +82,7 @@ void Distance::SubDraw()
     int height = GetFontSizeToHandle(fontHandle_);
     int textX = absPos.x - width;
     int textY = absPos.y - height* textScale-30;
-    unsigned int fontColor = distance_ <= 6.0f ? GetColor(220, 0, 0) : GetColor(0, 0, 0);
+    unsigned int fontColor =  GetColor(0, 0, 0);
 
     DrawRotaStringToHandle(
         textX, textY,

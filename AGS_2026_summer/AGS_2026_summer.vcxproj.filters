@@ -95,6 +95,7 @@
     <ClCompile Include="Src\Object\Actor\Item\FeedJ\Food\AfterCooking\Tomato.cpp" />
     <ClCompile Include="Src\Scene\GameScene\Game\AnyPlayer\Unicycle.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\OnePlay\Unicycle\UnicyclePlayer.cpp" />
+    <ClCompile Include="Src\Object\UI\Unicycle\MessageImageUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Object\Actor\Factory\FactorysHeadersh.h" />
@@ -223,5 +224,6 @@
     <ClInclude Include="Src\Application.h" />
     <ClInclude Include="Src\main.h" />
     <ClInclude Include="Src\Utility\AsoUtility.h" />
+    <ClInclude Include="Src\Object\UI\Unicycle\MessageImageUI.h" />
   </ItemGroup>
 </Project>

@@ -21,6 +21,7 @@ public:
         EXPLAIN,
         START,
         FINISH,
+        MIRACLE,
     };
 
     enum class ANIM_PHASE
