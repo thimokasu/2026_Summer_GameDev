@@ -22,17 +22,7 @@ namespace Stage1
     constexpr std::array<std::array<std::array<StageLayout, W>, D>, H> stage = { {
        { // ===== ‚‚³ 0 =====
            {
-               {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-               {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-               {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-               {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-               {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-               {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-               {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-               {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-               {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-               {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-               {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
+              b
            }
        }  } };
 }

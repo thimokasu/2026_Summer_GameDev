@@ -3,6 +3,8 @@
 #include"../../Collider/ColliderCapsule.h"
 #include"SwordState/SwordFIghtStateHeaders.h"
 #include"../../../../Manager/Generic/KeyManager.h"
+#include "../../../Common/AnimationController.h"
+
 
 SwordFightPlayer::SwordFightPlayer(void)
 {
@@ -28,6 +30,11 @@ void SwordFightPlayer::SubInit(void)
 {
 	CharactorBase::SubInit();
 	entityKind_ = EntityKind::PLAYER;
+
+	//アニメーションの登録
+	animationController_ = std::make_unique<AnimationController>(trans_.modelId);
+	animationController_->AddInFbx(0, 60.0f, 0);
+
 }
 
 void SwordFightPlayer::SubUpdate(void)

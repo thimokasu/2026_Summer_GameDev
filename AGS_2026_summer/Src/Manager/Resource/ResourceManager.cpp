@@ -47,7 +47,7 @@ void ResourceManager::Init(void)
 	resourcesMap_.emplace(SRC::REACTION_BLOCK, res);
 
 	// SwordFight
-	res = new RES(RES_T::MODEL, PATH_MDL + "Stage/SwordFight/SwordFightStage2.mv1");
+	res = new RES(RES_T::MODEL, PATH_MDL + "Stage/SwordFight/Stage.mv1");
 	resourcesMap_.emplace(SRC::STAGE, res);
 	res = new RES(RES_T::MODEL, PATH_MDL + "Stage/SwordFight/AirPlane.mv1");
 	resourcesMap_.emplace(SRC::AIRPLANE, res);

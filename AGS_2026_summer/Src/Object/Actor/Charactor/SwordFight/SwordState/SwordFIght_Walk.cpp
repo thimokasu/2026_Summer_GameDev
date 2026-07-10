@@ -30,11 +30,11 @@ void SwordFIght_Walk::UpdateT(SwordFightPlayer* owner)
 	VECTOR moveVec = { 0.0f,0.0f,0.0f };
 
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_FRONT).now) {
-		moveVec.z -= 1.0f;
+		moveVec.z += 1.0f;
 	}
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_BACK).now) moveVec.z += 1.0f;
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_RIGHT).now) moveVec.x -= 1.0f;
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT).now) moveVec.x += 1.0f;
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_BACK).now) moveVec.z -= 1.0f;
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_RIGHT).now) moveVec.x += 1.0f;
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT).now) moveVec.x -= 1.0f;
 
 	const VECTOR cameraAngle = SceneManager::GetInstance().GetCamera().GetAngles();
 	MATRIX camYaw = MGetRotY(cameraAngle.y);

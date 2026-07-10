@@ -18,15 +18,17 @@ StageBlock::StageBlock(VECTOR pos)
 
 void StageBlock::SubLoad(void)
 {
-	//trans_.SetModel(ResourceManager::GetInstance().LoadModelDuplicate(SRC::STAGE));
+	trans_.SetModel(ResourceManager::GetInstance().LoadModelDuplicate(SRC::STAGE));
 }
 
 void StageBlock::SubInit(void)
 {
-	/*trans_.scl.x = 10.0f;
-	trans_.scl.z = 10.0f;
+	trans_.scl.x = 12.0f;
+	trans_.scl.z =12.0f;
 	trans_.scl.y = 10.0f;
-	trans_.Update();*/
+
+
+	trans_.Update();
 }
 
 void StageBlock::SubUpdate(void)
