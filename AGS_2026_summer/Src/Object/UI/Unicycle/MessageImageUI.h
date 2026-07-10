@@ -17,7 +17,7 @@ private:
     void SubRelease() override;
 
     int imageHandle_ = -1;  
-    int alpha_ = 255;
+    float alpha_ = 255.0f;
 
 };
 
