@@ -81,12 +81,12 @@ void GameSelectScene::LoadImages(void)
 void GameSelectScene::InitGameGroups(void)
 {
 	// テスト用のダミー割り当て (1人用、2人用にもテストデータを置いて確認できるようにします)
-	onePlayerGames_ = {GAME_KIND::TEST, GAME_KIND::UNICYCLE};
+	onePlayerGames_ = { GAME_KIND::UNICYCLE};
 	twoPlayerGames_ = {};
 	oneVsThreeGames_ = {};
 	twoVsTwoGames_ = {};
 	fourPlayerGames_ = {  GAME_KIND::FINDINGJ };
-	oneToFourPlayGames_ = { GAME_KIND::FEEDJ };
+	oneToFourPlayGames_ = {};
 
 	currentGroup_ = &onePlayerGames_;
 	cursorIndex_ = 0;
@@ -247,6 +247,7 @@ void GameSelectScene::UpdateStageSelect(void)
 	}
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down)
 	{
+		if (currentGroup_->empty())return;
 		SceneManager::GetInstance().ChangeScene<GameScene>(gameInfo_);
 	}
 }

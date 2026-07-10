@@ -4,6 +4,7 @@
 #include"../../../CharactorBase.h"
 #include"FeedJStateHeaders.h"
 #include"../../../../Camera/Camera.h"
+#include"../../../../Item/FeedJ/Food/FoodBase.h"
 void FeedJ_Walk::EnterT(FeedJPlayer* owner)
 {
 	isLoop_ = true;
@@ -32,6 +33,21 @@ void FeedJ_Walk::HandleInputT(FeedJPlayer* owner)
 	else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::J_KEY_ACTION).down)
 	{
 		owner->OnContactTrigger();
+	}
+	else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::K_KEY_ACTION).down)
+	{
+		auto* item = owner->GetHoldItem();
+		if (auto food = dynamic_cast<FoodBase*>(item))
+		{
+			food->Detach();
+			food->Throw(owner);
+			owner->ReleaseHoldItem();
+			owner->ChangeState<FeedJ_IdleState>();
+		}
+		else if (item == nullptr)
+		{
+			owner->SetIsCook(true);
+		}
 	}
 }
 

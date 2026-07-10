@@ -20,6 +20,7 @@ void ActorBase::Init(void)
 	rigidBody_.SetCentroid(trans_.pos);
 	SubInit();
 	InitCollider();
+	InitRigidBody();
 }
 
 void ActorBase::Update(void)

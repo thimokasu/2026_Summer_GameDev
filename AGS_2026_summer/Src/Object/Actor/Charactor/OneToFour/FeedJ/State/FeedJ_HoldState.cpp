@@ -30,15 +30,22 @@ void FeedJ_HoldState::HandleInputT(FeedJPlayer* owner)
 		auto item = owner->GetHoldItem();
 		if (auto food = dynamic_cast<FoodBase*>(item))
 		{
-			food->Detach();
-			food->Drop(owner);
+			if (owner->GetIsContact())
+			{
+				owner->OnContactTrigger();
+			}
+			else
+			{
+				food->Detach();
+				food->Drop(owner);
+				owner->ReleaseHoldItem();
+				owner->ChangeState<FeedJ_IdleState>();
+			}
 		}
 		else if (auto continer = dynamic_cast<ContainerBase*>(item))
 		{
-
+			owner->OnContactTrigger();
 		}
-		owner->ReleaseHoldItem();
-		owner->ChangeState<FeedJ_IdleState>();
 	}
 	else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::K_KEY_ACTION).down)
 	{
@@ -47,9 +54,9 @@ void FeedJ_HoldState::HandleInputT(FeedJPlayer* owner)
 		{
 			food->Detach();
 			food->Throw(owner);
-		}
 		owner->ReleaseHoldItem();
 		owner->ChangeState<FeedJ_IdleState>();
+		}
 	}
 }
 
