@@ -22,6 +22,7 @@ std::vector<std::unique_ptr<ActorBase>> UnicycleFactory::CreateActors(void)
     std::vector<std::unique_ptr<ActorBase>> actors;
 
    actors.push_back(std::make_unique<UnicyclePlayer>());
+  // actors.push_back(std::make_unique<Block>(VGet(50, -10, 0)));
     for (int d = 0; d < D; d++)
     {
         for (int w = 0; w < W; w++)
@@ -32,7 +33,7 @@ std::vector<std::unique_ptr<ActorBase>> UnicycleFactory::CreateActors(void)
                     std::make_unique<Block>(
                         VGet(w * TileSize, 0.0f, d * TileSize)));
                 actors.back()->GetRigidBody().SetBodyType(RigidBody::BodyType::STATIC);
-                actors.back()->SetEntityKind(EntityKind::STAGE);
+               // actors.back()->SetEntityKind(EntityKind::STAGE);
             }
         }
     }

@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\UI\Unicycle\MessageImageUI.cpp" />
     <ClCompile Include="Src\Object\Actor\Factory\FeedJ\FeedJStage1Factory.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\FeedJ\FeedJFloor.cpp" />
     <ClCompile Include="Src\Object\Actor\Item\FeedJ\FeedJ_ItemIdle.cpp" />
@@ -233,6 +234,7 @@
     <ClCompile Include="Src\Object\Actor\Item\FeedJ\Food\AfterCooking\Tomato.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\UI\Unicycle\MessageImageUI.h" />
     <ClInclude Include="Src\Object\Actor\Factory\FactorysHeadersh.h" />
     <ClInclude Include="Src\Object\Actor\Factory\FeedJ\FeedJStage1Factory.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\FeedJItemHeaders.h" />
