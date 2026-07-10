@@ -1,16 +1,11 @@
 #include "SwordFightPlayer.h"
-#include"../../../../Manager/Generic/KeyManager.h"
-#include"../../../../Manager/Game/SceneManager.h"
-#include"../../Camera/Camera.h"
 #include"../../Collider/ColliderBase.h"
 #include"../../Collider/ColliderCapsule.h"
-#include"../../../../Manager/Resource/ResourceManager.h"
-#include"../../../Common/AnimationController.h"
-#include "../../../../Utility/AsoUtility.h"
+#include"SwordState/SwordFIghtStateHeaders.h"
+#include"../../../../Manager/Generic/KeyManager.h"
+
 SwordFightPlayer::SwordFightPlayer(void)
 {
-	
-
 }
 
 SwordFightPlayer::~SwordFightPlayer(void)
@@ -19,31 +14,33 @@ SwordFightPlayer::~SwordFightPlayer(void)
 
 void SwordFightPlayer::SubLoad(void)
 {
-	trans_.SetModel(ResourceManager::GetInstance().LoadModelDuplicate(SRC::P1));
-	//trans_.SetModel(ResourceManager::GetInstance().LoadModelDuplicate(SRC::P1_IDLE));
+	CharactorBase::SubLoad();
+	trans_.modelId = MV1LoadModel("Data/Model/Player/Block React Large.mv1");
+	trans_.modelId = MV1LoadModel("Data/Model/Player/DamageReact Large From Left.mv1");
+	trans_.modelId = MV1LoadModel("Data/Model/Player/Lose.mv1");
+	trans_.modelId = MV1LoadModel("Data/Model/Player/Player Attack.mv1");
+	trans_.modelId = MV1LoadModel("Data/Model/Player/Player Idle.mv1");
+	trans_.modelId = MV1LoadModel("Data/Model/Player/Player_T.mv1");
+	trans_.modelId = MV1LoadModel("Data/Model/Player/Walk.mv1");
 }
 
 void SwordFightPlayer::SubInit(void)
 {
-
+	CharactorBase::SubInit();
 	entityKind_ = EntityKind::PLAYER;
-	rigidBody_.SetBodyType(RigidBody::BodyType::DYNAMIC);
-	rigidBody_.SetUseGravity(true);
-	rigidBody_.SetMass(1000);
-	rigidBody_.SetMoveSpeed(1.25f);
-	trans_.pos = VGet(0.0f, 40.0f, 0.0f);
-	trans_.scl = VGet(0.2f, 0.2f, 0.2f);
-
 }
 
 void SwordFightPlayer::SubUpdate(void)
 {
-	MoveInput();
+	CharactorBase::SubUpdate();
+	if (!KEY::GetIns().GetInfo(KEY::KEY_TYPE::J_KEY_ACTION).now)isContactTrigger_ = false;
 }
 
 void SwordFightPlayer::SubDraw(void)
 {
 	MV1DrawModel(trans_.modelId);
+
+	DrawFormatString(0, 10, 0xffffff, "State:%s", currentState_->GetName());
 }
 
 void SwordFightPlayer::SubRelease(void)
@@ -62,27 +59,41 @@ void SwordFightPlayer::InitCollider(void)
 	std::unique_ptr<ColliderCapsule>collider =
 		std::make_unique<ColliderCapsule>(info, radius, localPosTop, localPosDown, *this);
 	ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
+	info.shape_ = ColliderShape::CAPSULE;
+	info.layer_ = ColliderLayer::ACTOR_TRIGGER;
+	info.mask_ = ColliderBase::SetMask({ Layer::SOWRD,Layer::CPU });
+	float radius2 = 10.0f;
+	localPosTop = VGet(0.0f, 10.0f, 10.0f);
+	localPosDown = VGet(0.0f, -10.0f, 10.0f);
+	info.isTrigger_ = true;
+	collider = std::make_unique<ColliderCapsule>(info, radius2, localPosTop, localPosDown, *this);
+	ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
 }
 
-
-void SwordFightPlayer::MoveInput(void)
+void SwordFightPlayer::CreateState(void)
 {
-	VECTOR moveVec = { 0.0f, 0.0f, 0.0f };
+	AddState(std::make_unique<SwordFight_Idle>());
+	AddState(std::make_unique<SwordFight_Block>());
+	AddState(std::make_unique<SwordFIght_Walk>());
+	AddState(std::make_unique<SwordFight_Lose>());
+	AddState(std::make_unique<SwordFight_Damage>());
+	AddState(std::make_unique<SwordFight_Attack>());
+}
 
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_FRONT).now) moveVec.z += 1.0f;
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_BACK).now) moveVec.z -= 1.0f;
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_RIGHT).now) moveVec.x += 1.0f;
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT).now) moveVec.x -= 1.0f;
+void SwordFightPlayer::InitRigidBody(void)
+{
+	rigidBody_.SetUseGravity(true);
+	rigidBody_.SetMoveSpeed(1);
+}
 
-	const VECTOR cameraAngle = SceneManager::GetInstance().GetCamera().GetAngles();
-	MATRIX camYaw = MGetRotY(cameraAngle.y);
-	moveVec = VTransform(moveVec, camYaw);
+void SwordFightPlayer::ActionInput(void)
+{
 
-	if (VSize(moveVec) > 0.0f)
-	{
-		moveVec = VNorm(moveVec);
-	}
-	trans_.pos = VAdd(trans_.pos, VScale(moveVec, rigidBody_.GetMoveSpeed()));
+}
+
+void SwordFightPlayer::ReturnToIdle(void)
+{
+	ChangeState<SwordFight_Idle>();
 }
 
 

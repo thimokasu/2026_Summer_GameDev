@@ -27,7 +27,6 @@ void StageBlock::SubInit(void)
 	trans_.scl.z = 10.0f;
 	trans_.scl.y = 10.0f;
 	trans_.Update();*/
-	//trans_.pos = pos;
 }
 
 void StageBlock::SubUpdate(void)

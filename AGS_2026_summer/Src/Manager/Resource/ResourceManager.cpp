@@ -56,6 +56,19 @@ void ResourceManager::Init(void)
 	res = new RES(RES_T::MODEL, PATH_MDL + "Player/Player_T.mv1");
 	resourcesMap_.emplace(SRC::P1, res);
 	res = new RES(RES_T::MODEL, PATH_MDL + "Player/Player Idle.mv1");
+	resourcesMap_.emplace(SRC::P1_IDLE, res);
+	res = new RES(RES_T::MODEL, PATH_MDL + "Player/Block React Large.mv1");
+	resourcesMap_.emplace(SRC::P1_BLOCK, res);
+	res = new RES(RES_T::MODEL, PATH_MDL + "Player/DamageReact Large From Left.mv1");
+	resourcesMap_.emplace(SRC::P1_DAMAGE, res);
+	res = new RES(RES_T::MODEL, PATH_MDL + "Player/Lose.mv1");
+	resourcesMap_.emplace(SRC::P1_LOSE, res);
+	res = new RES(RES_T::MODEL, PATH_MDL + "Player/Player Attack.mv1");
+	resourcesMap_.emplace(SRC::P1_ATTACK, res);
+	res = new RES(RES_T::MODEL, PATH_MDL + "Player/Walk.mv1");
+	resourcesMap_.emplace(SRC::P1_WALK, res);
+
+
 
 
 	res = new RES(RES_T::IMG, PATH_IMG + "title.png");

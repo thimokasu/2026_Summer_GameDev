@@ -6,7 +6,12 @@ enum class ColliderLayer
 	NONE = 0,
 	CAMERA,
 	ACTOR,
+	ACTOR_TRIGGER,
 	STAGE,
+
+	//SwordFIght
+	SOWRD,
+	CPU,
 
 	MAX
 };

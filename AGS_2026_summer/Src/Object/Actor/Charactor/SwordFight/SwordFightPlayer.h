@@ -1,14 +1,7 @@
 #pragma once
-#include <memory>
-#include <vector>
-#include <map>
-#include <functional>
-#include <DxLib.h>
-
 #include "../CharactorBase.h"
-class ColliderBase;
-class ColliderCapsule;
-class AnimationController;
+
+class ItemBase;
 
 class SwordFightPlayer :
 	public CharactorBase
@@ -25,10 +18,39 @@ public:
 	void SubRelease(void) override;
 	void InitCollider(void) override;
 
+	void OnContactTrigger(void) { isContactTrigger_ = true; }
+	void OffContactTrigger(void) { isContactTrigger_ = false; }
+	bool GetContactTrigger(void) { return isContactTrigger_; }
+
+	void SetHoldItem(ItemBase* item) { holdItem_ = item; isHold_ = true; }
+	void ReleaseHoldItem(void) { holdItem_ = nullptr; isHold_ = false; }
+	ItemBase* GetHoldItem(void) { return holdItem_; }
+	void CreateState(void)override;
+
 private:
 
-	// 重力による移動量
-	virtual void MoveInput(void) override;
+	enum class STATE
+	{
+		IDLE,
+		WALK,
+		ATTACK,
+		DAMAGE,
+		BLOCK,
+		LOSE,
 
+		MAX,
+	};
+#pragma region 関数
+	void InitRigidBody(void)override;
+	void ActionInput(void);
+	void ReturnToIdle(void)override;
+#pragma endregion
+
+
+#pragma region 変数
+	bool isContactTrigger_ = false; //コンタクト用トリガーが起動してるかどうか
+	bool isHold_ = false; //アイテムを持っているかどうか
+	ItemBase* holdItem_ = nullptr; //持っているアイテムのポインタ
+#pragma endregion
 };
 

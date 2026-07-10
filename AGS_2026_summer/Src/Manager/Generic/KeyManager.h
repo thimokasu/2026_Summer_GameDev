@@ -29,6 +29,7 @@ public:
 		MOVE_LEFT,
 		MOVE_UP,
 		MOVE_DOWN,
+
 		MOVE_RIGHT_SET,
 		MOVE_LEFT_SET,
 
@@ -56,6 +57,9 @@ public:
 		ENTER,
 		SPACE,
 		TAB,
+		J_KEY_ACTION,
+		K_KEY_ACTION,
+		L_KEY_ACTOIN,
 
 		MOUSE_LEFT,
 		MOUSE_RIGHT,

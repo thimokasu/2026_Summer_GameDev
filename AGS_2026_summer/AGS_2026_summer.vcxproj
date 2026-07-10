@@ -209,7 +209,9 @@
     <ClCompile Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFight_Lose.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Actor\Charactor\IState.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\Player\ButtonMashing\ButtonMashingPlayer.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\StateBehavior.h" />
     <ClInclude Include="Src\Object\Actor\Stage\SwordFight\SwordFightStageLayOut.h" />
     <ClInclude Include="Src\Scene\GameScene\Game\FourPlayer\ButtonMashing\ButtonKind.h" />
     <ClInclude Include="Src\Scene\GameScene\Game\FourPlayer\ButtonMashing\ButtonMushing.h" />
@@ -292,6 +294,7 @@
     <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFight_Damage.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFight_Block.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFight_Lose.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFIghtStateHeaders.h" />
     <Structure Include="Src\Manager\Game\SceneManager.h" />
     <ClInclude Include="Src\Manager\Game\SceneManager.h" />
     <ClInclude Include="Src\Application.h" />
