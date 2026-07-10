@@ -3,9 +3,14 @@
 #include <string>
 #include<memory>
 #include "../../Manager/Generic/KeyManager.h"
+#include"../../Manager/Resource/ResourceManager.h"
 #include"../../Manager/Game/SceneManager.h"
 #include"../GameScene/GameScene.h"
 #define REGISTER_GAME(kind,classNamecase)GAME_KIND::kind return std::make_unique<className>()
+
+
+const std::string PATH_GAMESELECTSCENE = Application::PATH_IMAGE + "GameSelectScene/";
+
 
 GameSelectScene::GameSelectScene(void)
 {
@@ -17,6 +22,11 @@ GameSelectScene::~GameSelectScene(void)
 
 void GameSelectScene::SubLoad(void)
 {
+	update_ = &GameSelectScene::UpdatePlayNumSelect;
+	draw_ = &GameSelectScene::DrawPlayNumSelect;
+	backImage_ = LoadGraph("Data/Image/GameSelectScene/Gameselect/Test.png");
+	LoadImages();
+	fontHandle_ = CreateFontToHandle(NULL, 40, 5, DX_FONTTYPE_ANTIALIASING_EDGE);
 }
 
 void GameSelectScene::SubInit(void)
@@ -26,260 +36,48 @@ void GameSelectScene::SubInit(void)
 
 void GameSelectScene::SubUpdate(void)
 {
-	// 現在の状態に応じて、呼ぶ更新関数を切り替える
-	switch (state_)
-	{
-	case SELECT_STATE::SELECT_PLAYER_NUM:
-		// 【右キー または スペース】人数を確定してゲーム選択へ
-		if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::B).down ||
-			KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down)
-		{
-			if (currentGroup_ != nullptr && !currentGroup_->empty())
-			{
-				state_ = SELECT_STATE::SELECT_GAME;
-				cursorIndex_ = 0; // ゲーム選択のカーソルをリセット
-				gameInfo_.game_ = (*currentGroup_)[cursorIndex_];
-			}
-		}
-		else
-		{
-			// 進むキーが押されていない時だけ、左右の人数切り替えを行う
-			UpdatePlayerNumLeftRight();
-		}
-		break;
-
-	case SELECT_STATE::SELECT_GAME:
-		// 【下キー】人数選択（一つ前）に戻る
-		if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::A).down ||
-			KEY::GetIns().GetInfo(KEY::KEY_TYPE::UP).down)
-		{
-			state_ = SELECT_STATE::SELECT_PLAYER_NUM;
-		}
-		// 【右キー または スペース】ゲームを確定してステージ選択へ
-		else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::B).down ||
-			KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down)
-		{
-			state_ = SELECT_STATE::SELECT_STAGE;
-		}
-		else
-		{
-			// 戻る・進むキーが押されていない時だけ、左右のゲーム切り替えを行う
-			UpdateCursorIndex();
-		}
-		break;
-
-	case SELECT_STATE::SELECT_STAGE:
-		// 【下キー】ゲーム選択（一つ前）に戻る
-		if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::A).down ||
-			KEY::GetIns().GetInfo(KEY::KEY_TYPE::UP).down)
-		{
-			state_ = SELECT_STATE::SELECT_GAME;
-		}
-		// 【右キー または スペース】ステージを確定してGameSceneへ遷移！
-		else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::B).down ||
-			KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down)
-		{
-			SceneManager::GetInstance().ChangeScene<GameScene>(gameInfo_);
-		}
-		else
-		{
-			// 戻る・進むキーが押されていない時だけ、左右のステージ切り替えを行う
-			UpdateStageSelect();
-		}
-		break;
-	}
+	(this->*update_)();
 }
 
 void GameSelectScene::SubDraw(void)
 {
-	// ========================================================
-	// 1. カラー定義 (画像の色合い)
-	// ========================================================
-	unsigned int colorLineBlue = GetColor(45, 95, 160); // 紺色の枠線
-	unsigned int colorFillRed = GetColor(255, 0, 0); // 選択中タブの赤
-	unsigned int colorWhite = GetColor(255, 255, 255); // 白
-	unsigned int colorBlack = GetColor(0, 0, 0); // 黒
-	unsigned int colorSelectEdge = GetColor(255, 200, 0); // 選択中の強調色
-	unsigned int colorGray = GetColor(128, 128, 128); // ガイド用のグレー
-
-	// ========================================================
-	// 2. 上部：プレイ人数タブの描画 (左右で選択)
-	// ========================================================
-	int tabWidth = 160;
-	int tabHeight = 50;
-	int tabStartX = 140;
-	int tabStartY = 40;
-
-	const char* tabLabels[] = { "1人", "２人","２VS２", "1VS3","4人","1～4人"};
-
-	int currentPlayNumIdx = 0;
-	switch (gameInfo_.playNum_)
-	{
-	case PLAY_NUM::ONE_PLAYER:   currentPlayNumIdx = 0; break;
-	case PLAY_NUM::TWO_PLAYER:   currentPlayNumIdx = 1; break;
-	case PLAY_NUM::ONE_VS_THERR: currentPlayNumIdx = 2; break;
-	case PLAY_NUM::TWO_VS_TWO:   currentPlayNumIdx = 3; break;
-	case PLAY_NUM::FOUR_PLAYER:  currentPlayNumIdx = 4; break;
-	case PLAY_NUM::ONETOFOURPLAYER: currentPlayNumIdx = 5; break;
-	}
-
-	for (int i = 0; i <(int)PLAY_NUM::MAX; ++i)
-	{
-		int x1 = tabStartX + (i * tabWidth);
-		int y1 = tabStartY;
-		int x2 = x1 + tabWidth;
-		int y2 = y1 + tabHeight;
-
-		// 人数選択モードかつ、現在のタブなら赤
-		if (i == currentPlayNumIdx && state_ == SELECT_STATE::SELECT_PLAYER_NUM)
-		{
-			DrawBox(x1, y1, x2, y2, colorFillRed, TRUE);
-			DrawBox(x1, y1, x2, y2, colorLineBlue, FALSE);
-			DrawString(x1 + 60, y1 + 18, tabLabels[i], colorWhite);
-		}
-		// ゲーム選択中などで、選ばれている人数タブ
-		else if (i == currentPlayNumIdx)
-		{
-			DrawBox(x1, y1, x2, y2, colorFillRed, TRUE);
-			DrawBox(x1, y1, x2, y2, colorLineBlue, FALSE);
-			DrawString(x1 + 60, y1 + 18, tabLabels[i], colorBlack);
-		}
-		else
-		{
-			DrawBox(x1, y1, x2, y2, colorWhite, TRUE);
-			DrawBox(x1, y1, x2, y2, colorLineBlue, FALSE);
-			DrawString(x1 + 60, y1 + 18, tabLabels[i], colorBlack);
-		}
-	}
-
-	// ========================================================
-	// 3. 下部：ゲームリストの大枠
-	// ========================================================
-	int mainBoxX1 = 70;
-	int mainBoxY1 = tabStartY + tabHeight;
-	int mainBoxX2 = mainBoxX1 + (tabWidth * 4) + 140;
-	int mainBoxY2 = mainBoxY1 + 340;
-
-	// 背景白、枠線紺色
-	DrawBox(mainBoxX1, mainBoxY1, mainBoxX2, mainBoxY2, colorWhite, TRUE);
-	DrawBox(mainBoxX1, mainBoxY1, mainBoxX2, mainBoxY2, colorLineBlue, FALSE);
-
-	// ========================================================
-	// 4. 横並びの大きな3つのゲーム枠を描画
-	// ========================================================
-	// 中央の大きな枠の座標
-	int centerWidth = 340;
-	int centerHeight = 260;
-	int centerX1 = (mainBoxX1 + mainBoxX2) / 2 - (centerWidth / 2);
-	int centerY1 = mainBoxY1 + 40;
-	int centerX2 = centerX1 + centerWidth;
-	int centerY2 = centerY1 + centerHeight;
-
-	// 左側の枠の座標
-	int sideWidth = 180;
-	int sideHeight = 260;
-	int leftX1 = mainBoxX1 + 30;
-	int leftY1 = centerY1;
-	int leftX2 = leftX1 + sideWidth;
-	int leftY2 = leftY1 + sideHeight;
-
-	// 右側の枠の座標
-	int rightX2 = mainBoxX2 - 30;
-	int rightY1 = centerY1;
-	int rightX1 = rightX2 - sideWidth;
-	int rightY2 = rightY1 + sideHeight;
-
-	// 各枠を描画
-	DrawBox(leftX1, leftY1, leftX2, leftY2, colorLineBlue, FALSE);
-	DrawBox(centerX1, centerY1, centerX2, centerY2, colorLineBlue, FALSE);
-	DrawBox(rightX1, rightY1, rightX2, rightY2, colorLineBlue, FALSE);
-
-	// ゲーム選択中なら中央の枠を黄色（または赤）で強調
-	if (state_ == SELECT_STATE::SELECT_GAME)
-	{
-		DrawBox(centerX1 - 3, centerY1 - 3, centerX2 + 3, centerY2 + 3, colorSelectEdge, FALSE);
-	}
-
-	// ========================================================
-	// 5. 枠の中にゲーム名を表示するロジック
-	// ========================================================
-	int totalGames = currentGroup_ ? static_cast<int>(currentGroup_->size()) : 0;
-
-	if (totalGames > 0)
-	{
-		// ① 中央（現在選択中：cursorIndex_）
-		GameInfo centerInfo;
-		centerInfo.game_ = (*currentGroup_)[cursorIndex_];
-		DrawString(centerX1 + 40, centerY1 + (centerHeight / 2) - 10, centerInfo.GetGameName().c_str(), colorBlack);
-
-		// ② 左側（1つ前のゲーム：cursorIndex_ - 1 があれば表示）
-		if (cursorIndex_ > 0)
-		{
-			GameInfo leftInfo;
-			leftInfo.game_ = (*currentGroup_)[cursorIndex_ - 1];
-			DrawString(leftX1 + 20, leftY1 + (sideHeight / 2) - 10, leftInfo.GetGameName().c_str(), colorBlack);
-		}
-
-		// ③ 右側（1つ次のゲーム：cursorIndex_ + 1 があれば表示）
-		if (cursorIndex_ + 1 < totalGames)
-		{
-			GameInfo rightInfo;
-			rightInfo.game_ = (*currentGroup_)[cursorIndex_ + 1];
-			DrawString(rightX1 + 20, rightY1 + (sideHeight / 2) - 10, rightInfo.GetGameName().c_str(), colorBlack);
-		}
-	}
-	else
-	{
-		DrawString(centerX1 + 120, centerY1 + (centerHeight / 2) - 10, "No Game", colorBlack);
-	}
-
-	// ========================================================
-	// 6. ステージ選択中の表示
-	// ========================================================
-	if (state_ == SELECT_STATE::SELECT_STAGE)
-	{
-		std::string stageStr = "STAGE 1";
-		if (gameInfo_.stage_ == STAGE_NUM::STAGE2) stageStr = "STAGE 2";
-		if (gameInfo_.stage_ == STAGE_NUM::STAGE3) stageStr = "STAGE 3";
-
-		// 中央の枠の下あたりにステージ名を表示
-		DrawBox(centerX1 + 50, centerY2 - 50, centerX2 - 50, centerY2 - 10, colorBlack, TRUE);
-		DrawBox(centerX1 + 50, centerY2 - 50, centerX2 - 50, centerY2 - 10, colorSelectEdge, FALSE);
-		DrawString(centerX1 + 90, centerY2 - 35, stageStr.c_str(), GetColor(255, 255, 255));
-	}
-
-	// ========================================================
-	// 7. 操作説明（操作ガイド）の描画
-	// ========================================================
-	int guideX = mainBoxX1 + 40;
-	int guideY = mainBoxY2 + 15; // メイン枠のすぐ下
-
-	// 基本操作テキストを組み立て
-	std::string chooseStr = "【左右キー】選択";
-	std::string decideStr = "【B / SPACE】決定";
-	std::string cancelStr = "【A / UPキー】戻る";
-
-	// 最初の状態（人数選択）の時は「戻る」を表示しない
-	if (state_ == SELECT_STATE::SELECT_PLAYER_NUM)
-	{
-		std::string guideText = chooseStr + "   " + decideStr;
-		DrawString(guideX, guideY, guideText.c_str(), colorBlack);
-	}
-	else
-	{
-		std::string guideText = chooseStr + "   " + decideStr + "   " + cancelStr;
-		DrawString(guideX, guideY, guideText.c_str(), colorBlack);
-	}
+	(this->*draw_)();
 }
 
 void GameSelectScene::SubRelease(void)
 {
+	// シーン終了時に確実にクリア
+	if (fontHandle_ != -1)
+	{
+		DeleteFontToHandle(fontHandle_);
+		fontHandle_ = -1;
+	}
 }
 
 void GameSelectScene::SetGameStageNum(void)
 {
 }
 
+void GameSelectScene::LoadImages(void)
+{
+#pragma region playNum
+	gameImageHandles_[GAME_KIND::ONE_PLAYER] = ResourceManager::GetInstance().Load(SRC::ONE_PLAY).handleId_;
+	gameImageHandles_[GAME_KIND::TWO_PLAYER] = ResourceManager::GetInstance().Load(SRC::TWO_PLAY).handleId_;
+	gameImageHandles_[GAME_KIND::TWO_VS_TWO] = ResourceManager::GetInstance().Load(SRC::TWO_VS_TWO).handleId_;
+	gameImageHandles_[GAME_KIND::ONE_VS_THERR] = ResourceManager::GetInstance().Load(SRC::ONE_VS_THREE).handleId_;
+	gameImageHandles_[GAME_KIND::FOUR_PLAYER] = ResourceManager::GetInstance().Load(SRC::FOUR).handleId_;
+	gameImageHandles_[GAME_KIND::ONE_TO_FOUR_PLAYER] = ResourceManager::GetInstance().Load(SRC::ONE_TO_FOUR).handleId_;
+#pragma endregion
+
+#pragma region gameSelect
+	gameImageHandles_[GAME_KIND::FINDINGJ] = ResourceManager::GetInstance().Load(SRC::FINDINGJ).handleId_;
+	gameImageHandles_[GAME_KIND::TEST] = ResourceManager::GetInstance().Load(SRC::TEST).handleId_;
+	gameImageHandles_[GAME_KIND::FEEDJ] = ResourceManager::GetInstance().Load(SRC::FEEDJ).handleId_;
+	gameImageHandles_[GAME_KIND::UNICYCLE] = ResourceManager::GetInstance().Load(SRC::UNICYCLE).handleId_;
+	gameImageHandles_[GAME_KIND::TEST] = LoadGraph("Data/Image/GameselectScene/GameSelect/GameTest.png");
+#pragma endregion
+
+}
 void GameSelectScene::InitGameGroups(void)
 {
 	// テスト用のダミー割り当て (1人用、2人用にもテストデータを置いて確認できるようにします)
@@ -292,7 +90,6 @@ void GameSelectScene::InitGameGroups(void)
 
 	currentGroup_ = &onePlayerGames_;
 	cursorIndex_ = 0;
-	state_ = SELECT_STATE::SELECT_PLAYER_NUM; // 初期状態
 
 	if (!currentGroup_->empty())
 	{
@@ -313,44 +110,55 @@ void GameSelectScene::InitUI(void)
 void GameSelectScene::InitSE(void)
 {
 }
-
-void GameSelectScene::UpdateGameGroups(void)
+void GameSelectScene::UpdatePlayNumSelect(void)
 {
+	const int count = static_cast<int>(PLAY_NUM::MAX);
+	int currentNum = static_cast<int>(gameInfo_.playNum_);
 	bool isChangedPlayNum = false;
 
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::UP).down)
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::LEFT).down)
 	{
-		if (gameInfo_.playNum_ > PLAY_NUM::ONE_PLAYER)
-		{
-			gameInfo_.playNum_ = static_cast<PLAY_NUM>(static_cast<int>(gameInfo_.playNum_) - 1);
-			isChangedPlayNum = true;
-		}
+		// 0の時に左を押すと (0 - 1 + 6) % 6 = 5 (MAX-1) になる
+		currentNum = (currentNum - 1 + count) % count;
+		gameInfo_.playNum_ = static_cast<PLAY_NUM>(currentNum);
+		isChangedPlayNum = true;
 	}
-
+	else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::RIGHT).down)
+	{
+		// MAX-1 の時に右を押すと (5 + 1) % 6 = 0 に戻る
+		currentNum = (currentNum + 1) % count;
+		gameInfo_.playNum_ = static_cast<PLAY_NUM>(currentNum);
+		isChangedPlayNum = true;
+	}
+	// 下キー：2ずつ進む
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::DOWN).down)
 	{
-		if (gameInfo_.playNum_ < PLAY_NUM::MAX)
-		{
-			gameInfo_.playNum_ = static_cast<PLAY_NUM>(static_cast<int>(gameInfo_.playNum_) + 1);
-			isChangedPlayNum = true;
-		}
+		currentNum = (currentNum + 2) % count;
+		gameInfo_.playNum_ = static_cast<PLAY_NUM>(currentNum);
+		isChangedPlayNum = true;
+	}
+	// 上キー：2ずつ戻る
+	else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::UP).down)
+	{
+		// 2引いた時にマイナスにならないよう、count を足してから剰余をとる
+		currentNum = (currentNum - 2 + count) % count;
+		gameInfo_.playNum_ = static_cast<PLAY_NUM>(currentNum);
+		isChangedPlayNum = true;
 	}
 
 	if (isChangedPlayNum)
 	{
 		cursorIndex_ = 0;
-		
 		switch (gameInfo_.playNum_)
 		{
 		case PLAY_NUM::ONE_PLAYER:   currentGroup_ = &onePlayerGames_;   break;
 		case PLAY_NUM::TWO_PLAYER:   currentGroup_ = &twoPlayerGames_;   break;
 		case PLAY_NUM::ONE_VS_THERR: currentGroup_ = &oneVsThreeGames_; break;
-		case PLAY_NUM::TWO_VS_TWO: currentGroup_ = &twoVsTwoGames_; break;
+		case PLAY_NUM::TWO_VS_TWO:   currentGroup_ = &twoVsTwoGames_;   break; // ここは構造に合わせて調整してください
 		case PLAY_NUM::FOUR_PLAYER:  currentGroup_ = &fourPlayerGames_;  break;
-		case PLAY_NUM::ONETOFOURPLAYER: currentGroup_ = &onePlayerGames_; break;
+		case PLAY_NUM::ONETOFOURPLAYER: currentGroup_ = &oneToFourPlayGames_; break;
 		default:                     currentGroup_ = nullptr;            break;
 		}
-
 		if (currentGroup_ != nullptr && !currentGroup_->empty()) {
 			gameInfo_.game_ = (*currentGroup_)[cursorIndex_];
 		}
@@ -358,31 +166,65 @@ void GameSelectScene::UpdateGameGroups(void)
 			gameInfo_.game_ = GAME_KIND::NONE;
 		}
 	}
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down)
+	{
+		state_ = SELECT_STATE::TRANSITIONING;
+		transitionTimer_ = 0;
+	}
+	if (state_ == SELECT_STATE::TRANSITIONING)
+	{
+		transitionTimer_++;
+		if (transitionTimer_ >= 60)
+		{
+			update_ = &GameSelectScene::UpdateGameSelect;
+			draw_ = &GameSelectScene::DrawGameSelect;
+			state_ = SELECT_STATE::SELECTING;
+		}
+	}
 }
 
-void GameSelectScene::UpdateCursorIndex(void)
+void GameSelectScene::UpdateGameSelect(void)
 {
 	if (currentGroup_ != nullptr && !currentGroup_->empty())
 	{
+		int size = static_cast<int>(currentGroup_->size());
+		bool isChanged = false;
+
 		if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::LEFT).down)
 		{
-			if (cursorIndex_ > 0)
-			{
-				cursorIndex_--;
-			}
+			cursorIndex_ = (cursorIndex_ - 1 + size) % size;
+			isChanged = true;
 		}
-		if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::RIGHT).down)
+		else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::RIGHT).down)
 		{
-			if (cursorIndex_ < static_cast<int>(currentGroup_->size()) - 1)
-			{
-				cursorIndex_++;
-			}
+			cursorIndex_ = (cursorIndex_ + 1) % size;
+			isChanged = true;
 		}
-		gameInfo_.game_ = (*currentGroup_)[cursorIndex_];
+
+		if (isChanged)
+		{
+			gameInfo_.game_ = (*currentGroup_)[cursorIndex_];
+		}
 	}
 	else
 	{
 		gameInfo_.game_ = GAME_KIND::NONE;
+	}
+
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down)
+	{
+		state_ = SELECT_STATE::TRANSITIONING;
+		transitionTimer_ = 0;
+	}
+	if (state_ == SELECT_STATE::TRANSITIONING)
+	{
+		transitionTimer_++;
+		if (transitionTimer_ >= 60)
+		{
+			update_ = &GameSelectScene::UpdateStageSelect;
+			draw_ = &GameSelectScene::DrawStageSelect;
+			state_ = SELECT_STATE::SELECTING;
+		}
 	}
 }
 
@@ -405,48 +247,99 @@ void GameSelectScene::UpdateStageSelect(void)
 	}
 }
 
-void GameSelectScene::UpdatePlayerNumLeftRight(void)
+void GameSelectScene::DrawPlayNumSelect(void)
 {
-	bool isChangedPlayNum = false;
-	int currentNum = static_cast<int>(gameInfo_.playNum_);
+	int sizeX = Application::SCREEN_SIZE_X;
+	int sizeY = Application::SCREEN_SIZE_Y;
+	std::vector<Vector2F>pos;
+	// 1マスあたりのサイズを算出
+	float cellWidth = (float)sizeX / 5.0f;
+	float cellHeight = (float)sizeY / 4.0f;
+	// 4x4のグリッド位置を計算
+	for (int y = 0; y < 4; ++y) {
+		for (int x = 0; x < 5; ++x) {
+			// 各マスの中心座標を求める場合
+			float posX = (x * cellWidth) + (cellWidth / 2.0f);
+			float posY = (y * cellHeight) + (cellHeight / 2.0f);
 
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::LEFT).down)
-	{
-		if (currentNum > static_cast<int>(PLAY_NUM::ONE_PLAYER))
-		{
-			gameInfo_.playNum_ = static_cast<PLAY_NUM>(currentNum - 1);
-			isChangedPlayNum = true;
+			pos.push_back(Vector2F(posX, posY));
 		}
 	}
 
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::RIGHT).down)
+	int displayIndices[] = { 6, 8, 11, 13, 16, 18 };
+
+	// 順序に対応した GAME_KIND の並び順
+	GAME_KIND kinds[] = {
+		GAME_KIND::ONE_PLAYER, GAME_KIND::TWO_PLAYER,     // 1, 2
+		GAME_KIND::ONE_VS_THERR, GAME_KIND::TWO_VS_TWO,   // 3, 4
+		GAME_KIND::FOUR_PLAYER, GAME_KIND::ONE_TO_FOUR_PLAYER // 5, 6
+	};
+	for (int i = 0; i < 6; ++i)
 	{
-		if (currentNum <= static_cast<int>(PLAY_NUM::MAX))
+		int index = displayIndices[i];
+		Vector2F drawPos = pos[index];
+		int handle = gameImageHandles_[kinds[i]];
+
+		float scale = 0.8f;
+		if (static_cast<int>(gameInfo_.playNum_) == i)
 		{
-			gameInfo_.playNum_ = static_cast<PLAY_NUM>(currentNum + 1);
-			isChangedPlayNum = true;
+			if (state_ == SELECT_STATE::TRANSITIONING)
+			{
+				if (transitionTimer_ < SCALE_UP_TIME)
+				{
+					// 1. 押した瞬間：1.0f から 1.2f に一瞬拡大（強調）
+					scale = 1.0f + (static_cast<float>(transitionTimer_) / SCALE_UP_TIME) * 0.2f;
+				}
+				else
+				{
+					// 2. そのあと：1.2f から 0.4f に沈み込むように縮小
+					float progress = static_cast<float>(transitionTimer_ - SCALE_UP_TIME) / SCALE_DOWN_TIME;
+					scale = 1.2f - (progress * 0.8f);
+				}
+			}
+			else
+			{
+				scale = 1.0f; // 通常時
+			}
 		}
+		if (scale <= 0)scale = 0;
+
+		DrawRotaGraph(drawPos.x, drawPos.y - 100, scale, 0, handle, true);
+	}
+}
+
+void GameSelectScene::DrawGameSelect(void)
+{
+	// 1. 遷移中かどうかで拡大率を決定
+	float scale = 1.0f;
+	if (state_ == SELECT_STATE::TRANSITIONING)
+	{
+		// transitionTimer_ は 0～60 なので、その進行度に合わせて拡大
+		// 1.0f から 2.0f へとスムーズにズームインする例
+		scale = 1.0f + (static_cast<float>(transitionTimer_) / 60.0f) * 1.0f;
 	}
 
-	if (isChangedPlayNum)
-	{
-		cursorIndex_ = 0;
-		switch (gameInfo_.playNum_)
-		{
-		case PLAY_NUM::ONE_PLAYER:   currentGroup_ = &onePlayerGames_;   break;
-		case PLAY_NUM::TWO_PLAYER:   currentGroup_ = &twoPlayerGames_;   break;
-		case PLAY_NUM::ONE_VS_THERR: currentGroup_ = &oneVsThreeGames_; break;
-		case PLAY_NUM::TWO_VS_TWO:   currentGroup_ = &twoVsTwoGames_;   break; // ここは構造に合わせて調整してください
-		case PLAY_NUM::FOUR_PLAYER:  currentGroup_ = &fourPlayerGames_;  break;
-		case PLAY_NUM::ONETOFOURPLAYER: currentGroup_ = &oneToFourPlayGames_; break;
-		default:                     currentGroup_ = nullptr;            break;
-		}
+	// 2. 画像の描画（決定した scale を適用）
+	DrawRotaGraph(Application::SCREEN_SIZE_X / 2, Application::SCREEN_SIZE_Y / 2, scale, 0, gameImageHandles_[gameInfo_.game_], true);
 
-		if (currentGroup_ != nullptr && !currentGroup_->empty()) {
-			gameInfo_.game_ = (*currentGroup_)[cursorIndex_];
-		}
-		else {
-			gameInfo_.game_ = GAME_KIND::NONE;
-		}
-	}
+	// 3. ゲーム名と矢印の描画（これらはズームさせないため背景の後に描画）
+	std::string gameName = gameInfo_.GetGameName();
+	int textX = Application::SCREEN_SIZE_X / 2;
+	int textY = Application::SCREEN_SIZE_Y / 6 * 5;
+
+	DrawFormatStringToHandle(textX - 100, textY, GetColor(0, 0, 0), fontHandle_, "%s", gameName.c_str());
+
+	int arrowOffset = 200;
+	DrawStringToHandle(textX - arrowOffset, textY, "<-", GetColor(0, 0, 0), fontHandle_);
+	DrawStringToHandle(textX + arrowOffset, textY, "->", GetColor(0, 0, 0), fontHandle_);
+}
+void GameSelectScene::DrawStageSelect(void)
+{
+	DrawRotaGraph(Application::SCREEN_SIZE_X / 2, Application::SCREEN_SIZE_Y / 2, 1, 0, backImage_, true);
+
+	std::string gameName = gameInfo_.GetGameName();
+	DrawStringToHandle(300, 100, gameName.c_str(), GetColor(0, 0, 0), fontHandle_);
+
+	DrawStringToHandle(1300, 150, "操作方法", GetColor(0, 0, 0), fontHandle_);
+	// フォントハンドルを使って描画
 }
