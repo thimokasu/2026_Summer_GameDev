@@ -7,6 +7,7 @@
 #include"../../../../../Object/Actor/Camera/Camera.h"
 
 #include"../../../../../Object/Actor/Item/FeedJ/FeedJItemHeaders.h"
+#include"../../../../../Object/Actor/Item/FeedJ/Food/FeedJ_Food_Headers.h"
 #include"../../../../../Object/Actor/Stage/FeedJ/FeedJStageHeaders.h"
 #include"../../../../../Object/Actor/Charactor/OneToFour/FeedJ/FeedJPlayer.h"
 #include"../../../../../Object/Actor/Charactor/OneToFour/FeedJ/State/FeedJStateHeaders.h"
@@ -178,7 +179,14 @@ void FeedJ::SetContactEventCallback(void)
 				//調理フラグがONの場合
 				if (player->GetIsCook())
 				{
-
+					auto container = dynamic_cast<ContainerBase*>(station->GetHoldItem());
+					if (!container)return;				//ステーションにコンテナがない場合
+					if (!container->GetCanCook())return;		//調理用コンテナのみ
+					auto food = container->GetHoldFood();
+					if (!food)return;					//食材がない場合
+					if (!food->GetCanCook())return;		//食材がすでに調理済みの場合
+					food->ChangeState<FeedJ_Food_Cooking>();
+					player->ChangeState<FeedJ_Cook>();
 				}
 				else
 				{

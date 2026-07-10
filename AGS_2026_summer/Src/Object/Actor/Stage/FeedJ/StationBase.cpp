@@ -46,5 +46,7 @@ void StationBase::InitCollider(void)
 
 void StationBase::InitRigidBody(void)
 {
-	rigidBody_.SetBodyType(RigidBody::BodyType::KINEMATIC);
+	rigidBody_.SetBodyType(RigidBody::BodyType::DYNAMIC);
+	rigidBody_.SetMass(0);
+	rigidBody_.SetUseGravity(true);
 }

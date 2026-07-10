@@ -18,18 +18,8 @@ class FoodBase :
     public ItemBase,public FeedJ_ICookable,public FeedJ_IThrowble,public FeedJ_Drop
 {
 public:  
-    enum class STATE
-    {
-        IDLE,
-		HOLD,
-        DROPED,
-        THROW,
-        PUT,
-        COOKING,
-		COOKED,
+	static constexpr int COOKING_TIME = 180;
 
-        MAX,
-    };
     FoodBase(void);
     ~FoodBase(void);
 
@@ -67,22 +57,28 @@ public:
 	void Drop(ActorBase* target)override;
 
 	FOOD_KIND GetFoodKind(void) { return kind_; }
+
+	bool GetCanCook(void) { return canCook_; }
+	void SetCanCook(bool flag) { canCook_ = flag; }
+
+	void AddCookTime(void) { cookTime_++; }
+
 protected:
 #pragma region 関数
     //調理時間の残りを描画する
 	void DrawCookTime(void);
 
 #pragma endregion
-
 #pragma region  変数
 	bool isPickUp_ = true;   //持てるかどうか、調理後かつ皿の上にある場合は持てない
-	STATE state_ = STATE::IDLE;
 	int modelIDtoCook_ = -1; //調理後のモデルID
-
+	int cookTime_ =0;
 	VECTOR localOffset_ = { 0.0f,0.0f,0.0f }; //プレイヤーやステーションにくっつけるときのオフセット
 
     //プレイヤーが保持している場合UI表示する画像のハンドルID
 	int uiHandleID_ = -1;
+
+	bool canCook_ = true;
 
 	FeedJPlayer* player_ = nullptr;
 	StationBase* station_ = nullptr;

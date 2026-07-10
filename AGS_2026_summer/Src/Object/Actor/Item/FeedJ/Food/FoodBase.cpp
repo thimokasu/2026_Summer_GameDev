@@ -4,7 +4,7 @@
 #include"../Container/ContainerBase.h"
 #include"../../../Collider/ColliderBase.h"
 #include"../../../Collider/ColliderCapsule.h"
-
+#include"State/FeedJ_Food_Cooked.h"
 FoodBase::FoodBase(void)
 {
 }
@@ -33,6 +33,10 @@ void FoodBase::SubUpdate(void)
 	else if (container_)
 	{
 		trans_.pos = VAdd(container_->GetTransform().pos, localOffset_);
+	}
+	if (cookTime_ >= COOKING_TIME)
+	{
+		ChangeState<FeedJ_Food_Cooked>();
 	}
 }
 

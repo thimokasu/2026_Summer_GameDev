@@ -44,6 +44,8 @@ public:
     bool GetIsAttachStation(void) { return isAttachStation_; }
 
     bool GetCanSetSlot(void);
+
+    bool GetCanCook(void) { return canCook_; }
 protected:
 #pragma region 関数
     virtual  void InitCollider(void)override;
@@ -52,6 +54,7 @@ protected:
 #pragma endregion
 #pragma region 変数
     bool isPickUp_ = true;   //持てるかどうか、お皿以外の調理器具は持てない
+    bool canCook_ = false;
     VECTOR localOffset_ = { 0.0f,0.0f,0.0f }; //プレイヤーやステーションにくっつけるときのオフセット
     FeedJPlayer* player_ = nullptr;
     StationBase* station_ = nullptr;
