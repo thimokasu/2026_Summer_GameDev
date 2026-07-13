@@ -230,21 +230,21 @@ void GameSelectScene::UpdateGameSelect(void)
 
 void GameSelectScene::UpdateStageSelect(void)
 {
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::LEFT).down)
-	{
-		if (gameInfo_.stage_ > STAGE_NUM::STAGE1)
-		{
-			gameInfo_.stage_ = static_cast<STAGE_NUM>(static_cast<int>(gameInfo_.stage_) - 1);
-		}
-	}
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::RIGHT).down)
-	{
-		// STAGE_NUM::MAX の手前（STAGE3）まで進める
-		if (gameInfo_.stage_ < static_cast<STAGE_NUM>(static_cast<int>(STAGE_NUM::MAX) - 1))
-		{
-			gameInfo_.stage_ = static_cast<STAGE_NUM>(static_cast<int>(gameInfo_.stage_) + 1);
-		}
-	}
+	//if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::LEFT).down)
+	//{
+	//	if (gameInfo_.stage_ > STAGE_NUM::STAGE1)
+	//	{
+	//		gameInfo_.stage_ = static_cast<STAGE_NUM>(static_cast<int>(gameInfo_.stage_) - 1);
+	//	}
+	//}
+	//if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::RIGHT).down)
+	//{
+	//	// STAGE_NUM::MAX の手前（STAGE3）まで進める
+	//	if (gameInfo_.stage_ < static_cast<STAGE_NUM>(static_cast<int>(STAGE_NUM::MAX) - 1))
+	//	{
+	//		gameInfo_.stage_ = static_cast<STAGE_NUM>(static_cast<int>(gameInfo_.stage_) + 1);
+	//	}
+	//}
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down)
 	{
 		if (currentGroup_->empty())return;
