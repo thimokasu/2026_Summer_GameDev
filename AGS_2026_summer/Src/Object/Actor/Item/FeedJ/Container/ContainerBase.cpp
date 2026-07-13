@@ -11,10 +11,9 @@ void ContainerBase::SubLoad(void)
 }
 void ContainerBase::SubInit(void)
 {
-	InitSlot();	
 	foods_.resize(maxSlot_);
-	trans_.pos.y = 100;
 	entityKind_ = EntityKind::CONTAINER;
+	InitSlot();	
 }
 void ContainerBase::SubUpdate(void)
 {
@@ -40,16 +39,18 @@ void ContainerBase::SubRelease(void)
 
 }
 
-bool ContainerBase::GetCanSetSlot(void)
+// 空いているスロットのインデックスを返す
+// 空きがなければ -1 を返す
+int ContainerBase::GetEmptySlotIndex(void)
 {
-	for (auto& slot : foods_)
+	for (int i = 0; i < (int)foods_.size(); ++i)
 	{
-		if (slot.food_ == nullptr)
+		if (foods_[i].food_ == nullptr)
 		{
-			return true;
+			return i; // 最初の空きインデックスを返す
 		}
 	}
-	return false;
+	return -1; // 空きなし
 }
 
 void ContainerBase::InitCollider(void)
@@ -122,12 +123,12 @@ void ContainerBase::SetSlot(std::vector<FoodBase*> foods)
 	foods_.push_back(slot);
 }
 
-void ContainerBase::SetSlot(FoodBase* food)
+void ContainerBase::SetSlot(FoodBase* food, int idx)
 {
 	Slot slot;
 	slot.food_ = food;
 	slot.kind = food->GetFoodKind();
-	foods_.push_back(slot);
+	foods_[idx] = slot;
 }
 
 void ContainerBase::CrearHoldFood(void)

@@ -75,3 +75,11 @@ void GameBase::SetCollisionCollback(void)
 		};
 	colMng_->SetContactCallbacks(onBeginContact, onEndContact);
 }
+
+void GameBase::AddCollider(ActorBase* actor)
+{
+	for (const auto& [shape, col] : actor->GetOwnColliders())
+	{
+		colMng_->AddCollider(col.get(), actor->GetEntityID());
+	}
+}

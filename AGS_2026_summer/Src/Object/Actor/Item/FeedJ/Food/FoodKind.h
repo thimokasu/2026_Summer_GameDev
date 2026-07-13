@@ -5,7 +5,7 @@ enum class FOOD_KIND
 	NONE=-1,
 	TOMATO,
 	CUCMBER,
-	RETTUCE,
+	LETTUCE,
 
 	MAX
 };

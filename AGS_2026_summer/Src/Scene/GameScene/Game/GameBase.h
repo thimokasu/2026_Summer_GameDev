@@ -23,6 +23,9 @@ public:
 
 	void OnUpdate(void) { isUpdate_ = true; }
 	void OffUpdate(void) { isUpdate_ = false; }
+
+	void AddCollider(ActorBase* actor);
+
 protected:
 #pragma region ä÷êî
 	virtual void SubLoad(void) {};
@@ -41,6 +44,7 @@ protected:
 	virtual void InitUI(void) {};
 	virtual void InitSE(void) {};
 	virtual void InitCamera(void) {};
+
 #pragma endregion
 
 #pragma region ïœêî

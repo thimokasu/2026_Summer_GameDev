@@ -45,6 +45,7 @@ struct ColliderInfo
 	bool isTrigger_=false;//トリガーかどうか
 	bool isActive_=true;//有効かどうか
 	int debugColor_ = GetColor(255, 0, 0);//デバッグ用の色
+	bool isDraw_ = true;
 };
 
 using Layer = ColliderLayer;

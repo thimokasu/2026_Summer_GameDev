@@ -9,6 +9,7 @@
 
 using EntityID = uint32_t;
 class ActorFactoryBase;
+class GameBase;
 
 class ActorManager
 {
@@ -29,7 +30,8 @@ public:
 	//指定されたIDのActorを返す
 	ActorBase* FindActorByID(EntityID id) const;	
 	//外部からActorsにPushする
-	void AddActor(std::unique_ptr<ActorBase> actor) { actors_.push_back(std::move(actor)); }
+	void AddActor(std::unique_ptr<ActorBase> actor);
+	void AddActor(std::unique_ptr<ActorBase>actor, GameBase* game);
 private:
 #pragma region 変数
 	std::vector<std::unique_ptr<ActorBase>> actors_;//アクターのリスト

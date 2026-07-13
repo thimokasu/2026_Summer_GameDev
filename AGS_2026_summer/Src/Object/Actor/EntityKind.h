@@ -18,6 +18,10 @@ enum class EntityKind
 	STATION,
 	FOOD,
 	CONTAINER,
+	STORAGE,
+	TRASH,
+	SERVE,
+
 
 
 };

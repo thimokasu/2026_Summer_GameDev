@@ -4,6 +4,7 @@
 #include"StationNormal.h"
 #include"StationServe.h"
 #include"StationDish.h"
+#include"StationTrash.h"
 
 #include"Storage/StorageBase.h"
 #include"Storage/StorageCucamber.h"

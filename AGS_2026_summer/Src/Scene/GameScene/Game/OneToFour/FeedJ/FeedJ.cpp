@@ -36,6 +36,15 @@ void FeedJ::SubUpdate(void)
 
 void FeedJ::SubDraw(void)
 {
+	//カメラ座標
+	DrawFormatString(0, 0, 0xffffff, "Camera Position: %f, %f, %f",
+		SceneManager::GetInstance().GetCamera().GetPos().x,
+		SceneManager::GetInstance().GetCamera().GetPos().y,
+		SceneManager::GetInstance().GetCamera().GetPos().z);
+	DrawFormatString(0, 20, 0xffffff, "Camera Angles: %f, %f, %f",
+		SceneManager::GetInstance().GetCamera().GetAngles().x,
+		SceneManager::GetInstance().GetCamera().GetAngles().y,
+		SceneManager::GetInstance().GetCamera().GetAngles().z);
 }
 
 void FeedJ::SubRelease(void)
@@ -50,6 +59,9 @@ void FeedJ::SetContactEventRule(void)
 	EventManager::GetInstance().SetEventRule(EntityKind::FOOD, EntityKind::STATION, GameEventType::FOOD_STATION);
 	EventManager::GetInstance().SetEventRule(EntityKind::FOOD, EntityKind::CONTAINER, GameEventType::FOOD_CONTAINER);
 	EventManager::GetInstance().SetEventRule(EntityKind::CONTAINER, EntityKind::STATION, GameEventType::CONTAINER_STATION);
+	EventManager::GetInstance().SetEventRule(EntityKind::PLAYER, EntityKind::STORAGE, GameEventType::PLAYER_CONTACT_STORAGE);
+	EventManager::GetInstance().SetEventRule(EntityKind::PLAYER, EntityKind::TRASH, GameEventType::PLAYER_CONTACT_TRASH);
+	
 }
 
 void FeedJ::SetContactEventCallback(void)
@@ -114,19 +126,11 @@ void FeedJ::SetContactEventCallback(void)
 			auto actorB = actorMng_->FindActorByID(idB);
 			FeedJPlayer* player = nullptr;
 			StationBase* station = nullptr;
-			if (entityKindA == EntityKind::PLAYER)
-			{
-				player = dynamic_cast<FeedJPlayer*>(actorA);
-				station = dynamic_cast<StationBase*>(actorB);
-			}
-			else if (entityKindB == EntityKind::PLAYER)
-			{
-				player = dynamic_cast<FeedJPlayer*>(actorB);
-				station = dynamic_cast<StationBase*>(actorA);
-			}
+			if (entityKindA == EntityKind::PLAYER){	player = dynamic_cast<FeedJPlayer*>(actorA);station = dynamic_cast<StationBase*>(actorB);}
+			else if (entityKindB == EntityKind::PLAYER)	{player = dynamic_cast<FeedJPlayer*>(actorB);station = dynamic_cast<StationBase*>(actorA);}
 			if (!player || !station)return;			//キャスト失敗
-			if (rule.contactEvent_.type_ == ContactEventInfo::Type::BEGIN) { player->SetIsContact(true); }
-			if (rule.contactEvent_.type_ == ContactEventInfo::Type::END) { player->SetIsContact(false); }
+			if (rule.contactEvent_.type_ == ContactEventInfo::Type::BEGIN) {player->SetIsContact(true); }
+			if (rule.contactEvent_.type_ == ContactEventInfo::Type::END) {player->SetIsContact(false); }
 			if (!player->GetContactTrigger())return;	//トリガーオフ
 			//プレイヤーがアイテムを所持している
 			if (player->GetHoldItem()) {
@@ -138,7 +142,9 @@ void FeedJ::SetContactEventCallback(void)
 					{
 						player->ReleaseHoldItem();
 						player->ChangeState<FeedJ_IdleState>();
-						contaier->SetSlot(f);
+						int idx=contaier->GetEmptySlotIndex();
+						if (idx == -1)return;
+						contaier->SetSlot(f, idx);
 						f->AttachToContainer(contaier, VGet(0, 5, 0));
 					}
 				}
@@ -155,7 +161,9 @@ void FeedJ::SetContactEventCallback(void)
 							f->AttachToContainer(container, VGet(0, 5, 0));
 							container->AttachToStation(station, VGet(0, 10, 0));
 							container->SetIsAttachStation(true);
-							contaier->SetSlot(f);
+							int idx = contaier->GetEmptySlotIndex();
+							if (idx == -1)return;
+							contaier->SetSlot(f, idx);
 							station->SetHoldItem(container);
 							player->ReleaseHoldItem();
 							player->ChangeState<FeedJ_IdleState>();
@@ -167,6 +175,16 @@ void FeedJ::SetContactEventCallback(void)
 							container->AttachToStation(station, VGet(0, 10, 0));
 							container->SetIsAttachStation(true);
 							station->SetHoldItem(container);
+							player->ReleaseHoldItem();
+							player->ChangeState<FeedJ_IdleState>();
+						}
+					}
+					else if (auto food = dynamic_cast<FoodBase*>(player->GetHoldItem()))
+					{
+						if (!station->GetHoldItem())
+						{
+							station->SetHoldItem(food);
+							food->AttachToStation(station, VGet(0, 5, 0));
 							player->ReleaseHoldItem();
 							player->ChangeState<FeedJ_IdleState>();
 						}
@@ -201,6 +219,7 @@ void FeedJ::SetContactEventCallback(void)
 						}
 						else if (auto container = dynamic_cast<ContainerBase*>(item))
 						{
+							if (!container->GetCanPickUp())return;
 							container->Detach();
 							container->AttachToPlayer(player, VGet(0, 0, 20));
 							container->SetIsAttachStation(false);
@@ -212,6 +231,31 @@ void FeedJ::SetContactEventCallback(void)
 				}
 			}
 		});
+#pragma endregion
+#pragma region player:storage
+		EventManager::GetInstance().SetContactEventCallback(GameEventType::PLAYER_CONTACT_STORAGE, [this](const ContactRule& rule)
+			{
+				auto entityKindA = rule.contactEvent_.entityA.entityKind_;
+				auto entityKindB = rule.contactEvent_.entityB.entityKind_;
+				auto idA = rule.contactEvent_.entityA.entityID_;
+				auto idB = rule.contactEvent_.entityB.entityID_;
+				auto actorA = actorMng_->FindActorByID(idA);
+				auto actorB = actorMng_->FindActorByID(idB);
+				FeedJPlayer* player = nullptr;
+				StorageBase* storage = nullptr;
+				if (entityKindA == EntityKind::PLAYER){player = dynamic_cast<FeedJPlayer*>(actorA);	storage = dynamic_cast<StorageBase*>(actorB);}
+				else if (entityKindB == EntityKind::PLAYER){player = dynamic_cast<FeedJPlayer*>(actorB);storage = dynamic_cast<StorageBase*>(actorA);}
+				if (!player || !storage)return;
+				if (!player->GetContactTrigger())return;
+				if (player->GetHoldItem())return;//アイテムを保持している場合何もしない
+				auto f=storage->CreateFood();
+				f->AttachToPlayer(player);
+				player->SetHoldItem(dynamic_cast<ItemBase*>(f.get()));
+				player->ChangeState<FeedJ_HoldState>();
+				actorMng_->AddActor(std::move(f),this);
+			});
+#pragma endregion
+#pragma region player:trash
 #pragma endregion
 #pragma region food:station
 	EventManager::GetInstance().SetContactEventCallback(GameEventType::FOOD_STATION, [this](const ContactRule& rule)
@@ -227,18 +271,18 @@ void FeedJ::SetContactEventCallback(void)
 			if (entityKindA == EntityKind::FOOD){item = dynamic_cast<ItemBase*>(actorA);station = dynamic_cast<StationBase*>(actorB);}
 			else if (entityKindB == EntityKind::FOOD){item = dynamic_cast<ItemBase*>(actorB);station = dynamic_cast<StationBase*>(actorA);}
 			if (!item || !station)return;		//キャスト失敗
+			if (rule.contactEvent_.type_ != ContactEventInfo::Type::BEGIN)return;
 			//ステーションが埋まってる
 			if (auto hold=station->GetHoldItem())
 			{
 				//ステーションがコンテナを保持している
 				if (auto container = dynamic_cast<ContainerBase*>(hold))
 				{
-					if (container->GetCanSetSlot())
-					{
-						auto food = dynamic_cast<FoodBase*>(item);
-						container->SetSlot(food);
-						food->AttachToContainer(container, VGet(0, 5, 0));
-					}
+					int idx = container->GetEmptySlotIndex();
+					if (idx == -1)return;
+					auto food = dynamic_cast<FoodBase*>(item);
+					container->SetSlot(food,idx);
+					food->AttachToContainer(container, VGet(0, 5, 0));
 				}
 			}
 			else
@@ -266,8 +310,9 @@ void FeedJ::SetContactEventCallback(void)
 			if (entityKindA == EntityKind::FOOD) { food = dynamic_cast<FoodBase*>(actorA); container = dynamic_cast<ContainerBase*>(actorB); }
 			else if (entityKindB == EntityKind::FOOD) { food = dynamic_cast<FoodBase*>(actorB); container = dynamic_cast<ContainerBase*>(actorA); }
 			if (!food || !container)return;
-			if (!container->GetCanSetSlot())return;
-			container->SetSlot(food);
+			int idx = container->GetEmptySlotIndex();
+			if (idx == -1)return;
+			container->SetSlot(food, idx);
 			food->AttachToContainer(container, VGet(0, 5, 0));
 		});
 #pragma endregion
@@ -316,4 +361,6 @@ void FeedJ::InitSE(void)
 
 void FeedJ::InitCamera(void)
 {
+	SceneManager::GetInstance().GetCamera().SetCameraPos({ 120,170,20 });
+	SceneManager::GetInstance().GetCamera().SetCameraAngles({ 1.3,0,0 });
 }

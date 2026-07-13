@@ -18,9 +18,9 @@ void ActorBase::Load(void)
 void ActorBase::Init(void)
 {
 	rigidBody_.SetCentroid(trans_.pos);
-	SubInit();
 	InitCollider();
 	InitRigidBody();
+	SubInit();
 }
 
 void ActorBase::Update(void)

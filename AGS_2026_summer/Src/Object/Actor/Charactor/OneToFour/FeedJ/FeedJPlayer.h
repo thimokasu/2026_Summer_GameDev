@@ -29,7 +29,7 @@ class FeedJPlayer :
         void SetIsContact(bool flag) { isContact_ = flag; }
         bool GetIsContact(void) { return isContact_; }
 
-        void SetIsCook(bool flag) { isCook_ = flag; }
+        void SetIsCook(bool flag) { isCook_ = flag; isContactTrigger_ = true; }
         bool GetIsCook(void) { return isCook_; }
 private:
     enum class STATE

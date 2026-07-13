@@ -46,6 +46,7 @@ void FeedJ_IdleState::HandleInputT(FeedJPlayer* owner)
 		}
 		else if (item == nullptr)
 		{
+			owner->OnContactTrigger();
 			owner->SetIsCook(true);
 		}
 	}

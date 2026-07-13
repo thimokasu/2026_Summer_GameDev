@@ -67,11 +67,15 @@ void FoodBase::Throw(ActorBase* target)
 {
 	auto& pos = target->GetTransform().pos;
 	auto forward = target->GetTransform().GetForward();
-	trans_.pos = VAdd(pos, VScale(forward, 15));
-	trans_.pos.y = 30;
+	trans_.pos = VAdd(pos, VScale(forward, 5));
+	trans_.pos.y = 25;
 	rigidBody_.SetVelocity(VGet(0, 0, 0));
-	rigidBody_.AddForce(VScale(forward, 30));
+	rigidBody_.AddForce(VScale(forward, 20));
 	rigidBody_.SetUseGravity(true);
+	for (auto& [shape, col] : ownColliders_)
+	{
+		col->SetActive(true);
+	}
 }
 
 void FoodBase::OnCook(void)
@@ -146,6 +150,10 @@ void FoodBase::Drop( ActorBase* target)
 	trans_.pos.y = 30;
 	rigidBody_.SetVelocity(VGet(0, 0, 0));
 	rigidBody_.SetUseGravity(true);
+	for (auto& [shape, col] : ownColliders_)
+	{
+		col->SetActive(true);
+	}
 }
 
 void FoodBase::DrawCookTime(void)

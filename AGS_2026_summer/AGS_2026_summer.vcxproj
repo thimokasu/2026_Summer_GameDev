@@ -235,6 +235,7 @@
     <ClCompile Include="Src\Object\Actor\Stage\FeedJ\Storage\StorageLettuce.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\FeedJ\Storage\StorageTomato.cpp" />
     <ClCompile Include="Src\Object\Actor\Item\FeedJ\Food\AfterCooking\Tomato.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\FeedJ\StationTrash.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\FeedJ_Food_Headers.h" />
@@ -260,6 +261,7 @@
     <ClInclude Include="Src\Object\Actor\Charactor\OneToFour\FeedJ\State\FeedJStateHeaders.h" />
     <ClCompile Include="Src\Scene\GameScene\Game\AnyPlayer\Unicycle.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\OnePlay\Unicycle\UnicyclePlayer.cpp" />
+    <ClInclude Include="Src\Object\Actor\Stage\FeedJ\StationTrash.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Object\UI\Unicycle\CountTimer.h" />

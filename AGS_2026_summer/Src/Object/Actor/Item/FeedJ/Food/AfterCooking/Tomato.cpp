@@ -9,5 +9,6 @@ void Tomato::SubInit(void)
 {
 	FoodBase::SubInit();
 	entityKind_ = EntityKind::FOOD;
-	trans_.pos = VGet(100, 100, 100);
+	kind_ = FOOD_KIND::TOMATO;
+
 }

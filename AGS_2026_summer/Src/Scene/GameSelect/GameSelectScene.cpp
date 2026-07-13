@@ -86,7 +86,7 @@ void GameSelectScene::InitGameGroups(void)
 	oneVsThreeGames_ = {};
 	twoVsTwoGames_ = {};
 	fourPlayerGames_ = {  GAME_KIND::FINDINGJ };
-	oneToFourPlayGames_ = {};
+	oneToFourPlayGames_ = {GAME_KIND::FEEDJ};
 
 	currentGroup_ = &onePlayerGames_;
 	cursorIndex_ = 0;

@@ -52,6 +52,7 @@ public:
 	VECTOR GetRotPos(const VECTOR& localPos)const;
 	//デバッグ描画するかどうか
 	void SetIsDebug(bool isDebug) { isDebug_ = isDebug;}
+	void SetDebugColor(int color) { colliderInfo_.debugColor_ = color; }
 
 	void SetActive(bool flag) { colliderInfo_.isActive_ = flag; }
 protected:

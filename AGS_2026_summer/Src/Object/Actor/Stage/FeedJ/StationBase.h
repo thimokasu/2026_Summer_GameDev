@@ -8,10 +8,11 @@ class StationBase :
 public:
 	StationBase(void);
 	~StationBase(void);
+	StationBase(VECTOR pos);
 
-	void SubLoad(void) override;
-	void SubInit(void) override;
-	void SubUpdate(void) override;
+	virtual void SubLoad(void) override;
+	virtual void SubInit(void) override;
+	virtual void SubUpdate(void) override;
 	void SubDraw(void) override;
 	void SubRelease(void) override;
 	void SetHoldItem(ItemBase* item){heldItem_ = item;	isHold_ = true;}

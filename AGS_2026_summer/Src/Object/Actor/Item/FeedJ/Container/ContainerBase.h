@@ -27,6 +27,7 @@ public:
     void SubDraw(void)override;
     void SubRelease(void)override;
 
+    bool GetCanPickUp(void) { return isPickUp_; }
     void OnPickUp(bool isPickUp) { isPickUp_ = isPickUp; }
     void OffPickUp(void) { isPickUp_ = false; }
 
@@ -36,14 +37,14 @@ public:
     void Cook(void)override;
 
     void SetSlot(std::vector<FoodBase*>foods);
-    void SetSlot(FoodBase* food);
+    void SetSlot(FoodBase* food,int idx);
     FoodBase* GetHoldFood(void) { return foods_[0].food_; }//スロットが一つしかないコンテナ専用
     void CrearHoldFood(void);
 
     void SetIsAttachStation(bool flag) { isAttachStation_ = flag; }
     bool GetIsAttachStation(void) { return isAttachStation_; }
 
-    bool GetCanSetSlot(void);
+    int GetEmptySlotIndex(void);
 
     bool GetCanCook(void) { return canCook_; }
 protected:

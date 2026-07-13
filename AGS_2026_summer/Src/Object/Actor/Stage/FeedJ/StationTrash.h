@@ -1,7 +1,7 @@
 #pragma once
-#include "StorageBase.h"
-class StorageLettuce :
-    public StorageBase
+#include "StationBase.h"
+class StationTrash :
+    public StationBase
 {
 public:
     void SubLoad(void)override;

@@ -1,7 +1,10 @@
 #pragma once
-#include "../StationBase.h"
+#include "StorageBase.h"
 class StorageCucamber :
-    public StationBase
+    public StorageBase
 {
+public:
+    void SubLoad(void)override;
+    void SubInit(void)override;
 };
 

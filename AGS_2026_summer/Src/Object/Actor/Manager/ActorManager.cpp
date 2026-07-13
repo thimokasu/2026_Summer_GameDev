@@ -12,7 +12,7 @@
 
 #include"../Charactor/FindingJ/FindingJCPU/FindingJRunner.h"
 #include"../../../Manager/Generic/KeyManager.h"
-
+#include"../../../Scene/GameScene/Game/GameBase.h"
 
 
 ActorManager::ActorManager(void)
@@ -74,7 +74,10 @@ void ActorManager::Draw(void)
 
 				for (const auto& [shape, collider] : actor->GetOwnColliders())
 				{
+					if (collider->GetColliderInfo().isDraw_)
+					{
 					collider->Draw();
+					}
 				}
 			}
 		}
@@ -136,6 +139,17 @@ for(const auto&a:actors_)
 	return nullptr;
 }
 
+void ActorManager::AddActor(std::unique_ptr<ActorBase> actor)
+{
+	actor->SetEntityID(entityID_++);
+	actors_.push_back(std::move(actor));
+}
+void ActorManager::AddActor(std::unique_ptr<ActorBase> actor, GameBase* game)
+{
+	actor->SetEntityID(entityID_++);
+	game->AddCollider(actor.get());
+	actors_.push_back(std::move(actor));
+}
 void ActorManager::BindID2Kind(void)
 {
 	for (auto& obj : actors_)

@@ -10,6 +10,11 @@ StationBase::~StationBase(void)
 {
 }
 
+StationBase::StationBase(VECTOR pos)
+{
+	trans_.pos = pos;
+}
+
 void StationBase::SubLoad(void)
 {
 }
