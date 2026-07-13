@@ -77,6 +77,7 @@ public:
 
 	// ’‹“_‚Ìæ“¾
 	const VECTOR& GetTargetPos(void) const;
+	void SetTargetPos(VECTOR tPos);
 
 	// ƒJƒƒ‰‚Ì‘O•û•ûŒü
 	VECTOR GetForward(void) const;

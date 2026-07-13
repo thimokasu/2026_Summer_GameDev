@@ -104,6 +104,11 @@ const VECTOR& Camera::GetTargetPos(void) const
 	return targetPos_;
 }
 
+void Camera::SetTargetPos(VECTOR tPos)
+{
+	targetPos_ = tPos;
+}
+
 const Quaternion& Camera::GetQuaRot(void) const
 {
 	return trans_.rot;

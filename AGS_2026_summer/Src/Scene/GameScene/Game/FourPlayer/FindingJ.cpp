@@ -204,7 +204,7 @@ void FindingJ::InitCamera(void)
 {
 	SceneManager::GetInstance().GetCamera().SetCameraAngles(VGet(1.18f, 0.0f, 0.0f));
 	SceneManager::GetInstance().GetCamera().SetCameraPos(VGet(170.0f, 270.0f, 20.0f));
-
+	SceneManager::GetInstance().GetCamera().SetTargetPos({ 170,-99,172 });
 }
 
 
