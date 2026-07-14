@@ -139,6 +139,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Actor\Factory\Athletic\AthleticFactory.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticMiniCloud.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticMiniSpinBox.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticMiniSpiningBar.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticMoveFloor.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticBrokenFloor.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticCloud.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticGoal.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticNormalFloor.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticSpinBox.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticSpiningBar.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticStart.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\FourPlayer\Athletic\AthleticPlayer.cpp" />
+    <ClCompile Include="Src\Scene\GameScene\Game\FourPlayer\Athletic\Athletic.cpp" />
     <ClCompile Include="Src\Object\UI\Unicycle\MessageImageUI.cpp" />
     <ClCompile Include="Src\Object\Actor\Item\FeedJ\Food\State\FeedJ_Food_Cooked.cpp" />
     <ClCompile Include="Src\Object\Actor\Item\FeedJ\Food\State\FeedJ_Food_Cooking.cpp" />
@@ -238,6 +252,23 @@
     <ClCompile Include="Src\Object\Actor\Stage\FeedJ\StationTrash.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Actor\Factory\Athletic\AthleticFactory.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticMiniCloud.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticMiniSpinBox.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticMiniSpiningBar.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticMoveFloor.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticBrokenFloor.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticCloud.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticGoal.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticHeaders.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticNormalFloor.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticSpinBox.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticSpiningBar.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticStageKind.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticStageLayout.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticStart.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\FourPlayer\Athletic\AthleticPlayer.h" />
+    <ClInclude Include="Src\Scene\GameScene\Game\FourPlayer\Athletic\Athletic.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\FeedJ_Food_Headers.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\State\FeedJ_Food_Cooked.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\State\FeedJ_Food_Cooking.h" />

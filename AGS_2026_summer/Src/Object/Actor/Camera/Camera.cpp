@@ -99,6 +99,12 @@ const VECTOR& Camera::GetAngles(void) const
 	return angles_;
 }
 
+void Camera::SetCameraDeg(const VECTOR& deg)
+{
+	VECTOR angle = VGet(AsoUtility::Deg2RadF(deg.x), AsoUtility::Deg2RadF(deg.y), AsoUtility::Deg2RadF(deg.z));
+	angles_ = angle;
+}
+
 const VECTOR& Camera::GetTargetPos(void) const
 {
 	return targetPos_;

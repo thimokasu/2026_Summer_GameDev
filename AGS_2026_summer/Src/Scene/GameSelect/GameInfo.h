@@ -110,6 +110,8 @@ inline std::string GameInfo::GetGameName(void) const
 		return "FeedJ";
 	case GAME_KIND::UNICYCLE:
 		return "Unicycle";
+	case GAME_KIND::ATHLETIC:
+		return "Athletic";
 	default:
 		return "Unknown";
 	}

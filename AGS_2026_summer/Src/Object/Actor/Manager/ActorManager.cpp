@@ -9,6 +9,7 @@
 #include"../Factory/FindingJ/Stage2Factory.h"
 #include"../Factory/FindingJ/Stage3Factory.h"
 #include "../Factory/Unicycle/UnicycleFactory.h"
+#include"../Factory/Athletic/AthleticFactory.h"
 
 #include"../Charactor/FindingJ/FindingJCPU/FindingJRunner.h"
 #include"../../../Manager/Generic/KeyManager.h"
@@ -220,6 +221,9 @@ void ActorManager::FourPlayerGameFactory(GameInfo info)
 		default:
 			break;
 		}
+		break;
+	case GAME_KIND::ATHLETIC:
+		actorFactory_ = std::make_unique<AthleticFactory>();
 		break;
 	default:
 		break;

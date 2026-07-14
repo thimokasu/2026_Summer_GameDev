@@ -22,6 +22,8 @@ enum class EntityKind
 	TRASH,
 	SERVE,
 
-
+	//Athletic
+	ATHLETIC_CLOUD,
+	ATHLETIC_GOAL,
 
 };
