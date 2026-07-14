@@ -24,7 +24,7 @@ void MessageImageUI::SubDraw()
 {
     if (isActive_)
     {
-        alpha_ -= 1;
+        alpha_ -= 0.5f;
         if (alpha_ < 0)
         {
             alpha_ = 0;
@@ -32,7 +32,7 @@ void MessageImageUI::SubDraw()
             changeSceneCallBack_();
         }
 
-        SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha_);
+        SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)alpha_);
         DrawRotaGraphF(pos_.x, pos_.y, 0.8f, 0.0f, handleId_, TRUE);
         SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
     }

@@ -116,14 +116,14 @@ void GameSelectScene::UpdatePlayNumSelect(void)
 	int currentNum = static_cast<int>(gameInfo_.playNum_);
 	bool isChangedPlayNum = false;
 
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::LEFT).down)
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT_SET).down)
 	{
 		// 0の時に左を押すと (0 - 1 + 6) % 6 = 5 (MAX-1) になる
 		currentNum = (currentNum - 1 + count) % count;
 		gameInfo_.playNum_ = static_cast<PLAY_NUM>(currentNum);
 		isChangedPlayNum = true;
 	}
-	else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::RIGHT).down)
+	else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_RIGHT_SET).down)
 	{
 		// MAX-1 の時に右を押すと (5 + 1) % 6 = 0 に戻る
 		currentNum = (currentNum + 1) % count;
@@ -131,14 +131,14 @@ void GameSelectScene::UpdatePlayNumSelect(void)
 		isChangedPlayNum = true;
 	}
 	// 下キー：2ずつ進む
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::DOWN).down)
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_DOWN).down)
 	{
 		currentNum = (currentNum + 2) % count;
 		gameInfo_.playNum_ = static_cast<PLAY_NUM>(currentNum);
 		isChangedPlayNum = true;
 	}
 	// 上キー：2ずつ戻る
-	else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::UP).down)
+	else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_UP).down)
 	{
 		// 2引いた時にマイナスにならないよう、count を足してから剰余をとる
 		currentNum = (currentNum - 2 + count) % count;
@@ -166,7 +166,7 @@ void GameSelectScene::UpdatePlayNumSelect(void)
 			gameInfo_.game_ = GAME_KIND::NONE;
 		}
 	}
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down&&state_==SELECT_STATE::SELECTING)
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::ENTER).down&&state_==SELECT_STATE::SELECTING)
 	{
 		state_ = SELECT_STATE::TRANSITIONING;
 		transitionTimer_ = 0;
@@ -190,12 +190,12 @@ void GameSelectScene::UpdateGameSelect(void)
 		int size = static_cast<int>(currentGroup_->size());
 		bool isChanged = false;
 
-		if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::LEFT).down)
+		if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT_SET).down)
 		{
 			cursorIndex_ = (cursorIndex_ - 1 + size) % size;
 			isChanged = true;
 		}
-		else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::RIGHT).down)
+		else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_RIGHT_SET).down)
 		{
 			cursorIndex_ = (cursorIndex_ + 1) % size;
 			isChanged = true;
@@ -211,7 +211,7 @@ void GameSelectScene::UpdateGameSelect(void)
 		gameInfo_.game_ = GAME_KIND::NONE;
 	}
 
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down)
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::ENTER).down)
 	{
 		state_ = SELECT_STATE::TRANSITIONING;
 		transitionTimer_ = 0;
@@ -230,6 +230,7 @@ void GameSelectScene::UpdateGameSelect(void)
 
 void GameSelectScene::UpdateStageSelect(void)
 {
+
 	//if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::LEFT).down)
 	//{
 	//	if (gameInfo_.stage_ > STAGE_NUM::STAGE1)
@@ -246,6 +247,24 @@ void GameSelectScene::UpdateStageSelect(void)
 	//	}
 	//}
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down)
+
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT_SET).down)
+	{
+		if (gameInfo_.stage_ > STAGE_NUM::STAGE1)
+		{
+			gameInfo_.stage_ = static_cast<STAGE_NUM>(static_cast<int>(gameInfo_.stage_) - 1);
+		}
+	}
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_RIGHT_SET).down)
+	{
+		// STAGE_NUM::MAX の手前（STAGE3）まで進める
+		if (gameInfo_.stage_ < static_cast<STAGE_NUM>(static_cast<int>(STAGE_NUM::MAX) - 1))
+		{
+			gameInfo_.stage_ = static_cast<STAGE_NUM>(static_cast<int>(gameInfo_.stage_) + 1);
+		}
+	}
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::ENTER).down)
+
 	{
 		if (currentGroup_->empty())return;
 		SceneManager::GetInstance().ChangeScene<GameScene>(gameInfo_);

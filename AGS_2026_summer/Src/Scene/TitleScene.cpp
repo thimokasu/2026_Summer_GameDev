@@ -27,7 +27,7 @@ void TitleScene::SubInit(void)
 void TitleScene::SubUpdate(void)
 {
 	//スペース押したらゲームシーンへ
-	if (KeyManager::GetIns().GetInfo(KEY_TYPE::SPACE).down)
+	if (KeyManager::GetIns().GetInfo(KEY_TYPE::ENTER).down)
 	{
 		SceneManager::GetInstance().ChangeScene(SCENE_ID::GAME_SELECT);
 		return;
