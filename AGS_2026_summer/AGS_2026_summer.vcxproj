@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Actor\Stage\FindingJ\Floor.cpp" />
     <ClCompile Include="Src\Object\UI\Unicycle\MessageImageUI.cpp" />
     <ClCompile Include="Src\Object\Actor\Item\FeedJ\Food\State\FeedJ_Food_Cooked.cpp" />
     <ClCompile Include="Src\Object\Actor\Item\FeedJ\Food\State\FeedJ_Food_Cooking.cpp" />
@@ -238,6 +239,7 @@
     <ClCompile Include="Src\Object\Actor\Stage\FeedJ\StationTrash.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Actor\Stage\FindingJ\Floor.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\FeedJ_Food_Headers.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\State\FeedJ_Food_Cooked.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\State\FeedJ_Food_Cooking.h" />

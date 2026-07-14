@@ -58,6 +58,8 @@ void ResourceManager::Init(void)
 
 	res = new RES(RES_T::MODEL, PATH_MDL + "FindingJ/Stage/Block.mv1");
 	resourcesMap_.emplace(SRC::BLOCK, res);
+	res = new RES(RES_T::MODEL, PATH_MDL + "FindingJ/floor.mv1");
+	resourcesMap_.emplace(SRC::FLOOR, res);
 	res = new RES(RES_T::MODEL, PATH_MDL + "FindingJ/ReactionBlock.mv1");
 	resourcesMap_.emplace(SRC::REACTION_BLOCK, res);
 

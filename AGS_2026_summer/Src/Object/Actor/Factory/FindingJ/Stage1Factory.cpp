@@ -2,6 +2,7 @@
 #include"../../Stage/FindingJ/Block.h"
 #include"../../Stage/FindingJ/ReactionBlock.h"
 #include"../../Stage/FindingJ/StageLayout.h"
+#include "../../Stage/FindingJ/Floor.h"
 #include"../../../Common/RigidBody.h"
 #include"../../Charactor/FindingJ/FindingJPlayer.h"
 
@@ -44,6 +45,14 @@ std::vector<std::unique_ptr<ActorBase>> Stage1Factory::CreateActors(void)
 						std::make_unique<ReactionBlock>(
 							VGet(w * TileSize, h * TileSize, d * TileSize)));
 					actors.back()->SetEntityKind(EntityKind::REACTION_BLOCK);
+					actors.back()->GetRigidBody().SetBodyType(RigidBody::BodyType::STATIC);
+				}
+				else if (layout == StageLayout::Floor)
+				{
+					actors.push_back(
+						std::make_unique<Floor>(
+							VGet(w * TileSize, h * TileSize, d * TileSize)));
+					actors.back()->SetEntityKind(EntityKind::STAGE);
 					actors.back()->GetRigidBody().SetBodyType(RigidBody::BodyType::STATIC);
 				}
 				else

@@ -34,6 +34,7 @@ enum class SRC
 
 	//FindingJ
 	BLOCK,
+	FLOOR,
 	REACTION_BLOCK,
 
 	MAX,

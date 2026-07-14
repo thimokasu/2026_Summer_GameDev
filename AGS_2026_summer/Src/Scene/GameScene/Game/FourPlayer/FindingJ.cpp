@@ -10,6 +10,8 @@
 #include"../../../../Object/Actor/Charactor/FindingJ/FindingJCPU/FindingJChaser.h"
 #include"../../../../Object/Actor/Charactor/FindingJ/FindingJPlayer.h"
 
+#include "../../../../Object/Actor/Stage/FindingJ/ReactionBlock.h"
+
 #include"../../../../Object/UI/Common/GameMessageUI.h"
 #include"../../../../Object/UI/Common/Timer.h"
 
@@ -79,21 +81,22 @@ void FindingJ::SetContactEventCallback(void)
 	//イベントのコールバック関数の設定
 	EventManager::GetInstance().SetContactEventCallback(GameEventType::REACTION_BLOCK, [this](const ContactRule& rule)
 		{
+			//CPUがReactionBlockを踏んだら光らせる
 			auto entityKindA = rule.contactEvent_.entityA.entityKind_;
 			auto entityKindB = rule.contactEvent_.entityB.entityKind_;
-			if (entityKindA == EntityKind::FINDINGJ_CPU)
+			if (entityKindA == EntityKind::REACTION_BLOCK && entityKindB == EntityKind::FINDINGJ_CPU)
 			{
 				auto idA = rule.contactEvent_.entityA.entityID_;
 				auto actor = actorMng_->FindActorByID(idA);
-				auto& findingJCPU = dynamic_cast<FindingJRunner&>(*actor);
-				findingJCPU.Appear();
+				auto& findingJCPU = dynamic_cast<ReactionBlock&>(*actor);
+				findingJCPU.StepOn();
 			}
-			else if (entityKindB == EntityKind::FINDINGJ_CPU)
+			else if (entityKindB == EntityKind::REACTION_BLOCK && entityKindA == EntityKind::FINDINGJ_CPU)
 			{
 				auto idB = rule.contactEvent_.entityB.entityID_;
 				auto actor = actorMng_->FindActorByID(idB);
-				auto& findingJCPU = dynamic_cast<FindingJRunner&>(*actor);
-				findingJCPU.Appear();
+				auto& findingJCPU = dynamic_cast<ReactionBlock&>(*actor);
+				findingJCPU.StepOn();
 			}
 		}
 	);

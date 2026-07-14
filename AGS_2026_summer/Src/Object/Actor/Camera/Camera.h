@@ -23,7 +23,7 @@ public:
 	const float ROT_POW_RAD = ROT_POW_DEG * DX_PI_F / 180.0f;
 
 	// カメラの移動スピード
-	static constexpr float SPEED = 20.0f;
+	static constexpr float SPEED = 5.0f;
 
 	// カメラのクリップ範囲
 	static constexpr float VIEW_NEAR = 10.0f;
