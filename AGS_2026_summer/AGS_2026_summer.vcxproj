@@ -140,6 +140,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Src\Object\UI\Unicycle\MessageImageUI.cpp" />
+    <ClCompile Include="Src\Object\Actor\Item\FeedJ\Food\State\FeedJ_Food_Cooked.cpp" />
+    <ClCompile Include="Src\Object\Actor\Item\FeedJ\Food\State\FeedJ_Food_Cooking.cpp" />
+    <ClCompile Include="Src\Object\Actor\Item\FeedJ\Food\State\FeedJ_Food_Idle.cpp" />
     <ClCompile Include="Src\Object\Actor\Factory\FeedJ\FeedJStage1Factory.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\FeedJ\FeedJFloor.cpp" />
     <ClCompile Include="Src\Object\Actor\Item\FeedJ\FeedJ_ItemIdle.cpp" />
@@ -234,10 +237,15 @@
     <ClCompile Include="Src\Object\Actor\Item\FeedJ\Food\AfterCooking\Tomato.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\FeedJ_Food_Headers.h" />
+    <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\State\FeedJ_Food_Cooked.h" />
+    <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\State\FeedJ_Food_Cooking.h" />
+    <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\State\FeedJ_Food_Idle.h" />
     <ClInclude Include="Src\Object\UI\Unicycle\MessageImageUI.h" />
     <ClInclude Include="Src\Object\Actor\Factory\FactorysHeadersh.h" />
     <ClInclude Include="Src\Object\Actor\Factory\FeedJ\FeedJStage1Factory.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\FeedJItemHeaders.h" />
+    <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\FoodKind.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FeedJ\FeedJFloor.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FeedJ\FeedJStageHeaders.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FeedJ\FeedJStageLayout.h" />
@@ -264,7 +272,6 @@
     <ClInclude Include="Src\Object\Actor\Charactor\IState.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\InterFace\FeedJ_ICookable.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\InterFace\FeedJ_ICooker.h" />
-    <ClInclude Include="Src\Object\Actor\Item\FeedJ\InterFace\FeedJ_IPlaceble.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\InterFace\FeedJ_IThrowble.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FeedJ\StationKind.h" />
     <ClInclude Include="Src\Object\Actor\Factory\Unicycle\UnicycleFactory.h" />

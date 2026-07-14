@@ -3,7 +3,7 @@
 #include"../../Collider/ColliderInfo.h"
 #include"../../Collider/ColliderBase.h"
 #include"../../Collider/ColliderBox.h"
-
+#include"../../../../Manager/Resource/ResourceManager.h"
 Block::Block(void)
 {
 }
@@ -15,10 +15,15 @@ Block::~Block(void)
 Block::Block(VECTOR pos)
 {
 	trans_.pos = pos;
+	for (auto&[shape, col] : ownColliders_)
+	{
+		
+	}
 }
 
 void Block::SubLoad(void)
 {
+	trans_.modelId = ResourceManager::GetInstance().LoadModelDuplicate(SRC::BLOCK);
 }
 
 void Block::SubInit(void)
@@ -48,7 +53,7 @@ void Block::InitCollider(void)
 	info.localRot_ = { 0.0f,0.0f,0.0f };
 	info.isTrigger_ = false;
 	info.isActive_ = true;
-	info.debugColor_ = GetColor(0, 255, 0);
+	info.debugColor_ = GetColor(128, 128, 128);
 	std::unique_ptr<ColliderBase> collider =
 		std::make_unique<ColliderBox>(info, halfSize_, *this);
 	ownColliders_.emplace(static_cast<int>(ColliderShape::BOX), std::move(collider));

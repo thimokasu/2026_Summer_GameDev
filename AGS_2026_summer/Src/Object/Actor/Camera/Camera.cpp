@@ -268,8 +268,12 @@ void Camera::SetBeforeDrawFree(void)
 void Camera::SetBeforeDrawFollow(void)
 {
 
+	if (!isStopMove_)
+	{
 	// ƒJƒƒ‰‘€ì(‰ñ“])
 	ProcessRot(true);
+
+	}
 
 	// ’Ç]‘ÎÛ‚Æ‚Ì‘Š‘ÎˆÊ’u‚ğ“¯Šú
 	SyncFollow();

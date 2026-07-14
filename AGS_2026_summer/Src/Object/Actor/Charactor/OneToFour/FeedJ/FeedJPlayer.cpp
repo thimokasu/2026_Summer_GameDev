@@ -26,6 +26,7 @@ void FeedJPlayer::SubUpdate(void)
 {
 	CharactorBase::SubUpdate();
 	if (!KEY::GetIns().GetInfo(KEY::KEY_TYPE::J_KEY_ACTION).now)isContactTrigger_ = false;
+	if (!KEY::GetIns().GetInfo(KEY::KEY_TYPE::K_KEY_ACTION).now)isCook_ = false;
 }
 
 void FeedJPlayer::SubDraw(void)
@@ -56,8 +57,8 @@ void FeedJPlayer::InitCollider(void)
 	info.layer_ = ColliderLayer::ACTOR_TRIGGER;
 	info.mask_ = ColliderBase::SetMask({ Layer::FOOD,Layer::STATION,Layer::CONTAINER });
 	float radius2 = 10.0f;
-	localPosTop = VGet(0.0f, 10.0f, 10.0f);
-	localPosDown = VGet(0.0f, -10.0f, 10.0f);
+	localPosTop = VGet(0.0f, 10.0f, 20.0f);
+	localPosDown = VGet(0.0f, -10.0f, 20.0f);
 	info.isTrigger_ = true;
 	collider = std::make_unique<ColliderCapsule>(info, radius2, localPosTop, localPosDown, *this);
 	ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
