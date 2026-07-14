@@ -133,7 +133,7 @@ void SceneManager::Draw(void)
 	}
 	else
 	{
-		camera_->SetBeforeDraw();
+ 		camera_->SetBeforeDraw();
 		for (auto& scene : scenes_)
 		{
 			scene->Draw();
