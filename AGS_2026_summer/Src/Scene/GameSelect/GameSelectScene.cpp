@@ -74,6 +74,7 @@ void GameSelectScene::LoadImages(void)
 	gameImageHandles_[GAME_KIND::TEST] = ResourceManager::GetInstance().Load(SRC::TEST).handleId_;
 	gameImageHandles_[GAME_KIND::FEEDJ] = ResourceManager::GetInstance().Load(SRC::FEEDJ).handleId_;
 	gameImageHandles_[GAME_KIND::UNICYCLE] = ResourceManager::GetInstance().Load(SRC::UNICYCLE).handleId_;
+	gameImageHandles_[GAME_KIND::MARBLE_RACE] = ResourceManager::GetInstance().Load(SRC::MARBLE_RACE).handleId_;
 	gameImageHandles_[GAME_KIND::TEST] = LoadGraph("Data/Image/GameselectScene/GameSelect/GameTest.png");
 #pragma endregion
 
@@ -82,7 +83,7 @@ void GameSelectScene::InitGameGroups(void)
 {
 	// テスト用のダミー割り当て (1人用、2人用にもテストデータを置いて確認できるようにします)
 	onePlayerGames_ = { GAME_KIND::UNICYCLE};
-	twoPlayerGames_ = {};
+	twoPlayerGames_ = {GAME_KIND::MARBLE_RACE};
 	oneVsThreeGames_ = {};
 	twoVsTwoGames_ = {};
 	fourPlayerGames_ = {  GAME_KIND::FINDINGJ };

@@ -139,6 +139,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Actor\Item\MarbleRace\BigMarble.cpp" />
+    <ClCompile Include="Src\Object\Actor\Item\MarbleRace\NormalMarble.cpp" />
+    <ClCompile Include="Src\Object\Actor\Item\MarbleRace\SmallMarble.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\MarbleRace\MarbleRaceFloor.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\MarbleRace\MarbleRaceGoal.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\MarbleRace\MarbleRaceWall.cpp" />
+    <ClCompile Include="Src\Object\Actor\Factory\MarbleRace\MarbleRaceFactory.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\TwoPlay\MarbleRace\State\MarbleRaceIdle.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\TwoPlay\MarbleRace\State\MarbleRaceMove.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\TwoPlay\MarbleRace\State\MarbleRaveAttack.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\TwoPlay\MarbleRace\MarbleRacePlayer.cpp" />
+    <ClCompile Include="Src\Scene\GameScene\Game\TwoPlayer\MarbleRace.cpp" />
     <ClCompile Include="Src\Object\UI\Unicycle\MessageImageUI.cpp" />
     <ClCompile Include="Src\Object\Actor\Item\FeedJ\Food\State\FeedJ_Food_Cooked.cpp" />
     <ClCompile Include="Src\Object\Actor\Item\FeedJ\Food\State\FeedJ_Food_Cooking.cpp" />
@@ -238,6 +250,18 @@
     <ClCompile Include="Src\Object\Actor\Stage\FeedJ\StationTrash.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Actor\Item\MarbleRace\BigMarble.h" />
+    <ClInclude Include="Src\Object\Actor\Item\MarbleRace\NormalMarble.h" />
+    <ClInclude Include="Src\Object\Actor\Item\MarbleRace\SmallMarble.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\MarbleRace\MarbleRaceFloor.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\MarbleRace\MarbleRaceGoal.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\MarbleRace\MarbleRaceWall.h" />
+    <ClInclude Include="Src\Object\Actor\Factory\MarbleRace\MarbleRaceFactory.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\TwoPlay\MarbleRace\State\MarbleRaceIdle.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\TwoPlay\MarbleRace\State\MarbleRaceMove.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\TwoPlay\MarbleRace\State\MarbleRaveAttack.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\TwoPlay\MarbleRace\MarbleRacePlayer.h" />
+    <ClInclude Include="Src\Scene\GameScene\Game\TwoPlayer\MarbleRace.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\FeedJ_Food_Headers.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\State\FeedJ_Food_Cooked.h" />
     <ClInclude Include="Src\Object\Actor\Item\FeedJ\Food\State\FeedJ_Food_Cooking.h" />

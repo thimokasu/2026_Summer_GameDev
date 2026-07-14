@@ -9,6 +9,7 @@
 #include"../Factory/FindingJ/Stage2Factory.h"
 #include"../Factory/FindingJ/Stage3Factory.h"
 #include "../Factory/Unicycle/UnicycleFactory.h"
+#include"../Factory/MarbleRace/MarbleRaceFactory.h"
 
 #include"../Charactor/FindingJ/FindingJCPU/FindingJRunner.h"
 #include"../../../Manager/Generic/KeyManager.h"
@@ -195,6 +196,12 @@ void ActorManager::OnePlayerGameFactory(GameInfo info)
 
 void ActorManager::TwoPlayerGameFactory(GameInfo info)
 {
+	switch (info.game_)
+	{
+	case GAME_KIND::MARBLE_RACE:
+		actorFactory_ = std::make_unique<MarbleRaceFactory>();
+		break;
+	}
 }
 
 void ActorManager::ThreePlayerGameFactory(GameInfo info)

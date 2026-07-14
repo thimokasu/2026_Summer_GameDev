@@ -9,6 +9,10 @@ enum class EntityKind
 	STAGE,
 	PLAYER,
 
+	//MarbleRace
+	MARBLE,
+	MARBLE_GOAL,
+
 	//FindingJ
 	BLOCK,
 	REACTION_BLOCK,
