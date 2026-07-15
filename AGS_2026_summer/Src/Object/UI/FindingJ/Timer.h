@@ -9,7 +9,7 @@ class Timer : public UIBase
 {
 public:
     // UIBaseのコンストラクタに合わせて引数を設定
-    Timer(Vector2F pos, Vector2F size);
+    Timer(Vector2F pos);
     virtual ~Timer() = default;
     void SetTimeUpCallBack(TimeUpCallBack callBack) { timeUpCallback_ = std::move(callBack); }
     void SetUpdate(bool flag) { isUpdate_ = flag; }

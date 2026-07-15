@@ -7,6 +7,11 @@ using TimeUpCallBack = std::function<void()>;
 
 class Timer : public UIBase
 {
+
+public:
+
+    //画像サイズ
+
 public:
     // UIBaseのコンストラクタに合わせて引数を設定
     Timer(Vector2F pos, Vector2F size);

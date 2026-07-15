@@ -63,7 +63,7 @@ void FindingJRunner::SubUpdate(void)
 
 void FindingJRunner::SubDraw(void)
 {
-	DrawSphere3D(targetPos_, 5.0f, 16, GetColor(255, 0, 0), GetColor(255, 0, 0), true);
+	//DrawSphere3D(targetPos_, 5.0f, 16, GetColor(255, 0, 0), GetColor(255, 0, 0), true);
 }
 
 void FindingJRunner::SubRelease(void)

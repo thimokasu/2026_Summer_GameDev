@@ -1,5 +1,7 @@
 #include "FindingJ.h"
 
+#include "../../../../Application.h"
+
 #include"../../../../Manager/Game/SceneManager.h"
 
 #include"../../../../Object/Actor/Manager/ActorManager.h"
@@ -157,14 +159,14 @@ void FindingJ::SetEventCallBack(void)
 
 void FindingJ::LoadUI(void)
 {
-	msgUI_ = std::make_shared<GameMessageUI>(Vector2F(400.0f, 200.0f), Vector2F(400.0f, 100.0f));
+	msgUI_ = std::make_shared<GameMessageUI>(Vector2F(Application::SCREEN_SIZE_X / 2, Application::SCREEN_SIZE_Y / 2), Vector2F(400.0f, 100.0f));
 	msgUI_->Load();
 	msgUI_->Init();
 
 	UIManager::GetInstance().AddRootUI(msgUI_);
 
 	// “¯—l‚É timerUI ‚àƒƒ“ƒo•Ï”‚É‘ã“ü
-	timerUI_ = std::make_shared<Timer>(Vector2F(50.0f, 50.0f), Vector2F(200.0f, 50.0f));
+	timerUI_ = std::make_shared<Timer>(Vector2F(Application::SCREEN_SIZE_X, 50.0f));
 	timerUI_->Load();
 	timerUI_->Init();
 

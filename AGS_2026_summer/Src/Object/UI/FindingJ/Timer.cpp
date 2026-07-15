@@ -4,8 +4,8 @@
 #include"../../../Manager/Game/SceneManager.h"
 #include"../../../Manager/Game/SE.h"
 
-Timer::Timer(Vector2F pos, Vector2F size)
-	:UIBase(pos, size)
+Timer::Timer(Vector2F pos)
+	:UIBase(pos)
     , time_(30.0f)
     , bgHandle_(-1)
     , iconHandle_(-1)
