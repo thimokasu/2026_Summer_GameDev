@@ -25,5 +25,6 @@ enum class EntityKind
 	//Athletic
 	ATHLETIC_CLOUD,
 	ATHLETIC_GOAL,
+	ATHLETIC_FALL,
 
 };

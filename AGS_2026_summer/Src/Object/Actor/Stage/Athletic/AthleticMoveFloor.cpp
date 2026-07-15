@@ -9,7 +9,8 @@ void AthleticMoveFloor::SubLoad(void)
 
 void AthleticMoveFloor::SubInit(void)
 {
-	
+	entityKind_ = EntityKind::STAGE;
+
 }
 
 void AthleticMoveFloor::SubUpdate(void)

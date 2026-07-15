@@ -9,6 +9,7 @@ void AthleticCloud::SubLoad(void)
 
 void AthleticCloud::SubInit(void)
 {
+	entityKind_ = EntityKind::ATHLETIC_CLOUD;
 }
 
 void AthleticCloud::SubUpdate(void)

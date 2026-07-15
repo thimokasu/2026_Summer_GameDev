@@ -9,6 +9,7 @@ void AthleticMiniSpinBox::SubLoad(void)
 
 void AthleticMiniSpinBox::SubInit(void)
 {
+	entityKind_ = EntityKind::STAGE;
 }
 
 void AthleticMiniSpinBox::SubUpdate(void)

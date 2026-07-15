@@ -9,6 +9,8 @@ void AthleticMiniSpiningBar::SubLoad(void)
 
 void AthleticMiniSpiningBar::SubInit(void)
 {
+	entityKind_ = EntityKind::STAGE;
+
 }
 
 void AthleticMiniSpiningBar::SubUpdate(void)

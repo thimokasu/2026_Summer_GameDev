@@ -25,6 +25,7 @@ void AthleticPlayer::SubLoad(void)
 
 void AthleticPlayer::SubInit(void)
 {
+	entityKind_ = EntityKind::PLAYER;
 }
 
 void AthleticPlayer::SubUpdate(void)
