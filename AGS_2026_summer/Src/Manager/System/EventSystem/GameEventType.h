@@ -8,7 +8,14 @@ enum class GameEventType
 
 	START,
 	TIME_UP,
-	
+	FINISH,
+
+	//Athletic
+	ATHLETIC_GOAL,
+	ATHLETIC_FALL,
+	ATHLETIC_CLOUD,
+	ATHLETIC_PLAYER_ON,
+
 	//FindingJ
 	HAS_CAHGHT,
 	REACTION_BLOCK,

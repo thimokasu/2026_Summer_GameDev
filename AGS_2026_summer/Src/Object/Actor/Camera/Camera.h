@@ -89,6 +89,7 @@ public:
 	void SetFollow(const Transform* follow);
 
 	void SetCameraAngles(const VECTOR& angles) { angles_ = angles; }
+	void SetCameraDeg(const VECTOR& deg);
 	void SetCameraPos(const VECTOR& pos) { trans_.pos = pos; }
 
 	void StopMove(void) { isStopMove_ = true; }

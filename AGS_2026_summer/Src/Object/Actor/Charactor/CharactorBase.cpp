@@ -22,9 +22,12 @@ void CharactorBase::SubInit(void)
 void CharactorBase::SubUpdate(void)
 {
 	MoveInput();
+	if (canInput_)
+	{
 	currentState_->HandleInput(this);
-	currentState_->DecreaseIdleTime();
 	currentState_->Update(this);
+	}
+	currentState_->DecreaseIdleTime();
 	if (currentState_->GetIdleTime() <= 0 && !currentState_->GetIsLoop())
 	{
 		ReturnToIdle();

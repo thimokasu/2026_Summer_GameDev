@@ -74,6 +74,7 @@ void GameSelectScene::LoadImages(void)
 	gameImageHandles_[GAME_KIND::TEST] = ResourceManager::GetInstance().Load(SRC::TEST).handleId_;
 	gameImageHandles_[GAME_KIND::FEEDJ] = ResourceManager::GetInstance().Load(SRC::FEEDJ).handleId_;
 	gameImageHandles_[GAME_KIND::UNICYCLE] = ResourceManager::GetInstance().Load(SRC::UNICYCLE).handleId_;
+	gameImageHandles_[GAME_KIND::ATHLETIC] = ResourceManager::GetInstance().Load(SRC::ATHLETIC).handleId_;
 	gameImageHandles_[GAME_KIND::TEST] = LoadGraph("Data/Image/GameselectScene/GameSelect/GameTest.png");
 #pragma endregion
 
@@ -85,7 +86,7 @@ void GameSelectScene::InitGameGroups(void)
 	twoPlayerGames_ = {};
 	oneVsThreeGames_ = {};
 	twoVsTwoGames_ = {};
-	fourPlayerGames_ = {  GAME_KIND::FINDINGJ };
+	fourPlayerGames_ = {  GAME_KIND::FINDINGJ ,GAME_KIND::ATHLETIC};
 	oneToFourPlayGames_ = {GAME_KIND::FEEDJ};
 
 	currentGroup_ = &onePlayerGames_;

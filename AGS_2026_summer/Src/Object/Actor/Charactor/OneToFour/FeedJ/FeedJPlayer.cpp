@@ -3,6 +3,7 @@
 #include"../../../Collider/ColliderCapsule.h"
 #include"State/FeedJStateHeaders.h"
 #include"../../../../../Manager/Generic/KeyManager.h"
+
 FeedJPlayer::FeedJPlayer(void)
 {
 }

@@ -25,7 +25,8 @@ public:
 
 	void SetPlayNumber(int n) { playNumber_ = n; }
 
-	//void ChangeState(IState* newState);
+	void SetCanInput(bool flag) { canInput_ = flag; }
+	bool GetCanInput(void) { return canInput_; }
 
 	template<typename T>
 	void AddState(std::unique_ptr<T>state);
@@ -40,6 +41,7 @@ public:
 protected:
 	virtual void MoveInput(void) {};
 	virtual void ReturnToIdle() {};		//オーバーライドでIdleStateへのChangeStateを実装しとく
+	bool canInput_ = true;
 	int playNumber_;	
 	std::unordered_map<std::type_index, std::unique_ptr<IState>>stateMap_;
 	IState* currentState_ = nullptr;
