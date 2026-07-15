@@ -115,6 +115,12 @@
     <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticMiniSpiningBar.cpp" />
     <ClCompile Include="Src\Object\Actor\Factory\Athletic\AthleticFactory.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticFall.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\SpikeDropPlayer.cpp" />
+    <ClCompile Include="Src\Object\Actor\Factory\SpikeDrop\SpikeDropFactory.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\SpikeDrop\SpikeDropStage.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\Dropper.cpp" />
+    <ClCompile Include="Src\Object\Actor\Item\SpikeDrop\Spike.cpp" />
+    <ClCompile Include="Src\Scene\GameScene\Game\OneVsThree\SpikeDrop\SpikeDrop.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Application.cpp">
@@ -655,5 +661,11 @@
     <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticMiniSpiningBar.h" />
     <ClInclude Include="Src\Object\Actor\Factory\Athletic\AthleticFactory.h" />
     <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticFall.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\SpikeDropPlayer.h" />
+    <ClInclude Include="Src\Object\Actor\Factory\SpikeDrop\SpikeDropFactory.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\SpikeDrop\SpikeDropStage.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\Dropper.h" />
+    <ClInclude Include="Src\Object\Actor\Item\SpikeDrop\Spike.h" />
+    <ClInclude Include="Src\Scene\GameScene\Game\OneVsThree\SpikeDrop\SpikeDrop.h" />
   </ItemGroup>
 </Project>

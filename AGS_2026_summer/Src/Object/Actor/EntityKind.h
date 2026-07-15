@@ -14,6 +14,9 @@ enum class EntityKind
 	REACTION_BLOCK,
 	FINDINGJ_CPU,
 
+	//SpikeDrop
+	SPIKE,
+
 	//FeedJ
 	STATION,
 	FOOD,

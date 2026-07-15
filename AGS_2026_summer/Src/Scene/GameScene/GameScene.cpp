@@ -95,6 +95,8 @@ void GameScene::CreateMiniGame(GAME_KIND kind)
 		break;
 	case GAME_KIND::ATHLETIC:
 		miniGame_ = std::make_unique<Athletic>(actorMng_.get(), colMng_.get());
+	case GAME_KIND::SPIKE_DROP:
+		miniGame_ = std::make_unique<SpikeDrop>(actorMng_.get(), colMng_.get());
 		break;
 	}
 }

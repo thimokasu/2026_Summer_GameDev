@@ -75,6 +75,7 @@ void GameSelectScene::LoadImages(void)
 	gameImageHandles_[GAME_KIND::FEEDJ] = ResourceManager::GetInstance().Load(SRC::FEEDJ).handleId_;
 	gameImageHandles_[GAME_KIND::UNICYCLE] = ResourceManager::GetInstance().Load(SRC::UNICYCLE).handleId_;
 	gameImageHandles_[GAME_KIND::ATHLETIC] = ResourceManager::GetInstance().Load(SRC::ATHLETIC).handleId_;
+	gameImageHandles_[GAME_KIND::SPIKE_DROP] = ResourceManager::GetInstance().Load(SRC::SPIKEDROP).handleId_;
 	gameImageHandles_[GAME_KIND::TEST] = LoadGraph("Data/Image/GameselectScene/GameSelect/GameTest.png");
 #pragma endregion
 
@@ -84,7 +85,7 @@ void GameSelectScene::InitGameGroups(void)
 	// テスト用のダミー割り当て (1人用、2人用にもテストデータを置いて確認できるようにします)
 	onePlayerGames_ = { GAME_KIND::UNICYCLE};
 	twoPlayerGames_ = {};
-	oneVsThreeGames_ = {};
+	oneVsThreeGames_ = {GAME_KIND::SPIKE_DROP};
 	twoVsTwoGames_ = {};
 	fourPlayerGames_ = {  GAME_KIND::FINDINGJ ,GAME_KIND::ATHLETIC};
 	oneToFourPlayGames_ = {GAME_KIND::FEEDJ};

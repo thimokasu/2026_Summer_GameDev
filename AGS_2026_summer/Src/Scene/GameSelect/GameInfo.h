@@ -17,7 +17,7 @@ enum class GAME_KIND
 	//4êlóp
 	//1VS3
 	ONE_VS_THERR = 30,
-
+	SPIKE_DROP,
 	//2VS2
 	TWO_VS_TWO=40,
 	AIR_HOCKEY,
@@ -112,6 +112,8 @@ inline std::string GameInfo::GetGameName(void) const
 		return "Unicycle";
 	case GAME_KIND::ATHLETIC:
 		return "Athletic";
+	case GAME_KIND::SPIKE_DROP:
+		return "SpikeDrop";
 	default:
 		return "Unknown";
 	}

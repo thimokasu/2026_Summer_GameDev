@@ -19,6 +19,8 @@ enum class SRC
 	THUMB_WRESTLING,
 	SURVIVAL_TETRIS,
 	//1VS3
+	SPIKEDROP,
+
 	//2VS2
 	AIR_HOCKEY,
 	//4êlóp
