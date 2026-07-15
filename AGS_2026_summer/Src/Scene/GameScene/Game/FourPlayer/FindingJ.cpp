@@ -14,8 +14,10 @@
 
 #include "../../../../Object/Actor/Stage/FindingJ/ReactionBlock.h"
 
-#include"../../../../Object/UI/Common/GameMessageUI.h"
-#include"../../../../Object/UI/Common/Timer.h"
+#include "../../../../Object/UI/FindingJ/GameMessageUI.h"
+#include "../../../../Object/UI/FindingJ/Timer.h"
+
+
 
 FindingJ::FindingJ(ActorManager* actMng, CollisionManager* colMng)
 	:GameBase(actMng,colMng)
@@ -65,7 +67,7 @@ void FindingJ::SubUpdate(void)
 }
 void FindingJ::SubDraw(void)
 {
-	DrawFormatString(0, 140, 0xffffff, "time:%2f", time);
+	/*DrawFormatString(0, 140, 0xffffff, "time:%2f", time);*/
 }
 void FindingJ::SubRelease(void)
 {
@@ -159,14 +161,15 @@ void FindingJ::SetEventCallBack(void)
 
 void FindingJ::LoadUI(void)
 {
-	msgUI_ = std::make_shared<GameMessageUI>(Vector2F(Application::SCREEN_SIZE_X / 2, Application::SCREEN_SIZE_Y / 2), Vector2F(400.0f, 100.0f));
+	msgUI_ = std::make_shared<GameMessageUI>(Vector2F(Application::SCREEN_SIZE_X / 2
+		, Application::SCREEN_SIZE_Y / 2), Vector2F(400.0f, 100.0f));
 	msgUI_->Load();
 	msgUI_->Init();
 
 	UIManager::GetInstance().AddRootUI(msgUI_);
 
 	// ìØólÇ… timerUI Ç‡ÉÅÉìÉoïœêîÇ…ë„ì¸
-	timerUI_ = std::make_shared<Timer>(Vector2F(Application::SCREEN_SIZE_X, 50.0f));
+	timerUI_ = std::make_shared<Timer>(Vector2F(Application::SCREEN_SIZE_X, 10.0f));
 	timerUI_->Load();
 	timerUI_->Init();
 
@@ -190,8 +193,7 @@ void FindingJ::InitUI(void)
 //	}
 //);
 
-	timerUI_ = UIManager::GetInstance().GetUI<Timer>(UINAME::TIMER);
-	timerUI_->SetTime(60);
+	
 
 	timerUI_->SetTimeUpCallBack([this]()
 		{

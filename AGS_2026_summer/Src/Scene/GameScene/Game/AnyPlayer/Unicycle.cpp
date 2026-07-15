@@ -38,15 +38,15 @@ void Unicycle::SubUpdate(void)
 
 void Unicycle::SubDraw(void)
 {
-	//カメラ座標
-	DrawFormatString(0,0,0xffffff,"Camera Position: %f, %f, %f",
-		SceneManager::GetInstance().GetCamera().GetPos().x,
-		SceneManager::GetInstance().GetCamera().GetPos().y,
-		SceneManager::GetInstance().GetCamera().GetPos().z);
-	DrawFormatString(0, 20, 0xffffff, "Camera Angles: %f, %f, %f",
-		SceneManager::GetInstance().GetCamera().GetAngles().x,
-		SceneManager::GetInstance().GetCamera().GetAngles().y,
-		SceneManager::GetInstance().GetCamera().GetAngles().z);
+	////カメラ座標
+	//DrawFormatString(0,0,0xffffff,"Camera Position: %f, %f, %f",
+	//	SceneManager::GetInstance().GetCamera().GetPos().x,
+	//	SceneManager::GetInstance().GetCamera().GetPos().y,
+	//	SceneManager::GetInstance().GetCamera().GetPos().z);
+	//DrawFormatString(0, 20, 0xffffff, "Camera Angles: %f, %f, %f",
+	//	SceneManager::GetInstance().GetCamera().GetAngles().x,
+	//	SceneManager::GetInstance().GetCamera().GetAngles().y,
+	//	SceneManager::GetInstance().GetCamera().GetAngles().z);
 }
 
 void Unicycle::SubRelease(void)
@@ -125,6 +125,11 @@ void Unicycle::LoadUI(void)
 		}
 	);
 
+	msgUI_ = std::make_shared<GameMessageUI>(Vector2F(Application::SCREEN_SIZE_X / 2
+		, Application::SCREEN_SIZE_Y / 2), Vector2F(400.0f, 100.0f));
+	msgUI_->Load();
+	msgUI_->Init();
+
 	//プレイヤーのTransformを取得してUIに設定
 	setUI_ = [this](std::uint32_t playerID)
 	{
@@ -142,9 +147,7 @@ void Unicycle::LoadUI(void)
 
 void Unicycle::LoadSE(void)
 {
-	msgUI_ = std::make_shared<GameMessageUI>(Vector2F(400.0f, 200.0f), Vector2F(400.0f, 100.0f));
-	msgUI_->Load();
-	msgUI_->Init();
+	
 }
 
 void Unicycle::InitUI(void)

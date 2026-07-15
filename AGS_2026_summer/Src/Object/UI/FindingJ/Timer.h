@@ -7,6 +7,17 @@ using TimeUpCallBack = std::function<void()>;
 
 class Timer : public UIBase
 {
+
+public:
+
+    //UIサイズ
+    static constexpr float WIDTH = 240.0f;
+    static constexpr float HIGHT = 80.0f;
+
+    //サイズ倍率
+    static constexpr float WIDTH_MAG = 5.0f;
+    static constexpr float HIGHT_MAG = 1.2f;
+
 public:
     // UIBaseのコンストラクタに合わせて引数を設定
     Timer(Vector2F pos);

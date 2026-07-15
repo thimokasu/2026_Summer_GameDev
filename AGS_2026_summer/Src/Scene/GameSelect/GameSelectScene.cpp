@@ -81,7 +81,7 @@ void GameSelectScene::LoadImages(void)
 void GameSelectScene::InitGameGroups(void)
 {
 	// テスト用のダミー割り当て (1人用、2人用にもテストデータを置いて確認できるようにします)
-	onePlayerGames_ = { GAME_KIND::UNICYCLE};
+	onePlayerGames_ = { GAME_KIND::UNICYCLE, GAME_KIND::FINDINGJ };
 	twoPlayerGames_ = {};
 	oneVsThreeGames_ = {};
 	twoVsTwoGames_ = {};

@@ -14,8 +14,8 @@ public:
 		RUNNER, // 逃げる
     };
 
-	static constexpr float DecisionInterval = 0.001f; // 思考する間隔
-    static constexpr float ReactionBlockPenalty = 9.0f;
+	static constexpr float DecisionInterval = 0.01f; // 思考する間隔
+    static constexpr float ReactionBlockPenalty = 2.0f;
     static constexpr float AppearTime = 0.25f; // 出現してから完全に見えるまでの時間
 
     FindingJRunner(ActorManager&actMana);

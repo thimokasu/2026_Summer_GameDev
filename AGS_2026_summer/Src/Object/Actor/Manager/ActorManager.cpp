@@ -188,6 +188,9 @@ void ActorManager::OnePlayerGameFactory(GameInfo info)
 	case GAME_KIND::UNICYCLE:
 		actorFactory_ = std::make_unique<UnicycleFactory>();
 		break;
+	case GAME_KIND::FINDINGJ:
+		actorFactory_ = std::make_unique<Stage1Factory>();
+			break;
 	default:
 		break;
 	}

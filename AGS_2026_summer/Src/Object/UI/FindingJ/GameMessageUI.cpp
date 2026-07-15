@@ -1,5 +1,6 @@
 #include "GameMessageUI.h"
 #include "../../../Manager/Game/SceneManager.h"
+#include "../../../Application.h"
 
 GameMessageUI::GameMessageUI(Vector2F pos, Vector2F size)
     :UIBase(pos, size)
@@ -79,9 +80,12 @@ void GameMessageUI::SubDraw(void)
     // UIBaseから絶対座標を取得
     Vector2F absPos = GetAbsolutePos();
 
+    int width = GetDrawStringWidthToHandle(targetStr, -1, fontHandle_);
+    int height = GetFontSizeToHandle(fontHandle_);
+
     // UIBaseのsize_の中心を描画の基準点（画面中央など）にする
-    int drawX = static_cast<int>(absPos.x + size_.x / 2.0f);
-    int drawY = static_cast<int>(absPos.y + size_.y / 2.0f);
+    int drawX = static_cast<int>(absPos.x);
+    int drawY = static_cast<int>(absPos.y);
 
     // ゲーム説明の時だけ文字の後ろに帯を出す
     if (currentState_ == MASSAGE_STATE::EXPLAIN)
@@ -91,8 +95,8 @@ void GameMessageUI::SubDraw(void)
         int barBottom = drawY + (int)cy + paddingY;
 
         SetDrawBlendMode(DX_BLENDMODE_ALPHA, 160);
-        // 親から与えられた横幅（size_.x）いっぱいに帯を描画
-        DrawBox(static_cast<int>(absPos.x), barTop, static_cast<int>(absPos.x + size_.x), barBottom, GetColor(0, 0, 0), TRUE);
+        // 帯は画面サイズに合わせる
+        DrawBox(0, barTop, Application::SCREEN_SIZE_X, barBottom, GetColor(0, 0, 0), TRUE);
         SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
     }
 
