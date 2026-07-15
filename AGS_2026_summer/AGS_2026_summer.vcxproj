@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticFall.cpp" />
     <ClCompile Include="Src\Object\Actor\Factory\Athletic\AthleticFactory.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticMiniCloud.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticMiniSpinBox.cpp" />
@@ -252,6 +253,7 @@
     <ClCompile Include="Src\Object\Actor\Stage\FeedJ\StationTrash.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticFall.h" />
     <ClInclude Include="Src\Object\Actor\Factory\Athletic\AthleticFactory.h" />
     <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticMiniCloud.h" />
     <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticMiniSpinBox.h" />

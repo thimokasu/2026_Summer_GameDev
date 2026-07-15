@@ -10,6 +10,7 @@ void AthleticCloud::SubLoad(void)
 void AthleticCloud::SubInit(void)
 {
 	entityKind_ = EntityKind::ATHLETIC_CLOUD;
+	rigidBody_.SetBodyType(RigidBody::BodyType::STATIC);
 }
 
 void AthleticCloud::SubUpdate(void)
@@ -34,10 +35,4 @@ void AthleticCloud::InitCollider(void)
 	std::unique_ptr<ColliderBox>collider =
 		std::make_unique<ColliderBox>(info, fSize, *this);
 	ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
-}
-
-void AthleticCloud::InitRigidBody(void)
-{
-	rigidBody_.SetBodyType(RigidBody::BodyType::STATIC);
-
 }

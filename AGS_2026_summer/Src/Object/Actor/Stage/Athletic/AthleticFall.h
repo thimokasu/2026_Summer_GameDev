@@ -1,6 +1,6 @@
 #pragma once
 #include "../../ActorBase.h"
-class AthleticCloud :
+class AthleticFall :
     public ActorBase
 {
 public:
@@ -12,5 +12,7 @@ public:
 
     void InitCollider(void)override;
 private:
+    void InitRigidBody(void)override;
+
 };
 

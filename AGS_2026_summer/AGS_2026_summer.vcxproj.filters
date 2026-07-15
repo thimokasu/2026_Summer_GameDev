@@ -114,6 +114,7 @@
     <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticMiniSpinBox.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticMiniSpiningBar.cpp" />
     <ClCompile Include="Src\Object\Actor\Factory\Athletic\AthleticFactory.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticFall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Application.cpp">
@@ -653,5 +654,6 @@
     <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticMiniSpinBox.h" />
     <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticMiniSpiningBar.h" />
     <ClInclude Include="Src\Object\Actor\Factory\Athletic\AthleticFactory.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticFall.h" />
   </ItemGroup>
 </Project>

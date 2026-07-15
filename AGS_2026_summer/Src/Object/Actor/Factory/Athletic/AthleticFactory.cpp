@@ -20,7 +20,7 @@ std::vector<std::unique_ptr<ActorBase>> AthleticFactory::CreateActors(void)
     layout = Athletic::athleticStage[0][0];
     AthleticMoveFloor* mf = nullptr;
     actors.push_back(std::make_unique<AthleticPlayer>());
-
+    actors.push_back(std::make_unique<AthleticFall>());
     for (int d = 0; d < D; d++)
     {
         for (int w = 0; w < W; w++)

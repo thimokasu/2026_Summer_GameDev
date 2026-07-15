@@ -1,5 +1,8 @@
 #pragma once
 #include "../../GameBase.h"
+#include<vector>
+class AthleticPlayer;
+
 class Athletic :
     public GameBase
 {
@@ -24,6 +27,6 @@ public:
 	void InitCamera(void)override;
 
 private:
-
+	std::vector<AthleticPlayer*>clearPlayers_;
 };
 

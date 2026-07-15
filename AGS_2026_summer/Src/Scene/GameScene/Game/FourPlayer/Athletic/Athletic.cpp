@@ -72,6 +72,7 @@ void Athletic::SetContactEventCallback(void)
 			else if (entityKindB == EntityKind::PLAYER) { player = dynamic_cast<AthleticPlayer*>(actorB); goal = dynamic_cast<AthleticGoal*>(actorA); }
 			if (!player || !goal)return;
 			player->SetCanInput(false);
+			clearPlayers_.push_back(player);
 		});
 	EventManager::GetInstance().SetContactEventCallback(GameEventType::ATHLETIC_CLOUD, [this](const ContactRule& rule)
 		{
@@ -141,7 +142,20 @@ void Athletic::SetContactEventCallback(void)
 			}
 		});
 	EventManager::GetInstance().SetContactEventCallback(GameEventType::ATHLETIC_FALL, [this](const ContactRule& rule)
-		{});
+		{
+			auto entityKindA = rule.contactEvent_.entityA.entityKind_;
+			auto entityKindB = rule.contactEvent_.entityB.entityKind_;
+			auto idA = rule.contactEvent_.entityA.entityID_;
+			auto idB = rule.contactEvent_.entityB.entityID_;
+			auto actorA = actorMng_->FindActorByID(idA);
+			auto actorB = actorMng_->FindActorByID(idB);
+			AthleticPlayer* player = nullptr;
+			AthleticFall* fall = nullptr;
+			if (entityKindA == EntityKind::PLAYER) { player = dynamic_cast<AthleticPlayer*>(actorA); fall = dynamic_cast<AthleticFall*>(actorB); }
+			if (entityKindB == EntityKind::PLAYER) { player = dynamic_cast<AthleticPlayer*>(actorB); fall = dynamic_cast<AthleticFall*>(actorA); }
+			if (!player || !fall)return;
+			player->SetCanInput(false);
+		});
 }
 
 void Athletic::SetEventCallBack(void)
