@@ -14,11 +14,10 @@ enum class GAME_KIND
 	TWO_PLAYER = 20,
 	THUMB_WRESTLING,
 	SURVIVAL_TETRIS,
-	MARBLE_RACE,
 	//4êlóp
 	//1VS3
 	ONE_VS_THERR = 30,
-	SPIKE_DROP,
+
 	//2VS2
 	TWO_VS_TWO=40,
 	AIR_HOCKEY,
@@ -87,8 +86,6 @@ inline std::string GameInfo::GetGameName(void) const
 		return "ThumbWrestling";
 	case GAME_KIND::SURVIVAL_TETRIS:
 		return "SurvivalTetris";
-	case GAME_KIND::MARBLE_RACE:
-		return "MarbleRace";
 
 	case GAME_KIND::ONE_VS_THERR:
 		return "OneVsTherr";
@@ -115,8 +112,6 @@ inline std::string GameInfo::GetGameName(void) const
 		return "Unicycle";
 	case GAME_KIND::ATHLETIC:
 		return "Athletic";
-	case GAME_KIND::SPIKE_DROP:
-		return "SpikeDrop";
 	default:
 		return "Unknown";
 	}

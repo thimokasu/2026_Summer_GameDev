@@ -30,7 +30,6 @@ void AthleticMiniCloud::InitCollider(void)
 	info.shape_ = ColliderShape::BOX;
 	info.layer_ = ColliderLayer::STAGE;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
-	info.entityKind_ = EntityKind::ATHLETIC_CLOUD;
 	VECTOR fSize = VGet(20, 20, 20);
 	std::unique_ptr<ColliderBox>collider =
 		std::make_unique<ColliderBox>(info, fSize, *this);

@@ -20,10 +20,6 @@ enum class GameEventType
 	HAS_CAHGHT,
 	REACTION_BLOCK,
 
-	//SpikeDrop
-	SPIKE_HIT,
-	SPIKEDROP_PLAYER_ON,
-
 	//Unicycle
 	PLAYER_FALL,
 

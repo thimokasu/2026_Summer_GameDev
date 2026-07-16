@@ -3,7 +3,7 @@
 #include"../../../../../Object/Actor/EntityKind.h"
 #include"../../../../../Object/Actor/Stage/Athletic/AthleticHeaders.h"
 #include"../../../../../Object/Actor/Charactor/FourPlayer/Athletic/AthleticPlayer.h"
-#include"../../../../../Object/Actor/Collider/ColliderBase.h"
+
 Athletic::Athletic(ActorManager* actMng, CollisionManager* colMng):GameBase(actMng,colMng)
 {
 }
@@ -42,7 +42,6 @@ void Athletic::SubUpdate(void)
 
 void Athletic::SubDraw(void)
 {
-	DrawFormatString(0, 100, 0xffffff, "%d", t);
 }
 
 void Athletic::SubRelease(void)
@@ -72,9 +71,8 @@ void Athletic::SetContactEventCallback(void)
 			if (entityKindA == EntityKind::PLAYER) { player = dynamic_cast<AthleticPlayer*>(actorA); goal = dynamic_cast<AthleticGoal*>(actorB); }
 			else if (entityKindB == EntityKind::PLAYER) { player = dynamic_cast<AthleticPlayer*>(actorB); goal = dynamic_cast<AthleticGoal*>(actorA); }
 			if (!player || !goal)return;
-			//player->SetCanInput(false);
-			//clearPlayers_.push_back(player);
-			if(rule.contactEvent_.type_==ContactEventInfo::Type::STAY)t++;
+			player->SetCanInput(false);
+			clearPlayers_.push_back(player);
 		});
 	EventManager::GetInstance().SetContactEventCallback(GameEventType::ATHLETIC_CLOUD, [this](const ContactRule& rule)
 		{
