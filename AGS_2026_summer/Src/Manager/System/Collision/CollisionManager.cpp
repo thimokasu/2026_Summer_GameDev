@@ -48,7 +48,7 @@ void CollisionManager::DebugDraw(void)
 }
 
 
-void CollisionManager::DiffPairs(CollisionPairs& currentPairs, CollisionPairs& prevPairs, CollisionPairs& beginPairs, CollisionPairs& endPairs)
+void CollisionManager::DiffPairs(CollisionPairs& currentPairs, CollisionPairs& prevPairs, CollisionPairs& beginPairs, CollisionPairs& endPairs, CollisionPairs& stayPairs)
 {
 	//ペアの配列をソート
 	auto norm = [](auto& v)
@@ -81,6 +81,7 @@ void CollisionManager::DiffPairs(CollisionPairs& currentPairs, CollisionPairs& p
 		//継続衝突
 		else
 		{
+			stayPairs.push_back(currentPairs[a]);
 			++a; ++b;
 		}
 	}
@@ -153,8 +154,8 @@ void CollisionManager::Update(void)
 		}
 	}
 	//新規衝突ペアと消失ペアを摘出
-	CollisionPairs begins, ends;
-	DiffPairs(currentPairs, prevPairs_, begins, ends);
+	CollisionPairs begins, ends,stay;
+	DiffPairs(currentPairs, prevPairs_, begins, ends,stay);
 
 	// コールバック処理
 	if (onBegin_) {
@@ -165,6 +166,13 @@ void CollisionManager::Update(void)
 	if (onEnd_) {
 		for (auto& pair : ends) {
 			onEnd_(pair.idA, pair.kindA, pair.idB, pair.kindB);
+		}
+	}
+	if (onStay_)
+	{
+		for (const auto& pair : stay)
+		{
+			onStay_(pair.idA, pair.kindA, pair.idB, pair.kindB);
 		}
 	}
 	//次のフレームのために保持
@@ -186,6 +194,7 @@ void CollisionManager::Resolve(void)
 	}
 	resolve_.clear();
 }
+
 
 // =================================================================
 // 適切なトルクの計算と適用
@@ -303,6 +312,8 @@ void CollisionManager::PositionIntegration(CollisionResolve resolve, float total
 
 	float ratioA = invMassA / totalInvMass;
 	float ratioB = invMassB / totalInvMass;
+	ratioA *= 0.999;
+	ratioB*= 0.999;
 
 	if (invMassA > 0.0f)
 	{

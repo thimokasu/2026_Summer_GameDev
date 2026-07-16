@@ -82,10 +82,11 @@ public:
 	/// </summary>
 	/// <param name="onBegin">接触が開始したときに呼び出されるコールバック関数。</param>
 	/// <param name="onEnd">接触が終了したときに呼び出されるコールバック関数。</param>
-	void SetContactCallbacks(ContactCallback onBegin, ContactCallback onEnd)
+	void SetContactCallbacks(ContactCallback onBegin, ContactCallback onEnd,ContactCallback onStay)
 	{
 		onBegin_ = onBegin;
 		onEnd_ = onEnd;
+		onStay_ = onStay;
 	}
 	void DebugDraw(void);
 private:
@@ -94,7 +95,7 @@ private:
 	void DiffPairs
 	(
 		CollisionPairs& currentPairs, CollisionPairs& prevPairs,
-		CollisionPairs& beginPairs, CollisionPairs& endPairs
+		CollisionPairs& beginPairs, CollisionPairs& endPairs,CollisionPairs&StayPairs
 	);
 
 	void ApplyBodyTorque(RigidBody& rb, Transform& trans, const VECTOR& r, const VECTOR& collisionForce, const VECTOR& normal, float sign);
@@ -110,6 +111,7 @@ private:
 
 	ContactCallback onBegin_;
 	ContactCallback onEnd_;
+	ContactCallback onStay_;
 
 	struct CollisionObject
 	{

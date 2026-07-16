@@ -31,6 +31,7 @@ void AthleticGoal::InitCollider(void)
 	info.layer_ = ColliderLayer::STAGE;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
 	info.entityKind_ = EntityKind::ATHLETIC_GOAL;
+	info.debugColor_ = GetColor(0, 255, 255);
 	VECTOR fSize = VGet(20, 20, 20);
 	std::unique_ptr<ColliderBox>collider =
 		std::make_unique<ColliderBox>(info, fSize, *this);

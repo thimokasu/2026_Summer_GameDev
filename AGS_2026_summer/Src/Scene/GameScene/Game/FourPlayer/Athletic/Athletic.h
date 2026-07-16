@@ -28,5 +28,6 @@ public:
 
 private:
 	std::vector<AthleticPlayer*>clearPlayers_;
+	int t = 0;
 };
 

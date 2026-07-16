@@ -73,7 +73,13 @@ void GameBase::SetCollisionCollback(void)
 			Entity entB{ b, kindB };
 			EventManager::GetInstance().OnEndContact(entA, entB, CollisionResult{});
 		};
-	colMng_->SetContactCallbacks(onBeginContact, onEndContact);
+	auto onStayContact = [this](uint32_t a, EntityKind kindA, uint32_t b, EntityKind kindB)
+		{
+			Entity entA{ a,kindA };
+			Entity entB{ b,kindB };
+			EventManager::GetInstance().OnStayContact(entA, entB, CollisionResult{});
+		};
+	colMng_->SetContactCallbacks(onBeginContact, onEndContact,onStayContact);
 }
 
 void GameBase::AddCollider(ActorBase* actor)
