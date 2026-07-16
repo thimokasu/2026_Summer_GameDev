@@ -4,10 +4,12 @@
 #include"SwordFIghtStateHeaders.h"
 #include"../../CharactorBase.h"
 #include"../../../Camera/Camera.h"
-
+#include"../../../../Common/AnimationController.h"
 void SwordFIght_Walk::EnterT(SwordFightPlayer* owner)
 {
 	isLoop_ = true;
+
+	owner->GetAnimController()->Play(SwordFightPlayer::animType::Walk);
 }
 
 void SwordFIght_Walk::HandleInputT(SwordFightPlayer* owner)
@@ -17,7 +19,6 @@ void SwordFIght_Walk::HandleInputT(SwordFightPlayer* owner)
 		KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_BACK).now ||
 		KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT).now)
 	{
-		int a = 0;
 	}
 	else
 	{
@@ -29,9 +30,7 @@ void SwordFIght_Walk::UpdateT(SwordFightPlayer* owner)
 {
 	VECTOR moveVec = { 0.0f,0.0f,0.0f };
 
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_FRONT).now) {
-		moveVec.z += 1.0f;
-	}
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_FRONT).now) moveVec.z += 1.0f;
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_BACK).now) moveVec.z -= 1.0f;
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_RIGHT).now) moveVec.x += 1.0f;
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT).now) moveVec.x -= 1.0f;

@@ -4,6 +4,8 @@
 #include"SwordState/SwordFIghtStateHeaders.h"
 #include"../../../../Manager/Generic/KeyManager.h"
 #include "../../../Common/AnimationController.h"
+#include"../../../../Utility/AsoUtility.h"
+#include "../../../../Application.h"
 
 
 SwordFightPlayer::SwordFightPlayer(void)
@@ -23,18 +25,25 @@ void SwordFightPlayer::SubLoad(void)
 	trans_.modelId = MV1LoadModel("Data/Model/Player/Player Attack.mv1");
 	trans_.modelId = MV1LoadModel("Data/Model/Player/Player Idle.mv1");
 	trans_.modelId = MV1LoadModel("Data/Model/Player/Player_T.mv1");
-	trans_.modelId = MV1LoadModel("Data/Model/Player/Walk.mv1");
+	trans_.modelId = MV1LoadModel("Data/Model/Player/Great Sword Walk.mv1");
 }
 
 void SwordFightPlayer::SubInit(void)
 {
-	CharactorBase::SubInit();
 	entityKind_ = EntityKind::PLAYER;
+	trans_.quaRotLocal = Quaternion::Euler(VGet(0.0f, AsoUtility::Deg2RadD(180.0f), 0.0f));
 
 	//アニメーションの登録
-	animationController_ = std::make_unique<AnimationController>(trans_.modelId);
-	animationController_->AddInFbx(0, 60.0f, 0);
+	std::string path = Application::PATH_MODEL + "Player/";
 
+	animationController_ = std::make_unique<AnimationController>(trans_.modelId);
+	animationController_->Add((int)animType::Idle, 20.0f,path+"Player Idle.mv1");
+	animationController_->Add((int)animType::Walk, 20.0f, path + "Great Sword Walk.mv1");
+	animationController_->Add((int)animType::Attack, 20.0f, path + "Player Attack.mv1");
+	animationController_->Add((int)animType::Damage, 20.0f, path + "DamageReact Large From Left.mv1");
+	animationController_->Add((int)animType::Block, 20.0f, path + "Block React Large.mv1");
+
+	CharactorBase::SubInit();
 }
 
 void SwordFightPlayer::SubUpdate(void)

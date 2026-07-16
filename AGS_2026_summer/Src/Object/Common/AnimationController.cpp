@@ -16,6 +16,7 @@ void AnimationController::Add(int type, float speed, const std::string path)
 	Animation animation;
 	animation.model = MV1LoadModel(path.c_str());
 	animation.animIndex = -1;
+	animation.speed = speed;
 	Add(type, speed, animation);
 	
 }
@@ -24,6 +25,7 @@ void AnimationController::AddInFbx(int type, float speed, int animIndex)
 	Animation animation;
 	animation.model = -1;
 	animation.animIndex = animIndex;
+	animation.speed = speed;
 	Add(type, speed, animation);
 }
 void AnimationController::Play(int type, bool isloop)
@@ -37,6 +39,7 @@ void AnimationController::Play(int type, bool isloop)
 	// アニメーション種別を変更
 	playType_ = type;
 	playAnim_ = animations_[type];
+
 
 	// 初期化
 	playAnim_.step = 0.0f;
@@ -126,8 +129,8 @@ void AnimationController::Add(int type, float speed, Animation&animation)
 
 	if (animations_.count(type) == 0) {
 		//追加
-	animation.speed = speed;
 		animations_.emplace(type, animation);
+
 	}
 
 }

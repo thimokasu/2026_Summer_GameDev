@@ -1,12 +1,16 @@
 #include "SwordFight_Idle.h"
-#include<DxLib.h>
 #include"SwordFIghtStateHeaders.h"
 #include"../../../../../Manager/Generic/KeyManager.h"
 #include"../../CharactorBase.h"
+#include"../../../../Common/AnimationController.h"
+#include"../../../../../Manager/Game/SceneManager.h"
+#include"../../../Camera/Camera.h"
 
 void SwordFight_Idle::EnterT(SwordFightPlayer* owner)
 {
 	isLoop_ = true;
+	owner->GetAnimController()->Play(SwordFightPlayer::animType::Idle);
+
 }
 
 void SwordFight_Idle::HandleInputT(SwordFightPlayer* owner)
@@ -18,10 +22,6 @@ void SwordFight_Idle::HandleInputT(SwordFightPlayer* owner)
 		)
 	{
 		owner->ChangeState<SwordFIght_Walk>();
-	}
-	else
-	{
-		owner->ChangeState<SwordFight_Idle>();
 	}
 }
 

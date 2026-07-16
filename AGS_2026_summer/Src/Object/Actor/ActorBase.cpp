@@ -27,6 +27,10 @@ void ActorBase::Update(void)
 	rigidBody_.Update();
 	Move();
 	trans_.Update();
+	if (animationController_)
+	{
+		animationController_->Update();
+	}
 }
 
 void ActorBase::Draw(void)

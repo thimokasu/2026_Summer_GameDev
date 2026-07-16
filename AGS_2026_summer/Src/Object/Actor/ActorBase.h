@@ -50,6 +50,9 @@ public:
 	bool IsDraw(void) const { return isDraw_; }
 	//•`‰æó‘Ôİ’è
 	void SetIsDraw(bool isDraw) { isDraw_ = isDraw; }
+
+	AnimationController* GetAnimController(void) { return animationController_.get(); }
+
 protected:
 #pragma region ŠÖ”
 	virtual void SubLoad(void) {};

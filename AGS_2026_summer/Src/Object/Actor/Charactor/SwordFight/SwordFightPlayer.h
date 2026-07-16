@@ -27,6 +27,22 @@ public:
 	ItemBase* GetHoldItem(void) { return holdItem_; }
 	void CreateState(void)override;
 
+	enum  animType
+	{
+		NONE=-1,
+		Idle,
+		Walk,
+		Attack,
+		Damage,
+		Block,
+		Lose,
+
+		Max,
+	};
+
+
+
+
 private:
 
 	enum class STATE
@@ -40,6 +56,7 @@ private:
 
 		MAX,
 	};
+
 #pragma region ä÷êî
 	void InitRigidBody(void)override;
 	void ActionInput(void);
