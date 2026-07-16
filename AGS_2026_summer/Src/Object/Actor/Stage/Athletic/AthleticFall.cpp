@@ -30,6 +30,7 @@ void AthleticFall::InitCollider(void)
 	info.shape_ = ColliderShape::BOX;
 	info.layer_ = ColliderLayer::STAGE;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
+	info.entityKind_ = EntityKind::ATHLETIC_FALL;
 	VECTOR fSize = VGet(1000, 2, 300);
 	info.localPos_ = VGet(700, -10, 0);
 	std::unique_ptr<ColliderBox>collider =
