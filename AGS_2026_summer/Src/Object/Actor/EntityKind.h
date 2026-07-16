@@ -8,6 +8,7 @@ enum class EntityKind
 	CAMERA,
 	STAGE,
 	PLAYER,
+	PLAYER_TRIGGER,
 
 	//MarbleRace
 	MARBLE,
@@ -20,6 +21,7 @@ enum class EntityKind
 
 	//SpikeDrop
 	SPIKE,
+	SPIKE_HIT,
 
 	//FeedJ
 	STATION,

@@ -24,7 +24,7 @@ void GameBase::Init(void)
 	{
 		for (const auto& [shape, collider] : actor->GetOwnColliders())
 		{
-			colMng_->AddCollider(collider.get(), actor->GetEntityID());
+			colMng_->AddCollider(collider.get(), actor->GetEntityID(),collider->GetColliderInfo().entityKind_);
 		}
 	}
 	SubInit();
@@ -61,16 +61,16 @@ void GameBase::Release(void)
 
 void GameBase::SetCollisionCollback(void)
 {
-	auto onBeginContact = [this](uint32_t a, uint32_t b)
+	auto onBeginContact = [this](uint32_t a,EntityKind kindA, uint32_t b,EntityKind kindB)
 		{
-			Entity entA{ a, actorMng_->GetEntityKind(a) };
-			Entity entB{ b, actorMng_->GetEntityKind(b) };
+			Entity entA{ a, kindA };
+			Entity entB{ b, kindB };
 			EventManager::GetInstance().OnBeginContact(entA, entB, CollisionResult{});
 		};
-	auto onEndContact = [this](uint32_t a, uint32_t b)
+	auto onEndContact = [this](uint32_t a,EntityKind kindA, uint32_t b,EntityKind kindB)
 		{
-			Entity entA{ a, actorMng_->GetEntityKind(a) };
-			Entity entB{ b, actorMng_->GetEntityKind(b) };
+			Entity entA{ a,kindA  };
+			Entity entB{ b, kindB };
 			EventManager::GetInstance().OnEndContact(entA, entB, CollisionResult{});
 		};
 	colMng_->SetContactCallbacks(onBeginContact, onEndContact);
@@ -80,6 +80,6 @@ void GameBase::AddCollider(ActorBase* actor)
 {
 	for (const auto& [shape, col] : actor->GetOwnColliders())
 	{
-		colMng_->AddCollider(col.get(), actor->GetEntityID());
+		colMng_->AddCollider(col.get(), actor->GetEntityID(),col->GetColliderInfo().entityKind_);
 	}
 }

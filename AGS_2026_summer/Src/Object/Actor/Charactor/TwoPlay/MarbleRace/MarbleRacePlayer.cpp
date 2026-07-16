@@ -53,6 +53,7 @@ void MarbleRacePlayer::InitCollider(void)
 	info.shape_ = ColliderShape::CAPSULE;
 	info.layer_ = ColliderLayer::ACTOR;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE,Layer::FOOD,Layer::STATION,Layer::CONTAINER });
+	info.entityKind_ = EntityKind::PLAYER;
 	float radius = 10.0f;
 	VECTOR localPosTop = VGet(0.0f, 10.0f, 0.0f);
 	VECTOR localPosDown = VGet(0.0f, -10.0f, 0.0f);
@@ -63,6 +64,7 @@ void MarbleRacePlayer::InitCollider(void)
 	info.shape_ = ColliderShape::SPHERE;
 	info.layer_ = ColliderLayer::ACTOR_TRIGGER;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
+	info.entityKind_ = EntityKind::PLAYER_TRIGGER;
 	info.isTrigger_ = true;
 	info.debugColor_ = GetColor(0, 200, 200);
 	radius = 10.0f;

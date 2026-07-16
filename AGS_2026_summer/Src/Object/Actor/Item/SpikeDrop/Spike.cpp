@@ -41,6 +41,7 @@ void Spike::InitCollider(void)
 		info.shape_ = ColliderShape::CAPSULE;
 		info.layer_ = ColliderLayer::STAGE;
 		info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
+		info.entityKind_ = EntityKind::SPIKE;
 		float radius = 10;
 		VECTOR localPosTop = VGet(-10, 0, 0);
 		VECTOR localPosDown = VGet(10, 0, 0);
@@ -52,6 +53,7 @@ void Spike::InitCollider(void)
 		info.shape_ = ColliderShape::BOX;
 		info.layer_ = ColliderLayer::STAGE;
 		info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
+		info.entityKind_ = EntityKind::SPIKE_HIT;
 		info.localPos_ = VGet(0, 5, 0);
 		info.isTrigger_ = true;
 		VECTOR fSize = VGet(18, 5, 8);
@@ -64,6 +66,7 @@ void Spike::InitCollider(void)
 		info.shape_ = ColliderShape::CAPSULE;
 		info.layer_ = ColliderLayer::STAGE;
 		info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
+		info.entityKind_ = EntityKind::SPIKE;
 		float radius = 10;
 		VECTOR localPosTop = VGet(-20, 0, 0);
 		VECTOR localPosDown = VGet(20, 0, 0);
@@ -75,6 +78,7 @@ void Spike::InitCollider(void)
 		info.shape_ = ColliderShape::BOX;
 		info.layer_ = ColliderLayer::STAGE;
 		info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
+		info.entityKind_ = EntityKind::SPIKE_HIT;
 		info.localPos_ = VGet(0, 5, 0);
 		info.isTrigger_ = true;
 		VECTOR fSize = VGet(28, 5,8);
@@ -87,6 +91,7 @@ void Spike::InitCollider(void)
 		info.shape_ = ColliderShape::CAPSULE;
 		info.layer_ = ColliderLayer::STAGE;
 		info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
+		info.entityKind_ = EntityKind::SPIKE;
 		float radius = 10;
 		VECTOR localPosTop = VGet(-30, 0, 0);
 		VECTOR localPosDown = VGet(30, 0, 0);
@@ -98,6 +103,7 @@ void Spike::InitCollider(void)
 		info.shape_ = ColliderShape::BOX;
 		info.layer_ = ColliderLayer::STAGE;
 		info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
+		info.entityKind_ = EntityKind::SPIKE_HIT;
 		info.localPos_ = VGet(0, 5, 0);
 		VECTOR fSize = VGet(38, 5, 8);
 		std::unique_ptr<ColliderBox>collider =

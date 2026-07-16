@@ -17,6 +17,8 @@ void SmallMarble::InitCollider(void)
 	info.shape_ = ColliderShape::SPHERE;
 	info.layer_ = ColliderLayer::ACTOR;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE });
+	info.entityKind_ = EntityKind::MARBLE;
+
 	float radius = 8;
 	std::unique_ptr<ColliderSphere>collider =
 		std::make_unique<ColliderSphere>(info, radius, *this);

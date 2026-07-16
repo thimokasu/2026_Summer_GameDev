@@ -21,6 +21,7 @@ void MarbleRaceFloor::InitCollider(void)
 	info.shape_ = ColliderShape::BOX;
 	info.layer_ = ColliderLayer::STAGE;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
+	info.entityKind_ = EntityKind::STAGE;
 	VECTOR halfSize = VGet(100, 10, 300);
 	std::unique_ptr<ColliderBox>collider =
 		std::make_unique<ColliderBox>(info, halfSize, *this);

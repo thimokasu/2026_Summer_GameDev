@@ -7,16 +7,33 @@
 #include"CollisionResult.h"
 #include"../../../Object/Common/RigidBody.h"
 #include"../../../Object/Common/Transform.h"
+#include"../../../Object/Actor/EntityKind.h"
 
 class ActorBase;
 class ColliderBase;
 
-using ContactCallback = std::function<void(std::uint32_t, std::uint32_t)>;
-using CollisionPairs = std::vector<std::pair<std::size_t, std::size_t>>;
+using ContactCallback = std::function<void(std::uint32_t,EntityKind, std::uint32_t,EntityKind)>;
+	struct CollisionPairInfo
+	{
+		std::uint32_t idA, idB;
+		EntityKind kindA, kindB;
+		// ソート用（idA, idB で比較）
+		bool operator<(const CollisionPairInfo& other) const {
+			if (idA != other.idA) return idA < other.idA;
+			return idB < other.idB;
+		}
+		// 比較用
+		bool operator==(const CollisionPairInfo& other) const {
+			return idA == other.idA && idB == other.idB;
+		}
+	};
+using CollisionPairs = std::vector<CollisionPairInfo>;
 
 class CollisionManager
 {
 public:
+
+
 	struct CollisionResolve
 	{
 		ActorBase* actorA;
@@ -37,7 +54,7 @@ public:
 	/// </summary>
 	/// <param name="collider"></param>
 	/// <param name="entityID"></param>
-	void AddCollider(ColliderBase* collider,int entityID);
+	void AddCollider(ColliderBase* collider,int entityID,EntityKind entityKind);
 	/// <summary>
 	/// 特定のコライダーを削除
 	/// </summary>
@@ -98,6 +115,7 @@ private:
 	{
 		ColliderBase* collider_;
 		std::uint32_t entityID_;
+		EntityKind entityKind_;
 	};
 	std::vector<CollisionObject>colliders_;
 	std::vector<CollisionResolve>resolve_;

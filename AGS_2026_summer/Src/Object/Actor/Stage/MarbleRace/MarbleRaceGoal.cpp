@@ -21,6 +21,7 @@ void MarbleRaceGoal::InitCollider(void)
 	info.shape_ = ColliderShape::BOX;
 	info.layer_ = ColliderLayer::STAGE;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
+	info.entityKind_ = EntityKind::MARBLE_GOAL;
 	info.isTrigger_ = true;
 	VECTOR halfSize = VGet(100, 10, 400);
 	std::unique_ptr<ColliderBox>collider =

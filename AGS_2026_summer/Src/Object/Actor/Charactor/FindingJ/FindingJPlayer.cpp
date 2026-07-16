@@ -48,7 +48,8 @@ void FindingJPlayer::InitCollider(void)
 	ColliderInfo info;
 	info.shape_ = ColliderShape::CAPSULE;
 	info.layer_ = ColliderLayer::ACTOR;
-	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE });
+	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE }); 
+	info.entityKind_ = EntityKind::PLAYER;
 	float radius = 10.0f;
 	VECTOR localPosTop = VGet(0.0f, 10.0f, 0.0f);
 	VECTOR localPosDown = VGet(0.0f, -10.0f, 0.0f);
