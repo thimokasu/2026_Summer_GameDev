@@ -36,6 +36,27 @@ void SwordFightPlayer::SubInit(void)
 	entityKind_ = EntityKind::PLAYER;
 	trans_.quaRotLocal = Quaternion::Euler(VGet(0.0f, AsoUtility::Deg2RadD(180.0f), 0.0f));
 
+
+	Swordtrans_.scl.x = 3.0f;
+	Swordtrans_.scl.z = 2.5f;
+	Swordtrans_.scl.y = 3.5f;
+
+	rightHandFrameNo_ =
+		MV1SearchFrame(
+			trans_.modelId,
+			"mixamorig:RightHand"
+		);
+
+	leftHandFrameNo_ =
+		MV1SearchFrame(
+			trans_.modelId,
+			"mixamorig:LeftHand"
+		);
+
+	Swordtrans_.Update();
+
+
+
 	//アニメーションの登録
 	std::string path = Application::PATH_MODEL + "Player/";
 
@@ -55,6 +76,33 @@ void SwordFightPlayer::SubUpdate(void)
 {
 	CharactorBase::SubUpdate();
 	if (!KEY::GetIns().GetInfo(KEY::KEY_TYPE::J_KEY_ACTION).now)isContactTrigger_ = false;
+
+	if (rightHandFrameNo_ != -1 &&
+		leftHandFrameNo_ != -1)
+	{
+		VECTOR rightHandPos =
+			MV1GetFramePosition(
+				trans_.modelId,
+				rightHandFrameNo_
+			);
+
+		VECTOR leftHandPos =
+			MV1GetFramePosition(
+				trans_.modelId,
+				leftHandFrameNo_
+			);
+
+		// 両手の中心
+		VECTOR centerPos = VGet(
+			(rightHandPos.x + leftHandPos.x) * 0.5f,
+			(rightHandPos.y + leftHandPos.y) * 0.5f-25.0f,
+			(rightHandPos.z + leftHandPos.z) * 0.5f
+		);
+
+		Swordtrans_.pos = centerPos;
+
+		Swordtrans_.Update();
+	}
 
 }
 

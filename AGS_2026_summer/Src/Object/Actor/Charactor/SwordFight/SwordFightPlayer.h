@@ -74,5 +74,8 @@ private:
 	bool isHold_ = false; //アイテムを持っているかどうか
 	ItemBase* holdItem_ = nullptr; //持っているアイテムのポインタ
 #pragma endregion
+
+	int rightHandFrameNo_;
+	int leftHandFrameNo_;
 };
 

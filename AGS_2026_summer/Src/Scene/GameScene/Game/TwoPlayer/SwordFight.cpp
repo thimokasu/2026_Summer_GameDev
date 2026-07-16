@@ -98,4 +98,13 @@ void SwordFight::InitSE(void)
 
 void SwordFight::InitCamera(void)
 {
+	SceneManager::GetInstance().GetCamera().ChangeMode(Camera::MODE::FOLLOW);
+	auto player = actorMng_->FindActorsByKind(EntityKind::PLAYER);
+	for (auto& p : player)
+	{
+		auto& player = dynamic_cast<SwordFightPlayer&>(*p);
+		SceneManager::GetInstance().GetCamera().SetFollow(&player.GetTransform());
+	}
+	SceneManager::GetInstance().GetCamera().SetCameraAngles(VGet(0.73f, 0.0f, 0.0f));
+	SceneManager::GetInstance().GetCamera().StopMove();
 }
