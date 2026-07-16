@@ -18,6 +18,9 @@ enum class EntityKind
 	REACTION_BLOCK,
 	FINDINGJ_CPU,
 
+	//SpikeDrop
+	SPIKE,
+
 	//FeedJ
 	STATION,
 	FOOD,
@@ -26,6 +29,9 @@ enum class EntityKind
 	TRASH,
 	SERVE,
 
-
+	//Athletic
+	ATHLETIC_CLOUD,
+	ATHLETIC_GOAL,
+	ATHLETIC_FALL,
 
 };

@@ -13,7 +13,7 @@ public:
 		KINEMATIC,	//キネマティック
 	};
 
-	static constexpr float GRAVITY = 0.16;	//重力加速度
+	static constexpr float GRAVITY = 0.49f;	//重力加速度
 	RigidBody(void);
 	~RigidBody(void);
 

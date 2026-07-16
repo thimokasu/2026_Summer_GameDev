@@ -20,6 +20,8 @@ enum class SRC
 	SURVIVAL_TETRIS,
 	MARBLE_RACE,
 	//1VS3
+	SPIKEDROP,
+
 	//2VS2
 	AIR_HOCKEY,
 	//4êlóp
