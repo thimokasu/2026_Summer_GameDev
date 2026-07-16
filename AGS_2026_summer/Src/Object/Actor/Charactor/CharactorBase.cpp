@@ -25,9 +25,9 @@ void CharactorBase::SubUpdate(void)
 	if (canInput_)
 	{
 	currentState_->HandleInput(this);
-	currentState_->Update(this);
 	}
 	currentState_->DecreaseIdleTime();
+	currentState_->Update(this);
 	if (currentState_->GetIdleTime() <= 0 && !currentState_->GetIsLoop())
 	{
 		ReturnToIdle();

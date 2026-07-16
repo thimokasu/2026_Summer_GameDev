@@ -96,6 +96,15 @@
     <ClCompile Include="Src\Scene\GameScene\Game\AnyPlayer\Unicycle.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\OnePlay\Unicycle\UnicyclePlayer.cpp" />
     <ClCompile Include="Src\Object\UI\Unicycle\MessageImageUI.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\MarbleRace\MarbleRaceFloor.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\MarbleRace\MarbleRaceGoal.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\MarbleRace\MarbleRaceWall.cpp" />
+    <ClCompile Include="Src\Object\Actor\Factory\MarbleRace\MarbleRaceFactory.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\TwoPlay\MarbleRace\State\MarbleRaceIdle.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\TwoPlay\MarbleRace\State\MarbleRaceMove.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\TwoPlay\MarbleRace\State\MarbleRaveAttack.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\TwoPlay\MarbleRace\MarbleRacePlayer.cpp" />
+    <ClCompile Include="Src\Scene\GameScene\Game\TwoPlayer\MarbleRace.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticBrokenFloor.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticCloud.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticGoal.cpp" />
@@ -109,6 +118,9 @@
     <ClCompile Include="Src\Object\Actor\Item\FeedJ\Food\State\FeedJ_Food_Cooking.cpp" />
     <ClCompile Include="Src\Object\Actor\Item\FeedJ\Food\State\FeedJ_Food_Idle.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\FeedJ\StationTrash.cpp" />
+    <ClCompile Include="Src\Object\Actor\Item\MarbleRace\SmallMarble.cpp" />
+    <ClCompile Include="Src\Object\Actor\Item\MarbleRace\NormalMarble.cpp" />
+    <ClCompile Include="Src\Object\Actor\Item\MarbleRace\BigMarble.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\FindingJ\Floor.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticMoveFloor.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticMiniCloud.cpp" />
@@ -118,6 +130,12 @@
     <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticFall.cpp" />
     <ClCompile Include="Src\Object\Actor\SkyDome\SkyDome.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\Unicycle\Cliff.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\SpikeDropPlayer.cpp" />
+    <ClCompile Include="Src\Object\Actor\Factory\SpikeDrop\SpikeDropFactory.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\SpikeDrop\SpikeDropStage.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\Dropper.cpp" />
+    <ClCompile Include="Src\Object\Actor\Item\SpikeDrop\Spike.cpp" />
+    <ClCompile Include="Src\Scene\GameScene\Game\OneVsThree\SpikeDrop\SpikeDrop.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Application.cpp">
@@ -515,6 +533,15 @@
     <ClInclude Include="Src\main.h" />
     <ClInclude Include="Src\Utility\AsoUtility.h" />
     <ClInclude Include="Src\Object\UI\Unicycle\MessageImageUI.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\MarbleRace\MarbleRaceFloor.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\MarbleRace\MarbleRaceGoal.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\MarbleRace\MarbleRaceWall.h" />
+    <ClInclude Include="Src\Object\Actor\Factory\MarbleRace\MarbleRaceFactory.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\TwoPlay\MarbleRace\State\MarbleRaceIdle.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\TwoPlay\MarbleRace\State\MarbleRaceMove.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\TwoPlay\MarbleRace\State\MarbleRaveAttack.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\TwoPlay\MarbleRace\MarbleRacePlayer.h" />
+    <ClInclude Include="Src\Scene\GameScene\Game\TwoPlayer\MarbleRace.h" />
     <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticBrokenFloor.h" />
     <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticCloud.h" />
     <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticGoal.h" />
@@ -649,6 +676,9 @@
     <ClInclude Include="Src\Application.h" />
     <ClInclude Include="Src\main.h" />
     <ClInclude Include="Src\Utility\AsoUtility.h" />
+    <ClInclude Include="Src\Object\Actor\Item\MarbleRace\SmallMarble.h" />
+    <ClInclude Include="Src\Object\Actor\Item\MarbleRace\NormalMarble.h" />
+    <ClInclude Include="Src\Object\Actor\Item\MarbleRace\BigMarble.h" />
     <ClInclude Include="Src\Object\Actor\Stage\FindingJ\Floor.h" />
     <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticStageLayout.h" />
     <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticHeaders.h" />
@@ -661,5 +691,11 @@
     <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticFall.h" />
     <ClInclude Include="Src\Object\Actor\SkyDome\SkyDome.h" />
     <ClInclude Include="Src\Object\Actor\Stage\Unicycle\Cliff.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\SpikeDropPlayer.h" />
+    <ClInclude Include="Src\Object\Actor\Factory\SpikeDrop\SpikeDropFactory.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\SpikeDrop\SpikeDropStage.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\Dropper.h" />
+    <ClInclude Include="Src\Object\Actor\Item\SpikeDrop\Spike.h" />
+    <ClInclude Include="Src\Scene\GameScene\Game\OneVsThree\SpikeDrop\SpikeDrop.h" />
   </ItemGroup>
 </Project>
