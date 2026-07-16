@@ -86,8 +86,6 @@ void GameSelectScene::InitGameGroups(void)
 	// テスト用のダミー割り当て (1人用、2人用にもテストデータを置いて確認できるようにします)
 	onePlayerGames_ = { GAME_KIND::UNICYCLE};
 	twoPlayerGames_ = {GAME_KIND::MARBLE_RACE};
-	oneVsThreeGames_ = {};
-	twoPlayerGames_ = {};
 	oneVsThreeGames_ = {GAME_KIND::SPIKE_DROP};
 	twoVsTwoGames_ = {};
 	fourPlayerGames_ = {  GAME_KIND::FINDINGJ ,GAME_KIND::ATHLETIC};

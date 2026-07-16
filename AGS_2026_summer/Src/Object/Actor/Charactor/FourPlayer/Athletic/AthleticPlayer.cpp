@@ -30,8 +30,11 @@ void AthleticPlayer::SubInit(void)
 
 void AthleticPlayer::SubUpdate(void)
 {
+	if (canInput_)
+	{
 	MoveInput();
 	JumpInput();
+	}
 }
 
 void AthleticPlayer::SubDraw(void)
