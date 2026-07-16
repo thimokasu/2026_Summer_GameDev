@@ -30,12 +30,17 @@ enum class SRC
 	FEEDJ,
 	//ëSêlêîëŒâû(Ç≈Ç´ÇΩÇÁ)
 	UNICYCLE,
+	CLIFF,
+	UNICYCLER,
 	//----------------------------------
 
 	//FindingJ
 	BLOCK,
 	FLOOR,
 	REACTION_BLOCK,
+	SKY_DOME,
+	RUNNER,
+	FJ_PLAYER,
 
 	MAX,
 };

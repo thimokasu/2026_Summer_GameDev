@@ -5,6 +5,7 @@
 #include "../../Stage/FindingJ/Floor.h"
 #include"../../../Common/RigidBody.h"
 #include"../../Charactor/FindingJ/FindingJPlayer.h"
+#include "../../SkyDome/SkyDome.h"
 
 
 Stage1Factory::Stage1Factory()
@@ -23,6 +24,8 @@ std::vector<std::unique_ptr<ActorBase>> Stage1Factory::CreateActors(void)
 
 	actors.push_back(
 		std::make_unique<FindingJPlayer>());
+	actors.push_back(
+		std::make_unique<SkyDome>());
 
 	for (int h = 0; h < H; h++)
 	{

@@ -8,6 +8,7 @@
 #include "../../../../../Utility/AsoUtility.h"
 
 #include "../../../../Common/AnimationController.h"
+#include "../../../../../Manager/Resource/ResourceManager.h"
 
 UnicyclePlayer::UnicyclePlayer(void)
 {
@@ -19,8 +20,8 @@ UnicyclePlayer::~UnicyclePlayer(void)
 
 void UnicyclePlayer::SubLoad(void)
 {
-	trans_.modelId = MV1LoadModel("Data/Unicycle/Player/RedcycleOnly.mv1");
-	riderTrans_.modelId = MV1LoadModel("Data/Unicycle/Player/Redcycler.mv1");
+	trans_.modelId = ResourceManager::GetInstance().LoadModelDuplicate(SRC::UNICYCLE);
+	riderTrans_.modelId = ResourceManager::GetInstance().LoadModelDuplicate(SRC::UNICYCLER);
 }
 
 void UnicyclePlayer::SubInit(void)
@@ -30,9 +31,9 @@ void UnicyclePlayer::SubInit(void)
 	rigidBody_.SetBodyType(RigidBody::BodyType::DYNAMIC);
 	rigidBody_.SetUseGravity(true);
 	rigidBody_.SetMass(1000);
-	rigidBody_.SetMoveSpeed(1.0f);
-	trans_.pos = VGet(50.0f, 5.0f, 0.0f);
-	float scale = 0.5f;
+	rigidBody_.SetMoveSpeed(0.6f);
+	trans_.pos = VGet(10.0f, 5.0f, 0.0f);
+	float scale = 0.3f;
 	trans_.scl = VGet(scale, scale, scale);
 	trans_.quaRotLocal = Quaternion::Euler(VGet(0.0f, AsoUtility::Deg2RadD(180.0f), 0.0f));
 
@@ -93,7 +94,7 @@ void UnicyclePlayer::InitCollider(void)
 	info.shape_ = ColliderShape::CAPSULE;
 	info.layer_ = ColliderLayer::ACTOR;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE });
-	float radius = 8.0f;
+	float radius = 5.0f;
 	VECTOR localPosTop = VGet(0.0f, 10.0f, 0.0f);
 	VECTOR localPosDown = VGet(0.0f, 5.0f, 0.0f);
 	std::unique_ptr<ColliderCapsule>collider =

@@ -64,10 +64,21 @@ void FindingJ::SubUpdate(void)
 			runner.Appear();
 		}
 	}
+	
 }
 void FindingJ::SubDraw(void)
 {
 	/*DrawFormatString(0, 140, 0xffffff, "time:%2f", time);*/
+
+	//ÉJÉÅÉâç¿ïW
+	//DrawFormatString(0,0,0xffffff,"Camera Position: %f, %f, %f",
+	//	SceneManager::GetInstance().GetCamera().GetPos().x,
+	//	SceneManager::GetInstance().GetCamera().GetPos().y,
+	//	SceneManager::GetInstance().GetCamera().GetPos().z);
+	//DrawFormatString(0, 20, 0xffffff, "Camera Angles: %f, %f, %f",
+	//	SceneManager::GetInstance().GetCamera().GetAngles().x,
+	//	SceneManager::GetInstance().GetCamera().GetAngles().y,
+	//	SceneManager::GetInstance().GetCamera().GetAngles().z);
 }
 void FindingJ::SubRelease(void)
 {
@@ -154,6 +165,7 @@ void FindingJ::SetEventCallBack(void)
 			{
 				auto& runner = dynamic_cast<FindingJRunner&>(*actor);
 				runner.StopInvisible();
+				OffUpdate();
 			}
 		}
 	);

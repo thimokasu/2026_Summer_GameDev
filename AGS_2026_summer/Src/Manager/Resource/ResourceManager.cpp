@@ -56,14 +56,27 @@ void ResourceManager::Init(void)
 #pragma endregion
 
 
+	//FJ
 	res = new RES(RES_T::MODEL, PATH_MDL + "FindingJ/Stage/Block.mv1");
 	resourcesMap_.emplace(SRC::BLOCK, res);
 	res = new RES(RES_T::MODEL, PATH_MDL + "FindingJ/floor.mv1");
 	resourcesMap_.emplace(SRC::FLOOR, res);
 	res = new RES(RES_T::MODEL, PATH_MDL + "FindingJ/ReactionBlock.mv1");
 	resourcesMap_.emplace(SRC::REACTION_BLOCK, res);
+	res = new RES(RES_T::MODEL, PATH_MDL + "FindingJ/FJStage.mv1");
+	resourcesMap_.emplace(SRC::SKY_DOME, res);
+	res = new RES(RES_T::MODEL, PATH_MDL + "FindingJ/Runner/jaz.mv1");
+	resourcesMap_.emplace(SRC::RUNNER, res);
+	res = new RES(RES_T::MODEL, PATH_MDL + "FindingJ/Player/FJplayer.mv1");
+	resourcesMap_.emplace(SRC::FJ_PLAYER, res);
 
-
+	//Unicycle
+	res = new RES(RES_T::MODEL, PATH_MDL + "Unicycle/Stage/UniStage.mv1");
+	resourcesMap_.emplace(SRC::CLIFF, res);
+	res = new RES(RES_T::MODEL, PATH_MDL + "Unicycle/Player/RedcycleOnly.mv1");
+	resourcesMap_.emplace(SRC::UNICYCLE, res);
+	res = new RES(RES_T::MODEL, PATH_MDL + "Unicycle/Player/Redcycler.mv1");
+	resourcesMap_.emplace(SRC::UNICYCLER, res);
 
 }
 

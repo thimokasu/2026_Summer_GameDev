@@ -116,6 +116,8 @@
     <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticMiniSpiningBar.cpp" />
     <ClCompile Include="Src\Object\Actor\Factory\Athletic\AthleticFactory.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticFall.cpp" />
+    <ClCompile Include="Src\Object\Actor\SkyDome\SkyDome.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\Unicycle\Cliff.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Application.cpp">
@@ -657,5 +659,7 @@
     <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticMiniSpiningBar.h" />
     <ClInclude Include="Src\Object\Actor\Factory\Athletic\AthleticFactory.h" />
     <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticFall.h" />
+    <ClInclude Include="Src\Object\Actor\SkyDome\SkyDome.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\Unicycle\Cliff.h" />
   </ItemGroup>
 </Project>

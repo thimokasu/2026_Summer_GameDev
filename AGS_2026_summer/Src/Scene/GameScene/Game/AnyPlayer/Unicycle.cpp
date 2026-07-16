@@ -95,6 +95,11 @@ void Unicycle::SetEventCallBack(void)
 		{
 			OffUpdate();
 			ImageUI_->SetActive(true);
+			VECTOR pos = SceneManager::GetInstance().GetCamera().GetPos();
+			//ŒÅ’èƒJƒƒ‰‚ÉØ‚è‘Ö‚¦
+			SceneManager::GetInstance().GetCamera().ChangeMode(Camera::MODE::FREE);
+			SceneManager::GetInstance().GetCamera().SetCameraAngles(VGet(0.73f, 0.0f, 0.0f));
+			SceneManager::GetInstance().GetCamera().SetCameraPos(VGet(pos.x, pos.y, pos.z));
 		}
 	);
 }

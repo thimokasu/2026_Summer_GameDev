@@ -5,6 +5,9 @@
 #include"../../../Collider/ColliderBase.h"
 #include"../../../Collider/ColliderCapsule.h"
 #include"../../../Manager/ActorManager.h"
+#include "../../../../../Manager/Resource/ResourceManager.h"
+#include "../../../../../Utility/AsoUtility.h"
+#include "../../../../Common/AnimationController.h"
 
 FindingJRunner::FindingJRunner(ActorManager& actMana)
 	:
@@ -22,6 +25,8 @@ FindingJRunner::~FindingJRunner(void)
 
 void FindingJRunner::SubLoad(void)
 {
+	trans_.modelId = ResourceManager::GetInstance().LoadModelDuplicate(SRC::RUNNER);
+
 }
 
 void FindingJRunner::SubInit(void)
@@ -30,7 +35,15 @@ void FindingJRunner::SubInit(void)
 	rigidBody_.SetUseGravity(true);
 	rigidBody_.SetMass(100);
 	rigidBody_.SetMoveSpeed(0.4f);
-	trans_.pos = VGet(180.0f, 40.0f, 180.0f);
+	trans_.pos = VGet(180.0f, 15.0f, 180.0f);
+	float scale = 0.5f;
+	trans_.scl = VGet(scale, scale, scale);
+	trans_.quaRotLocal = Quaternion::Euler(VGet(0.0f, AsoUtility::Deg2RadD(0.0f), 0.0f));
+	trans_.Update();
+	//アニメーションの登録
+	animationController_ = std::make_unique<AnimationController>(trans_.modelId);
+	animationController_->Add(0, 60.0f, "Data/Model/FindingJ/Runner/JazIdle.mv1");
+	animationController_->Play(0);
 	isDraw_ = true; 
 	visibleTimer_ = 0.5;
 }
@@ -58,12 +71,12 @@ void FindingJRunner::SubUpdate(void)
 	{
 		isDraw_ = false;
 	}
-	
+	animationController_->Update();
 }
 
 void FindingJRunner::SubDraw(void)
 {
-	//DrawSphere3D(targetPos_, 5.0f, 16, GetColor(255, 0, 0), GetColor(255, 0, 0), true);
+	DrawSphere3D(targetPos_, 5.0f, 16, GetColor(255, 0, 0), GetColor(255, 0, 0), true);
 }
 
 void FindingJRunner::SubRelease(void)
@@ -78,7 +91,7 @@ void FindingJRunner::InitCollider(void)
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE });
 	float radius = 10.0f;
 	VECTOR localPosTop = VGet(0.0f, 10.0f, 0.0f);
-	VECTOR localPosDown = VGet(0.0f, -10.0f, 0.0f);
+	VECTOR localPosDown = VGet(0.0f, 5.0f, 0.0f);
 	std::unique_ptr<ColliderCapsule>collider =
 		std::make_unique<ColliderCapsule>(info, radius, localPosTop, localPosDown, *this);
 	ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));

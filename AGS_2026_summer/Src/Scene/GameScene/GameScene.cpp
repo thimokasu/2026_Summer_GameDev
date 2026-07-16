@@ -40,8 +40,8 @@ void GameScene::SubLoad(void)
 	actorMng_ = std::make_unique<ActorManager>();
 	colMng_ = std::make_unique<CollisionManager>();
 	CreateMiniGame(gameInfo_.game_);
-	actorMng_->Load(gameInfo_);
 	miniGame_->Load(gameInfo_);
+	actorMng_->Load(gameInfo_);
 }
 
 void GameScene::SubInit(void)

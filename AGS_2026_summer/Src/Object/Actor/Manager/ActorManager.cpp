@@ -250,6 +250,9 @@ void ActorManager::OneToFourPlayerGameFactory(GameInfo info)
 		default:
 			break;
 		}
+	case GAME_KIND::UNICYCLE:
+		actorFactory_ = std::make_unique<UnicycleFactory>();
+		break;
 	default:
 		break;
 	}

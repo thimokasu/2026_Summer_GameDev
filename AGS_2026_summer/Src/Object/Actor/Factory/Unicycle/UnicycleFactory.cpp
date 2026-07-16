@@ -9,6 +9,7 @@
 #include "../../Stage/FindingJ/Block.h"
 #include"../../Charactor/OnePlay/Test/TestPlayer.h"
 #include "../../Charactor/OnePlay/Unicycle/UnicyclePlayer.h"
+#include "../../Stage/Unicycle/Cliff.h"
 
 
 
@@ -30,7 +31,7 @@ std::vector<std::unique_ptr<ActorBase>> UnicycleFactory::CreateActors(void)
             if (Stage1::stage[d][w] == StageLayout::Block)
             {
                 actors.push_back(
-                    std::make_unique<Block>(
+                    std::make_unique<Cliff>(
                         VGet(w * TileSize, 0.0f, d * TileSize)));
                 actors.back()->GetRigidBody().SetBodyType(RigidBody::BodyType::STATIC);
                // actors.back()->SetEntityKind(EntityKind::STAGE);

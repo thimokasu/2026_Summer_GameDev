@@ -13,6 +13,7 @@ enum class EntityKind
 	BLOCK,
 	REACTION_BLOCK,
 	FINDINGJ_CPU,
+	SKY_DOME,
 
 	//FeedJ
 	STATION,
@@ -26,5 +27,8 @@ enum class EntityKind
 	ATHLETIC_CLOUD,
 	ATHLETIC_GOAL,
 	ATHLETIC_FALL,
+
+	//Unicycle
+	CLIFF,
 
 };
