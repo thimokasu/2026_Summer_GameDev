@@ -55,6 +55,9 @@ public:
 	void SetDebugColor(int color) { colliderInfo_.debugColor_ = color; }
 
 	void SetActive(bool flag) { colliderInfo_.isActive_ = flag; }
+	void SetEntityKind(EntityKind kind) {
+		colliderInfo_.entityKind_ = kind;
+	}
 protected:
 #pragma region 関数
 	virtual void DrawDebug(int color) {};//デバッグ描画

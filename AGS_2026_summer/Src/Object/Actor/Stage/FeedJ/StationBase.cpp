@@ -42,6 +42,7 @@ void StationBase::InitCollider(void)
 	info.shape_ = ColliderShape::BOX;
 	info.layer_ = ColliderLayer::STATION;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE,Layer::FOOD,Layer::CONTAINER });
+	info.entityKind_ = EntityKind::STATION;
 	VECTOR fSize=VGet(10,10,10);
 	std::unique_ptr<ColliderBox>collider=
 		std::make_unique<ColliderBox>(info, fSize, *this);

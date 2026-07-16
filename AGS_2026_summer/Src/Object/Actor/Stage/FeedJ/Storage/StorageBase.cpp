@@ -1,11 +1,15 @@
 #include "StorageBase.h"
-
+#include"../../../Collider/ColliderBase.h"
 void StorageBase::SubLoad(void)
 {
 }
 
 void StorageBase::SubInit(void)
 {
+	for (auto& [s, c] : ownColliders_)
+	{
+		c->SetEntityKind(EntityKind::STORAGE);
+	}
 }
 
 std::unique_ptr<FoodBase>StorageBase::CreateFood(void)
