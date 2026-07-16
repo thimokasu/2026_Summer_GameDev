@@ -6,12 +6,14 @@ enum class StageLayout
 {
     None = 0,
     Block,
+    Floor, 
     ReactionBlock,
 };
 
 constexpr StageLayout b = StageLayout::Block;
 constexpr StageLayout n = StageLayout::None;
 constexpr StageLayout r = StageLayout::ReactionBlock;
+constexpr StageLayout f = StageLayout::Floor;
 
 constexpr int TileSize = 20;
 constexpr int W = 19;
@@ -24,17 +26,17 @@ namespace Stage1
     constexpr std::array<std::array<std::array<StageLayout, W>, D>, H> stage = { {
         { // ===== çÇÇ≥ 0 =====
             {
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-                {b,b,b,b,r,b,b,b,r,b,r,b,b,b,r,b,b,b,b,},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-                {b,b,b,r,b,b,b,b,r,b,r,b,b,b,b,r,b,b,b,},
-                {b,r,b,b,b,r,b,r,b,b,b,r,b,r,b,b,b,r,b,},
-                {b,b,b,b,r,b,b,b,b,r,b,b,b,b,b,b,b,b,b,},
-                {b,r,b,b,b,r,b,r,b,b,b,r,b,r,b,b,b,r,b,},
-                {b,b,b,r,b,b,b,b,r,b,r,b,b,b,b,r,b,b,b,},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-                {b,b,b,b,r,b,b,b,r,b,r,b,b,b,r,b,b,b,b,},
-                {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,}
+                {f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,},
+                {f,f,f,f,r,f,f,f,r,f,r,f,f,f,r,f,f,f,f,},
+                {f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,},
+                {f,f,f,r,f,f,f,f,r,f,r,f,f,f,f,r,f,f,f,},
+                {f,r,f,f,f,r,f,r,f,f,f,r,f,r,f,f,f,r,f,},
+                {f,f,f,f,r,f,f,f,f,r,f,f,f,f,f,f,f,f,f,},
+                {f,r,f,f,f,r,f,r,f,f,f,r,f,r,f,f,f,r,f,},
+                {f,f,f,r,f,f,f,f,r,f,r,f,f,f,f,r,f,f,f,},
+                {f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,},
+                {f,f,f,f,r,f,f,f,r,f,r,f,f,f,r,f,f,f,f,},
+                {f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,}
             }
         },
         { // ===== çÇÇ≥ 1 =====
@@ -98,17 +100,17 @@ namespace Stage3
     constexpr std::array<std::array<std::array<StageLayout, W>, D>, H> stage = { {
        { // ===== çÇÇ≥ 0 =====
     {
-       {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-        {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-        {b,b,b,b,b,r,b,b,r,b,r,b,b,r,b,b,b,b,b,},
-        {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-        {b,b,r,b,b,b,b,r,b,b,b,r,b,b,b,b,r,b,b,},
-        {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-        {b,b,r,b,b,b,b,r,b,b,b,r,b,b,b,b,r,b,b,},
-        {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-        {b,b,b,b,b,r,b,b,r,b,r,b,b,r,b,b,b,b,b,},
-        {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,},
-        {b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,}
+        {f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,},
+        {f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,},
+        {f,f,f,f,f,r,f,f,r,f,r,f,f,r,f,f,f,f,f,},
+        {f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,},
+        {f,f,r,f,f,f,f,r,f,f,f,r,f,f,f,f,r,f,f,},
+        {f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,},
+        {f,f,r,f,f,f,f,r,f,f,f,r,f,f,f,f,r,f,f,},
+        {f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,},
+        {f,f,f,f,f,r,f,f,r,f,r,f,f,r,f,f,f,f,f,},
+        {f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,},
+        {f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,}
     }
 },
 { // ===== çÇÇ≥ 1 =====

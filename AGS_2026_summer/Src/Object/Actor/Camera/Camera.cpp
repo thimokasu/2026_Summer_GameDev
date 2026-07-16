@@ -42,6 +42,15 @@ void Camera::SubInit(void)
 void Camera::SubUpdate(void)
 {
 	//Collision();
+
+		// Yé≤
+	rotY_ = Quaternion::AngleAxis(angles_.y, AsoUtility::AXIS_Y);
+
+	// Yé≤ + Xé≤
+	trans_.quaRot = rotY_.Mult(Quaternion::AngleAxis(angles_.x, AsoUtility::AXIS_X));
+
+	// íçéãì_çXêV
+	targetPos_ = VAdd(trans_.pos, trans_.quaRot.PosAxis(FOLLOW_TARGET_LOCAL_POS));
 }
 
 

@@ -29,8 +29,8 @@ void FindingJRunner::SubInit(void)
 	entityKind_ = EntityKind::FINDINGJ_CPU;
 	rigidBody_.SetUseGravity(true);
 	rigidBody_.SetMass(100);
-	rigidBody_.SetMoveSpeed(0.25f);
-	trans_.pos = VGet(180.0f, 40.0f, 100.0f);
+	rigidBody_.SetMoveSpeed(0.4f);
+	trans_.pos = VGet(180.0f, 40.0f, 180.0f);
 	isDraw_ = true; 
 	visibleTimer_ = 0.5;
 }
@@ -63,7 +63,7 @@ void FindingJRunner::SubUpdate(void)
 
 void FindingJRunner::SubDraw(void)
 {
-	DrawSphere3D(targetPos_, 5.0f, 16, GetColor(255, 0, 0), GetColor(255, 0, 0), true);
+	//DrawSphere3D(targetPos_, 5.0f, 16, GetColor(255, 0, 0), GetColor(255, 0, 0), true);
 }
 
 void FindingJRunner::SubRelease(void)

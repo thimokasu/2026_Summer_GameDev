@@ -1,5 +1,7 @@
 #include "FindingJ.h"
 
+#include "../../../../Application.h"
+
 #include"../../../../Manager/Game/SceneManager.h"
 
 #include"../../../../Object/Actor/Manager/ActorManager.h"
@@ -10,8 +12,12 @@
 #include"../../../../Object/Actor/Charactor/FindingJ/FindingJCPU/FindingJChaser.h"
 #include"../../../../Object/Actor/Charactor/FindingJ/FindingJPlayer.h"
 
-#include"../../../../Object/UI/Common/GameMessageUI.h"
-#include"../../../../Object/UI/Common/Timer.h"
+#include "../../../../Object/Actor/Stage/FindingJ/ReactionBlock.h"
+
+#include "../../../../Object/UI/FindingJ/GameMessageUI.h"
+#include "../../../../Object/UI/FindingJ/Timer.h"
+
+
 
 FindingJ::FindingJ(ActorManager* actMng, CollisionManager* colMng)
 	:GameBase(actMng,colMng)
@@ -61,7 +67,7 @@ void FindingJ::SubUpdate(void)
 }
 void FindingJ::SubDraw(void)
 {
-	DrawFormatString(0, 140, 0xffffff, "time:%2f", time);
+	/*DrawFormatString(0, 140, 0xffffff, "time:%2f", time);*/
 }
 void FindingJ::SubRelease(void)
 {
@@ -79,21 +85,22 @@ void FindingJ::SetContactEventCallback(void)
 	//イベントのコールバック関数の設定
 	EventManager::GetInstance().SetContactEventCallback(GameEventType::REACTION_BLOCK, [this](const ContactRule& rule)
 		{
+			//CPUがReactionBlockを踏んだら光らせる
 			auto entityKindA = rule.contactEvent_.entityA.entityKind_;
 			auto entityKindB = rule.contactEvent_.entityB.entityKind_;
-			if (entityKindA == EntityKind::FINDINGJ_CPU)
+			if (entityKindA == EntityKind::REACTION_BLOCK && entityKindB == EntityKind::FINDINGJ_CPU)
 			{
 				auto idA = rule.contactEvent_.entityA.entityID_;
 				auto actor = actorMng_->FindActorByID(idA);
-				auto& findingJCPU = dynamic_cast<FindingJRunner&>(*actor);
-				findingJCPU.Appear();
+				auto& findingJCPU = dynamic_cast<ReactionBlock&>(*actor);
+				findingJCPU.StepOn();
 			}
-			else if (entityKindB == EntityKind::FINDINGJ_CPU)
+			else if (entityKindB == EntityKind::REACTION_BLOCK && entityKindA == EntityKind::FINDINGJ_CPU)
 			{
 				auto idB = rule.contactEvent_.entityB.entityID_;
 				auto actor = actorMng_->FindActorByID(idB);
-				auto& findingJCPU = dynamic_cast<FindingJRunner&>(*actor);
-				findingJCPU.Appear();
+				auto& findingJCPU = dynamic_cast<ReactionBlock&>(*actor);
+				findingJCPU.StepOn();
 			}
 		}
 	);
@@ -154,14 +161,15 @@ void FindingJ::SetEventCallBack(void)
 
 void FindingJ::LoadUI(void)
 {
-	msgUI_ = std::make_shared<GameMessageUI>(Vector2F(400.0f, 200.0f), Vector2F(400.0f, 100.0f));
+	msgUI_ = std::make_shared<GameMessageUI>(Vector2F(Application::SCREEN_SIZE_X / 2
+		, Application::SCREEN_SIZE_Y / 2), Vector2F(400.0f, 100.0f));
 	msgUI_->Load();
 	msgUI_->Init();
 
 	UIManager::GetInstance().AddRootUI(msgUI_);
 
 	// 同様に timerUI もメンバ変数に代入
-	timerUI_ = std::make_shared<Timer>(Vector2F(50.0f, 50.0f), Vector2F(200.0f, 50.0f));
+	timerUI_ = std::make_shared<Timer>(Vector2F(Application::SCREEN_SIZE_X, 10.0f));
 	timerUI_->Load();
 	timerUI_->Init();
 
@@ -185,8 +193,7 @@ void FindingJ::InitUI(void)
 //	}
 //);
 
-	timerUI_ = UIManager::GetInstance().GetUI<Timer>(UINAME::TIMER);
-	timerUI_->SetTime(60);
+	
 
 	timerUI_->SetTimeUpCallBack([this]()
 		{

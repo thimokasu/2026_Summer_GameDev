@@ -25,8 +25,8 @@ void FindingJPlayer::SubInit(void)
 	rigidBody_.SetBodyType(RigidBody::BodyType::DYNAMIC);
 	rigidBody_.SetUseGravity(true);
 	rigidBody_.SetMass(1000);
-	rigidBody_.SetMoveSpeed(1.5f);
-	trans_.pos = VGet(0.0f, 40.0f, 0.0f);
+	rigidBody_.SetMoveSpeed(1.8f);
+	trans_.pos = VGet(180.0f, 30.0f, 20.0f);
 }
 
 void FindingJPlayer::SubUpdate(void)
@@ -36,6 +36,7 @@ void FindingJPlayer::SubUpdate(void)
 
 void FindingJPlayer::SubDraw(void)
 {
+	//DrawFormatString(0.0f, 80.0f, 0xffffff, "%f,%f,%f", trans_.pos.x, trans_.pos.y, trans_.pos.z);
 }
 
 void FindingJPlayer::SubRelease(void)

@@ -4,9 +4,9 @@
 #include"../../../Manager/Game/SceneManager.h"
 #include"../../../Manager/Game/SE.h"
 
-Timer::Timer(Vector2F pos, Vector2F size)
-	:UIBase(pos, size)
-    , time_(30.0f)
+Timer::Timer(Vector2F pos)
+	:UIBase(pos)
+    , time_(20.0f)
     , bgHandle_(-1)
     , iconHandle_(-1)
     , clockHandle_(-1)
@@ -55,12 +55,15 @@ void Timer::SubUpdate()
 
 void Timer::SubDraw()
 {
+
+   
+
     // UIBaseÇ©ÇÁâÊñ è„ÇÃê‚ëŒç¿ïWÇéÊìæÅI
-    Vector2F absPos = GetAbsolutePos();
+    Vector2F absPos(GetAbsolutePos().x - WIDTH, GetAbsolutePos().y);
     unsigned int white = GetColor(255, 255, 255);
 
     // äÓñ{ÇÃägëÂó¶
-    scale_ = 0.15f;
+    scale_ = 0.2f;
 
     if (time_ <= 6.0f && time_ > 0.0f)
     {
@@ -70,7 +73,7 @@ void Timer::SubDraw()
         if (fract > 0.7f)
         {
             float wave = std::sin((fract - 0.7f) / 0.3f * DX_PI_F);
-            scale_ = 0.15f + wave * 0.03f;
+            scale_ = 0.2f + wave * 0.03f;
             SE::GetInstance().Play(SOUND_TYPE::ALERT, false);
         }
     }
@@ -85,23 +88,23 @@ void Timer::SubDraw()
 
     // âèéÊÇËîwåiÇÃï`âÊ
     SetDrawBright(bgColor_.x, bgColor_.y, bgColor_.z);
-    DrawRotaGraph(absPos.x + size_.x / 2.5f, absPos.y + size_.y / 1.8f, scale_, 0.0, bgHandle_, TRUE);
+    DrawRotaGraph(absPos.x + WIDTH / WIDTH_MAG, absPos.y + HIGHT / HIGHT_MAG, scale_, 0.0, bgHandle_, TRUE);
     SetDrawBright(255, 255, 255);
 
     // îíÇ¢îwåiÇÃï`âÊ
     SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
-    DrawRotaGraph(absPos.x + size_.x / 2.5f, absPos.y + size_.y / 1.8f, scale_, 0.0, iconHandle_, TRUE);
+    DrawRotaGraph(absPos.x + WIDTH / WIDTH_MAG, absPos.y + HIGHT / HIGHT_MAG, scale_, 0.0, iconHandle_, TRUE);
     SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
     // éûåvÉAÉCÉRÉìÇÃï`âÊ
-    DrawRotaGraph(absPos.x + 10.0f, absPos.y + size_.y / 1.8f, scale_ - 0.09f, 0.0, clockHandle_, TRUE);
+    DrawRotaGraph(absPos.x - WIDTH / WIDTH_MAG, absPos.y + HIGHT / HIGHT_MAG, scale_ - 0.09f, 0.0, clockHandle_, TRUE);
 
     // ï∂éöóÒÇÃê∂ê¨Ç∆ï`âÊ
     char timeString[32];
     sprintf_s(timeString, "%d", static_cast<int>(time_));
 
-    int textX = absPos.x + 110;
-    int textY = absPos.y + 10;
+    int textX = absPos.x + WIDTH / WIDTH_MAG;
+    int textY = absPos.y + 20;
     double textScale = static_cast<double>(scale_ * 6.6f);
     unsigned int fontColor = time_ <= 6.0f ? GetColor(220, 0, 0) : GetColor(0, 0, 0);
 

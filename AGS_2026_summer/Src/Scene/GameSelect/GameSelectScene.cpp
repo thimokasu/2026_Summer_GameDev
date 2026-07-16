@@ -87,6 +87,7 @@ void GameSelectScene::InitGameGroups(void)
 	onePlayerGames_ = { GAME_KIND::UNICYCLE};
 	twoPlayerGames_ = {GAME_KIND::MARBLE_RACE};
 	oneVsThreeGames_ = {GAME_KIND::SPIKE_DROP};
+	onePlayerGames_ = { GAME_KIND::UNICYCLE, GAME_KIND::FINDINGJ };
 	twoVsTwoGames_ = {};
 	fourPlayerGames_ = {  GAME_KIND::FINDINGJ ,GAME_KIND::ATHLETIC};
 	oneToFourPlayGames_ = {GAME_KIND::FEEDJ};

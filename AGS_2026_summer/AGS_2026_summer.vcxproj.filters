@@ -121,6 +121,7 @@
     <ClCompile Include="Src\Object\Actor\Item\MarbleRace\SmallMarble.cpp" />
     <ClCompile Include="Src\Object\Actor\Item\MarbleRace\NormalMarble.cpp" />
     <ClCompile Include="Src\Object\Actor\Item\MarbleRace\BigMarble.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\FindingJ\Floor.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticMoveFloor.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticMiniCloud.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticMiniSpinBox.cpp" />
@@ -676,6 +677,7 @@
     <ClInclude Include="Src\Object\Actor\Item\MarbleRace\SmallMarble.h" />
     <ClInclude Include="Src\Object\Actor\Item\MarbleRace\NormalMarble.h" />
     <ClInclude Include="Src\Object\Actor\Item\MarbleRace\BigMarble.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\FindingJ\Floor.h" />
     <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticStageLayout.h" />
     <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticHeaders.h" />
     <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticStageKind.h" />

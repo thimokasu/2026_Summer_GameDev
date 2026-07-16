@@ -157,6 +157,7 @@
     <ClCompile Include="Src\Object\Actor\Stage\SpikeDrop\SpikeDropStage.cpp" />
     <ClCompile Include="Src\Object\Actor\Factory\SpikeDrop\SpikeDropFactory.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\SpikeDropPlayer.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\FindingJ\Floor.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticFall.cpp" />
     <ClCompile Include="Src\Object\Actor\Factory\Athletic\AthleticFactory.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\Athletic\AthleticMiniCloud.cpp" />
@@ -289,6 +290,8 @@
     <ClInclude Include="Src\Object\Actor\Stage\SpikeDrop\SpikeDropStage.h" />
     <ClInclude Include="Src\Object\Actor\Factory\SpikeDrop\SpikeDropFactory.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\SpikeDropPlayer.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\FindingJ\Floor.h" />
+
     <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticFall.h" />
     <ClInclude Include="Src\Object\Actor\Factory\Athletic\AthleticFactory.h" />
     <ClInclude Include="Src\Object\Actor\Stage\Athletic\AthleticMiniCloud.h" />
