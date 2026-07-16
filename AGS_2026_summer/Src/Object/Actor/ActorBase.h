@@ -71,6 +71,7 @@ protected:
 	std::unique_ptr<AnimationController> animationController_;
 	//トランスフォーム
 	Transform trans_;
+	Transform Swordtrans_;
 	//リジッドボディ
 	RigidBody rigidBody_;
 	//エンティティID

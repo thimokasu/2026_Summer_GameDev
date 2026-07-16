@@ -5,3 +5,4 @@
 #include"SwordFight_Lose.h"
 #include"SwordFight_Block.h"
 #include"SwordFight_Attack.h"
+#include"SwordFight_BlockIdle.h"

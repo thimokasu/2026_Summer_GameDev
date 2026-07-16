@@ -1,13 +1,26 @@
 #include "SwordFight_Damage.h"
+#include"SwordFIghtStateHeaders.h"
+#include"../../../../../Manager/Generic/KeyManager.h"
+#include"../../CharactorBase.h"
+#include"../../../../Common/AnimationController.h"
+#include"../../../../../Manager/Game/SceneManager.h"
+#include"../../../Camera/Camera.h"
+
 
 void SwordFight_Damage::EnterT(SwordFightPlayer* owner)
 {
 	isLoop_ = true;
 
+	owner->GetAnimController()->Play(SwordFightPlayer::animType::Damage, false);
+
 }
 
 void SwordFight_Damage::HandleInputT(SwordFightPlayer* owner)
 {
+	if (owner->GetAnimController()->IsEnd())
+	{
+		owner->ChangeState<SwordFight_Idle>();
+	}
 }
 
 void SwordFight_Damage::UpdateT(SwordFightPlayer* owner)

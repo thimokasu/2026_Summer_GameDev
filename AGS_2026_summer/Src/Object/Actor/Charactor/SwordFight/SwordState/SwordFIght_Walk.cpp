@@ -24,6 +24,26 @@ void SwordFIght_Walk::HandleInputT(SwordFightPlayer* owner)
 	{
 		owner->ChangeState<SwordFight_Idle>();
 	}
+
+	if (KEY::GetIns().GetInfo(KEY_TYPE::ENTER).down)
+	{
+		owner->ChangeState<SwordFight_Attack>();
+	}
+
+	if (KEY::GetIns().GetInfo(KEY_TYPE::TAB).down)
+	{
+		owner->ChangeState<SwordFight_BlockIdle>();
+	}
+
+	if (KEY::GetIns().GetInfo(KEY_TYPE::SPACE).down)
+	{
+		owner->ChangeState<SwordFight_Lose>();
+	}
+
+	if (KEY::GetIns().GetInfo(KEY_TYPE::SHIFT).down)
+	{
+		owner->ChangeState<SwordFight_Damage>();
+	}
 }
 
 void SwordFIght_Walk::UpdateT(SwordFightPlayer* owner)

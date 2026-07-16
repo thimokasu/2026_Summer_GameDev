@@ -57,6 +57,7 @@ public:
 		ENTER,
 		SPACE,
 		TAB,
+		SHIFT,
 		J_KEY_ACTION,
 		K_KEY_ACTION,
 		L_KEY_ACTOIN,

@@ -26,6 +26,9 @@ void SwordFightPlayer::SubLoad(void)
 	trans_.modelId = MV1LoadModel("Data/Model/Player/Player Idle.mv1");
 	trans_.modelId = MV1LoadModel("Data/Model/Player/Player_T.mv1");
 	trans_.modelId = MV1LoadModel("Data/Model/Player/Great Sword Walk.mv1");
+	trans_.modelId = MV1LoadModel("Data/Model/Player/Standing Block Idle.mv1");
+	Swordtrans_.modelId = MV1LoadModel("Data/Model/Player/SwordRed.mv1");
+
 }
 
 void SwordFightPlayer::SubInit(void)
@@ -41,7 +44,9 @@ void SwordFightPlayer::SubInit(void)
 	animationController_->Add((int)animType::Walk, 20.0f, path + "Great Sword Walk.mv1");
 	animationController_->Add((int)animType::Attack, 20.0f, path + "Player Attack.mv1");
 	animationController_->Add((int)animType::Damage, 20.0f, path + "DamageReact Large From Left.mv1");
+	animationController_->Add((int)animType::Lose, 20.0f, path + "Lose.mv1");
 	animationController_->Add((int)animType::Block, 20.0f, path + "Block React Large.mv1");
+	animationController_->Add((int)animType::BlockIdle, 20.0f, path + "Standing Block Idle.mv1");
 
 	CharactorBase::SubInit();
 }
@@ -50,12 +55,13 @@ void SwordFightPlayer::SubUpdate(void)
 {
 	CharactorBase::SubUpdate();
 	if (!KEY::GetIns().GetInfo(KEY::KEY_TYPE::J_KEY_ACTION).now)isContactTrigger_ = false;
+
 }
 
 void SwordFightPlayer::SubDraw(void)
 {
 	MV1DrawModel(trans_.modelId);
-
+	MV1DrawModel(Swordtrans_.modelId);
 	DrawFormatString(0, 10, 0xffffff, "State:%s", currentState_->GetName());
 }
 
@@ -94,6 +100,7 @@ void SwordFightPlayer::CreateState(void)
 	AddState(std::make_unique<SwordFight_Lose>());
 	AddState(std::make_unique<SwordFight_Damage>());
 	AddState(std::make_unique<SwordFight_Attack>());
+	AddState(std::make_unique<SwordFight_BlockIdle>());
 }
 
 void SwordFightPlayer::InitRigidBody(void)

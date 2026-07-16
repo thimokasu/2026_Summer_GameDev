@@ -35,15 +35,20 @@ public:
 		Attack,
 		Damage,
 		Block,
+		BlockIdle,
 		Lose,
+		Sword,
 
 		Max,
 	};
 
 
+	VECTOR moveVec_ = { 0.0f,0.0f,0.0f };
+
 
 
 private:
+
 
 	enum class STATE
 	{

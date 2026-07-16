@@ -16,8 +16,6 @@ public:
 
     void InitCollider(void)override;
 
-    bool IsInsideStage(const VECTOR& pos) const;
-
 private:
     VECTOR halfSize_ = { 1000.0f,80.0f,1000.0f };
 };

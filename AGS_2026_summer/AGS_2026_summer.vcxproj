@@ -207,6 +207,13 @@
     <ClCompile Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFight_Damage.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFight_Block.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFight_Lose.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\SwordFight\SwordFightCPU\SwordFightAttackCPU.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\SwordFight\SwordFightCPU\SwordFightWalkCPU.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\SwordFight\SwordFightCPU\SwordFightIdleCPU.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\SwordFight\SwordFightCPU\SwordFightDamageCPU.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\SwordFight\SwordFightCPU\SwordFightBlockCPU.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\SwordFight\SwordFightCPU\SwordFightLoseCPU.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFight_BlockIdle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Object\Actor\Charactor\IState.h" />
@@ -295,6 +302,13 @@
     <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFight_Block.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFight_Lose.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFIghtStateHeaders.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordFightCPU\SwordFightAttackCPU.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordFightCPU\SwordFightWalkCPU.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordFightCPU\SwordFightIdleCPU.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordFightCPU\SwordFightDamageCPU.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordFightCPU\SwordFightBlockCPU.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordFightCPU\SwordFightLoseCPU.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFight_BlockIdle.h" />
     <Structure Include="Src\Manager\Game\SceneManager.h" />
     <ClInclude Include="Src\Manager\Game\SceneManager.h" />
     <ClInclude Include="Src\Application.h" />
