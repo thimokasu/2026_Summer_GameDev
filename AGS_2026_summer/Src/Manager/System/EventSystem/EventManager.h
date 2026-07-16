@@ -23,7 +23,6 @@ public:
 
     void OnBeginContact(Entity a, Entity b, CollisionResult result);
     void OnEndContact(Entity a, Entity b, CollisionResult result);
-    void OnStayContact(Entity a, Entity b, CollisionResult result);
 
     void Update(void);
 

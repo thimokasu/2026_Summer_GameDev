@@ -8,21 +8,12 @@ enum class EntityKind
 	CAMERA,
 	STAGE,
 	PLAYER,
-	PLAYER_TRIGGER,
-
-	//MarbleRace
-	MARBLE,
-	MARBLE_GOAL,
 
 	//FindingJ
 	BLOCK,
 	REACTION_BLOCK,
 	FINDINGJ_CPU,
 	SKY_DOME,
-
-	//SpikeDrop
-	SPIKE,
-	SPIKE_HIT,
 
 	//FeedJ
 	STATION,

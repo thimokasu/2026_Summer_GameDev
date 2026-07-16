@@ -50,13 +50,6 @@ void EventManager::OnEndContact(Entity a, Entity b, CollisionResult result)
     );
 }
 
-void EventManager::OnStayContact(Entity a, Entity b, CollisionResult result)
-{
-    contactRules_.push_back(
-        ContactRule{ ContactEventInfo{ ContactEventInfo::Type::STAY, a, b }, GameEventType::NONE }
-    );
-}
-
 void EventManager::Update(void)
 {
     isUpdate = true; // ループ開始フラグを立てる

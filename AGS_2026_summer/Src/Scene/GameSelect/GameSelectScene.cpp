@@ -75,8 +75,6 @@ void GameSelectScene::LoadImages(void)
 	gameImageHandles_[GAME_KIND::FEEDJ] = ResourceManager::GetInstance().Load(SRC::FEEDJ).handleId_;
 	gameImageHandles_[GAME_KIND::UNICYCLE] = ResourceManager::GetInstance().Load(SRC::UNICYCLE).handleId_;
 	gameImageHandles_[GAME_KIND::ATHLETIC] = ResourceManager::GetInstance().Load(SRC::ATHLETIC).handleId_;
-	gameImageHandles_[GAME_KIND::SPIKE_DROP] = ResourceManager::GetInstance().Load(SRC::SPIKEDROP).handleId_;
-	gameImageHandles_[GAME_KIND::MARBLE_RACE] = ResourceManager::GetInstance().Load(SRC::MARBLE_RACE).handleId_;
 	gameImageHandles_[GAME_KIND::TEST] = LoadGraph("Data/Image/GameselectScene/GameSelect/GameTest.png");
 #pragma endregion
 
@@ -84,10 +82,9 @@ void GameSelectScene::LoadImages(void)
 void GameSelectScene::InitGameGroups(void)
 {
 	// テスト用のダミー割り当て (1人用、2人用にもテストデータを置いて確認できるようにします)
-
-	onePlayerGames_ = {GAME_KIND::FINDINGJ };
-	twoPlayerGames_ = {GAME_KIND::MARBLE_RACE};
-	oneVsThreeGames_ = {GAME_KIND::SPIKE_DROP};
+	onePlayerGames_ = { GAME_KIND::FINDINGJ };
+	twoPlayerGames_ = {};
+	oneVsThreeGames_ = {};
 	twoVsTwoGames_ = {};
 	fourPlayerGames_ = {  GAME_KIND::FINDINGJ ,GAME_KIND::ATHLETIC};
 	oneToFourPlayGames_ = {GAME_KIND::FEEDJ ,GAME_KIND::UNICYCLE, };
@@ -251,6 +248,24 @@ void GameSelectScene::UpdateStageSelect(void)
 	//	}
 	//}
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down)
+
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT_SET).down)
+	{
+		if (gameInfo_.stage_ > STAGE_NUM::STAGE1)
+		{
+			gameInfo_.stage_ = static_cast<STAGE_NUM>(static_cast<int>(gameInfo_.stage_) - 1);
+		}
+	}
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_RIGHT_SET).down)
+	{
+		// STAGE_NUM::MAX の手前（STAGE3）まで進める
+		if (gameInfo_.stage_ < static_cast<STAGE_NUM>(static_cast<int>(STAGE_NUM::MAX) - 1))
+		{
+			gameInfo_.stage_ = static_cast<STAGE_NUM>(static_cast<int>(gameInfo_.stage_) + 1);
+		}
+	}
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::ENTER).down)
+
 	{
 		if (currentGroup_->empty())return;
 		SceneManager::GetInstance().ChangeScene<GameScene>(gameInfo_);

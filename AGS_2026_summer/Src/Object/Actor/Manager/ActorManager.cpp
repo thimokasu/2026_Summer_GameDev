@@ -5,8 +5,11 @@
 #include"../Collider/ColliderBase.h"
 #include"../Factory/Test/TestFactory.h"
 #include"../Factory/FactorysHeadersh.h"
-
-
+#include"../Factory/FindingJ/Stage1Factory.h"
+#include"../Factory/FindingJ/Stage2Factory.h"
+#include"../Factory/FindingJ/Stage3Factory.h"
+#include "../Factory/Unicycle/UnicycleFactory.h"
+#include"../Factory/Athletic/AthleticFactory.h"
 
 #include"../Charactor/FindingJ/FindingJCPU/FindingJRunner.h"
 #include"../../../Manager/Generic/KeyManager.h"
@@ -166,9 +169,7 @@ void ActorManager::SetFactory(GameInfo info)
 	case PLAY_NUM::TWO_PLAYER:
 		TwoPlayerGameFactory(info);
 		break;
-	case PLAY_NUM::ONE_VS_THERR:
-		FourPlayerGameFactory(info);
-		break;
+
 	case PLAY_NUM::FOUR_PLAYER:
 		FourPlayerGameFactory(info);
 		break;
@@ -198,12 +199,6 @@ void ActorManager::OnePlayerGameFactory(GameInfo info)
 
 void ActorManager::TwoPlayerGameFactory(GameInfo info)
 {
-	switch (info.game_)
-	{
-	case GAME_KIND::MARBLE_RACE:
-		actorFactory_ = std::make_unique<MarbleRaceFactory>();
-		break;
-	}
 }
 
 void ActorManager::ThreePlayerGameFactory(GameInfo info)
@@ -232,9 +227,6 @@ void ActorManager::FourPlayerGameFactory(GameInfo info)
 		break;
 	case GAME_KIND::ATHLETIC:
 		actorFactory_ = std::make_unique<AthleticFactory>();
-		break;
-	case GAME_KIND::SPIKE_DROP:
-		actorFactory_ = std::make_unique<SpikeDropFactory>();
 		break;
 	default:
 		break;

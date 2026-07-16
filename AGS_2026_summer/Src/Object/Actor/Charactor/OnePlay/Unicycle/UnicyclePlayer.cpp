@@ -95,8 +95,6 @@ void UnicyclePlayer::InitCollider(void)
 	info.layer_ = ColliderLayer::ACTOR;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE });
 	float radius = 5.0f;
-	info.entityKind_ = EntityKind::PLAYER;
-
 	VECTOR localPosTop = VGet(0.0f, 10.0f, 0.0f);
 	VECTOR localPosDown = VGet(0.0f, 5.0f, 0.0f);
 	std::unique_ptr<ColliderCapsule>collider =

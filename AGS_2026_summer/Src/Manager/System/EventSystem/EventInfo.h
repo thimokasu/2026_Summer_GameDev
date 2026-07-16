@@ -17,7 +17,6 @@ struct ContactEventInfo
 	enum class Type
 	{
 		BEGIN,
-		STAY,
 		END
 	};
 
