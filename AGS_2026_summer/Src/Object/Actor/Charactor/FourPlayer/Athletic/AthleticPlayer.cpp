@@ -26,16 +26,12 @@ void AthleticPlayer::SubLoad(void)
 void AthleticPlayer::SubInit(void)
 {
 	entityKind_ = EntityKind::PLAYER;
-	trans_.pos.y = 100;
 }
 
 void AthleticPlayer::SubUpdate(void)
 {
-	if (canInput_)
-	{
 	MoveInput();
 	JumpInput();
-	}
 }
 
 void AthleticPlayer::SubDraw(void)
