@@ -10,12 +10,14 @@ CollisionManager::~CollisionManager(void)
 {
 }
 
-void CollisionManager::AddCollider(ColliderBase* collider, int entityID)
+
+void CollisionManager::AddCollider(ColliderBase* collider, int entityID, EntityKind entityKind)
 {
 	if (!collider)return;
 	CollisionObject colObj;
 	colObj.collider_ = collider;
 	colObj.entityID_ = entityID;
+	colObj.entityKind_ = entityKind;
 	colliders_.push_back(colObj);
 }
 
@@ -46,7 +48,7 @@ void CollisionManager::DebugDraw(void)
 }
 
 
-void CollisionManager::DiffPairs(CollisionPairs& currentPairs, CollisionPairs& prevPairs, CollisionPairs& beginPairs, CollisionPairs& endPairs)
+void CollisionManager::DiffPairs(CollisionPairs& currentPairs, CollisionPairs& prevPairs, CollisionPairs& beginPairs, CollisionPairs& endPairs, CollisionPairs& stayPairs)
 {
 	//ペアの配列をソート
 	auto norm = [](auto& v)
@@ -79,6 +81,7 @@ void CollisionManager::DiffPairs(CollisionPairs& currentPairs, CollisionPairs& p
 		//継続衝突
 		else
 		{
+			stayPairs.push_back(currentPairs[a]);
 			++a; ++b;
 		}
 	}
@@ -134,8 +137,15 @@ void CollisionManager::Update(void)
 			//当たっているペアを保存
 			auto idA = colliders_[i].entityID_;
 			auto idB = colliders_[j].entityID_;
-			//小さいほうのIDをファーストにしてペアを正規化
-			currentPairs.push_back({ (std::min)(idA, idB), (std::max)(idA, idB) });
+			auto kindA = colliders_[i].entityKind_;
+			auto kindB = colliders_[j].entityKind_;
+			// IDの小さい方をAにする（正規化）
+			if (idA < idB) {
+				currentPairs.push_back({ idA, idB, kindA, kindB });
+			}
+			else {
+				currentPairs.push_back({ idB, idA, kindB, kindA });
+			}
 			//押し戻しや衝突点を保存する
 			if (!isTrigger)
 			{
@@ -144,26 +154,25 @@ void CollisionManager::Update(void)
 		}
 	}
 	//新規衝突ペアと消失ペアを摘出
-	CollisionPairs begins, ends;
-	DiffPairs(currentPairs, prevPairs_, begins, ends);
+	CollisionPairs begins, ends,stay;
+	DiffPairs(currentPairs, prevPairs_, begins, ends,stay);
 
-	//コールバック処理
-	if (onBegin_)
-	{
-		for (auto [idA, idB] : begins)
-		{
-			if (idA == 0&&idB==1)
-			{
-				int a = 0;
-			}
-			onBegin_(idA, idB);
+	// コールバック処理
+	if (onBegin_) {
+		for (const auto& pair : begins) {
+			onBegin_(pair.idA, pair.kindA, pair.idB, pair.kindB);
 		}
 	}
-	if (onEnd_)
+	if (onEnd_) {
+		for (auto& pair : ends) {
+			onEnd_(pair.idA, pair.kindA, pair.idB, pair.kindB);
+		}
+	}
+	if (onStay_)
 	{
-		for (auto [idA, idB] : ends)
+		for (const auto& pair : stay)
 		{
-			onEnd_(idA, idB);
+			onStay_(pair.idA, pair.kindA, pair.idB, pair.kindB);
 		}
 	}
 	//次のフレームのために保持
@@ -185,6 +194,7 @@ void CollisionManager::Resolve(void)
 	}
 	resolve_.clear();
 }
+
 
 // =================================================================
 // 適切なトルクの計算と適用
@@ -302,6 +312,8 @@ void CollisionManager::PositionIntegration(CollisionResolve resolve, float total
 
 	float ratioA = invMassA / totalInvMass;
 	float ratioB = invMassB / totalInvMass;
+	ratioA *= 0.999;
+	ratioB*= 0.999;
 
 	if (invMassA > 0.0f)
 	{
