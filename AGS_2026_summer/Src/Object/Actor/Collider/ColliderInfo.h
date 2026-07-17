@@ -14,6 +14,11 @@ enum class ColliderLayer
 	STATION,
 	CONTAINER,
 
+	//SpikeDrop
+	SPIKE,
+	SCAFFOLD,
+	ROTAINGBODY,
+
 	MAX
 };
 

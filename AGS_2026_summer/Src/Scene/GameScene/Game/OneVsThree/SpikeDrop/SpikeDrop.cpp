@@ -14,6 +14,7 @@ void SpikeDrop::SubLoad(void)
 
 void SpikeDrop::SubInit(void)
 {
+	isUpdate_ = true;
 }
 
 void SpikeDrop::SubUpdate(void)

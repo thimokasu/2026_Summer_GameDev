@@ -39,8 +39,8 @@ void Spike::InitCollider(void)
 	if (i == 0)
 	{
 		info.shape_ = ColliderShape::CAPSULE;
-		info.layer_ = ColliderLayer::STAGE;
-		info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
+		info.layer_ = ColliderLayer::ROTAINGBODY;
+		info.mask_ = ColliderBase::SetMask({ Layer::ROTAINGBODY,Layer::STAGE });
 		info.entityKind_ = EntityKind::SPIKE;
 		float radius = 10;
 		VECTOR localPosTop = VGet(-10, 0, 0);
@@ -51,21 +51,31 @@ void Spike::InitCollider(void)
 		ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider2));
 
 		info.shape_ = ColliderShape::BOX;
-		info.layer_ = ColliderLayer::STAGE;
+		info.layer_ = ColliderLayer::SCAFFOLD;
 		info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
 		info.entityKind_ = EntityKind::SPIKE_HIT;
 		info.localPos_ = VGet(0, 5, 0);
-		info.isTrigger_ = true;
 		VECTOR fSize = VGet(18, 5, 8);
 		std::unique_ptr<ColliderBox>collider =
+			std::make_unique<ColliderBox>(info, fSize, *this);
+		ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
+
+		info.shape_ = ColliderShape::BOX;
+		info.layer_ = ColliderLayer::SPIKE;
+		info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
+		info.entityKind_ = EntityKind::SPIKE_HIT;
+		info.localPos_ = VGet(0, -5, 0);
+		info.isTrigger_ = true;
+		fSize = VGet(18, 5, 8);
+		collider =
 			std::make_unique<ColliderBox>(info, fSize, *this);
 		ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
 	}
 	else if (i == 1)
 	{
 		info.shape_ = ColliderShape::CAPSULE;
-		info.layer_ = ColliderLayer::STAGE;
-		info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
+		info.layer_ = ColliderLayer::ROTAINGBODY;
+		info.mask_ = ColliderBase::SetMask({ Layer::ROTAINGBODY ,Layer::STAGE });
 		info.entityKind_ = EntityKind::SPIKE;
 		float radius = 10;
 		VECTOR localPosTop = VGet(-20, 0, 0);
@@ -76,21 +86,31 @@ void Spike::InitCollider(void)
 		ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider2));
 
 		info.shape_ = ColliderShape::BOX;
-		info.layer_ = ColliderLayer::STAGE;
+		info.layer_ = ColliderLayer::SCAFFOLD;
 		info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
 		info.entityKind_ = EntityKind::SPIKE_HIT;
 		info.localPos_ = VGet(0, 5, 0);
-		info.isTrigger_ = true;
 		VECTOR fSize = VGet(28, 5,8);
 		std::unique_ptr<ColliderBox>collider =
+			std::make_unique<ColliderBox>(info, fSize, *this);
+		ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
+
+		info.shape_ = ColliderShape::BOX;
+		info.layer_ = ColliderLayer::SPIKE;
+		info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
+		info.entityKind_ = EntityKind::SPIKE_HIT;
+		info.localPos_ = VGet(0, -5, 0);
+		info.isTrigger_ = true;
+		fSize = VGet(28, 5, 8);
+		collider =
 			std::make_unique<ColliderBox>(info, fSize, *this);
 		ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
 	}
 	else if (i == 2)
 	{
 		info.shape_ = ColliderShape::CAPSULE;
-		info.layer_ = ColliderLayer::STAGE;
-		info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
+		info.layer_ = ColliderLayer::ROTAINGBODY;
+		info.mask_ = ColliderBase::SetMask({ Layer::ROTAINGBODY ,Layer::STAGE });
 		info.entityKind_ = EntityKind::SPIKE;
 		float radius = 10;
 		VECTOR localPosTop = VGet(-30, 0, 0);
@@ -101,12 +121,22 @@ void Spike::InitCollider(void)
 		ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider2));
 
 		info.shape_ = ColliderShape::BOX;
-		info.layer_ = ColliderLayer::STAGE;
+		info.layer_ = ColliderLayer::SCAFFOLD;
 		info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
 		info.entityKind_ = EntityKind::SPIKE_HIT;
 		info.localPos_ = VGet(0, 5, 0);
 		VECTOR fSize = VGet(38, 5, 8);
 		std::unique_ptr<ColliderBox>collider =
+			std::make_unique<ColliderBox>(info, fSize, *this);
+		ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
+
+		info.shape_ = ColliderShape::BOX;
+		info.layer_ = ColliderLayer::SPIKE;
+		info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
+		info.entityKind_ = EntityKind::SPIKE_HIT;
+		info.localPos_ = VGet(0, -5, 0);
+		fSize = VGet(38, 5, 8);
+		collider =
 			std::make_unique<ColliderBox>(info, fSize, *this);
 		ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
 	}
@@ -117,5 +147,5 @@ void Spike::InitRigidBody(void)
 	rigidBody_.SetUseRotation(true);
 	rigidBody_.SetUseGravity(true);
 	rigidBody_.SetBodyType(RigidBody::BodyType::DYNAMIC);
-	rigidBody_.SetMass(1000);
+	rigidBody_.SetMass(50);
 }

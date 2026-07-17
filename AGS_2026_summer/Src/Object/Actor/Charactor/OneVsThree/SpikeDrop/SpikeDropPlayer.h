@@ -16,7 +16,8 @@ public:
     void InitRigidBody(void)override;
 
 private:
-    void MoveInput(void);
-    void JumpInput(void);
+    void ReturnToIdle(void)override;
+    void CreateState(void)override;
+
 };
 

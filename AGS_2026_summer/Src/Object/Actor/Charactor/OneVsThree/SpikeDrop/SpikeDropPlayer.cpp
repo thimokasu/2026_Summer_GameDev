@@ -11,6 +11,8 @@
 #include"../../../Collider/ColliderCapsule.h"
 #include"../../../Collider/ColliderSphere.h"
 
+#include"State/SpikeDropPlayerHeaders.h"
+
 SpikeDropPlayer::SpikeDropPlayer(void)
 {
 }
@@ -21,17 +23,19 @@ SpikeDropPlayer::~SpikeDropPlayer(void)
 
 void SpikeDropPlayer::SubLoad(void)
 {
+	CharactorBase::SubLoad();
 }
 
 void SpikeDropPlayer::SubInit(void)
 {
+	CharactorBase::SubInit();
 	entityKind_ = EntityKind::PLAYER;
+	ChangeState<SpikeDropPlayerIdle>();
 }
 
 void SpikeDropPlayer::SubUpdate(void)
 {
-	MoveInput();
-	JumpInput();
+	CharactorBase::SubUpdate();
 }
 
 void SpikeDropPlayer::SubDraw(void)
@@ -75,36 +79,19 @@ void SpikeDropPlayer::InitRigidBody(void)
 	rigidBody_.SetBodyType(RigidBody::BodyType::DYNAMIC);
 	rigidBody_.SetMoveSpeed(1);
 	rigidBody_.SetJumpForce(25);
+	rigidBody_.SetMass(1);
 }
 
-void SpikeDropPlayer::MoveInput(void)
+void SpikeDropPlayer::ReturnToIdle(void)
 {
-
-	VECTOR moveVec = { 0.0f,0.0f,0.0f };
-
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_FRONT).now) {
-		moveVec.z += 1.0f;
-	}
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_BACK).now) moveVec.z -= 1.0f;
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_RIGHT).now) moveVec.x += 1.0f;
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT).now) moveVec.x -= 1.0f;
-
-	const VECTOR cameraAngle = SceneManager::GetInstance().GetCamera().GetAngles();
-	MATRIX camYaw = MGetRotY(cameraAngle.y);
-	moveVec = VTransform(moveVec, camYaw);
-
-	if (VSize(moveVec) > 0.0f)
-	{
-		moveVec = VNorm(moveVec);
-	}
-	float yaw = atan2f(moveVec.x, moveVec.z);
-	trans_.pos = VAdd(trans_.pos, VScale(moveVec, rigidBody_.GetMoveSpeed()));
+	ChangeState<SpikeDropPlayerIdle>();
 }
 
-void SpikeDropPlayer::JumpInput(void)
+void SpikeDropPlayer::CreateState(void)
 {
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down)
-	{
-		rigidBody_.AddForce({ 0,rigidBody_.GetJumpForce(),0 });
-	}
+	AddState(std::make_unique<SpikeDropPlayerHit>());
+	AddState(std::make_unique<SpikeDropPlayerIdle>());
+	AddState(std::make_unique<SpikeDropPlayerJump>());
+	AddState(std::make_unique<SpikeDropPlayerMove>());
+	AddState(std::make_unique<SpikeDropPlayerStepedOn>());
 }
