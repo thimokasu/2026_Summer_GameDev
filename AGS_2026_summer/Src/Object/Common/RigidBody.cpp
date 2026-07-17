@@ -114,6 +114,10 @@ void RigidBody::Update(void)
 	{
 		force_.y -= GRAVITY; // d—Í‰Á‘¬“x‚ğ‰Á‚¦‚é
 	}
+	else if (useGravity_&&isGrounded_)
+	{
+		force_.y -= 0.197f;
+	}
 	else
 	{
 		velocity_ = VGet(velocity_.x, 0.0f, velocity_.z);

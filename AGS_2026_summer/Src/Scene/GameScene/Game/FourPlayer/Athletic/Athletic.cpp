@@ -156,7 +156,8 @@ void Athletic::SetContactEventCallback(void)
 			if (entityKindA == EntityKind::PLAYER) { player = dynamic_cast<AthleticPlayer*>(actorA); fall = dynamic_cast<AthleticFall*>(actorB); }
 			if (entityKindB == EntityKind::PLAYER) { player = dynamic_cast<AthleticPlayer*>(actorB); fall = dynamic_cast<AthleticFall*>(actorA); }
 			if (!player || !fall)return;
-			player->SetCanInput(false);
+			if (rule.contactEvent_.type_ == ContactEventInfo::Type::STAY)t++;
+			//player->SetCanInput(false);
 		});
 }
 
