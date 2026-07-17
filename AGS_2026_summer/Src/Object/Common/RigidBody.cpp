@@ -110,7 +110,7 @@ void RigidBody::Update(void)
 	{
 		return; // 静的剛体は更新しない
 	}
-	if (useGravity_)
+	if (useGravity_&&!isGrounded_)
 	{
 		force_.y -= GRAVITY; // 重力加速度を加える
 	}
