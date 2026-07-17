@@ -13,4 +13,5 @@ void StorageCucamber::SubInit(void)
 	}
 	fKind_ = FOOD_KIND::CUCMBER;
 	entityKind_ = EntityKind::STORAGE;
+	StorageBase::SubInit();
 }

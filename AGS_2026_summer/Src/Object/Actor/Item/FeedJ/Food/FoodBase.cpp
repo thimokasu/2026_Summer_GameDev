@@ -54,6 +54,7 @@ void FoodBase::InitCollider(void)
 	info.shape_ = ColliderShape::CAPSULE;
 	info.layer_ = ColliderLayer::FOOD;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE,Layer::STATION,Layer::FOOD,Layer::CONTAINER });
+	info.entityKind_ = EntityKind::FOOD;
 	float radius = 6.0f;
 	VECTOR localPosTop = VGet(0.0f, 2.0f, 0.0f);
 	VECTOR localPosDown = VGet(0.0f, -2.0f, 0.0f);

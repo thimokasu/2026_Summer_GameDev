@@ -59,6 +59,7 @@ void ContainerBase::InitCollider(void)
 	info.shape_ = ColliderShape::SPHERE;
 	info.layer_ = ColliderLayer::CONTAINER;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE,Layer::FOOD,Layer::STATION });
+	info.entityKind_ = EntityKind::CONTAINER;
 	float radius = 10.0f;
 	std::unique_ptr<ColliderSphere>collider =
 		std::make_unique<ColliderSphere>(info, radius, *this);

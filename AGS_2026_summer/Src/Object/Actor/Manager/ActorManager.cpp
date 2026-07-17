@@ -40,6 +40,10 @@ void ActorManager::Init(void)
 {
 	for(auto&actor:actors_)
 	{
+		if (actor->GetEntityKind() == EntityKind::STORAGE)
+		{
+			int a = 0;
+		}
 		actor->Init();
 		actor->SetEntityID(entityID_++);
 	}

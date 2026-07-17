@@ -13,5 +13,6 @@ void StorageTomato::SubInit(void)
 	}
 	fKind_ = FOOD_KIND::TOMATO;
 	entityKind_ = EntityKind::STORAGE;
+	StorageBase::SubInit();
 
 }

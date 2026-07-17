@@ -53,14 +53,14 @@ void FeedJ::SubRelease(void)
 
 void FeedJ::SetContactEventRule(void)
 {
-	EventManager::GetInstance().SetEventRule(EntityKind::PLAYER, EntityKind::FOOD, GameEventType::PLAYER_CONTACT_FOOD);
-	EventManager::GetInstance().SetEventRule(EntityKind::PLAYER, EntityKind::CONTAINER, GameEventType::PLAYER_CONATCT_CONTAINER);
-	EventManager::GetInstance().SetEventRule(EntityKind::PLAYER, EntityKind::STATION, GameEventType::PLAYER_CONTACT_STATION);
+	EventManager::GetInstance().SetEventRule(EntityKind::PLAYER_TRIGGER, EntityKind::FOOD, GameEventType::PLAYER_CONTACT_FOOD);
+	EventManager::GetInstance().SetEventRule(EntityKind::PLAYER_TRIGGER, EntityKind::CONTAINER, GameEventType::PLAYER_CONATCT_CONTAINER);
+	EventManager::GetInstance().SetEventRule(EntityKind::PLAYER_TRIGGER, EntityKind::STATION, GameEventType::PLAYER_CONTACT_STATION);
 	EventManager::GetInstance().SetEventRule(EntityKind::FOOD, EntityKind::STATION, GameEventType::FOOD_STATION);
 	EventManager::GetInstance().SetEventRule(EntityKind::FOOD, EntityKind::CONTAINER, GameEventType::FOOD_CONTAINER);
 	EventManager::GetInstance().SetEventRule(EntityKind::CONTAINER, EntityKind::STATION, GameEventType::CONTAINER_STATION);
-	EventManager::GetInstance().SetEventRule(EntityKind::PLAYER, EntityKind::STORAGE, GameEventType::PLAYER_CONTACT_STORAGE);
-	EventManager::GetInstance().SetEventRule(EntityKind::PLAYER, EntityKind::TRASH, GameEventType::PLAYER_CONTACT_TRASH);
+	EventManager::GetInstance().SetEventRule(EntityKind::PLAYER_TRIGGER, EntityKind::STORAGE, GameEventType::PLAYER_CONTACT_STORAGE);
+	EventManager::GetInstance().SetEventRule(EntityKind::PLAYER_TRIGGER, EntityKind::TRASH, GameEventType::PLAYER_CONTACT_TRASH);
 	
 }
 
@@ -77,8 +77,8 @@ void FeedJ::SetContactEventCallback(void)
 			auto actorB = actorMng_->FindActorByID(idB);
 			FoodBase* food = nullptr;
 			FeedJPlayer* player = nullptr;
-			if (entityKindA == EntityKind::PLAYER) { player = dynamic_cast<FeedJPlayer*>(actorA); food = dynamic_cast<FoodBase*>(actorB); }
-			else if (entityKindB == EntityKind::PLAYER){ player = dynamic_cast<FeedJPlayer*>(actorB); food = dynamic_cast<FoodBase*>(actorA); }
+			if (entityKindA == EntityKind::PLAYER_TRIGGER) { player = dynamic_cast<FeedJPlayer*>(actorA); food = dynamic_cast<FoodBase*>(actorB); }
+			else if (entityKindB == EntityKind::PLAYER_TRIGGER){ player = dynamic_cast<FeedJPlayer*>(actorB); food = dynamic_cast<FoodBase*>(actorA); }
 			if (!player || !food)return;
 			if (rule.contactEvent_.type_ == ContactEventInfo::Type::BEGIN) { player->SetIsContact(true); }
 			if (rule.contactEvent_.type_ == ContactEventInfo::Type::END) { player->SetIsContact(false); }
@@ -102,8 +102,8 @@ void FeedJ::SetContactEventCallback(void)
 			auto actorB = actorMng_->FindActorByID(idB);
 			FeedJPlayer* player = nullptr;
 			ContainerBase* container = nullptr;
-			if (entityKindA == EntityKind::PLAYER) { player = dynamic_cast<FeedJPlayer*>(actorA); container = dynamic_cast<ContainerBase*>(actorB); }
-			if (entityKindB == EntityKind::PLAYER) { player = dynamic_cast<FeedJPlayer*>(actorB); container = dynamic_cast<ContainerBase*>(actorA); }
+			if (entityKindA == EntityKind::PLAYER_TRIGGER) { player = dynamic_cast<FeedJPlayer*>(actorA); container = dynamic_cast<ContainerBase*>(actorB); }
+			if (entityKindB == EntityKind::PLAYER_TRIGGER) { player = dynamic_cast<FeedJPlayer*>(actorB); container = dynamic_cast<ContainerBase*>(actorA); }
 			if (!player || !container)return;
 			if (rule.contactEvent_.type_ == ContactEventInfo::Type::BEGIN) { player->SetIsContact(true); }
 			if (rule.contactEvent_.type_ == ContactEventInfo::Type::END) { player->SetIsContact(false); }
@@ -126,8 +126,8 @@ void FeedJ::SetContactEventCallback(void)
 			auto actorB = actorMng_->FindActorByID(idB);
 			FeedJPlayer* player = nullptr;
 			StationBase* station = nullptr;
-			if (entityKindA == EntityKind::PLAYER){	player = dynamic_cast<FeedJPlayer*>(actorA);station = dynamic_cast<StationBase*>(actorB);}
-			else if (entityKindB == EntityKind::PLAYER)	{player = dynamic_cast<FeedJPlayer*>(actorB);station = dynamic_cast<StationBase*>(actorA);}
+			if (entityKindA == EntityKind::PLAYER_TRIGGER){	player = dynamic_cast<FeedJPlayer*>(actorA);station = dynamic_cast<StationBase*>(actorB);}
+			else if (entityKindB == EntityKind::PLAYER_TRIGGER)	{player = dynamic_cast<FeedJPlayer*>(actorB);station = dynamic_cast<StationBase*>(actorA);}
 			if (!player || !station)return;			//キャスト失敗
 			if (rule.contactEvent_.type_ == ContactEventInfo::Type::BEGIN) {player->SetIsContact(true); }
 			if (rule.contactEvent_.type_ == ContactEventInfo::Type::END) {player->SetIsContact(false); }
@@ -243,8 +243,8 @@ void FeedJ::SetContactEventCallback(void)
 				auto actorB = actorMng_->FindActorByID(idB);
 				FeedJPlayer* player = nullptr;
 				StorageBase* storage = nullptr;
-				if (entityKindA == EntityKind::PLAYER){player = dynamic_cast<FeedJPlayer*>(actorA);	storage = dynamic_cast<StorageBase*>(actorB);}
-				else if (entityKindB == EntityKind::PLAYER){player = dynamic_cast<FeedJPlayer*>(actorB);storage = dynamic_cast<StorageBase*>(actorA);}
+				if (entityKindA == EntityKind::PLAYER_TRIGGER){player = dynamic_cast<FeedJPlayer*>(actorA);	storage = dynamic_cast<StorageBase*>(actorB);}
+				else if (entityKindB == EntityKind::PLAYER_TRIGGER){player = dynamic_cast<FeedJPlayer*>(actorB);storage = dynamic_cast<StorageBase*>(actorA);}
 				if (!player || !storage)return;
 				if (!player->GetContactTrigger())return;
 				if (player->GetHoldItem())return;//アイテムを保持している場合何もしない
