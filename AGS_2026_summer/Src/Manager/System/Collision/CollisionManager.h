@@ -7,33 +7,16 @@
 #include"CollisionResult.h"
 #include"../../../Object/Common/RigidBody.h"
 #include"../../../Object/Common/Transform.h"
-#include"../../../Object/Actor/EntityKind.h"
 
 class ActorBase;
 class ColliderBase;
 
-using ContactCallback = std::function<void(std::uint32_t,EntityKind, std::uint32_t,EntityKind)>;
-	struct CollisionPairInfo
-	{
-		std::uint32_t idA, idB;
-		EntityKind kindA, kindB;
-		// ソート用（idA, idB で比較）
-		bool operator<(const CollisionPairInfo& other) const {
-			if (idA != other.idA) return idA < other.idA;
-			return idB < other.idB;
-		}
-		// 比較用
-		bool operator==(const CollisionPairInfo& other) const {
-			return idA == other.idA && idB == other.idB;
-		}
-	};
-using CollisionPairs = std::vector<CollisionPairInfo>;
+using ContactCallback = std::function<void(std::uint32_t, std::uint32_t)>;
+using CollisionPairs = std::vector<std::pair<std::size_t, std::size_t>>;
 
 class CollisionManager
 {
 public:
-
-
 	struct CollisionResolve
 	{
 		ActorBase* actorA;
@@ -54,7 +37,7 @@ public:
 	/// </summary>
 	/// <param name="collider"></param>
 	/// <param name="entityID"></param>
-	void AddCollider(ColliderBase* collider,int entityID,EntityKind entityKind);
+	void AddCollider(ColliderBase* collider,int entityID);
 	/// <summary>
 	/// 特定のコライダーを削除
 	/// </summary>
@@ -82,11 +65,10 @@ public:
 	/// </summary>
 	/// <param name="onBegin">接触が開始したときに呼び出されるコールバック関数。</param>
 	/// <param name="onEnd">接触が終了したときに呼び出されるコールバック関数。</param>
-	void SetContactCallbacks(ContactCallback onBegin, ContactCallback onEnd,ContactCallback onStay)
+	void SetContactCallbacks(ContactCallback onBegin, ContactCallback onEnd)
 	{
 		onBegin_ = onBegin;
 		onEnd_ = onEnd;
-		onStay_ = onStay;
 	}
 	void DebugDraw(void);
 private:
@@ -95,7 +77,7 @@ private:
 	void DiffPairs
 	(
 		CollisionPairs& currentPairs, CollisionPairs& prevPairs,
-		CollisionPairs& beginPairs, CollisionPairs& endPairs,CollisionPairs&StayPairs
+		CollisionPairs& beginPairs, CollisionPairs& endPairs
 	);
 
 	void ApplyBodyTorque(RigidBody& rb, Transform& trans, const VECTOR& r, const VECTOR& collisionForce, const VECTOR& normal, float sign);
@@ -111,13 +93,11 @@ private:
 
 	ContactCallback onBegin_;
 	ContactCallback onEnd_;
-	ContactCallback onStay_;
 
 	struct CollisionObject
 	{
 		ColliderBase* collider_;
 		std::uint32_t entityID_;
-		EntityKind entityKind_;
 	};
 	std::vector<CollisionObject>colliders_;
 	std::vector<CollisionResolve>resolve_;

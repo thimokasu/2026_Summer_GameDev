@@ -49,7 +49,6 @@ void Block::InitCollider(void)
 	info.shape_ = ColliderShape::BOX;
 	info.layer_ = ColliderLayer::STAGE;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
-	info.entityKind_ = EntityKind::BLOCK;
 	info.localPos_ = { 0.0f,0.0f,0.0f };
 	info.localRot_ = { 0.0f,0.0f,0.0f };
 	info.isTrigger_ = false;
