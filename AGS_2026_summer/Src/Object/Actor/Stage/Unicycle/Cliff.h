@@ -17,6 +17,6 @@ public:
     void InitCollider(void)override;
 
 private:
-    VECTOR halfSize_ = { 5.0f,80.0f,5.0f };
+    VECTOR halfSize_ = { 10.0f,80.0f,10.0f };
 };
 

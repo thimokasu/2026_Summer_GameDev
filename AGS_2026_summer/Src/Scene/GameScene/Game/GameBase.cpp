@@ -2,6 +2,7 @@
 #include"../../../Object/Actor/Manager/ActorManager.h"
 #include"../../../Manager/System/Collision/CollisionManager.h"
 #include"../../../Object/Actor/Collider/ColliderBase.h"
+#include "../../../Object/Actor/Camera/Camera.h"
 
 GameBase::GameBase(ActorManager* actMng, CollisionManager* colMng)
 	:
@@ -9,6 +10,8 @@ GameBase::GameBase(ActorManager* actMng, CollisionManager* colMng)
 	,colMng_(colMng)
 {
 }
+
+
 
 void GameBase::Load(GameInfo info)
 {
