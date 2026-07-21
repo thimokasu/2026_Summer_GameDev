@@ -41,6 +41,16 @@ void SwordFightPlayer::SubInit(void)
 	Swordtrans_.scl.z = 2.5f;
 	Swordtrans_.scl.y = 3.5f;
 
+	Swordtrans_.quaRotLocal =
+		Quaternion::Euler(
+			VGet(
+				0.0f,
+				0.0f,
+				AsoUtility::Deg2RadD(-45.0f)
+			)
+		);
+	Swordtrans_.Update();
+
 	rightHandFrameNo_ =
 		MV1SearchFrame(
 			trans_.modelId,
@@ -98,6 +108,8 @@ void SwordFightPlayer::SubUpdate(void)
 			(rightHandPos.y + leftHandPos.y) * 0.5f-25.0f,
 			(rightHandPos.z + leftHandPos.z) * 0.5f
 		);
+
+		centerPos.x += -15.0f;
 
 		Swordtrans_.pos = centerPos;
 
