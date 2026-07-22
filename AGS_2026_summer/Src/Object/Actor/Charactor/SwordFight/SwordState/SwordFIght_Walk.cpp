@@ -10,6 +10,8 @@ void SwordFIght_Walk::EnterT(SwordFightPlayer* owner)
 	isLoop_ = true;
 
 	owner->GetAnimController()->Play(SwordFightPlayer::animType::Walk);
+
+	printfDx("Walk Enter\n");
 }
 
 void SwordFIght_Walk::HandleInputT(SwordFightPlayer* owner)

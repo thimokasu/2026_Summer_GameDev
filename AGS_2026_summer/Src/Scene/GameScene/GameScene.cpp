@@ -48,7 +48,7 @@ void GameScene::SubInit(void)
 {
 	miniGame_->Init();
 
-
+	
 }
 
 void GameScene::SubUpdate(void)

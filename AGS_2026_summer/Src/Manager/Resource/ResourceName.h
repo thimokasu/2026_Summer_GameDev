@@ -19,7 +19,13 @@ enum class SRC
 	P1_LOSE,
 	P1_BLOCK,
 
-
+	P2,
+	P2_IDLE,
+	P2_ATTACK,
+	P2_WALK,
+	P2_DAMAGE,
+	P2_LOSE,
+	P2_BLOCK,
 
 
 	

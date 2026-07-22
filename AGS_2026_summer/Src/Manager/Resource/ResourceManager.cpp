@@ -68,6 +68,18 @@ void ResourceManager::Init(void)
 	res = new RES(RES_T::MODEL, PATH_MDL + "Player/Walk.mv1");
 	resourcesMap_.emplace(SRC::P1_WALK, res);
 
+	res = new RES(RES_T::MODEL, PATH_MDL + "CPU/Great Sword Idle CPU.mv1");
+	resourcesMap_.emplace(SRC::P2_IDLE, res);
+	res = new RES(RES_T::MODEL, PATH_MDL + "CPU/Block React Large CPU.mv1");
+	resourcesMap_.emplace(SRC::P2_BLOCK, res);
+	res = new RES(RES_T::MODEL, PATH_MDL + "CPU/Standing React Large From Left CPU.mv1");
+	resourcesMap_.emplace(SRC::P2_DAMAGE, res);
+	res = new RES(RES_T::MODEL, PATH_MDL + "CPU/Loss CPU.mv1");
+	resourcesMap_.emplace(SRC::P2_LOSE, res);
+	res = new RES(RES_T::MODEL, PATH_MDL + "CPU/Great Sword SlashCPU.mv1");
+	resourcesMap_.emplace(SRC::P2_ATTACK, res);
+	res = new RES(RES_T::MODEL, PATH_MDL + "CPU/Great Sword Walk CPU.mv1");
+	resourcesMap_.emplace(SRC::P2_WALK, res);
 
 
 

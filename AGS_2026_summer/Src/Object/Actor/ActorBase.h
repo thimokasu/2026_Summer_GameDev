@@ -10,6 +10,7 @@
 
 class AnimationController;
 class ColliderBase;
+class ActorManager;
 
 class ActorBase
 {
@@ -53,6 +54,16 @@ public:
 
 	AnimationController* GetAnimController(void) { return animationController_.get(); }
 
+	void SetActorManager(ActorManager* manager)
+	{
+		actorMng_ = manager;
+	}
+
+	ActorManager* GetActorManager() const
+	{
+		return actorMng_;
+	}
+
 protected:
 #pragma region 関数
 	virtual void SubLoad(void) {};
@@ -85,4 +96,7 @@ protected:
 	//自身のコライダーリスト
 	std::map<int, std::unique_ptr<ColliderBase>> ownColliders_;
 #pragma endregion
+
+	ActorManager* actorMng_ = nullptr;
+
 };

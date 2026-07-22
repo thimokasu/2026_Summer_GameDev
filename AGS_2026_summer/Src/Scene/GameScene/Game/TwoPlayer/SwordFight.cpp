@@ -11,7 +11,7 @@
 
 #include"../../../../Object/UI/FindingJ/Timer.h"
 
-
+#include "../../../../Object/Actor/Charactor/SwordFight/SwordFIghtCPU/SwordFIghtCPU.h"
 
 
 SwordFight::SwordFight(ActorManager* actMng, CollisionManager* colMng)

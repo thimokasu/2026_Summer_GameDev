@@ -214,11 +214,14 @@
     <ClCompile Include="Src\Object\Actor\Charactor\SwordFight\SwordFightCPU\SwordFightBlockCPU.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\SwordFight\SwordFightCPU\SwordFightLoseCPU.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFight_BlockIdle.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\SwordFight\SwordFightCPU\SwordFightBlockIdleCPU.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\SwordFight\SwordFightCPU\SwordFIghtCPU.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Object\Actor\Charactor\IState.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\Player\ButtonMashing\ButtonMashingPlayer.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\StateBehavior.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordFightCPU\SwordFIghtCPUHeaders.h" />
     <ClInclude Include="Src\Object\Actor\Stage\SwordFight\SwordFightStageLayOut.h" />
     <ClInclude Include="Src\Scene\GameScene\Game\FourPlayer\ButtonMashing\ButtonKind.h" />
     <ClInclude Include="Src\Scene\GameScene\Game\FourPlayer\ButtonMashing\ButtonMushing.h" />
@@ -309,6 +312,8 @@
     <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordFightCPU\SwordFightBlockCPU.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordFightCPU\SwordFightLoseCPU.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordState\SwordFight_BlockIdle.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordFightCPU\SwordFightBlockIdleCPU.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\SwordFight\SwordFightCPU\SwordFIghtCPU.h" />
     <Structure Include="Src\Manager\Game\SceneManager.h" />
     <ClInclude Include="Src\Manager\Game\SceneManager.h" />
     <ClInclude Include="Src\Application.h" />

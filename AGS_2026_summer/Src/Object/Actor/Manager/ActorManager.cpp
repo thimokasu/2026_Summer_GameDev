@@ -26,6 +26,8 @@ void ActorManager::Load(GameInfo info)
 	SetFactory(info);
 	for (auto& actor : actorFactory_->CreateActors())
 	{
+		actor->SetActorManager(this);
+
 		actors_.push_back(std::move(actor));
 	}
 	//actors_.push_back(std::make_unique<FindingJRunner>(*this));

@@ -19,14 +19,7 @@ SwordFightPlayer::~SwordFightPlayer(void)
 void SwordFightPlayer::SubLoad(void)
 {
 	CharactorBase::SubLoad();
-	trans_.modelId = MV1LoadModel("Data/Model/Player/Block React Large.mv1");
-	trans_.modelId = MV1LoadModel("Data/Model/Player/DamageReact Large From Left.mv1");
-	trans_.modelId = MV1LoadModel("Data/Model/Player/Lose.mv1");
-	trans_.modelId = MV1LoadModel("Data/Model/Player/Player Attack.mv1");
 	trans_.modelId = MV1LoadModel("Data/Model/Player/Player Idle.mv1");
-	trans_.modelId = MV1LoadModel("Data/Model/Player/Player_T.mv1");
-	trans_.modelId = MV1LoadModel("Data/Model/Player/Great Sword Walk.mv1");
-	trans_.modelId = MV1LoadModel("Data/Model/Player/Standing Block Idle.mv1");
 	Swordtrans_.modelId = MV1LoadModel("Data/Model/Player/SwordRed.mv1");
 
 }
@@ -72,7 +65,7 @@ void SwordFightPlayer::SubInit(void)
 
 	animationController_ = std::make_unique<AnimationController>(trans_.modelId);
 	animationController_->Add((int)animType::Idle, 20.0f,path+"Player Idle.mv1");
-	animationController_->Add((int)animType::Walk, 20.0f, path + "Great Sword Walk.mv1");
+	animationController_->Add((int)animType::Walk, 20.0f, path + "Great Sword Walk2.mv1");
 	animationController_->Add((int)animType::Attack, 20.0f, path + "Player Attack.mv1");
 	animationController_->Add((int)animType::Damage, 20.0f, path + "DamageReact Large From Left.mv1");
 	animationController_->Add((int)animType::Lose, 20.0f, path + "Lose.mv1");
@@ -161,6 +154,11 @@ void SwordFightPlayer::CreateState(void)
 	AddState(std::make_unique<SwordFight_Damage>());
 	AddState(std::make_unique<SwordFight_Attack>());
 	AddState(std::make_unique<SwordFight_BlockIdle>());
+}
+
+bool SwordFightPlayer::IsAttacking() const
+{
+	return dynamic_cast<SwordFight_Attack*>(currentState_) != nullptr;
 }
 
 void SwordFightPlayer::InitRigidBody(void)

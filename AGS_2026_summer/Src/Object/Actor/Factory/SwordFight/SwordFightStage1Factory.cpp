@@ -4,6 +4,7 @@
 #include"../../Stage/SwordFight/SwordFightStageLayOut.h"
 #include"../../../Common/RigidBody.h"
 #include"../../Charactor/SwordFight/SwordFightPlayer.h"
+#include"../../Charactor/SwordFight/SwordFightCPU/SwordFIghtCPU.h"
 
 SwordFightStage1Factory::SwordFightStage1Factory()
 {
@@ -22,6 +23,9 @@ std::vector<std::unique_ptr<ActorBase>> SwordFightStage1Factory::CreateActors(vo
 
 	actors.push_back(
 		std::make_unique<SwordFightPlayer>());
+
+	actors.push_back(
+		std::make_unique<SwordFIghtCPU>());
 
 	for (int h = 0; h < H; h++)
 	{

@@ -27,6 +27,8 @@ public:
 	ItemBase* GetHoldItem(void) { return holdItem_; }
 	void CreateState(void)override;
 
+	bool IsAttacking() const;
+
 	enum  animType
 	{
 		NONE=-1,
