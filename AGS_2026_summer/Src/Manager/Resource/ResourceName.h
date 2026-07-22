@@ -38,6 +38,7 @@ enum class SRC
 	//----------------------------------
 
 	//FindingJ
+	FJ_LOGO,
 	BLOCK,
 	FLOOR,
 	REACTION_BLOCK,

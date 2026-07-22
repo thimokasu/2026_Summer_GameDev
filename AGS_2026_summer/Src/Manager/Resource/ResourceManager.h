@@ -36,6 +36,9 @@ public:
 	// リソースの複製ロード(モデル用)
 	int LoadModelDuplicate(SRC src);
 
+	//画像のロード
+	int GetGraph(SRC src);
+
 private:
 	// リソース管理の対象
 	std::map<SRC, Resource*> resourcesMap_;
@@ -46,5 +49,6 @@ private:
 	Resource dummy_;
 	// 内部ロード
 	Resource& _Load(SRC src);
+	
 };
 
