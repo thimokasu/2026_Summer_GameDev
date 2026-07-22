@@ -14,6 +14,8 @@ public:
     void SubRelease(void) override;
 
 private:
+    void InitCollider(void) override;
+    void InitRigidBody(void)override;
     void ReturnToIdle(void)override;
     void CreateState(void)override;
 
