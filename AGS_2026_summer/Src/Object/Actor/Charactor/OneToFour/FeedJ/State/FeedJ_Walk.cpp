@@ -8,7 +8,7 @@
 void FeedJ_Walk::EnterT(FeedJPlayer* owner)
 {
 	isLoop_ = true;
-
+	owner->SetCanInput(false);
 }
 
 void FeedJ_Walk::HandleInputT(FeedJPlayer* owner)
@@ -54,6 +54,11 @@ void FeedJ_Walk::HandleInputT(FeedJPlayer* owner)
 
 void FeedJ_Walk::UpdateT(FeedJPlayer* owner)
 {
+	if (stateFrame_ > 30)
+	{
+		owner->SetCanInput(true);
+	}
+
 	VECTOR moveVec = { 0.0f,0.0f,0.0f };
 
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_FRONT).now) {

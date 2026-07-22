@@ -12,7 +12,7 @@ class FoodBase;
 class StationBase;
 
 class ContainerBase :
-    public ItemBase,public FeedJ_Cooker
+    public ItemBase
 {
 public:
     struct Slot
@@ -34,12 +34,11 @@ public:
     void AttachToPlayer(FeedJPlayer* player, VECTOR localOffset);
     void AttachToStation(StationBase* statoin, VECTOR localOffset);
     void Detach(void);
-    void Cook(void)override;
 
     void SetSlot(std::vector<FoodBase*>foods);
     void SetSlot(FoodBase* food,int idx);
     FoodBase* GetHoldFood(void) { return foods_[0].food_; }//スロットが一つしかないコンテナ専用
-    void CrearHoldFood(void);
+    void ClearHoldFood(void);
 
     void SetIsAttachStation(bool flag) { isAttachStation_ = flag; }
     bool GetIsAttachStation(void) { return isAttachStation_; }
@@ -47,6 +46,9 @@ public:
     int GetEmptySlotIndex(void);
 
     bool GetCanCook(void) { return canCook_; }
+
+    void SetIsLock(bool flag) { isLock_ = flag; }
+    bool GetIsLock(void) { return isLock_; }
 protected:
 #pragma region 関数
     virtual  void InitCollider(void)override;
@@ -60,7 +62,7 @@ protected:
     FeedJPlayer* player_ = nullptr;
     StationBase* station_ = nullptr;
     std::vector<Slot>foods_;
-    bool isLock = false;        //調理中や皿に乗せた食材は持てない
+    bool isLock_ = false;        //調理中や皿に乗せた食材は持てない
     int maxSlot_ = 1;
     bool isAttachStation_;    //ステーションにアタッチされてるかどうか
     bool canSetSlot_ = true;

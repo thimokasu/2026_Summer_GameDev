@@ -18,7 +18,7 @@ class FoodBase :
     public ItemBase,public FeedJ_ICookable,public FeedJ_IThrowble,public FeedJ_Drop
 {
 public:  
-	static constexpr int COOKING_TIME = 180;
+	static constexpr int COOKING_TIME = 240;
 
     FoodBase(void);
     ~FoodBase(void);

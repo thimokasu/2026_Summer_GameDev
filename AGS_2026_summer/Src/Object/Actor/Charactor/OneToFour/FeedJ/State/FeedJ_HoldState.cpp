@@ -7,6 +7,8 @@
 void FeedJ_HoldState::EnterT(FeedJPlayer* owner)
 {
 	isLoop_ = true;
+	owner->SetCanInput(false);
+	owner->OffContactTrigger();
 }
 
 void FeedJ_HoldState::HandleInputT(FeedJPlayer* owner)
@@ -61,7 +63,11 @@ void FeedJ_HoldState::HandleInputT(FeedJPlayer* owner)
 }
 
 void FeedJ_HoldState::UpdateT(FeedJPlayer* owner)
-{
+{	
+	if (stateFrame_ > 30)
+	{
+		owner->SetCanInput(true);
+	}
 }
 
 void FeedJ_HoldState::ExitT(FeedJPlayer* owner)

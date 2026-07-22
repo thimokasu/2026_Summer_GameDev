@@ -5,6 +5,8 @@
 #include"../../../Collider/ColliderBase.h"
 #include"../../../Collider/ColliderCapsule.h"
 #include"State/FeedJ_Food_Cooked.h"
+#include"State/FeedJ_Food_Idle.h"
+#include"State/FeedJ_Food_Cooking.h"
 FoodBase::FoodBase(void)
 {
 }
@@ -21,11 +23,24 @@ void FoodBase::SubInit(void)
 {
 	rigidBody_.SetUseGravity(true);
 	rigidBody_.SetUseRotation(true);
+	AddState(std::make_unique<FeedJ_Food_Idle>());
+	AddState(std::make_unique < FeedJ_Food_Cooked>());
+	AddState(std::make_unique<FeedJ_Food_Cooking>());
+	ChangeState<FeedJ_Food_Idle>();
+
 }
 
 void FoodBase::SubUpdate(void)
 {
+
+	if (currentState_)
+	{
+		currentState_->Update(this);
+	}
+
+	
 	if (player_ != nullptr)isDraw_ = false;
+	
 	if (station_)
 	{
 		trans_.pos = VAdd(station_->GetTransform().pos, localOffset_);
@@ -34,14 +49,21 @@ void FoodBase::SubUpdate(void)
 	{
 		trans_.pos = VAdd(container_->GetTransform().pos, localOffset_);
 	}
+
 	if (cookTime_ >= COOKING_TIME)
 	{
 		ChangeState<FeedJ_Food_Cooked>();
+	}
+	else
+	{
+		ChangeState<FeedJ_Food_Idle>();
 	}
 }
 
 void FoodBase::SubDraw(void)
 {
+	DrawFormatString(0, 30, 0xffffff, "%d", cookTime_);
+	DrawCookTime();
 }
 
 void FoodBase::SubRelease(void)
@@ -159,4 +181,43 @@ void FoodBase::Drop( ActorBase* target)
 
 void FoodBase::DrawCookTime(void)
 {
+	// 調理中でなければ描画しない（あるいはIdleで非表示にするなど必要に応じて調整）
+	// 例: cookTime_ が 0 より大きく、COOKING_TIME 未満の場合のみ表示
+	if (cookTime_ <= 0 || cookTime_ >= COOKING_TIME) {
+		return;
+	}
+
+	// 1. 進行度（0.0f ～ 1.0f）を計算
+	float rate = static_cast<float>(cookTime_) / static_cast<float>(COOKING_TIME);
+	if (rate > 1.0f) rate = 1.0f;
+
+	// 2. 画面上の描画位置を決定する
+	// 【パターンA】ワールド座標（3D空間の食材の位置）からスクリーン座標に変換する場合（DxLibの例）
+	VECTOR screenPos = ConvWorldPosToScreenPos(trans_.pos);
+
+	// カメラの裏側に入っている場合は描画しない
+	if (screenPos.z < 0.0f || screenPos.z > 1.0f) {
+		return;
+	}
+
+	int barWidth = 50;   // ゲージの横幅
+	int barHeight = 10;   // ゲージの縦幅
+	int x = static_cast<int>(screenPos.x) - barWidth / 2;
+	int y = static_cast<int>(screenPos.y) - 60; // 食材の少し上に表示
+
+	// 【パターンB】画面固定で表示したい場合は、固定の座標を指定してください
+	// int x = 100;
+	// int y = 100;
+
+	// 3. ゲージの背景（枠・背景色）を描画
+	DrawBox(x, y, x + barWidth, y + barHeight, GetColor(50, 50, 50), TRUE); // 背景
+	DrawBox(x, y, x + barWidth, y + barHeight, GetColor(255, 255, 255), FALSE); // 外枠
+
+	// 4. 進行状況に応じたバー（中身）を描画
+	int innerWidth = static_cast<int>((barWidth - 2) * rate);
+	if (innerWidth > 0) {
+		// 調理が進むにつれて色を変える（例: 赤から緑、または黄色など）
+		unsigned int gaugeColor = GetColor(255, 200, 0); // 黄色・オレンジ系
+		DrawBox(x + 1, y + 1, x + 1 + innerWidth, y + barHeight - 1, gaugeColor, TRUE);
+	}
 }

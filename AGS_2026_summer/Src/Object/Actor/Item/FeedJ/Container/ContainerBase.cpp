@@ -108,10 +108,7 @@ void ContainerBase::Detach(void)
 	localOffset_ = VGet(0, 0, 0);
 }
 
-void ContainerBase::Cook(void)
-{
-	
-}
+
 
 void ContainerBase::SetSlot(std::vector<FoodBase*> foods)
 {
@@ -132,7 +129,7 @@ void ContainerBase::SetSlot(FoodBase* food, int idx)
 	foods_[idx] = slot;
 }
 
-void ContainerBase::CrearHoldFood(void)
+void ContainerBase::ClearHoldFood(void)
 {
 	for (auto& f : foods_)
 	{

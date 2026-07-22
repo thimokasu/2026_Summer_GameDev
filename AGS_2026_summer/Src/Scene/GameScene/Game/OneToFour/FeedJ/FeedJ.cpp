@@ -219,12 +219,24 @@ void FeedJ::SetContactEventCallback(void)
 						}
 						else if (auto container = dynamic_cast<ContainerBase*>(item))
 						{
-							if (!container->GetCanPickUp())return;
-							container->Detach();
-							container->AttachToPlayer(player, VGet(0, 0, 20));
-							container->SetIsAttachStation(false);
+							if (!container->GetCanPickUp())
+							{
+								if (!container->GetHoldFood())return;
+								if (container->GetIsLock())return;
+								item = dynamic_cast<FoodBase*>(container->GetHoldFood());
+								FoodBase* food = dynamic_cast<FoodBase*>(item);
+								food->Detach();
+								food->AttachToPlayer(player);
+								container->ClearHoldFood();
+							}
+							else
+							{
+								container->Detach();
+								container->AttachToPlayer(player, VGet(0, 0, 20));
+								container->SetIsAttachStation(false);
+								station->ReleaseHoldItem();
+							}
 						}
-						station->ReleaseHoldItem();
 						player->SetHoldItem(item);
 						player->ChangeState<FeedJ_HoldState>();
 					}

@@ -8,6 +8,7 @@
 void FeedJ_IdleState::EnterT(FeedJPlayer* owner)
 {
 	isLoop_ = true;
+	owner->SetCanInput(false);
 }
 
 void FeedJ_IdleState::HandleInputT(FeedJPlayer* owner)
@@ -54,6 +55,10 @@ void FeedJ_IdleState::HandleInputT(FeedJPlayer* owner)
 
 void FeedJ_IdleState::UpdateT(FeedJPlayer* owner)
 {
+	if (stateFrame_ > 30)
+	{
+		owner->SetCanInput(true);
+	}
 }
 
 void FeedJ_IdleState::ExitT(FeedJPlayer* owner)

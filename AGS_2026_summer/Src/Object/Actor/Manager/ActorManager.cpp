@@ -54,6 +54,11 @@ void ActorManager::Update(void)
 	BindID2Kind();
 	for (auto& actor : actors_)
 	{
+		auto id=actor->GetEntityID();
+		if (id == 38)
+		{
+			int a = 0;
+		}
 		actor->Update();
 	}
 }
@@ -97,6 +102,29 @@ void ActorManager::Draw(void)
 		//index++; // 次のアクターは1行下に下げる
 		//// ------------------------------------------
 
+		for (auto& a : actors_)
+		{
+			auto id = a->GetEntityID();
+			auto& pos = a->GetTransform().pos;
+
+			// 1. 3Dのワールド座標を2Dのスクリーン座標に変換する
+			VECTOR screenPos = ConvWorldPosToScreenPos(pos);
+
+			// 2. カメラの裏側（画面外）にある場合は描画しない
+			// （screenPos.z が 0.0f未満、または 1.0fより大きい場合はカメラの背後や描画範囲外）
+			if (screenPos.z < 0.0f || screenPos.z > 1.0f)
+			{
+				continue;
+			}
+
+			// 3. 必要に応じて少し上にずらす（頭上に表示するため）
+			int drawX = static_cast<int>(screenPos.x);
+			int drawY = static_cast<int>(screenPos.y) - 20; // 20ピクセルほど上へ
+
+			// 4. 変換した2D座標で文字列を描画する
+			DrawFormatString(drawX, drawY, 0xffffff, "%d", id);
+		}
+		
 	}
 }
 

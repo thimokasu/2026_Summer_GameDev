@@ -29,6 +29,7 @@ void FeedJPlayer::SubUpdate(void)
 	if (!KEY::GetIns().GetInfo(KEY::KEY_TYPE::J_KEY_ACTION).now&&!KEY::GetIns().GetInfo(KEY::KEY_TYPE::K_KEY_ACTION).now)isContactTrigger_ = false;
 	if (!KEY::GetIns().GetInfo(KEY::KEY_TYPE::K_KEY_ACTION).now)isCook_ = false;
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).now)trans_.pos.y += 2;
+
 }
 
 void FeedJPlayer::SubDraw(void)
@@ -61,7 +62,7 @@ void FeedJPlayer::InitCollider(void)
 	info.mask_ = ColliderBase::SetMask({ Layer::FOOD,Layer::STATION,Layer::CONTAINER });
 	info.entityKind_ = EntityKind::PLAYER_TRIGGER;
 	//info.isDraw_ = false;
-	float radius2 = 8.0f;
+	float radius2 = 4.0f;
 	localPosTop = VGet(0.0f, 10.0f, 10.0f);
 	localPosDown = VGet(0.0f, -10.0f, 10.0f);
 	info.isTrigger_ = true;

@@ -9,6 +9,8 @@
 void FeedJ_HoldWalk::EnterT(FeedJPlayer* owner)
 {
 	isLoop_ = true;
+	owner->SetCanInput(false);
+	owner->OffContactTrigger();
 }
 
 void FeedJ_HoldWalk::HandleInputT(FeedJPlayer* owner)
@@ -67,6 +69,11 @@ void FeedJ_HoldWalk::HandleInputT(FeedJPlayer* owner)
 
 void FeedJ_HoldWalk::UpdateT(FeedJPlayer* owner)
 {
+	if (stateFrame_ > 30)
+	{
+		owner->SetCanInput(true);
+	}
+
 		VECTOR moveVec = { 0.0f,0.0f,0.0f };
 
 		if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_FRONT).now) moveVec.z += 1.0f;
