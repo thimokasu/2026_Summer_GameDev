@@ -300,43 +300,6 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 		return *camera_;
 	}
 
-	int SceneManager::GetPlayerNum(GAME_KIND game)
-	{
-		//コントローラーの接続数でプレイ人数を判断
-		switch (GetJoypadNum())
-		{
-		case 0:
-			playerNum_ = PlayerNum::One;
-		case 1:
-			playerNum_ = PlayerNum::One;
-			break;
-
-		case 2:
-			playerNum_ = PlayerNum::Two;
-			break;
-
-		case 3:
-			playerNum_ = PlayerNum::Three;
-			break;
-
-		default:
-			playerNum_ = PlayerNum::Four;
-			break;
-		}
-
-		//いったん一輪車のみ複数プレイを適用
-		switch (game)
-		{
-		case GAME_KIND::UNICYCLE:
-			return (int)playerNum_;
-			break;
-		default:
-			return (int)PlayerNum::One;
-			break;
-		}
-		return (int)PlayerNum::One;
-	}
-
 
 	void SceneManager::ResetDeltaTime(void)
 	{

@@ -26,7 +26,7 @@ void Cliff::SubLoad(void)
 void Cliff::SubInit(void)
 {
 	entityKind_ = EntityKind::CLIFF;
-	const float scale = 0.4f;
+	const float scale = 0.35f;
 	trans_.scl = VGet(scale, scale, scale);
 	trans_.pos = VAdd(trans_.pos, VGet(0.0f, -70.0f, 0.0f));
 	trans_.Update();

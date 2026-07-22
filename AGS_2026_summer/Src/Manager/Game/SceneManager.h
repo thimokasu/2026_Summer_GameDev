@@ -9,9 +9,6 @@
 #include"../../Application.h"
 #include"SceneId.h"
 
-#include "../../Scene/GameSelect/GameInfo.h"
-
-
 class SceneBase;
 class Fader;
 class Camera;
@@ -26,9 +23,6 @@ public:
 	static void CreateInstance(void);
 	static SceneManager& GetInstance(void);
 	static void DeleteInstance(void);
-
-	
-
 private:
 	// 静的インスタンス
 	static SceneManager* instance_;
@@ -89,19 +83,7 @@ public:
 	// カメラの取得
 	Camera& GetCamera(void) const;
 
-	//プレイ人数の取得
-	int GetPlayerNum(GAME_KIND game);
-
 private:
-
-	enum class PlayerNum
-	{
-		One = 1,
-		Two,
-		Three,
-		Four,
-	};
-
 #pragma region 変数
 	//シーンのレシピを管理するマップ
 	std::map<SCENE_ID, SceneFactory>sceneFactories_;
@@ -116,8 +98,6 @@ private:
 	//カメラ
 	std::unique_ptr<Camera> camera_;
 	int mainScreen_;
-	//プレイ人数
-	PlayerNum playerNum_;
 #pragma endregion
 
 #pragma region 関数
