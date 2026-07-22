@@ -136,6 +136,14 @@
     <ClCompile Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\Dropper.cpp" />
     <ClCompile Include="Src\Object\Actor\Item\SpikeDrop\Spike.cpp" />
     <ClCompile Include="Src\Scene\GameScene\Game\OneVsThree\SpikeDrop\SpikeDrop.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\SpikeDropPlayerHit.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\SpikeDropPlayerIdle.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\SpikeDropPlayerJump.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\SpikeDropPlayerMove.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\SpikeDropPlayerStepedOn.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\DropperIdle.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\DropperMove.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\DropperDrop.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Application.cpp">
@@ -697,5 +705,14 @@
     <ClInclude Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\Dropper.h" />
     <ClInclude Include="Src\Object\Actor\Item\SpikeDrop\Spike.h" />
     <ClInclude Include="Src\Scene\GameScene\Game\OneVsThree\SpikeDrop\SpikeDrop.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\SpikeDropPlayerHeaders.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\SpikeDropPlayerHit.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\SpikeDropPlayerIdle.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\SpikeDropPlayerJump.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\SpikeDropPlayerMove.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\SpikeDropPlayerStepedOn.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\DropperIdle.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\DropperMove.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\DropperDrop.h" />
   </ItemGroup>
 </Project>

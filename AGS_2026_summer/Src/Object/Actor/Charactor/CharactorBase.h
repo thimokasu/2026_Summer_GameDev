@@ -42,7 +42,7 @@ protected:
 	virtual void MoveInput(void) {};
 	virtual void ReturnToIdle() {};		//オーバーライドでIdleStateへのChangeStateを実装しとく
 	bool canInput_ = true;
-	int playNumber_;	
+	int playNumber_=-1;	
 	std::unordered_map<std::type_index, std::unique_ptr<IState>>stateMap_;
 	IState* currentState_ = nullptr;
 };
