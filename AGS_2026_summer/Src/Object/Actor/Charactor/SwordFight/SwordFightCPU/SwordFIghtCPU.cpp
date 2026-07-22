@@ -77,6 +77,13 @@ void SwordFIghtCPU::SubInit(void)
 void SwordFIghtCPU::SubUpdate(void)
 {
 	CharactorBase::SubUpdate();
+
+	// èÍäO
+	if (trans_.pos.y < -100)
+	{
+		ChangeState<SwordFightLoseCPU>();
+	}
+
 	if (!KEY::GetIns().GetInfo(KEY::KEY_TYPE::J_KEY_ACTION).now)isContactTrigger_ = false;
 
 	if (rightHandFrameNo_ != -1 &&

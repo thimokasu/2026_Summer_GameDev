@@ -21,6 +21,20 @@ void CharactorBase::SubInit(void)
 
 void CharactorBase::SubUpdate(void)
 {
+
+	// êÅÇ¡îÚÇ—íÜ
+	if (isKnockBack_)
+	{
+		knockBackFrame_--;
+
+		if (knockBackFrame_ <= 0)
+		{
+			isKnockBack_ = false;
+		}
+
+		return;
+	}
+
 	MoveInput();
 	currentState_->HandleInput(this);
 	currentState_->DecreaseIdleTime();
@@ -46,4 +60,39 @@ void CharactorBase::SubRelease(void)
 
 void CharactorBase::InitCollider(void)
 {
+}
+
+void CharactorBase::KnockBack(VECTOR dir, float power)
+{
+	dir.y = 0.0f;
+
+
+	if (VSize(dir) > 0.0f)
+	{
+		dir = VNorm(dir);
+	}
+
+
+	// êÅÇ¡îÚÇ—ë¨ìx
+	VECTOR velocity =
+		VScale(dir, power);
+
+
+	// è≠Çµè„ï˚å¸Ç…Ç‡îÚÇŒÇ∑
+	velocity.y = power * 0.4f;
+
+
+	rigidBody_.SetVelocity(velocity);
+
+
+	isKnockBack_ = true;
+	knockBackFrame_ = 30;
+
+	DrawFormatString(
+		0,
+		100,
+		0xffffff,
+		"KnockBack");
+
+
 }

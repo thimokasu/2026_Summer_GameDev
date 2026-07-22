@@ -43,6 +43,7 @@ public:
 
 	void ClearForces(void) { force_ = { 0.0f, 0.0f, 0.0f }; }
 	void ClearGravity(void) { force_.y = 0.0f; }
+	void AddVelocity(VECTOR velocity);
 
 private:
 	BodyType bodyType_;	//çÑëÃÇÃéÌóﬁ

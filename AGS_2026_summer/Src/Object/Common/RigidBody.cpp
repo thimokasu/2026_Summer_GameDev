@@ -80,6 +80,11 @@ void RigidBody::SetMaxMoveSpeed(float maxSpeed)
 	maxMoveSpeed_ = maxSpeed;
 }
 
+void RigidBody::AddVelocity(VECTOR velocity)
+{
+	velocity_ = VAdd(velocity_, velocity);
+}
+
 
 void RigidBody::Update(void)
 {
@@ -99,7 +104,7 @@ void RigidBody::Update(void)
 	velocity_ = VAdd(velocity_, acceleration);
 	
 	//float yKeep = velocity_.y;
-	velocity_ = VScale(velocity_, 0.8f);// 摩擦の減衰(0.975fは仮の値)
+	velocity_ = VScale(velocity_, 0.95f);// 摩擦の減衰(0.975fは仮の値)
 	isGrounded_ = false;
 	force_ = VGet(0.0f, 0.0f, 0.0f); // 力をリセット
 }

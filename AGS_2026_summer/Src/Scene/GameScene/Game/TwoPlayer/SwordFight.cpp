@@ -30,6 +30,11 @@ void SwordFight::SubLoad(void)
 
 void SwordFight::SubInit(void)
 {
+	SetContactEventRule();
+	SetContactEventCallback();
+	SetCollisionCollback();
+
+	InitCamera();
 }
 
 void SwordFight::SubUpdate(void)
@@ -56,17 +61,92 @@ void SwordFight::SetContactEventCallback(void)
 	//イベントのコールバック関数の設定
 	EventManager::GetInstance().SetContactEventCallback(GameEventType::HIT_REACTION, [this](const ContactRule& rule)
 		{
-		
+			Entity entityA =
+				rule.contactEvent_.entityA;
 
-		}
-	);
+			Entity entityB =
+				rule.contactEvent_.entityB;
+
+
+			ActorBase* actorA =
+				actorMng_->FindActorByID(entityA.entityID_);
+
+			ActorBase* actorB =
+				actorMng_->FindActorByID(entityB.entityID_);
+
+
+			if (actorA == nullptr || actorB == nullptr)
+			{
+				return;
+			}
+
+
+			// 剣が当たった相手を探す
+			ActorBase* target = nullptr;
+			ActorBase* sword = nullptr;
+
+
+			if (entityA.entityKind_ == EntityKind::SWORD)
+			{
+				sword = actorA;
+				target = actorB;
+			}
+			else if (entityB.entityKind_ == EntityKind::SWORD)
+			{
+				sword = actorB;
+				target = actorA;
+			}
+
+
+			if (target == nullptr || sword == nullptr)
+			{
+				return;
+			}
+
+
+			// 吹っ飛ぶ方向
+			VECTOR dir =
+				VSub(
+					target->GetTransform().pos,
+					sword->GetTransform().pos);
+
+
+			dir.y = 0;
+
+
+			if (VSize(dir) > 0)
+			{
+				dir = VNorm(dir);
+			}
+
+
+			// 吹っ飛び力
+			VECTOR force =
+			{
+				dir.x * 15.0f,
+				12.0f,
+				dir.z * 15.0f
+			};
+
+
+			target->GetRigidBody()
+				.AddForce(force);
+
+
+		});
 
 }
 
 void SwordFight::SetCollisionCollback(void)
 {
+	DrawFormatString(
+		0,
+		150,
+		0xffffff,
+		"Collision");
 	auto onBeginContact = [this](uint32_t a, uint32_t b)
 		{
+
 			Entity entA{ a, actorMng_->GetEntityKind(a) };
 			Entity entB{ b, actorMng_->GetEntityKind(b) };
 			EventManager::GetInstance().OnBeginContact(entA, entB, CollisionResult{});

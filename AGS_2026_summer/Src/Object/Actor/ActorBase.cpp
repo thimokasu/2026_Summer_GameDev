@@ -23,9 +23,12 @@ void ActorBase::Init(void)
 
 void ActorBase::Update(void)
 {
-	SubUpdate();
 	rigidBody_.Update();
+
 	Move();
+
+	SubUpdate();
+
 	trans_.Update();
 	if (animationController_)
 	{

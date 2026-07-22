@@ -37,12 +37,25 @@ public:
 	T* GetState(void);
 
 	virtual void SetState(void) {};	//ステート初期化　AddState(std::make_unique<>());
+
+	//ノックバック
+	void KnockBack(VECTOR dir, float power);
+
+	//ノックバックするか
+	bool IsKnockBack(void) const
+	{
+		return isKnockBack_;
+	}
+
 protected:
 	virtual void MoveInput(void) {};
 	virtual void ReturnToIdle() {};		//オーバーライドでIdleStateへのChangeStateを実装しとく
 	int playNumber_;
 	std::unordered_map<std::type_index, std::unique_ptr<IState>>stateMap_;
 	IState* currentState_ = nullptr;
+
+	bool isKnockBack_ = false;
+	int knockBackFrame_ = 0;
 };
 
 

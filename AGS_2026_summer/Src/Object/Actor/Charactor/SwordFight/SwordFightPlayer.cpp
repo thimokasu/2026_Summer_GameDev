@@ -142,7 +142,7 @@ void SwordFightPlayer::InitCollider(void)
 	localPosDown = VGet(0.0f, -10.0f, 10.0f);
 	info.isTrigger_ = true;
 	collider = std::make_unique<ColliderCapsule>(info, radius2, localPosTop, localPosDown, *this);
-	ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
+	ownColliders_.emplace(static_cast<int>(100), std::move(collider));
 }
 
 void SwordFightPlayer::CreateState(void)
