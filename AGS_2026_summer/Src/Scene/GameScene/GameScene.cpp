@@ -49,21 +49,6 @@ void GameScene::SubLoad(void)
 		game.miniGame->Load(gameInfo_);
 		game.actorMng->Load(gameInfo_);
 	}
-
-
-	//‰¼
-	switch (games_.size())
-	{
-	case 1:
-		games_[0].drawArea = { 0, 0, Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y };
-		break;
-
-	case 2:
-		games_[0].drawArea = { 0, 0, Application::SCREEN_SIZE_X / 2, Application::SCREEN_SIZE_Y };
-		games_[1].drawArea = { Application::SCREEN_SIZE_X / 2, 0,
-							   Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y };
-		break;
-	}
 }
 
 void GameScene::SubInit(void)
@@ -92,14 +77,6 @@ void GameScene::SubDraw(void)
 	DrawFormatString(0, 0, 0xffffff, "Game");
 	for (auto& game : games_)
 	{
-		SetDrawArea(
-			game.drawArea.left,
-			game.drawArea.top,
-			game.drawArea.right,
-			game.drawArea.bottom);
-		SetCameraScreenCenter(
-			(game.drawArea.left + game.drawArea.right) / 2.0f,
-			(game.drawArea.top + game.drawArea.bottom) / 2.0f);
 
 		game.miniGame->Draw();
 	}
