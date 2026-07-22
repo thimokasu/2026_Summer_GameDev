@@ -7,6 +7,7 @@
 #include"../../../Manager/System/EventSystem/EventManager.h"
 class ActorManager;
 class CollisionManager;
+class Camera;
 
 class GameBase
 {
