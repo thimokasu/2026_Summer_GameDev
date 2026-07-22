@@ -6,6 +6,7 @@
 #include"../../Manager/Resource/ResourceManager.h"
 #include"../../Manager/Game/SceneManager.h"
 #include"../GameScene/GameScene.h"
+#include "../../Object/Actor/Camera/Camera.h"
 #define REGISTER_GAME(kind,classNamecase)GAME_KIND::kind return std::make_unique<className>()
 
 
@@ -105,6 +106,9 @@ void GameSelectScene::InitGameGroups(void)
 	}
 	gameInfo_.stage_ = STAGE_NUM::STAGE1;
 	gameInfo_.playNum_ = PLAY_NUM::ONE_PLAYER;
+
+	//ゲーム切り替えごとにカメラをリセット
+	SceneManager::GetInstance().GetCamera().Init();
 }
 
 void GameSelectScene::InitUI(void)

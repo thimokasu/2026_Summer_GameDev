@@ -27,30 +27,12 @@ public:
 	SCENE_ID GetSceneID(void)const override { return SCENE_ID::GAME; }
 private:
 
-	//•ªŠ„—p•`‰æ”ÍˆÍ
-	struct Rect
-	{
-		int left;
-		int top;
-		int right;
-		int bottom;
-	};
-
-	struct GameInstance
-	{
-		std::unique_ptr<ActorManager> actorMng;
-		std::unique_ptr<CollisionManager> colMng;
-		std::unique_ptr<GameBase> miniGame;
-		Rect drawArea;
-	};
-
-
 
 #pragma region ŠÖ”
 	void SetContactEventRule(void);
 	void SetContactEventCallback(void);
 	void SetCollisionCollback(void);
-	void CreateMiniGame(GameInstance& game,GAME_KIND kind);
+	void CreateMiniGame(GAME_KIND kind);
 #pragma endregion
 
 #pragma region •Ï”
@@ -58,10 +40,6 @@ private:
 	std::unique_ptr<CollisionManager>colMng_;
 	std::unique_ptr<GameBase> miniGame_;
 	GameInfo gameInfo_;
-
-
-
-	std::vector<GameInstance> games_;
 #pragma endregion
 
 };

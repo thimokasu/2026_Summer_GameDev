@@ -36,7 +36,10 @@ Camera::~Camera(void)
 
 void Camera::SubInit(void)
 {
-
+	mode_ = MODE::FREE;
+	angles_ = AsoUtility::VECTOR_ZERO;
+	rotY_ = Quaternion::Identity();
+	targetPos_ = AsoUtility::VECTOR_ZERO;
 }
 
 void Camera::SubUpdate(void)
