@@ -7,6 +7,7 @@
 #include"TitleScene.h"
 #include"../Manager/Game/SceneId.h"
 #include<functional>
+#include "GameScene/GameScene.h"
 
 constexpr int margin_size = 150;
 constexpr int expand_interval = 30;
@@ -27,10 +28,18 @@ PauseScene::PauseScene(void)
 	//メニューの内容と、選択したときのアクションを定義する
 	menuItems_ = {
 		"ゲームに戻る",
-		"ゲームセレクトに戻る",
-		"タイトルに戻る",
-		"終了"
 	};
+
+	// ゲームシーンのときだけ「リトライ」をメニューに追加する
+	if (SceneManager::GetInstance().GetPreSceneID() == SCENE_ID::GAME)
+	{
+		menuItems_.push_back("リトライ");
+	}
+
+	// 残りのメニュー項目を追加
+	menuItems_.push_back("ゲームセレクトに戻る");
+	menuItems_.push_back("タイトルに戻る");
+	menuItems_.push_back("終了");
 
 	//ラムダ式でアクションを定義する
 	menuActions_["ゲームに戻る"] = [this]()
@@ -39,6 +48,18 @@ PauseScene::PauseScene(void)
 			update_ = &PauseScene::DisappearUpdate;
 			draw_ = &PauseScene::ExpandDraw;
 		};
+	
+		menuActions_["リトライ"] = [this]()
+			{
+				execYesAction_ = [this]()
+					{
+						SceneManager::GetInstance().ChangeScene<GameScene>(SceneManager::GetInstance().GetGameInfo());
+					};
+				yesNoTitle_ = "リトライしますか？";
+				update_ = &PauseScene::YesNoUpdate;
+				draw_ = &PauseScene::YesNoDraw;
+			};
+	
 	menuActions_["ゲームセレクトに戻る"] = [this]()
 		{
 			execYesAction_ = [this]()

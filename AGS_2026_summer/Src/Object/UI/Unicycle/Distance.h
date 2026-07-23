@@ -14,7 +14,7 @@ public:
     virtual ~Distance() = default;
     void SetUpdate(bool flag) { isUpdate_ = flag; }
     //プレイヤー位置を保持
-    void SetTrans(const Transform* follow) { Transform_ = follow; }
+    void SetTrans(const Transform* follow) { Transform_.push_back(follow); }
 	//ゴール時のコールバック関数を設定
     void SetGoalCallBack(GoalCallBack callBack) { goalCallBack_ = std::move(callBack); }
 
@@ -23,6 +23,7 @@ public:
 
     //画像縦サイズ
     static constexpr int IMAGE_HEIGHT_HALF = 724 / 2;
+    static constexpr int IMAGE_HALF = 2172 / 2 * 0.2;
 
 
 protected:
@@ -34,7 +35,7 @@ protected:
     void SubRelease() override;
 
 private:
-    const Transform* Transform_;
+   std::vector< const Transform*> Transform_;
     float distance_;
     bool isUpdate_;
     int fontHandle_; 

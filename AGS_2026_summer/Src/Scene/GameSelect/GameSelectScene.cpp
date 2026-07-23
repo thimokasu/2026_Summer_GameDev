@@ -6,6 +6,7 @@
 #include"../../Manager/Resource/ResourceManager.h"
 #include"../../Manager/Game/SceneManager.h"
 #include"../GameScene/GameScene.h"
+#include "../../Object/Actor/Camera/Camera.h"
 #define REGISTER_GAME(kind,classNamecase)GAME_KIND::kind return std::make_unique<className>()
 
 
@@ -80,6 +81,18 @@ void GameSelectScene::LoadImages(void)
 	gameImageHandles_[GAME_KIND::TEST] = LoadGraph("Data/Image/GameselectScene/GameSelect/GameTest.png");
 #pragma endregion
 
+#pragma region TitleLogo
+
+	gameTitleHandles_[GAME_KIND::FINDINGJ] = ResourceManager::GetInstance().GetGraph(SRC::FJ_LOGO);
+	gameTitleHandles_[GAME_KIND::TEST] = ResourceManager::GetInstance().Load(SRC::TEST).handleId_;
+	gameTitleHandles_[GAME_KIND::FEEDJ] = ResourceManager::GetInstance().Load(SRC::FEEDJ).handleId_;
+	gameTitleHandles_[GAME_KIND::UNICYCLE] = ResourceManager::GetInstance().Load(SRC::UNICYCLE).handleId_;
+	gameTitleHandles_[GAME_KIND::ATHLETIC] = ResourceManager::GetInstance().Load(SRC::ATHLETIC).handleId_;
+	gameTitleHandles_[GAME_KIND::SPIKE_DROP] = ResourceManager::GetInstance().Load(SRC::SPIKEDROP).handleId_;
+	gameTitleHandles_[GAME_KIND::MARBLE_RACE] = ResourceManager::GetInstance().Load(SRC::MARBLE_RACE).handleId_;
+	gameTitleHandles_[GAME_KIND::TEST] = LoadGraph("Data/Image/GameselectScene/GameSelect/GameTest.png");
+#pragma endregion
+
 }
 void GameSelectScene::InitGameGroups(void)
 {
@@ -105,6 +118,9 @@ void GameSelectScene::InitGameGroups(void)
 	}
 	gameInfo_.stage_ = STAGE_NUM::STAGE1;
 	gameInfo_.playNum_ = PLAY_NUM::ONE_PLAYER;
+
+	//ゲーム切り替えごとにカメラをリセット
+	SceneManager::GetInstance().GetCamera().Init();
 }
 
 void GameSelectScene::InitUI(void)
@@ -347,9 +363,13 @@ void GameSelectScene::DrawStageSelect(void)
 {
 	DrawRotaGraph(Application::SCREEN_SIZE_X / 2, Application::SCREEN_SIZE_Y / 2, 1, 0, backImage_, true);
 
+	//ゲーム名
 	std::string gameName = gameInfo_.GetGameName();
-	DrawStringToHandle(300, 100, gameName.c_str(), GetColor(0, 0, 0), fontHandle_);
+	//DrawStringToHandle(300, 100, gameName.c_str(), GetColor(0, 0, 0), fontHandle_);
+	auto it = gameTitleHandles_.find(gameInfo_.game_);
+	DrawRotaGraph(350, 100, 0.5f, 0, it->second, true);
 
 	DrawStringToHandle(1300, 150, "操作方法", GetColor(0, 0, 0), fontHandle_);
 	// フォントハンドルを使って描画
+
 }

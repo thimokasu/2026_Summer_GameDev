@@ -4,6 +4,7 @@
 #include"../../../Manager/Generic/KeyManager.h"
 #include"../../Common/Transform.h"
 #include"../Collider/ColliderSphere.h"
+#include "../../../Application.h"
 
 Camera::Camera(void)
 	:
@@ -36,7 +37,10 @@ Camera::~Camera(void)
 
 void Camera::SubInit(void)
 {
-
+	mode_ = MODE::FREE;
+	angles_ = AsoUtility::VECTOR_ZERO;
+	rotY_ = Quaternion::Identity();
+	targetPos_ = AsoUtility::VECTOR_ZERO;
 }
 
 void Camera::SubUpdate(void)
@@ -70,6 +74,9 @@ void Camera::SetBeforeDraw(void)
 	case Camera::MODE::FOLLOW:
 		SetBeforeDrawFollow();
 		break;
+	case Camera::MODE::MULTI_FOLLOW:
+		SetBeforeDrawMultiFollow();
+		break;
 	}
 
 	// カメラの設定(位置と注視点による制御)
@@ -96,6 +103,11 @@ void Camera::SubRelease(void)
 void Camera::SetFollow(const Transform* follow)
 {
 	followTransform_ = follow;
+}
+
+void Camera::SetMultiFollow(const Transform* follow)
+{
+	followTransformM_.push_back(follow);
 }
 
 const VECTOR& Camera::GetPos(void) const
@@ -157,6 +169,8 @@ void Camera::ChangeMode(MODE mode)
 		break;
 	case Camera::MODE::FOLLOW:
 		break;
+	case Camera::MODE::MULTI_FOLLOW:
+		break;
 	}
 
 }
@@ -183,6 +197,56 @@ void Camera::SyncFollow(void)
 
 	// Y軸
 	rotY_ = Quaternion::AngleAxis(angles_.y, AsoUtility::AXIS_Y);
+
+	// Y軸 + X軸
+	trans_.quaRot = rotY_.Mult(Quaternion::AngleAxis(angles_.x, AsoUtility::AXIS_X));
+
+	VECTOR localPos;
+
+	// 注視点
+	localPos = trans_.quaRot.PosAxis(FOLLOW_TARGET_LOCAL_POS);
+	targetPos_ = VAdd(pos, localPos);
+
+	// カメラ位置
+	localPos = trans_.quaRot.PosAxis(FOLLOW_CAMERA_LOCAL_POS);
+	trans_.pos = VAdd(pos, localPos);
+}
+
+void Camera::SyncMultiFollow(void)
+{
+	// 同期先の位置
+	VECTOR pos = followTransformM_[0]->pos;
+
+	//最大値を求めるのは初めの一回だけ
+	//X軸は複数のプレイヤーの中央値を求める
+	if (followTransformM_.size() > 1)
+	{
+		float minX = pos.x;
+		float maxX = pos.x;
+
+		for (const auto* transform : followTransformM_)
+		{
+			maxX = max(maxX, transform->pos.x);
+		}
+
+		static float center = maxX / 2;
+		pos.x = center;
+	}
+
+	for (const auto* transform : followTransformM_)
+	{
+		if (transform->isActiv)
+		{
+			pos.z = transform->pos.z;
+		}
+
+	}
+
+	// Y軸
+	rotY_ = Quaternion::AngleAxis(angles_.y, AsoUtility::AXIS_Y);
+
+	//高さは固定
+	pos.y = 30.0f;
 
 	// Y軸 + X軸
 	trans_.quaRot = rotY_.Mult(Quaternion::AngleAxis(angles_.x, AsoUtility::AXIS_X));
@@ -299,6 +363,19 @@ void Camera::SetBeforeDrawFollow(void)
 	SyncFollow();
 
 	//Collision();
+}
+
+void Camera::SetBeforeDrawMultiFollow(void)
+{
+	if (!isStopMove_)
+	{
+		// カメラ操作(回転)
+		ProcessRot(true);
+
+	}
+
+	// 追従対象のZ軸のみ追従X軸は画面中央固定
+	SyncMultiFollow();
 }
 
 //void Camera::Collision(void)

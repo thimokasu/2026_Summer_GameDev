@@ -10,34 +10,43 @@
 #include"../../Charactor/OnePlay/Test/TestPlayer.h"
 #include "../../Charactor/OnePlay/Unicycle/UnicyclePlayer.h"
 #include "../../Stage/Unicycle/Cliff.h"
-
+#include "../../../../Manager/Game/SceneManager.h"
+#include "../../SkyDome/SkyDome.h"
+#include "../../../../Manager/Resource/ResourceManager.h"
 
 
 
 UnicycleFactory::UnicycleFactory()
 {
+    multiOffset_ = 250.0f;
 }
 
 std::vector<std::unique_ptr<ActorBase>> UnicycleFactory::CreateActors(void)
 {
     std::vector<std::unique_ptr<ActorBase>> actors;
+   /* actors.push_back(
+        std::make_unique<SkyDome>(SRC::SKY_DOME));*/
 
-   actors.push_back(std::make_unique<UnicyclePlayer>());
-  // actors.push_back(std::make_unique<Block>(VGet(50, -10, 0)));
-    for (int d = 0; d < D; d++)
+    int playerNum = SceneManager::GetInstance().GetPlayerNum(GAME_KIND::UNICYCLE);
+    for (int i = 0; i < playerNum; i++)
     {
-        for (int w = 0; w < W; w++)
+        actors.push_back(std::make_unique<UnicyclePlayer>(VGet(30.0f+ multiOffset_ * i, 30.0f, 0.0f),i));
+        for (int d = 0; d < D; d++)
         {
-            if (Stage1::stage[d][w] == StageLayout::Block)
+            for (int w = 0; w < W; w++)
             {
-                actors.push_back(
-                    std::make_unique<Cliff>(
-                        VGet(w * TileSize, 0.0f, d * TileSize)));
-                actors.back()->GetRigidBody().SetBodyType(RigidBody::BodyType::STATIC);
-               // actors.back()->SetEntityKind(EntityKind::STAGE);
+                if (Stage1::stage[d][w] == StageLayout::Block)
+                {
+                    actors.push_back(
+                        std::make_unique<Cliff>(
+                            VGet(w * TileSize+ multiOffset_ *i, 0.0f, d * TileSize)));
+                    actors.back()->GetRigidBody().SetBodyType(RigidBody::BodyType::STATIC);
+                }
             }
         }
     }
+
+
    
  return actors;
 }

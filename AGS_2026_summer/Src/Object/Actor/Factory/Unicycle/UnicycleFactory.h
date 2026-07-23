@@ -7,5 +7,10 @@ public:
 	UnicycleFactory();
 	~UnicycleFactory() = default;
 	std::vector<std::unique_ptr<ActorBase>> CreateActors(void) override;
+
+private:
+
+	float multiOffset_;
+
 };
 

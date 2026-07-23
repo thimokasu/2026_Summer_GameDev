@@ -82,7 +82,7 @@ void Timer::SubDraw()
         bgColor_ = { 0, 0, 0 };
         if (SE::GetInstance().IsEnd(SOUND_TYPE::ALERT))
         {
-            SE::GetInstance().Play(SOUND_TYPE::ALERT, false);
+            SE::GetInstance().Stop(SOUND_TYPE::ALERT);
         }
     }
 

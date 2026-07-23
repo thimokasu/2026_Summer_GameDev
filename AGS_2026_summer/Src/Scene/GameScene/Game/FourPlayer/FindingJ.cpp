@@ -125,6 +125,8 @@ void FindingJ::SetContactEventCallback(void)
 				auto actor = actorMng_->FindActorByID(idA);
 				auto& findingJCPU = dynamic_cast<FindingJRunner&>(*actor);
 				findingJCPU.SetIsDraw(true);
+				SE::GetInstance().Stop(SOUND_TYPE::BGM);
+
 				OffUpdate();
 			}
 			else if (entityKindB == EntityKind::FINDINGJ_CPU)
@@ -132,6 +134,7 @@ void FindingJ::SetContactEventCallback(void)
 				auto idB = rule.contactEvent_.entityB.entityID_;
 				auto actor = actorMng_->FindActorByID(idB);
 				auto& findingJCPU = dynamic_cast<FindingJRunner&>(*actor);
+				SE::GetInstance().Stop(SOUND_TYPE::BGM);
 				findingJCPU.SetIsDraw(true);
 				OffUpdate();
 			}
@@ -152,6 +155,7 @@ void FindingJ::SetEventCallBack(void)
 			OnUpdate();
 			auto ui = UIManager::GetInstance().GetUI<Timer>(UINAME::TIMER);
 			ui->SetUpdate(true);
+			SE::GetInstance().Play(SOUND_TYPE::BGM, true);
 		}
 	);
 
@@ -165,6 +169,7 @@ void FindingJ::SetEventCallBack(void)
 			{
 				auto& runner = dynamic_cast<FindingJRunner&>(*actor);
 				runner.StopInvisible();
+				SE::GetInstance().Stop(SOUND_TYPE::BGM);
 				OffUpdate();
 			}
 		}

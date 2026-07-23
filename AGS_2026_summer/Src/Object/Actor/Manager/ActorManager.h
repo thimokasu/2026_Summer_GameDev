@@ -27,6 +27,8 @@ public:
 	EntityKind GetEntityKind(EntityID id) const;
 	//指定されたKindのActorを返す
 	std::vector<ActorBase*>FindActorsByKind(EntityKind kind)const;
+	//指定されたKindの数を返す
+	int FindActorsNum(EntityKind kind) const;
 	//指定されたIDのActorを返す
 	ActorBase* FindActorByID(EntityID id) const;	
 	//外部からActorsにPushする

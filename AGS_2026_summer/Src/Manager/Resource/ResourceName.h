@@ -38,12 +38,14 @@ enum class SRC
 	//----------------------------------
 
 	//FindingJ
+	FJ_LOGO,
 	BLOCK,
 	FLOOR,
 	REACTION_BLOCK,
-	SKY_DOME,
+	FJ_STAGE,
 	RUNNER,
 	FJ_PLAYER,
+	SKY_DOME,
 
 	MAX,
 };

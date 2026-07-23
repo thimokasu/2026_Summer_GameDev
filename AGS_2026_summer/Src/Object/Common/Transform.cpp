@@ -9,6 +9,7 @@ Transform::Transform(void)
     rot = AsoUtility::VECTOR_ZERO;
     pos = AsoUtility::VECTOR_ZERO;
     localPos = AsoUtility::VECTOR_ZERO;
+    isActiv = true;
 
     matScl = MGetIdent();
     matRot = MGetIdent();

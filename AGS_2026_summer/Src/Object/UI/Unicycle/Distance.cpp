@@ -28,7 +28,7 @@ void Distance::SubLoad()
 	// ƒtƒHƒ“ƒg‚Ìì¬
 	fontHandle_ = CreateFontToHandle("Arial", 60, 3, DX_FONTTYPE_ANTIALIASING_EDGE, -1, 2);
 
-    StartPos_ = Transform_->pos.z;
+    StartPos_ = Transform_[0]->pos.z;
 }
 
 void Distance::SubInit()
@@ -44,7 +44,12 @@ void Distance::SubUpdate()
         return;
     }
 
-	distance_ = (Transform_->pos.z - StartPos_)/20;
+    for (const auto* trans : Transform_)
+    {
+        if (!isActive_)return;
+        distance_ = (trans->pos.z - StartPos_) / 20;
+    }
+	
     if(distance_>100.0f)
     {
         distance_ = 100.0f;

@@ -10,7 +10,7 @@ class UnicyclePlayer :
     public CharactorBase
 {
 public:
-    UnicyclePlayer(void);
+    UnicyclePlayer(VECTOR pos,int pad);
     virtual ~UnicyclePlayer(void);
     void SubLoad(void) override;
     void SubInit(void) override;
@@ -41,6 +41,9 @@ private:
 
 	//落下時のコールバック
     FallCallBack fallCallBack_;
+
+    //コントローラーの番号
+    int padNum_;
 
     
 };

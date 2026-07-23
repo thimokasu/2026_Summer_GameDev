@@ -64,11 +64,13 @@ void ResourceManager::Init(void)
 	res = new RES(RES_T::MODEL, PATH_MDL + "FindingJ/ReactionBlock.mv1");
 	resourcesMap_.emplace(SRC::REACTION_BLOCK, res);
 	res = new RES(RES_T::MODEL, PATH_MDL + "FindingJ/FJStage.mv1");
-	resourcesMap_.emplace(SRC::SKY_DOME, res);
+	resourcesMap_.emplace(SRC::FJ_STAGE, res);
 	res = new RES(RES_T::MODEL, PATH_MDL + "FindingJ/Runner/jaz.mv1");
 	resourcesMap_.emplace(SRC::RUNNER, res);
 	res = new RES(RES_T::MODEL, PATH_MDL + "FindingJ/Player/FJplayer.mv1");
 	resourcesMap_.emplace(SRC::FJ_PLAYER, res);
+	res = new RES(RES_T::IMG, PATH_IMG + "GameSelectScene/GameSelect/Title/FindingJ.png");
+	resourcesMap_.emplace(SRC::FJ_LOGO, res);
 
 	//Unicycle
 	res = new RES(RES_T::MODEL, PATH_MDL + "Unicycle/Stage/UniStage.mv1");
@@ -77,6 +79,8 @@ void ResourceManager::Init(void)
 	resourcesMap_.emplace(SRC::UNICYCLE, res);
 	res = new RES(RES_T::MODEL, PATH_MDL + "Unicycle/Player/Redcycler.mv1");
 	resourcesMap_.emplace(SRC::UNICYCLER, res);
+	res = new RES(RES_T::MODEL, PATH_MDL + "FindingJ/sky.mv1");
+	resourcesMap_.emplace(SRC::SKY_DOME, res);
 
 }
 
@@ -158,4 +162,16 @@ Resource& ResourceManager::_Load(SRC src)
 
 	return *rPair->second;
 
+}
+
+int ResourceManager::GetGraph(SRC src)
+{
+	const Resource& res = _Load(src);
+
+	if (res.type_ != TYPE::IMG)
+	{
+		return -1;
+	}
+
+	return res.handleId_;
 }

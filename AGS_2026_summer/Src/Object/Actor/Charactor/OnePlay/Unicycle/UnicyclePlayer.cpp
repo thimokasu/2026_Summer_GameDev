@@ -10,8 +10,12 @@
 #include "../../../../Common/AnimationController.h"
 #include "../../../../../Manager/Resource/ResourceManager.h"
 
-UnicyclePlayer::UnicyclePlayer(void)
+
+UnicyclePlayer::UnicyclePlayer(VECTOR pos, int pad)
 {
+	trans_.pos = pos;
+	padNum_ = pad;
+	isActive_ = true;
 }
 
 UnicyclePlayer::~UnicyclePlayer(void)
@@ -31,8 +35,7 @@ void UnicyclePlayer::SubInit(void)
 	rigidBody_.SetBodyType(RigidBody::BodyType::DYNAMIC);
 	rigidBody_.SetUseGravity(true);
 	rigidBody_.SetMass(1);
-	rigidBody_.SetMoveSpeed(0.6f);
-	trans_.pos = VGet(30.0f, 30.0f, 0.0f);
+	rigidBody_.SetMoveSpeed(0.7f);
 	float scale = 0.6f;
 	trans_.scl = VGet(scale, scale, scale);
 	trans_.quaRotLocal = Quaternion::Euler(VGet(0.0f, AsoUtility::Deg2RadD(180.0f), 0.0f));
@@ -57,6 +60,8 @@ void UnicyclePlayer::SubInit(void)
 
 void UnicyclePlayer::SubUpdate(void)
 {
+	if (!isActive_) return;
+
 	MoveInput();
 
 	//アニメーションの更新
@@ -74,6 +79,9 @@ void UnicyclePlayer::SubUpdate(void)
 	if(trans_.pos.y < -1.0f)
 	{
 		if (fallCallBack_)fallCallBack_();
+		FallAfterGameEnd();
+		trans_.isActiv = false;
+		SetIsActive(false);
 	}
 
 }
@@ -99,7 +107,7 @@ void UnicyclePlayer::InitCollider(void)
 
 
 	VECTOR localPosTop = VGet(0.0f, 10.0f, 0.0f);
-	VECTOR localPosDown = VGet(0.0f, 5.0f, 0.0f);
+	VECTOR localPosDown = VGet(0.0f, -3.0f, 0.0f);
 	std::unique_ptr<ColliderCapsule>collider =
 		std::make_unique<ColliderCapsule>(info, radius, localPosTop, localPosDown, *this);
 	ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
@@ -111,8 +119,8 @@ void UnicyclePlayer::MoveInput(void)
 	//if (!KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_FRONT).now)return;
 	moveVec.z += 1.0f;
 	//if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_BACK).now) moveVec.z -= 1.0f;
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_RIGHT).now) moveVec.x += 1.0f;
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT).now) moveVec.x -= 1.0f;
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_RIGHT, padNum_).now) moveVec.x += 1.0f;
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT, padNum_).now) moveVec.x -= 1.0f;
 
 	const VECTOR cameraAngle = SceneManager::GetInstance().GetCamera().GetAngles();
 	MATRIX camYaw = MGetRotY(cameraAngle.y);
