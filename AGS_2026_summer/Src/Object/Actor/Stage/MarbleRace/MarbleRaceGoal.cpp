@@ -4,6 +4,7 @@
 
 void MarbleRaceGoal::SubInit(void)
 {
+trans_.pos = VGet(0, 20, 360);
 }
 
 void MarbleRaceGoal::SubLoad(void)
@@ -24,8 +25,8 @@ void MarbleRaceGoal::InitCollider(void)
 	info.entityKind_ = EntityKind::MARBLE_GOAL;
 	info.isTrigger_ = true;
 	info.debugColor_ = GetColor(0, 255, 255);
-	info.localPos_ = VGet(0, 20, 300);
-	VECTOR halfSize = VGet(100, 10, 40);
+	
+	VECTOR halfSize = VGet(100, 10, 1);
 	std::unique_ptr<ColliderBox>collider =
 		std::make_unique<ColliderBox>(info, halfSize, *this);
 	ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));

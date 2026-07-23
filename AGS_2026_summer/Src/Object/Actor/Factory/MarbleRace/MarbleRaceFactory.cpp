@@ -38,13 +38,13 @@ std::vector<std::unique_ptr<ActorBase>> MarbleRaceFactory::CreateActors(void)
     float minZ = -200.0f;
     float maxZ = 300.0f;
 
-    for (int i = 0; i < 50; i++)
+    for (int i = 0; i < 60; i++)
     {
         // ƒ‰ƒ“ƒ_ƒ€‚ÈˆÊ’u‚ð¶¬‚·‚éƒ‰ƒ€ƒ_Ž®
         auto SetRandomPos = [&](ActorBase* actor) {
             float rx = minX + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (maxX - minX)));
             float rz = minZ + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (maxZ - minZ)));
-            actor->GetTransform().pos = VGet(rx, 20.0f, rz);
+            actor->GetTransform().pos = VGet(rx, i , rz);
             };
 
         // SmallMarble

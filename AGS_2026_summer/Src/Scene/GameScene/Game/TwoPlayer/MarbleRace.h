@@ -1,6 +1,8 @@
 #pragma once
 #include "../GameBase.h"
 #include<vector>
+class GameMessageUI;
+
 class MarbleRacePlayer;
 class MarbleRace :
     public GameBase
@@ -25,6 +27,6 @@ public	:
 	void InitSE(void)override;
 	void InitCamera(void)override;
 private:
-	std::vector<MarbleRacePlayer*>clearPlayers_;
+	std::shared_ptr<GameMessageUI> msgUI_;
 
 };

@@ -5,10 +5,14 @@
 
 #include"../../../../Object/Actor/Camera/Camera.h"
 
+#include"../../../../Object/UI/FindingJ/GameMessageUI.h"
+
 #include"../../../../Object/Actor/Charactor/TwoPlay/MarbleRace/MarbleRacePlayer.h"
 #include"../../../../Object/Actor/Charactor/TwoPlay/MarbleRace/State/MarbleRaveAttack.h"
 #include"../../../../Object/Actor/Charactor/TwoPlay/MarbleRace/State/MarbleRaceHit.h"
 #include"../../../../Object/Actor/Stage/MarbleRace/MarbleRaceGoal.h"
+
+
 MarbleRace::MarbleRace(ActorManager* actMng, CollisionManager* colMng) :GameBase(actMng, colMng)
 {
 }
@@ -23,15 +27,40 @@ void MarbleRace::SubLoad(void)
 
 void MarbleRace::SubInit(void)
 {
-	isUpdate_ = true;
 }
 
 void MarbleRace::SubUpdate(void)
 {
+	SceneManager::GetInstance().GetCamera().StopMove();
+	static int start = 0;
+	start++;
+	if (start > 500) {
+		isUpdate_ = true;
+		start = 0;
+	}
+	if (!isUpdate_)return;
+	auto pos = SceneManager::GetInstance().GetCamera().GetTransform().pos;
+	if (pos.z >= 500)
+	{
+
+	}
+	else
+	{
+	SceneManager::GetInstance().GetCamera().SetCameraPos(VAdd(pos, VGet(0, 0, 0.3f)));
+	}
 }
 
 void MarbleRace::SubDraw(void)
 {
+	//カメラ座標
+DrawFormatString(0,0,0xffffff,"Camera Position: %f, %f, %f",
+	SceneManager::GetInstance().GetCamera().GetPos().x,
+	SceneManager::GetInstance().GetCamera().GetPos().y,
+	SceneManager::GetInstance().GetCamera().GetPos().z);
+DrawFormatString(0, 20, 0xffffff, "Camera Angles: %f, %f, %f",
+	SceneManager::GetInstance().GetCamera().GetAngles().x,
+	SceneManager::GetInstance().GetCamera().GetAngles().y,
+	SceneManager::GetInstance().GetCamera().GetAngles().z);
 }
 
 void MarbleRace::SubRelease(void)
@@ -82,8 +111,8 @@ void MarbleRace::SetContactEventCallback(void)
 			if (entityKindA == EntityKind::PLAYER) { player = dynamic_cast<MarbleRacePlayer*>(actorA); goal = dynamic_cast<MarbleRaceGoal*>(actorB); }
 			if (entityKindB == EntityKind::PLAYER) { player = dynamic_cast<MarbleRacePlayer*>(actorB); goal = dynamic_cast<MarbleRaceGoal*>(actorA); }
 			if (!player || !goal)return;
-			clearPlayers_.push_back(player);
-		});
+			auto massage = UIManager::GetInstance().GetUI<GameMessageUI>(UINAME::MASSAGE);
+			massage->SetMassageState(GameMessageUI::MASSAGE_STATE::FINISH);		});
 }
 
 void MarbleRace::SetEventCallBack(void)
@@ -92,6 +121,10 @@ void MarbleRace::SetEventCallBack(void)
 
 void MarbleRace::LoadUI(void)
 {
+	msgUI_ = std::make_shared<GameMessageUI>(Vector2F(Application::SCREEN_SIZE_X / 2, Application::SCREEN_SIZE_Y / 2), Vector2F(400, 100));
+	msgUI_->Load();
+	msgUI_->Init();
+	UIManager::GetInstance().AddRootUI(msgUI_);
 }
 
 void MarbleRace::LoadSE(void)
@@ -100,6 +133,10 @@ void MarbleRace::LoadSE(void)
 
 void MarbleRace::InitUI(void)
 {
+	msgUI_->SetMassageText(GameMessageUI::MASSAGE_STATE::EXPLAIN, "ゴールを目指せ");
+	msgUI_->SetMassageText(GameMessageUI::MASSAGE_STATE::START, "START!");
+	msgUI_->SetMassageText(GameMessageUI::MASSAGE_STATE::FINISH, "GOAL!");
+
 }
 
 void MarbleRace::InitSE(void)
@@ -108,4 +145,8 @@ void MarbleRace::InitSE(void)
 
 void MarbleRace::InitCamera(void)
 {
+	SceneManager::GetInstance().GetCamera().ChangeMode(Camera::MODE::FIXED_POINT);
+	SceneManager::GetInstance().GetCamera().SetCameraPos(VGet(0, 100, -60));
+	SceneManager::GetInstance().GetCamera().SetCameraAngles(VGet(0.6f, 3.14f, 0.0f));
+	SceneManager::GetInstance().GetCamera().StopMove();
 }
