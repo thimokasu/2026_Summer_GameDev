@@ -23,6 +23,7 @@ enum class EntityKind
 	//SpikeDrop
 	SPIKE,
 	SPIKE_HIT,
+	DROPPER,
 
 	//FeedJ
 	STATION,

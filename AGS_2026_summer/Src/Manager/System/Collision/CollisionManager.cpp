@@ -211,7 +211,7 @@ void CollisionManager::ApplyBodyTorque(RigidBody& rb, Transform& trans, const VE
 	VECTOR torque = VCross(r, VScale(collisionForce, sign));
 
 	// 物理計算が暴走しないためのトルク上限設定（必要に応じて調整してください）
-	float maxTorque = 0.01f;
+	float maxTorque = 0.45f;
 	float torqueMag = sqrtf(VDot(torque, torque));
 
 	if (torqueMag > maxTorque)

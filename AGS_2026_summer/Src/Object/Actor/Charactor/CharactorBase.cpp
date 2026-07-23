@@ -22,21 +22,25 @@ void CharactorBase::SubInit(void)
 void CharactorBase::SubUpdate(void)
 {
 	MoveInput();
-	if (canInput_)
+	if (currentState_)
 	{
-	currentState_->HandleInput(this);
-	}
-	currentState_->DecreaseIdleTime();
-	currentState_->Update(this);
-	if (currentState_->GetIdleTime() <= 0 && !currentState_->GetIsLoop())
-	{
-		ReturnToIdle();
-	}
-	if (currentState_->GetStateFrame() >= currentState_->GetNextInputStartTime())
-	{
-		currentState_->OnCanChange();
-	}
+
+		if (canInput_)
+		{
+			currentState_->HandleInput(this);
+		}
+		currentState_->DecreaseIdleTime();
+		currentState_->Update(this);
+		if (currentState_->GetIdleTime() <= 0 && !currentState_->GetIsLoop())
+		{
+			ReturnToIdle();
+		}
+		if (currentState_->GetStateFrame() >= currentState_->GetNextInputStartTime())
+		{
+			currentState_->OnCanChange();
+		}
 	currentState_->InCreaseStateFrame();
+	}
 }
 
 void CharactorBase::SubDraw(void)

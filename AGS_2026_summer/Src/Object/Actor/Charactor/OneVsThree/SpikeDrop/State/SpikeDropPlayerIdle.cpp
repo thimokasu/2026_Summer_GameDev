@@ -12,15 +12,16 @@ void SpikeDropPlayerIdle::EnterT(SpikeDropPlayer* owner)
 
 void SpikeDropPlayerIdle::HandleInputT(SpikeDropPlayer* owner)
 {
-	if (KEY::GetIns().GetInfo(KEY_TYPE::MOVE_FRONT).now ||
-		KEY::GetIns().GetInfo(KEY_TYPE::MOVE_LEFT).now ||
-		KEY::GetIns().GetInfo(KEY_TYPE::MOVE_BACK).now ||
-		KEY::GetIns().GetInfo(KEY_TYPE::MOVE_RIGHT).now
+	int i=owner->GetUseController();
+	if (KEY::GetIns().GetInfo(KEY_TYPE::MOVE_FRONT,i).now ||
+		KEY::GetIns().GetInfo(KEY_TYPE::MOVE_LEFT,i).now ||
+		KEY::GetIns().GetInfo(KEY_TYPE::MOVE_BACK,i).now ||
+		KEY::GetIns().GetInfo(KEY_TYPE::MOVE_RIGHT,i).now
 		)
 	{
 		owner->ChangeState<SpikeDropPlayerMove>();
 	}
-	else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down)
+	else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE,i).down)
 	{
 		owner->ChangeState<SpikeDropPlayerJump>();
 	}

@@ -12,10 +12,10 @@ public:
     void SubUpdate(void) override;
     void SubDraw(void) override;
     void SubRelease(void) override;
-    void InitCollider(void) override;
-    void InitRigidBody(void)override;
 
 private:
+    void InitCollider(void) override;
+    void InitRigidBody(void)override;
     void ReturnToIdle(void)override;
     void CreateState(void)override;
 

@@ -115,20 +115,29 @@ void EventManager::SetEventRule(EntityKind kindA, EntityKind kindB, GameEventTyp
 
 void EventManager::TriggerEvent(GameEventType eventType)
 {
-    auto it = callbackEvent_.find(eventType);
-    if (it != callbackEvent_.end())
-    {
-        auto callbacks = it->second;
-        for (const auto& callback : callbacks)
-        {
-            callback(ContactRule{}); 
-        }
-	}
+    contactRules_.push_back(
+        ContactRule{ ContactEventInfo{ContactEventInfo::Type::TRIGGER }, eventType }
+    );
+
+ //   auto it = callbackEvent_.find(eventType);
+ //   if (it != callbackEvent_.end())
+ //   {
+ //       auto callbacks = it->second;
+ //       for (const auto& callback : callbacks)
+ //       {
+ //           callback(ContactRule{}); 
+ //       }
+	//}
 }
 
 
 ContactRule EventManager::Query(ContactRule rule)
 {
+    if (rule.contactEvent_.type_ == ContactEventInfo::Type::TRIGGER)
+    {
+        return rule;
+    }
+
     auto A = rule.contactEvent_.entityA.entityKind_;
     auto B = rule.contactEvent_.entityB.entityKind_;
 

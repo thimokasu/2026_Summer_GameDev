@@ -26,6 +26,7 @@ enum class GameEventType
 
 	//Unicycle
 	PLAYER_FALL,
+	CREATE_SPIKE,
 
 	//MarbleRace
 	PLAYER_HIT,

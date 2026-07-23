@@ -18,7 +18,8 @@ struct ContactEventInfo
 	{
 		BEGIN,
 		STAY,
-		END
+		END,
+		TRIGGER,
 	};
 
 	Type type_;
