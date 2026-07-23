@@ -41,6 +41,7 @@ void GameSelectScene::SubUpdate(void)
 
 void GameSelectScene::SubDraw(void)
 {
+	DrawGraph(0, 0, backImage_, true);
 	(this->*draw_)();
 }
 
