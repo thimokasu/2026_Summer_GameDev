@@ -163,7 +163,8 @@ bool KeyManager::ControllerOthersInput(const CONTROLLER_OTHERS& input, int padNo
 	switch (input)
 	{
 	case KeyManager::CONTROLLER_OTHERS::LEFTSTICK_UP:
-		if (state.ThumbLY > lenge) { return true; }
+		if (state.ThumbLY > lenge) { 
+			return true; }
 		break;
 	case KeyManager::CONTROLLER_OTHERS::LEFTSTICK_DOWN:
 		if (state.ThumbLY < -lenge) { return true; }

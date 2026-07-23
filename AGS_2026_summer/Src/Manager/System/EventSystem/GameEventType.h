@@ -27,6 +27,9 @@ enum class GameEventType
 	//Unicycle
 	PLAYER_FALL,
 
+	//MarbleRace
+	PLAYER_HIT,
+	MARBLE_RACE_GOAL,
 
 	//FeedJ
 	PLAYER_CONTACT_FOOD,
