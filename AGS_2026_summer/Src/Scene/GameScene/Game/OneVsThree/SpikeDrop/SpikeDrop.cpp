@@ -53,7 +53,9 @@ void SpikeDrop::SetContactEventCallback(void)
 			if (entityKindA == EntityKind::PLAYER) { player = dynamic_cast<SpikeDropPlayer*>(actorA); spike = dynamic_cast<Spike*>(actorB); }
 			if(entityKindB==EntityKind::PLAYER){player= dynamic_cast<SpikeDropPlayer*>(actorB); spike = dynamic_cast<Spike*>(actorA);}
 			if (!player || !spike)return;
-			//player->ChangeState<SpikeDropPlayerHit>();
+			player->GetTransform().pos = VGet(player->GetTransform().pos.x, player->GetTransform().pos.y, 100);
+			player->GetRigidBody().AddForce(VGet(0, 20, -20));
+			player->ChangeState<SpikeDropPlayerHit>();
 		});
 }
 
