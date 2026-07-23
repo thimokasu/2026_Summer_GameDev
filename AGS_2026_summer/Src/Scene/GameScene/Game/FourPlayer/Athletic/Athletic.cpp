@@ -3,7 +3,12 @@
 #include"../../../../../Object/Actor/EntityKind.h"
 #include"../../../../../Object/Actor/Stage/Athletic/AthleticHeaders.h"
 #include"../../../../../Object/Actor/Charactor/FourPlayer/Athletic/AthleticPlayer.h"
+<<<<<<< HEAD
 #include"../../../../../Object/Actor/Collider/ColliderBase.h"
+=======
+#include"../../../../../Manager/Game/SceneManager.h"
+#include"../../../../../Object/Actor/Camera/Camera.h"
+>>>>>>> scene/game/Athletic
 Athletic::Athletic(ActorManager* actMng, CollisionManager* colMng):GameBase(actMng,colMng)
 {
 }
@@ -14,6 +19,7 @@ Athletic::~Athletic(void)
 
 void Athletic::SubLoad(void)
 {
+
 }
 
 void Athletic::SubInit(void)
@@ -38,11 +44,24 @@ void Athletic::SubUpdate(void)
 	{
 		EventManager::GetInstance().TriggerEvent(GameEventType::FINISH);
 	}
+	auto pos = SceneManager::GetInstance().GetCamera().GetTransform().pos;
+	SceneManager::GetInstance().GetCamera().SetCameraPos(VAdd(pos, VGet(0.1f, 0, 0)));
 }
 
 void Athletic::SubDraw(void)
 {
+<<<<<<< HEAD
 	DrawFormatString(0, 100, 0xffffff, "%d", t);
+=======
+	DrawFormatString(0, 0, 0xffffff, "Camera Position: %f, %f, %f",
+		SceneManager::GetInstance().GetCamera().GetPos().x,
+		SceneManager::GetInstance().GetCamera().GetPos().y,
+		SceneManager::GetInstance().GetCamera().GetPos().z);
+	DrawFormatString(0, 20, 0xffffff, "Camera Angles: %f, %f, %f",
+		SceneManager::GetInstance().GetCamera().GetAngles().x,
+		SceneManager::GetInstance().GetCamera().GetAngles().y,
+		SceneManager::GetInstance().GetCamera().GetAngles().z);
+>>>>>>> scene/game/Athletic
 }
 
 void Athletic::SubRelease(void)
@@ -187,5 +206,8 @@ void Athletic::InitSE(void)
 
 void Athletic::InitCamera(void)
 {
+	SceneManager::GetInstance().GetCamera().ChangeMode(Camera::MODE::FREE);
+	SceneManager::GetInstance().GetCamera().SetCameraPos(VGet(76, 220 ,- 70));
+	SceneManager::GetInstance().GetCamera().SetCameraAngles(VGet(0.94f, 0.0f, 0.0f));
 }
 
