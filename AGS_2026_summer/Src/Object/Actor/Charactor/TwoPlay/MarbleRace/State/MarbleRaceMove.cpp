@@ -4,39 +4,44 @@
 #include"../../../../Camera/Camera.h"
 #include"MarbleRaveAttack.h"
 #include"MarbleRaceIdle.h"
-
+#include"MarbleRaceHit.h"
 void MarbleRaceMove::EnterT(MarbleRacePlayer* owner)
 {
+	stateFrame_ = 0;
+	isLoop_ = true;
 }
 
 void MarbleRaceMove::HandleInputT(MarbleRacePlayer* owner)
 {
-	if (KEY::GetIns().GetInfo(KEY_TYPE::MOVE_FRONT).now ||
-		KEY::GetIns().GetInfo(KEY_TYPE::MOVE_LEFT).now ||
-		KEY::GetIns().GetInfo(KEY_TYPE::MOVE_BACK).now ||
-		KEY::GetIns().GetInfo(KEY_TYPE::MOVE_RIGHT).now
+	int i=owner->GetUseController();
+	if (KEY::GetIns().GetInfo(KEY_TYPE::MOVE_FRONT, i).now ||
+		KEY::GetIns().GetInfo(KEY_TYPE::MOVE_LEFT, i).now ||
+		KEY::GetIns().GetInfo(KEY_TYPE::MOVE_BACK, i).now ||
+		KEY::GetIns().GetInfo(KEY_TYPE::MOVE_RIGHT, i).now
 		)
 	{
-	}else if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::J_KEY_ACTION).down)
-	{
-		owner->ChangeState<MarbleRaveAttack>();
 	}
-	else
-	{
+	else {
 		owner->ChangeState<MarbleRaceIdle>();
 	}
+	
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::J_KEY_ACTION,i).down)
+	{
+		owner->ChangeState<MarbleRaceAttack>();
+	}
+
 }
 
 void MarbleRaceMove::UpdateT(MarbleRacePlayer* owner)
 {
 	VECTOR moveVec = { 0.0f,0.0f,0.0f };
-
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_FRONT).now) {
+	int i = owner->GetUseController();
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_FRONT,i).now) {
 		moveVec.z += 1.0f;
 	}
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_BACK).now) moveVec.z -= 1.0f;
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_RIGHT).now) moveVec.x += 1.0f;
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT).now) moveVec.x -= 1.0f;
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_BACK,i).now) moveVec.z -= 1.0f;
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_RIGHT,i).now) moveVec.x += 1.0f;
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT,i).now) moveVec.x -= 1.0f;
 
 	const VECTOR cameraAngle = SceneManager::GetInstance().GetCamera().GetAngles();
 	MATRIX camYaw = MGetRotY(cameraAngle.y);

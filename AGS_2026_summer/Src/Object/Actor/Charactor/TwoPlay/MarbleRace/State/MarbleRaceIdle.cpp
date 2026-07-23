@@ -6,20 +6,22 @@
 #include"MarbleRaveAttack.h"
 void MarbleRaceIdle::EnterT(MarbleRacePlayer* owner)
 {
+	isLoop_ = true;
 }
 
 void MarbleRaceIdle::HandleInputT(MarbleRacePlayer* owner)
 {
-	if (KEY::GetIns().GetInfo(KEY_TYPE::MOVE_FRONT).now ||
-		KEY::GetIns().GetInfo(KEY_TYPE::MOVE_LEFT).now ||
-		KEY::GetIns().GetInfo(KEY_TYPE::MOVE_BACK).now ||
-		KEY::GetIns().GetInfo(KEY_TYPE::MOVE_RIGHT).now
+	int i = owner->GetUseController();
+	if (KEY::GetIns().GetInfo(KEY_TYPE::MOVE_FRONT,i).now ||
+		KEY::GetIns().GetInfo(KEY_TYPE::MOVE_LEFT,i).now ||
+		KEY::GetIns().GetInfo(KEY_TYPE::MOVE_BACK,i).now ||
+		KEY::GetIns().GetInfo(KEY_TYPE::MOVE_RIGHT,i).now
 		)
 	{
 		owner->ChangeState<MarbleRaceMove>();
-	}if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::J_KEY_ACTION).down)
+	}if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::J_KEY_ACTION,i).down)
 	{
-		owner->ChangeState<MarbleRaveAttack>();
+		owner->ChangeState<MarbleRaceAttack>();
 	}
 }
 

@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Actor\Charactor\TwoPlay\MarbleRace\State\MarbleRaceHit.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\SpikeDropPlayerHit.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\SpikeDropPlayerIdle.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\SpikeDropPlayerJump.cpp" />
@@ -279,6 +280,7 @@
     <ClCompile Include="Src\Object\Actor\Stage\FeedJ\StationTrash.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Actor\Charactor\TwoPlay\MarbleRace\State\MarbleRaceHit.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\SpikeDropPlayerHeaders.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\SpikeDropPlayerHit.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\SpikeDropPlayerIdle.h" />
