@@ -20,7 +20,7 @@ UnicyclePlayer::~UnicyclePlayer(void)
 
 void UnicyclePlayer::SubLoad(void)
 {
-	//trans_.modelId = ResourceManager::GetInstance().LoadModelDuplicate(SRC::UNICYCLE);
+	trans_.modelId = ResourceManager::GetInstance().LoadModelDuplicate(SRC::UNICYCLE);
 	riderTrans_.modelId = ResourceManager::GetInstance().LoadModelDuplicate(SRC::UNICYCLER);
 }
 
@@ -32,8 +32,8 @@ void UnicyclePlayer::SubInit(void)
 	rigidBody_.SetUseGravity(true);
 	rigidBody_.SetMass(1);
 	rigidBody_.SetMoveSpeed(0.6f);
-	trans_.pos = VGet(10.0f, 5.0f, 0.0f);
-	float scale = 0.3f;
+	trans_.pos = VGet(30.0f, 30.0f, 0.0f);
+	float scale = 0.6f;
 	trans_.scl = VGet(scale, scale, scale);
 	trans_.quaRotLocal = Quaternion::Euler(VGet(0.0f, AsoUtility::Deg2RadD(180.0f), 0.0f));
 
@@ -94,7 +94,7 @@ void UnicyclePlayer::InitCollider(void)
 	info.shape_ = ColliderShape::CAPSULE;
 	info.layer_ = ColliderLayer::ACTOR;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE });
-	float radius = 5.0f;
+	float radius = 2.0f;
 	info.entityKind_ = EntityKind::PLAYER;
 
 

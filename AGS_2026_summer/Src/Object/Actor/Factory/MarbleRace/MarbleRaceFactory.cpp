@@ -1,4 +1,5 @@
 #include "MarbleRaceFactory.h"
+#include<DxLib.h>
 #include"../../Stage/MarbleRace/MarbleRaceFloor.h"
 #include"../../Stage/MarbleRace/MarbleRaceGoal.h"
 #include"../../Stage/MarbleRace/MarbleRaceWall.h"
@@ -6,7 +7,6 @@
 #include"../../Item/MarbleRace/BigMarble.h"
 #include"../../Item/MarbleRace/NormalMarble.h"
 #include"../../Item/MarbleRace/SmallMarble.h"
-
 MarbleRaceFactory::MarbleRaceFactory(void)
 {
 }
@@ -18,7 +18,17 @@ MarbleRaceFactory::~MarbleRaceFactory(void)
 std::vector<std::unique_ptr<ActorBase>> MarbleRaceFactory::CreateActors(void)
 {
     std::vector<std::unique_ptr<ActorBase>>actors;
-    actors.push_back(std::make_unique<MarbleRacePlayer>());
+    std::unique_ptr<MarbleRacePlayer>player;
+    int i = GetJoypadNum();
+    for (int i = 0; i < 2; i++)
+    {
+
+    player= std::make_unique<MarbleRacePlayer>();
+    player->SetPlayNumber(i);
+    player->SetUseController(i);
+    player->GetTransform().pos = VGet(-25 + i * 75, 0, -260);
+    actors.push_back(std::move(player));
+    }
     actors.push_back(std::make_unique<MarbleRaceFloor>());
     actors.push_back(std::make_unique<MarbleRaceGoal>());
     actors.push_back(std::make_unique<MarbleRaceWall>());

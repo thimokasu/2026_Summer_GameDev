@@ -28,6 +28,9 @@ enum class GameEventType
 	PLAYER_FALL,
 	CREATE_SPIKE,
 
+	//MarbleRace
+	PLAYER_HIT,
+	MARBLE_RACE_GOAL,
 
 	//FeedJ
 	PLAYER_CONTACT_FOOD,

@@ -142,6 +142,7 @@
     <ClCompile Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\DropperDrop.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\DropperIdle.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\DropperMove.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\TwoPlay\MarbleRace\State\MarbleRaceHit.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\SpikeDropPlayerHit.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\SpikeDropPlayerIdle.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\SpikeDropPlayerJump.cpp" />
@@ -285,6 +286,7 @@
     <ClInclude Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\DropperDrop.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\DropperIdle.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\DropperMove.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\TwoPlay\MarbleRace\State\MarbleRaceHit.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\SpikeDropPlayerHeaders.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\SpikeDropPlayerHit.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\OneVsThree\SpikeDrop\State\SpikeDropPlayerIdle.h" />
