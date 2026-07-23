@@ -33,6 +33,9 @@ public:
 	// ローカル回転
 	Quaternion quaRotLocal;
 
+	//
+	bool isActiv;
+
 	/// <summary>
 	/// モデル制御の基本情報更新
 	/// </summary>

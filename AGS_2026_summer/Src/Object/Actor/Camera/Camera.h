@@ -46,6 +46,7 @@ public:
 		FIXED_POINT,
 		FREE,
 		FOLLOW,
+		MULTI_FOLLOW,
 	};
 
 
@@ -87,6 +88,7 @@ public:
 
 	// 追従対象の設定
 	void SetFollow(const Transform* follow);
+	void SetMultiFollow(const Transform* follow);
 
 	void SetCameraAngles(const VECTOR& angles) { angles_ = angles; }
 	void SetCameraDeg(const VECTOR& deg);
@@ -98,6 +100,7 @@ private:
 
 	// カメラが追従対象とするTransform
 	const Transform* followTransform_;
+	std::vector<const Transform*> followTransformM_;
 
 	// カメラモード
 	MODE mode_;
@@ -117,6 +120,9 @@ private:
 	// 追従対象との位置同期を取る
 	void SyncFollow(void);
 
+	// 追従対象のZ軸のみ追従X軸は画面中央固定
+	void SyncMultiFollow(void);
+
 	// カメラ操作
 	void ProcessRot(bool isLimit);
 	void ProcessMove(void);
@@ -131,6 +137,7 @@ private:
 	void SetBeforeDrawFixedPoint(void);
 	void SetBeforeDrawFree(void);
 	void SetBeforeDrawFollow(void);
+	void SetBeforeDrawMultiFollow(void);
 
 	// 衝突時の押し戻し量
 	static constexpr float COLLISION_BACK_DIS = 2.0f;

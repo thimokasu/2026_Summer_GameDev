@@ -75,26 +75,49 @@ void Unicycle::SetEventCallBack(void)
 		auto& player = dynamic_cast<UnicyclePlayer&>(*p);
 		player.SetFallCallBack([this, &player]()
 			{
-				OffUpdate();
-				//プレイヤーを画面外に飛ばす
-				player.FallAfterGameEnd();
-				//メッセージUIの表示
-				auto massage = UIManager::GetInstance().GetUI<GameMessageUI>(UINAME::MASSAGE);
-				massage->SetMassageState(GameMessageUI::MASSAGE_STATE::FINISH);
-				VECTOR pos = SceneManager::GetInstance().GetCamera().GetPos();
-				//固定カメラに切り替え
-				SceneManager::GetInstance().GetCamera().ChangeMode(Camera::MODE::FREE);
-				SceneManager::GetInstance().GetCamera().SetCameraAngles(VGet(0.73f, 0.0f, 0.0f));
-				SceneManager::GetInstance().GetCamera().SetCameraPos(VGet(pos.x, pos.y,pos.z));
+				auto playerNum = actorMng_->FindActorsNum(EntityKind::PLAYER);
+				finishCount_++;
+				//一人プレイなら終わらせつ
+				if (playerNum == 1)
+				{
+					OffUpdate();
+					//プレイヤーを画面外に飛ばす
+					player.FallAfterGameEnd();
+					//メッセージUIの表示
+					auto massage = UIManager::GetInstance().GetUI<GameMessageUI>(UINAME::MASSAGE);
+					massage->SetMassageState(GameMessageUI::MASSAGE_STATE::FINISH);
+					VECTOR pos = SceneManager::GetInstance().GetCamera().GetPos();
+					//固定カメラに切り替え
+					SceneManager::GetInstance().GetCamera().ChangeMode(Camera::MODE::FREE);
+					SceneManager::GetInstance().GetCamera().SetCameraAngles(VGet(0.73f, 0.0f, 0.0f));
+					SceneManager::GetInstance().GetCamera().SetCameraPos(VGet(pos.x, pos.y, pos.z));
+				}
+				else if(finishCount_==playerNum)
+				{
+					OffUpdate();
+					//プレイヤーを画面外に飛ばす
+					player.FallAfterGameEnd();
+					//メッセージUIの表示
+					auto massage = UIManager::GetInstance().GetUI<GameMessageUI>(UINAME::MASSAGE);
+					massage->SetMassageState(GameMessageUI::MASSAGE_STATE::FINISH);
+					VECTOR pos = SceneManager::GetInstance().GetCamera().GetPos();
+					//固定カメラに切り替え
+					SceneManager::GetInstance().GetCamera().ChangeMode(Camera::MODE::FREE);
+					SceneManager::GetInstance().GetCamera().SetCameraAngles(VGet(0.73f, 0.0f, 0.0f));
+					SceneManager::GetInstance().GetCamera().SetCameraPos(VGet(pos.x, pos.y, pos.z));
+				}
+			
 			}
 		);
 	}
+
 
 	//ゴール時のイベント
 	distanceUI_->SetGoalCallBack([this]()
 		{
 			OffUpdate();
-			ImageUI_->SetActive(true);
+			auto massage = UIManager::GetInstance().GetUI<GameMessageUI>(UINAME::MASSAGE);
+			massage->SetMassageState(GameMessageUI::MASSAGE_STATE::FINISH);
 			VECTOR pos = SceneManager::GetInstance().GetCamera().GetPos();
 			//固定カメラに切り替え
 			SceneManager::GetInstance().GetCamera().ChangeMode(Camera::MODE::FREE);
@@ -108,8 +131,9 @@ void Unicycle::LoadUI(void)
 {
 	//距離UIの生成
 	distanceUI_ = std::make_shared<Distance>(
-		Vector2F(Application::SCREEN_SIZE_X / 2, Application::SCREEN_SIZE_Y));
+		Vector2F(Application::SCREEN_SIZE_X / 2 , Application::SCREEN_SIZE_Y));
 	UIManager::GetInstance().AddRootUI(distanceUI_);
+
 
 	//画像UI
 	ImageUI_ = std::make_shared<MessageImageUI>(
@@ -137,17 +161,17 @@ void Unicycle::LoadUI(void)
 
 	//プレイヤーのTransformを取得してUIに設定
 	setUI_ = [this](std::uint32_t playerID)
-	{
-		if (distanceUI_) {
-			auto actor = actorMng_->FindActorByID(playerID);
-			if (actor)
-			{
-				auto& player = dynamic_cast<UnicyclePlayer&>(*actor);
-				distanceUI_->SetTrans(&player.GetTransform());
-				distanceUI_->Load();
+		{
+			if (distanceUI_) {
+				auto actor = actorMng_->FindActorByID(playerID);
+				if (actor)
+				{
+					auto& player = dynamic_cast<UnicyclePlayer&>(*actor);
+					distanceUI_->SetTrans(&player.GetTransform());
+					distanceUI_->Load();
+				}
 			}
-		}
-	};
+		};
 }
 
 void Unicycle::LoadSE(void)
@@ -178,12 +202,12 @@ void Unicycle::InitSE(void)
 
 void Unicycle::InitCamera(void)
 {
-	SceneManager::GetInstance().GetCamera().ChangeMode(Camera::MODE::FOLLOW);
+	SceneManager::GetInstance().GetCamera().ChangeMode(Camera::MODE::MULTI_FOLLOW);
 	auto player = actorMng_->FindActorsByKind(EntityKind::PLAYER);
 	for (auto& p : player)
 	{
 		auto& player = dynamic_cast<UnicyclePlayer&>(*p);
-		SceneManager::GetInstance().GetCamera().SetFollow(&player.GetTransform());
+		SceneManager::GetInstance().GetCamera().SetMultiFollow(&player.GetTransform());
 	}
 	SceneManager::GetInstance().GetCamera().SetCameraAngles(VGet(0.73f, 0.0f, 0.0f));
 	SceneManager::GetInstance().GetCamera().StopMove();

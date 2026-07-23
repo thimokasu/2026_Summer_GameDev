@@ -327,9 +327,9 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 		//いったん一輪車のみ複数プレイを適用
 		switch (game)
 		{
-		//case GAME_KIND::UNICYCLE:
-		//	return (int)playerNum_;
-		//	break;
+		case GAME_KIND::UNICYCLE:
+			return (int)playerNum_;
+			break;
 		default:
 			return (int)PlayerNum::One;
 			break;

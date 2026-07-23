@@ -34,5 +34,7 @@ private:
 	std::shared_ptr<MessageImageUI> ImageUI_;
 	SetUI setUI_;
 
+	int finishCount_ = 0;
+
 };
 

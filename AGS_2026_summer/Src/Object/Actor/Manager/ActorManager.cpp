@@ -129,6 +129,19 @@ std::vector<ActorBase*> ActorManager::FindActorsByKind(EntityKind kind) const
 	return actors;
 }
 
+int ActorManager::FindActorsNum(EntityKind kind) const
+{
+	int actorsNum=0;
+	for (const auto& a : actors_)
+	{
+		if (a->GetEntityKind() == kind)
+		{
+			actorsNum++;
+		}
+	}
+	return actorsNum;
+}
+
 ActorBase* ActorManager::FindActorByID(EntityID id) const
 {
 for(const auto&a:actors_)
