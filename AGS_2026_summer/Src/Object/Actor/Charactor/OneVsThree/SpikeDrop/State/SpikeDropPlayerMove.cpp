@@ -14,13 +14,14 @@ void SpikeDropPlayerMove::EnterT(SpikeDropPlayer* owner)
 
 void SpikeDropPlayerMove::HandleInputT(SpikeDropPlayer* owner)
 {
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down)
+	int i = owner->GetUseController();
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE,i).down)
 	{
 		owner->ChangeState<SpikeDropPlayerJump>();
 	}
 
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_RIGHT).now ||
-		KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT).now)
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_RIGHT,i).now ||
+		KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT,i).now)
 	{
 
 	}
@@ -33,12 +34,12 @@ void SpikeDropPlayerMove::HandleInputT(SpikeDropPlayer* owner)
 void SpikeDropPlayerMove::UpdateT(SpikeDropPlayer* owner)
 {
 	VECTOR moveVec = { 0.0f,0.0f,0.0f };
-
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_FRONT).now) {
+	int i = owner->GetUseController();
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_FRONT,i).now) {
 		moveVec.z += 1.0f;
 	}
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_RIGHT).now) moveVec.x += 1.0f;
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT).now) moveVec.x -= 1.0f;
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_RIGHT,i).now) moveVec.x += 1.0f;
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT,i).now) moveVec.x -= 1.0f;
 
 	const VECTOR cameraAngle = SceneManager::GetInstance().GetCamera().GetAngles();
 	MATRIX camYaw = MGetRotY(cameraAngle.y);
