@@ -28,5 +28,4 @@ public	:
 	void InitCamera(void)override;
 private:
 	std::shared_ptr<GameMessageUI> msgUI_;
-
 };

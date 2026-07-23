@@ -111,6 +111,8 @@ void MarbleRace::SetContactEventCallback(void)
 			if (entityKindA == EntityKind::PLAYER) { player = dynamic_cast<MarbleRacePlayer*>(actorA); goal = dynamic_cast<MarbleRaceGoal*>(actorB); }
 			if (entityKindB == EntityKind::PLAYER) { player = dynamic_cast<MarbleRacePlayer*>(actorB); goal = dynamic_cast<MarbleRaceGoal*>(actorA); }
 			if (!player || !goal)return;
+			auto p = dynamic_cast<MarbleRacePlayer*>(player);
+			isUpdate_ = false;
 			auto massage = UIManager::GetInstance().GetUI<GameMessageUI>(UINAME::MASSAGE);
 			massage->SetMassageState(GameMessageUI::MASSAGE_STATE::FINISH);		});
 }
