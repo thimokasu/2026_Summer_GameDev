@@ -135,7 +135,7 @@ void MarbleRace::LoadSE(void)
 
 void MarbleRace::InitUI(void)
 {
-	msgUI_->SetMassageText(GameMessageUI::MASSAGE_STATE::EXPLAIN, "ƒS[ƒ‹‚ð–ÚŽw‚¹");
+	msgUI_->SetMassageText(GameMessageUI::MASSAGE_STATE::EXPLAIN, "GO FOR GOAL!");
 	msgUI_->SetMassageText(GameMessageUI::MASSAGE_STATE::START, "START!");
 	msgUI_->SetMassageText(GameMessageUI::MASSAGE_STATE::FINISH, "GOAL!");
 
