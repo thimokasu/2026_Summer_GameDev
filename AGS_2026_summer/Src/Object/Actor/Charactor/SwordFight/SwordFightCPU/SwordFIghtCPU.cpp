@@ -27,6 +27,7 @@ void SwordFIghtCPU::SubInit(void)
 {
 	entityKind_ = EntityKind::CPU;
 	trans_.quaRotLocal = Quaternion::Euler(VGet(0.0f, AsoUtility::Deg2RadD(180.0f), 0.0f));
+	trans_.pos = VGet(0, 100.0f, 400.0f);
 
 
 	Swordtrans_.scl.x = 3.0f;

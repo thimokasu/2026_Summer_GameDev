@@ -6,6 +6,7 @@
 #include "../../../Common/AnimationController.h"
 #include"../../../../Utility/AsoUtility.h"
 #include "../../../../Application.h"
+#include"../../../../Manager/Game/SE.h"
 
 
 SwordFightPlayer::SwordFightPlayer(void)
@@ -21,6 +22,15 @@ void SwordFightPlayer::SubLoad(void)
 	CharactorBase::SubLoad();
 	trans_.modelId = MV1LoadModel("Data/Model/Player/Player Idle.mv1");
 	Swordtrans_.modelId = MV1LoadModel("Data/Model/Player/SwordRed.mv1");
+	SE::GetInstance().Load(SOUND_TYPE::LOSS, "Data/BGM/SwordFight/Loss.mp3");
+	SE::GetInstance().Load(SOUND_TYPE::CUT, "Data/BGM/SwordFight/Cut.mp3");
+	SE::GetInstance().Load(SOUND_TYPE::DOME, "Data/BGM/SwordFight/Dome.mp3");
+	SE::GetInstance().Load(SOUND_TYPE::DRAW, "Data/BGM/SwordFight/Draw.mp3");
+	SE::GetInstance().Load(SOUND_TYPE::HITATTACK, "Data/BGM/SwordFight/HitAttack.mp3");
+	SE::GetInstance().Load(SOUND_TYPE::HITSWORD, "Data/BGM/SwordFight/HitSword.mp3");
+	SE::GetInstance().Load(SOUND_TYPE::START, "Data/BGM/SwordFight/Start.mp3");
+	SE::GetInstance().Load(SOUND_TYPE::START2, "Data/BGM/SwordFight/Start2.mp3");
+	SE::GetInstance().Load(SOUND_TYPE::WIN, "Data/BGM/SwordFight/Win.mp3");
 
 }
 
@@ -116,6 +126,8 @@ void SwordFightPlayer::SubDraw(void)
 	MV1DrawModel(trans_.modelId);
 	MV1DrawModel(Swordtrans_.modelId);
 	DrawFormatString(0, 10, 0xffffff, "State:%s", currentState_->GetName());
+	SE::GetInstance().Play(SOUND_TYPE::START, false);
+
 }
 
 void SwordFightPlayer::SubRelease(void)

@@ -5,6 +5,7 @@
 #include"../../../../Common/AnimationController.h"
 #include"../../../../../Manager/Game/SceneManager.h"
 #include"../../../Camera/Camera.h"
+#include"../../../../../Manager/Game/SE.h"
 
 
 void SwordFight_Damage::EnterT(SwordFightPlayer* owner)
@@ -12,6 +13,7 @@ void SwordFight_Damage::EnterT(SwordFightPlayer* owner)
 	isLoop_ = true;
 
 	owner->GetAnimController()->Play(SwordFightPlayer::animType::Damage, false);
+	SE::GetInstance().Play(SOUND_TYPE::CUT, false);
 
 }
 

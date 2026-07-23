@@ -11,6 +11,7 @@ void SwordFightLoseCPU::EnterT(SwordFIghtCPU* owner)
 	isLoop_ = true;
 
 	owner->GetAnimController()->Play(SwordFIghtCPU::animType_CPU::Lose_CPU, false);
+
 }
 
 void SwordFightLoseCPU::HandleInputT(SwordFIghtCPU* owner)

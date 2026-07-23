@@ -5,11 +5,15 @@
 #include"../../CharactorBase.h"
 #include"../../../Camera/Camera.h"
 #include"../../../../Common/AnimationController.h"
+#include"../../../../../Manager/Game/SE.h"
+
 void SwordFIght_Walk::EnterT(SwordFightPlayer* owner)
 {
 	isLoop_ = true;
 
 	owner->GetAnimController()->Play(SwordFightPlayer::animType::Walk);
+
+	SE::GetInstance().Play(SOUND_TYPE::DOME, false);
 
 	printfDx("Walk Enter\n");
 }

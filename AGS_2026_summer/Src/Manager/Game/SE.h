@@ -7,6 +7,15 @@ enum SOUND_TYPE
 {
    BGM,
    ALERT,
+   LOSS,
+   DRAW,
+   DOME,
+   CUT,
+   HITATTACK,
+   HITSWORD,
+   START,
+   START2,
+   WIN,
     MAX
 };
 
