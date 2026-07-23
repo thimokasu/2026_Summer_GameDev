@@ -16,7 +16,7 @@ void AthleticSpiningBar::SubInit(void)
 void AthleticSpiningBar::SubUpdate(void)
 {
 	static float count = 0;
-	count += 0.5f;
+	count -= 0.5f;
 	float angle = count * DX_PI_F / 180.0f;
 	trans_.quaRot = Quaternion::Euler({ 0,angle,0 });
 }
