@@ -6,12 +6,12 @@
 
 #include"../../../../Object/Actor/Camera/Camera.h"
 
-#include"../../../../Object/Actor/Charactor/SwordFight/SwordFightPlayer.h"
+#include"../../../../Object/Actor/Charactor/SwordFight/SwordState/SwordFightStateHeaders.h"
 #include"../../../../Object/UI/FindingJ/GameMessageUI.h"
 
 #include"../../../../Object/UI/FindingJ/Timer.h"
 
-#include "../../../../Object/Actor/Charactor/SwordFight/SwordFIghtCPU/SwordFIghtCPU.h"
+#include "../../../../Object/Actor/Charactor/SwordFight/SwordFIghtCPU/SwordFIghtCPUHeaders.h"
 
 
 SwordFight::SwordFight(ActorManager* actMng, CollisionManager* colMng)
@@ -132,6 +132,16 @@ void SwordFight::SetContactEventCallback(void)
 			target->GetRigidBody()
 				.AddForce(force);
 
+			// ダメージステートへ変更
+			if (auto* cpu = dynamic_cast<SwordFIghtCPU*>(target))
+			{
+				cpu->OnDamage();
+			}
+
+			if (auto* player = dynamic_cast<SwordFightPlayer*>(target))
+			{
+				player->ChangeState<SwordFight_Damage>();
+			}
 
 		});
 

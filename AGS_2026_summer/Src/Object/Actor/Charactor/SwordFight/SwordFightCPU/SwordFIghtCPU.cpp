@@ -79,6 +79,14 @@ void SwordFIghtCPU::SubUpdate(void)
 {
 	CharactorBase::SubUpdate();
 
+	//チャンバラとの衝突したかどうか
+	if (isContactTrigger_)
+	{
+		isContactTrigger_ = false;
+
+		OnDamage();
+	}
+
 	// 場外
 	if (trans_.pos.y < -100)
 	{
@@ -87,34 +95,7 @@ void SwordFIghtCPU::SubUpdate(void)
 
 	if (!KEY::GetIns().GetInfo(KEY::KEY_TYPE::J_KEY_ACTION).now)isContactTrigger_ = false;
 
-	if (rightHandFrameNo_ != -1 &&
-		leftHandFrameNo_ != -1)
-	{
-		VECTOR rightHandPos =
-			MV1GetFramePosition(
-				trans_.modelId,
-				rightHandFrameNo_
-			);
-
-		VECTOR leftHandPos =
-			MV1GetFramePosition(
-				trans_.modelId,
-				leftHandFrameNo_
-			);
-
-		// 両手の中心
-		VECTOR centerPos = VGet(
-			(rightHandPos.x + leftHandPos.x) * 0.5f,
-			(rightHandPos.y + leftHandPos.y) * 0.5f - 25.0f,
-			(rightHandPos.z + leftHandPos.z) * 0.5f
-		);
-
-		centerPos.x += -15.0f;
-
-		Swordtrans_.pos = centerPos;
-
-		Swordtrans_.Update();
-	}
+	UpdateSword();
 }
 
 void SwordFIghtCPU::SubDraw(void)
@@ -134,16 +115,19 @@ void SwordFIghtCPU::InitCollider(void)
 	info.shape_ = ColliderShape::CAPSULE;
 	info.layer_ = ColliderLayer::ACTOR;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE });
+	info.debugColor_ = GetColor(0, 255, 255);
 	float radius = 10.0f;
 	VECTOR localPosTop = VGet(0.0f, 10.0f, 0.0f);
 	VECTOR localPosDown = VGet(0.0f, -10.0f, 0.0f);
 	std::unique_ptr<ColliderCapsule>collider =
 		std::make_unique<ColliderCapsule>(info, radius, localPosTop, localPosDown, *this);
-	ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
+	//ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
+
 	info.shape_ = ColliderShape::CAPSULE;
 	info.layer_ = ColliderLayer::ACTOR_TRIGGER;
 	info.mask_ = ColliderBase::SetMask({ Layer::SOWRD,Layer::CPU });
-	float radius2 = 10.0f;
+	info.debugColor_ = GetColor(255, 255, 0);
+	float radius2 = 50.0f;
 	localPosTop = VGet(0.0f, 10.0f, 10.0f);
 	localPosDown = VGet(0.0f, -10.0f, 10.0f);
 	info.isTrigger_ = true;
@@ -161,6 +145,17 @@ void SwordFIghtCPU::CreateState(void)
 	AddState(std::make_unique<SwordFightAttackCPU>());
 	AddState(std::make_unique<SwordFightBlockIdleCPU>());
 }
+void SwordFIghtCPU::OnDamage()
+{
+	// すでにダメージ・負け状態なら無視
+	if (dynamic_cast<SwordFightDamageCPU*>(currentState_) != nullptr)
+		return;
+
+	if (dynamic_cast<SwordFightLoseCPU*>(currentState_) != nullptr)
+		return;
+
+	ChangeState<SwordFightDamageCPU>();
+}
 float SwordFIghtCPU::GetDistanceToTarget()
 {
 	return 0.0f;
@@ -168,6 +163,50 @@ float SwordFIghtCPU::GetDistanceToTarget()
 void SwordFIghtCPU::LookTarget()
 {
 }
+
+void SwordFIghtCPU::UpdateSword()
+{
+	if (rightHandFrameNo_ != -1)
+	{
+		// 右手ボーンのワールド行列
+		MATRIX handMat =
+			MV1GetFrameLocalWorldMatrix(
+				trans_.modelId,
+				rightHandFrameNo_);
+
+		// 剣を握る位置の微調整
+		MATRIX offsetMat = MGetIdent();
+
+		// 位置調整（手から見た位置）
+		offsetMat = MMult(
+			offsetMat,
+			MGetTranslate(
+				VGet(-4.5f, -17.0f, 0.0f)));
+
+		// 角度調整
+		offsetMat = MMult(
+			offsetMat,
+			MGetRotZ(AsoUtility::Deg2RadD(-45.0f)));
+
+		// 必要ならX,Yも調整
+		// offsetMat = MMult(offsetMat, MGetRotX(...));
+		// offsetMat = MMult(offsetMat, MGetRotY(...));
+
+		// スケール
+		MATRIX scaleMat = MGetScale(VGet(2.5f, 3.0f, 2.8f));
+
+		// ボーン行列 × オフセット
+		MATRIX swordMat = MMult(offsetMat, handMat);
+
+		// スケールを適用
+		swordMat = MMult(scaleMat, swordMat);
+
+		MV1SetMatrix(
+			Swordtrans_.modelId,
+			swordMat);
+	}
+}
+
 void SwordFIghtCPU::InitRigidBody(void)
 {
 	rigidBody_.SetUseGravity(true);

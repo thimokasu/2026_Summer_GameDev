@@ -64,7 +64,7 @@ void SwordFightWalkCPU::UpdateT(SwordFIghtCPU* owner)
     {
         if (distance < 120.0f)
         {
-            if (GetRand(100) < 50)     //60%‚ÅƒK[ƒh
+            if (GetRand(100) < 20)     //20%‚ÅƒK[ƒh
             {
                 owner->ChangeState<SwordFightBlockIdleCPU>();
                 return;

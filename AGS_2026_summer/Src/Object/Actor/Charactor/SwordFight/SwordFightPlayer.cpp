@@ -20,8 +20,8 @@ SwordFightPlayer::~SwordFightPlayer(void)
 void SwordFightPlayer::SubLoad(void)
 {
 	CharactorBase::SubLoad();
-	trans_.modelId = MV1LoadModel("Data/Model/Player/Player Idle.mv1");
-	Swordtrans_.modelId = MV1LoadModel("Data/Model/Player/SwordRed.mv1");
+	//trans_.modelId = MV1LoadModel("Data/Model/Player/Player Idle.mv1");
+	//Swordtrans_.modelId = MV1LoadModel("Data/Model/Player/SwordRed.mv1");
 	SE::GetInstance().Load(SOUND_TYPE::LOSS, "Data/BGM/SwordFight/Loss.mp3");
 	SE::GetInstance().Load(SOUND_TYPE::CUT, "Data/BGM/SwordFight/Cut.mp3");
 	SE::GetInstance().Load(SOUND_TYPE::DOME, "Data/BGM/SwordFight/Dome.mp3");
@@ -68,8 +68,6 @@ void SwordFightPlayer::SubInit(void)
 
 	Swordtrans_.Update();
 
-
-
 	//アニメーションの登録
 	std::string path = Application::PATH_MODEL + "Player/";
 
@@ -89,36 +87,7 @@ void SwordFightPlayer::SubUpdate(void)
 {
 	CharactorBase::SubUpdate();
 	if (!KEY::GetIns().GetInfo(KEY::KEY_TYPE::J_KEY_ACTION).now)isContactTrigger_ = false;
-
-	if (rightHandFrameNo_ != -1 &&
-		leftHandFrameNo_ != -1)
-	{
-		VECTOR rightHandPos =
-			MV1GetFramePosition(
-				trans_.modelId,
-				rightHandFrameNo_
-			);
-
-		VECTOR leftHandPos =
-			MV1GetFramePosition(
-				trans_.modelId,
-				leftHandFrameNo_
-			);
-
-		// 両手の中心
-		VECTOR centerPos = VGet(
-			(rightHandPos.x + leftHandPos.x) * 0.5f,
-			(rightHandPos.y + leftHandPos.y) * 0.5f-25.0f,
-			(rightHandPos.z + leftHandPos.z) * 0.5f
-		);
-
-		centerPos.x += -15.0f;
-
-		Swordtrans_.pos = centerPos;
-
-		Swordtrans_.Update();
-	}
-
+	UpdateSword();
 }
 
 void SwordFightPlayer::SubDraw(void)
@@ -171,6 +140,49 @@ void SwordFightPlayer::CreateState(void)
 bool SwordFightPlayer::IsAttacking() const
 {
 	return dynamic_cast<SwordFight_Attack*>(currentState_) != nullptr;
+}
+
+void SwordFightPlayer::UpdateSword()
+{
+	if (rightHandFrameNo_ != -1)
+	{
+		// 右手ボーンのワールド行列
+		MATRIX handMat =
+			MV1GetFrameLocalWorldMatrix(
+				trans_.modelId,
+				rightHandFrameNo_);
+
+		// 剣を握る位置の微調整
+		MATRIX offsetMat = MGetIdent();
+
+		// 位置調整（手から見た位置）
+		offsetMat = MMult(
+			offsetMat,
+			MGetTranslate(
+				VGet(-4.5f, -17.0f, 0.0f)));
+
+		// 角度調整
+		offsetMat = MMult(
+			offsetMat,
+			MGetRotZ(AsoUtility::Deg2RadD(-45.0f)));
+
+		// 必要ならX,Yも調整
+		// offsetMat = MMult(offsetMat, MGetRotX(...));
+		// offsetMat = MMult(offsetMat, MGetRotY(...));
+
+		// スケール
+		MATRIX scaleMat = MGetScale(VGet(2.5f, 3.0f, 2.8f));
+
+		// ボーン行列 × オフセット
+		MATRIX swordMat = MMult(offsetMat, handMat);
+
+		// スケールを適用
+		swordMat = MMult(scaleMat, swordMat);
+
+		MV1SetMatrix(
+			Swordtrans_.modelId,
+			swordMat);
+	}
 }
 
 void SwordFightPlayer::InitRigidBody(void)

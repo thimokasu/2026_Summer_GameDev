@@ -51,6 +51,7 @@ public:
 
 private:
 
+	void UpdateSword();
 
 	enum class STATE
 	{

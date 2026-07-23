@@ -28,6 +28,8 @@ public:
 	ItemBase* GetHoldItem(void) { return holdItem_; }
 	void CreateState(void)override;
 
+	void OnDamage();
+
 	void SetTarget(SwordFightPlayer* player)
 	{
 		target_ = player;
@@ -61,6 +63,9 @@ public:
 	VECTOR moveVec_ = { 0.0f,0.0f,0.0f };
 
 private:
+
+	void UpdateSword();
+
 
 	SwordFightPlayer* target_ = nullptr;
 

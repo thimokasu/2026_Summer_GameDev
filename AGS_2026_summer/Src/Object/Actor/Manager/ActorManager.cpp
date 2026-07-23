@@ -69,13 +69,13 @@ void ActorManager::Draw(void)
 		if (actor->IsDraw())
 		{
 			actor->Draw();
-			if (actor->GetTransform().modelId == -1)
-			{
-
 				for (const auto& [shape, collider] : actor->GetOwnColliders())
 				{
 					collider->Draw();
 				}
+			if (actor->GetTransform().modelId == -1)
+			{
+
 			}
 		}
 
