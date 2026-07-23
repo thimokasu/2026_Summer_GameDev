@@ -233,7 +233,14 @@ void Camera::SyncMultiFollow(void)
 		pos.x = center;
 	}
 
-	pos.z = pos.z +0.7f;
+	for (const auto* transform : followTransformM_)
+	{
+		if (transform->isActiv)
+		{
+			pos.z = transform->pos.z;
+		}
+
+	}
 
 	// YŽ²
 	rotY_ = Quaternion::AngleAxis(angles_.y, AsoUtility::AXIS_Y);

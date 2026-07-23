@@ -29,6 +29,7 @@ GameScene::GameScene(void)
 GameScene::GameScene(GameInfo info)
 {
 	gameInfo_ = info;
+	SceneManager::GetInstance().SetGameInfo(gameInfo_);
 }
 
 GameScene::~GameScene(void)

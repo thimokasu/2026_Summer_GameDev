@@ -37,6 +37,8 @@ void SceneBase::Update(void)
 		//エスケープ押したらメニューシーンへ
 		if (KeyManager::GetIns().GetInfo(KEY_TYPE::PAUSE).down)
 		{
+			//今どこのシーンなのか保存
+			SceneManager::GetInstance().PreScene(SceneManager::GetInstance().GetSceneID());
 			SceneManager::GetInstance().PushScene(SCENE_ID::PAUSE);
 			return;
 		}

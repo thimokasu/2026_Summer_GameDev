@@ -92,6 +92,14 @@ public:
 	//プレイ人数の取得
 	int GetPlayerNum(GAME_KIND game);
 
+	//ゲーム情報のセッターゲッター
+	void SetGameInfo(const GameInfo info) { info_ = info; }
+	const GameInfo GetGameInfo(void) { return info_; }
+
+	//一つ前のIDを保存
+	void PreScene(SCENE_ID scene) { preSceneID_ = scene; };
+	SCENE_ID GetPreSceneID(void) { return preSceneID_; }
+
 private:
 
 	enum class PlayerNum
@@ -108,6 +116,8 @@ private:
 	//現在のシーンの実体を管理するリスト
 	std::list<std::shared_ptr<SceneBase>> scenes_;
 	SCENE_ID sceneID_;
+	//一つ前のID
+	SCENE_ID preSceneID_;
 	//ゲームの総時間
 	float totalGameTime_;
 	//デルタタイム
@@ -118,6 +128,8 @@ private:
 	int mainScreen_;
 	//プレイ人数
 	PlayerNum playerNum_;
+	//ゲーム情報
+	GameInfo info_;
 #pragma endregion
 
 #pragma region 関数

@@ -115,14 +115,30 @@ void Unicycle::SetEventCallBack(void)
 	//ゴール時のイベント
 	distanceUI_->SetGoalCallBack([this]()
 		{
-			OffUpdate();
-			auto massage = UIManager::GetInstance().GetUI<GameMessageUI>(UINAME::MASSAGE);
-			massage->SetMassageState(GameMessageUI::MASSAGE_STATE::FINISH);
-			VECTOR pos = SceneManager::GetInstance().GetCamera().GetPos();
-			//固定カメラに切り替え
-			SceneManager::GetInstance().GetCamera().ChangeMode(Camera::MODE::FREE);
-			SceneManager::GetInstance().GetCamera().SetCameraAngles(VGet(0.73f, 0.0f, 0.0f));
-			SceneManager::GetInstance().GetCamera().SetCameraPos(VGet(pos.x, pos.y, pos.z));
+			auto playerNum = actorMng_->FindActorsNum(EntityKind::PLAYER);
+			finishCount_++;
+			//一人プレイなら終わらせつ
+			if (playerNum == 1)
+			{
+				OffUpdate();
+				auto massage = UIManager::GetInstance().GetUI<GameMessageUI>(UINAME::MASSAGE);
+				massage->SetMassageState(GameMessageUI::MASSAGE_STATE::FINISH);
+				VECTOR pos = SceneManager::GetInstance().GetCamera().GetPos();
+				//固定カメラに切り替え
+				SceneManager::GetInstance().GetCamera().ChangeMode(Camera::MODE::FREE);
+				SceneManager::GetInstance().GetCamera().SetCameraAngles(VGet(0.73f, 0.0f, 0.0f));
+				SceneManager::GetInstance().GetCamera().SetCameraPos(VGet(pos.x, pos.y, pos.z));
+			}
+			else
+			{
+				OffUpdate();
+				ImageUI_->SetActive(true);
+				VECTOR pos = SceneManager::GetInstance().GetCamera().GetPos();
+				//固定カメラに切り替え
+				SceneManager::GetInstance().GetCamera().ChangeMode(Camera::MODE::FREE);
+				SceneManager::GetInstance().GetCamera().SetCameraAngles(VGet(0.73f, 0.0f, 0.0f));
+				SceneManager::GetInstance().GetCamera().SetCameraPos(VGet(pos.x, pos.y, pos.z));
+			}
 		}
 	);
 }

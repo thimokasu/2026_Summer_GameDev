@@ -11,6 +11,8 @@
 #include "../../Charactor/OnePlay/Unicycle/UnicyclePlayer.h"
 #include "../../Stage/Unicycle/Cliff.h"
 #include "../../../../Manager/Game/SceneManager.h"
+#include "../../SkyDome/SkyDome.h"
+#include "../../../../Manager/Resource/ResourceManager.h"
 
 
 
@@ -22,6 +24,8 @@ UnicycleFactory::UnicycleFactory()
 std::vector<std::unique_ptr<ActorBase>> UnicycleFactory::CreateActors(void)
 {
     std::vector<std::unique_ptr<ActorBase>> actors;
+   /* actors.push_back(
+        std::make_unique<SkyDome>(SRC::SKY_DOME));*/
 
     int playerNum = SceneManager::GetInstance().GetPlayerNum(GAME_KIND::UNICYCLE);
     for (int i = 0; i < playerNum; i++)
