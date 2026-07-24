@@ -7,6 +7,8 @@
 #include"../../Item/MarbleRace/BigMarble.h"
 #include"../../Item/MarbleRace/NormalMarble.h"
 #include"../../Item/MarbleRace/SmallMarble.h"
+#include "../../SkyDome/SkyDome.h"
+
 MarbleRaceFactory::MarbleRaceFactory(void)
 {
 }
@@ -59,6 +61,7 @@ std::vector<std::unique_ptr<ActorBase>> MarbleRaceFactory::CreateActors(void)
         actors.push_back(std::make_unique<BigMarble>());
         SetRandomPos(actors.back().get());
     }
-
+    actors.push_back(
+        std::make_unique<SkyDome>());
     return actors;
 }
