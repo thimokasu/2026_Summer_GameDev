@@ -7,6 +7,8 @@
 #include"../../Item/MarbleRace/BigMarble.h"
 #include"../../Item/MarbleRace/NormalMarble.h"
 #include"../../Item/MarbleRace/SmallMarble.h"
+#include "../../SkyDome/SkyDome.h"
+
 MarbleRaceFactory::MarbleRaceFactory(void)
 {
 }
@@ -26,7 +28,7 @@ std::vector<std::unique_ptr<ActorBase>> MarbleRaceFactory::CreateActors(void)
     player= std::make_unique<MarbleRacePlayer>();
     player->SetPlayNumber(i);
     player->SetUseController(i);
-    player->GetTransform().pos = VGet(-25 + i * 75, 0, -260);
+    player->GetTransform().pos = VGet(25 + i * -75, 0, -260);
     actors.push_back(std::move(player));
     }
     actors.push_back(std::make_unique<MarbleRaceFloor>());
@@ -38,7 +40,7 @@ std::vector<std::unique_ptr<ActorBase>> MarbleRaceFactory::CreateActors(void)
     float minZ = -200.0f;
     float maxZ = 300.0f;
 
-    for (int i = 0; i < 60; i++)
+    for (int i = 0; i < 70; i++)
     {
         // ƒ‰ƒ“ƒ_ƒ€‚ÈˆÊ’u‚ð¶¬‚·‚éƒ‰ƒ€ƒ_Ž®
         auto SetRandomPos = [&](ActorBase* actor) {
@@ -59,6 +61,7 @@ std::vector<std::unique_ptr<ActorBase>> MarbleRaceFactory::CreateActors(void)
         actors.push_back(std::make_unique<BigMarble>());
         SetRandomPos(actors.back().get());
     }
-
+    actors.push_back(
+        std::make_unique<SkyDome>());
     return actors;
 }

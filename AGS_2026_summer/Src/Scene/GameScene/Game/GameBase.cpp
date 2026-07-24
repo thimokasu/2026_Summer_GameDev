@@ -52,7 +52,7 @@ void GameBase::Update(void)
 void GameBase::Draw(void)
 {
 	actorMng_->Draw();
-	colMng_->DebugDraw();
+	//colMng_->DebugDraw();
 	SubDraw();
 }
 void GameBase::Release(void)

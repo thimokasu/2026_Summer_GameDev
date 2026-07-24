@@ -5,10 +5,13 @@
 #include"MarbleRaveAttack.h"
 #include"MarbleRaceIdle.h"
 #include"MarbleRaceHit.h"
+#include"../../../../../Common/AnimationController.h"
 void MarbleRaceMove::EnterT(MarbleRacePlayer* owner)
 {
 	stateFrame_ = 0;
 	isLoop_ = true;
+	auto anim=owner->GetAnimController();
+	anim->Play(0);
 }
 
 void MarbleRaceMove::HandleInputT(MarbleRacePlayer* owner)
@@ -34,6 +37,7 @@ void MarbleRaceMove::HandleInputT(MarbleRacePlayer* owner)
 
 void MarbleRaceMove::UpdateT(MarbleRacePlayer* owner)
 {
+
 	VECTOR moveVec = { 0.0f,0.0f,0.0f };
 	int i = owner->GetUseController();
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_FRONT,i).now) {

@@ -6,6 +6,10 @@
 #include"State/MarbleRaceMove.h"
 #include"State/MarbleRaveAttack.h"
 #include"State/MarbleRaceHit.h"
+#include"../../../../../Manager/Resource/ResourceManager.h"
+#include"../../../../../Utility/AsoUtility.h"
+#include"../../../../Common/AnimationController.h"
+
 MarbleRacePlayer::MarbleRacePlayer(void)
 {
 }
@@ -17,13 +21,46 @@ MarbleRacePlayer::~MarbleRacePlayer(void)
 void MarbleRacePlayer::SubLoad(void)
 {
 	CharactorBase::SubLoad();
+	if (playNumber_ == 0)
+	{
+	trans_.modelId = ResourceManager::GetInstance().LoadModelDuplicate(SRC::RUNNER);
+		float scale = 0.6f;
+		trans_.scl = VGet(scale, scale, scale);
+		trans_.quaRotLocal = Quaternion::Euler(VGet(0.0f, AsoUtility::Deg2RadD(180.0f), 0.0f));
+		trans_.Update();
+
+		animationController_ = std::make_unique<AnimationController>(trans_.modelId);
+		//animationController_->Add(0, 60.0f, "Data/Model/FindingJ/Runner/JazIdle.mv1");
+		animationController_->Add(0, 30, "Data/Model/FindingJ/Runner/jazWalk.mv1");
+		animationController_->Add(1, 10, "Data/Model/FindingJ/Runner/JazIdle.mv1");
+		animationController_->Add(2, 120.0f, "Data/Model/FindingJ/Player/PlayerAttack.mv1");
+		animationController_->Play(1);
+	}
+	else {
+		trans_.modelId = ResourceManager::GetInstance().LoadModelDuplicate(SRC::RUNNER);
+		float scale = 0.6f;
+		trans_.scl = VGet(scale, scale, scale);
+		trans_.quaRotLocal = Quaternion::Euler(VGet(0.0f, AsoUtility::Deg2RadD(180.0f), 0.0f));
+		trans_.Update();
+
+		animationController_ = std::make_unique<AnimationController>(trans_.modelId);
+		//animationController_->Add(0, 60.0f, "Data/Model/FindingJ/Runner/JazIdle.mv1");
+		animationController_->Add(0, 30, "Data/Model/FindingJ/Runner/jazWalk.mv1");
+		animationController_->Add(1, 10, "Data/Model/FindingJ/Runner/JazIdle.mv1");
+		animationController_->Add(2, 120.0f, "Data/Model/FindingJ/Player/PlayerAttack.mv1");
+		animationController_->Play(1);
+		int tex = MV1LoadTexture("Data/Model/FindingJ/Runner/Jaz4000T.fbm/green.png");
+		MV1SetTextureGraphHandle(trans_.modelId, 0,tex , false);
+	}
+
+
 }
 
 void MarbleRacePlayer::SubInit(void)
 {
 	CharactorBase::SubInit();
 	entityKind_ = EntityKind::PLAYER;
-	trans_.pos.y = 100;
+
 }
 
 void MarbleRacePlayer::SubUpdate(void)
@@ -55,9 +92,10 @@ void MarbleRacePlayer::InitCollider(void)
 	info.layer_ = ColliderLayer::ACTOR;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE });
 	info.entityKind_ = EntityKind::PLAYER;
+	info.localPos_.y = 100;
 	float radius = 10.0f;
-	VECTOR localPosTop = VGet(0.0f, 10.0f, 0.0f);
-	VECTOR localPosDown = VGet(0.0f, -10.0f, 0.0f);
+	VECTOR 		localPosTop = VGet(0.0f, 50.0f, 0.0f);
+	VECTOR 		localPosDown = VGet(0.0f, 30.0f, 0.0f);
 	std::unique_ptr<ColliderCapsule>collider =
 		std::make_unique<ColliderCapsule>(info, radius, localPosTop, localPosDown, *this);
 	ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));

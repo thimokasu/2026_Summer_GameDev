@@ -116,9 +116,9 @@ void ColliderBox::DrawDebug(int color)
 	// 輪郭線は少し目立つ色（あるいは黒や白など）にするか、同じcolorでもポリゴンよりくっきり見えます
 	for (int i = 0; i < 12; i++)
 	{
-		DrawLine3D(v[edges[i][0]], v[edges[i][1]], GetColor(255, 255, 255)); // 例として白線
+		//DrawLine3D(v[edges[i][0]], v[edges[i][1]], GetColor(255, 255, 255)); // 例として白線
 	}
 
 	// 中心点
-	DrawSphere3D(center, 2.0f, 8, color, color, false);
+	//DrawSphere3D(center, 2.0f, 8, color, color, false);
 }

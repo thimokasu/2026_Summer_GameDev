@@ -27,6 +27,14 @@ void MarbleRace::SubLoad(void)
 
 void MarbleRace::SubInit(void)
 {
+	SetLightDirection(VGet(0.6f, -3.14f, 0.0f));
+	// フォグの有効化（TRUEで有効、FALSEで無効）
+	SetFogEnable(TRUE);
+	// 画面全体や遠くの景色にかかるフォグの色を指定
+	SetFogColor(100, 100, 100); // 例：灰色 (R, G, B)// 視点からの開始距離と終了距離を設定
+	SetFogDensity(0.1f);
+	// フォグの開始距離を０、終了距離を１５００にする
+	SetFogStartEnd(0.0f, 800);
 }
 
 void MarbleRace::SubUpdate(void)
@@ -112,9 +120,10 @@ void MarbleRace::SetContactEventCallback(void)
 			if (entityKindB == EntityKind::PLAYER) { player = dynamic_cast<MarbleRacePlayer*>(actorB); goal = dynamic_cast<MarbleRaceGoal*>(actorA); }
 			if (!player || !goal)return;
 			auto p = dynamic_cast<MarbleRacePlayer*>(player);
+			p->GetTransform().pos.z += 20;
 			isUpdate_ = false;
 			auto massage = UIManager::GetInstance().GetUI<GameMessageUI>(UINAME::MASSAGE);
-			massage->SetMassageState(GameMessageUI::MASSAGE_STATE::FINISH);		});
+			massage->SetMassageState(GameMessageUI::MASSAGE_STATE::FINISH);});
 }
 
 void MarbleRace::SetEventCallBack(void)
