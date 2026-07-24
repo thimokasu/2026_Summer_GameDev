@@ -42,7 +42,7 @@ void Athletic::SubUpdate(void)
 		EventManager::GetInstance().TriggerEvent(GameEventType::FINISH);
 	}
 	auto pos = SceneManager::GetInstance().GetCamera().GetTransform().pos;
-	SceneManager::GetInstance().GetCamera().SetCameraPos(VAdd(pos, VGet(0.1f, 0, 0)));
+	SceneManager::GetInstance().GetCamera().SetCameraPos(VAdd(pos, VGet(0.3f, 0, 0)));
 }
 
 void Athletic::SubDraw(void)
@@ -201,7 +201,7 @@ void Athletic::InitSE(void)
 void Athletic::InitCamera(void)
 {
 	SceneManager::GetInstance().GetCamera().ChangeMode(Camera::MODE::FREE);
-	SceneManager::GetInstance().GetCamera().SetCameraPos(VGet(76, 220 ,- 70));
-	SceneManager::GetInstance().GetCamera().SetCameraAngles(VGet(0.94f, 0.0f, 0.0f));
+	SceneManager::GetInstance().GetCamera().SetCameraPos(VGet(76, 200 ,- 145));
+	SceneManager::GetInstance().GetCamera().SetCameraAngles(VGet(0.6f, 0.0f, 0.0f));
 }
 
