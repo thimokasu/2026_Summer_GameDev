@@ -24,11 +24,11 @@ UnicycleFactory::UnicycleFactory()
 std::vector<std::unique_ptr<ActorBase>> UnicycleFactory::CreateActors(void)
 {
     std::vector<std::unique_ptr<ActorBase>> actors;
-   /* actors.push_back(
-        std::make_unique<SkyDome>(SRC::SKY_DOME));*/
+    actors.push_back(
+        std::make_unique<SkyDome>(SRC::SKY_DOME));
 
     int playerNum = SceneManager::GetInstance().GetPlayerNum(GAME_KIND::UNICYCLE);
-    for (int i = 0; i < playerNum; i++)
+    for (int i = 0; i < playerNum+1; i++)
     {
         actors.push_back(std::make_unique<UnicyclePlayer>(VGet(30.0f+ multiOffset_ * i, 30.0f, 0.0f),i));
         for (int d = 0; d < D; d++)

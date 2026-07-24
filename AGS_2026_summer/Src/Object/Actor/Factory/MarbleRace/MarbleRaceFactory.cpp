@@ -62,6 +62,6 @@ std::vector<std::unique_ptr<ActorBase>> MarbleRaceFactory::CreateActors(void)
         SetRandomPos(actors.back().get());
     }
     actors.push_back(
-        std::make_unique<SkyDome>());
+        std::make_unique<SkyDome>(SRC::FJ_STAGE));
     return actors;
 }

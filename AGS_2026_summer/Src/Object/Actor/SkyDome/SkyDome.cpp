@@ -1,6 +1,10 @@
 #include "SkyDome.h"
 #include "../../../Utility/AsoUtility.h"
 
+SkyDome::SkyDome(void)
+{
+}
+
 SkyDome::SkyDome(SRC src)
 {
 	src_=src;
@@ -13,6 +17,7 @@ void SkyDome::SubLoad(void)
 
 void SkyDome::SubInit(void)
 {
+	int tex = 0;
 	switch (src_)
 	{
 	case SRC::FJ_STAGE:

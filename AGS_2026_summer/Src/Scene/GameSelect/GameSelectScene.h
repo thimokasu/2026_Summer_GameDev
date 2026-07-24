@@ -65,6 +65,7 @@ private:
     const std::vector<GAME_KIND>* currentGroup_ = nullptr;
     std::unordered_map<GAME_KIND, int>gameImageHandles_;
     std::unordered_map<GAME_KIND, int>gameTitleHandles_;
+    std::unordered_map<GAME_KIND, int>gameIntroductionHandles_;
 	int cursorIndex_ = 0;
     GameInfo gameInfo_;
     SELECT_STATE state_ = SELECT_STATE::SELECTING;

@@ -75,7 +75,7 @@ void GameSelectScene::LoadImages(void)
 	gameImageHandles_[GAME_KIND::FINDINGJ] = ResourceManager::GetInstance().Load(SRC::FINDINGJ).handleId_;
 	gameImageHandles_[GAME_KIND::TEST] = ResourceManager::GetInstance().Load(SRC::TEST).handleId_;
 	gameImageHandles_[GAME_KIND::FEEDJ] = ResourceManager::GetInstance().Load(SRC::FEEDJ).handleId_;
-	gameImageHandles_[GAME_KIND::UNICYCLE] = ResourceManager::GetInstance().Load(SRC::UNICYCLE).handleId_;
+	gameImageHandles_[GAME_KIND::UNICYCLE] = ResourceManager::GetInstance().Load(SRC::UNICYCLEIMG).handleId_;
 	gameImageHandles_[GAME_KIND::ATHLETIC] = ResourceManager::GetInstance().Load(SRC::ATHLETIC).handleId_;
 	gameImageHandles_[GAME_KIND::SPIKE_DROP] = ResourceManager::GetInstance().Load(SRC::SPIKEDROP).handleId_;
 	gameImageHandles_[GAME_KIND::MARBLE_RACE] = ResourceManager::GetInstance().Load(SRC::MARBLE_RACE).handleId_;
@@ -85,26 +85,31 @@ void GameSelectScene::LoadImages(void)
 #pragma region TitleLogo
 
 	gameTitleHandles_[GAME_KIND::FINDINGJ] = ResourceManager::GetInstance().GetGraph(SRC::FJ_LOGO);
-	gameTitleHandles_[GAME_KIND::TEST] = ResourceManager::GetInstance().Load(SRC::TEST).handleId_;
-	gameTitleHandles_[GAME_KIND::FEEDJ] = ResourceManager::GetInstance().Load(SRC::FEEDJ).handleId_;
-	gameTitleHandles_[GAME_KIND::UNICYCLE] = ResourceManager::GetInstance().Load(SRC::UNICYCLE).handleId_;
-	gameTitleHandles_[GAME_KIND::ATHLETIC] = ResourceManager::GetInstance().Load(SRC::ATHLETIC).handleId_;
-	gameTitleHandles_[GAME_KIND::SPIKE_DROP] = ResourceManager::GetInstance().Load(SRC::SPIKEDROP).handleId_;
-	gameTitleHandles_[GAME_KIND::MARBLE_RACE] = ResourceManager::GetInstance().Load(SRC::MARBLE_RACE).handleId_;
+	gameTitleHandles_[GAME_KIND::FEEDJ] = ResourceManager::GetInstance().Load(SRC::FEEDJ_LOGO).handleId_;
+	gameTitleHandles_[GAME_KIND::UNICYCLE] = ResourceManager::GetInstance().Load(SRC::UNICYCLE_LOGO).handleId_;
+	gameTitleHandles_[GAME_KIND::ATHLETIC] = ResourceManager::GetInstance().Load(SRC::ATHLETIC_LOGO).handleId_;
+	gameTitleHandles_[GAME_KIND::SPIKE_DROP] = ResourceManager::GetInstance().Load(SRC::SPIKEDROP_LOGO).handleId_;
+	gameTitleHandles_[GAME_KIND::MARBLE_RACE] = ResourceManager::GetInstance().Load(SRC::MARBLE_RACE_LOGO).handleId_;
 	gameTitleHandles_[GAME_KIND::TEST] = LoadGraph("Data/Image/GameselectScene/GameSelect/GameTest.png");
 #pragma endregion
 
+	gameIntroductionHandles_[GAME_KIND::FINDINGJ] = ResourceManager::GetInstance().GetGraph(SRC::FJ_INT);
+	gameIntroductionHandles_[GAME_KIND::FEEDJ] = ResourceManager::GetInstance().Load(SRC::FEEDJ_INT).handleId_;
+	gameIntroductionHandles_[GAME_KIND::UNICYCLE] = ResourceManager::GetInstance().Load(SRC::UNICYCLE_INT).handleId_;
+	gameIntroductionHandles_[GAME_KIND::ATHLETIC] = ResourceManager::GetInstance().Load(SRC::ATHLETIC_INT).handleId_;
+	gameIntroductionHandles_[GAME_KIND::SPIKE_DROP] = ResourceManager::GetInstance().Load(SRC::SPIKEDROP_INT).handleId_;
+	gameIntroductionHandles_[GAME_KIND::MARBLE_RACE] = ResourceManager::GetInstance().Load(SRC::MARBLE_RACE_INT).handleId_;
 }
 void GameSelectScene::InitGameGroups(void)
 {
 	// テスト用のダミー割り当て (1人用、2人用にもテストデータを置いて確認できるようにします)
 
-	onePlayerGames_ = { GAME_KIND::TEST,GAME_KIND::FINDINGJ };
+	onePlayerGames_ = {GAME_KIND::FINDINGJ };
 	twoPlayerGames_ = {GAME_KIND::MARBLE_RACE};
 	oneVsThreeGames_ = {GAME_KIND::SPIKE_DROP};
 	twoVsTwoGames_ = {};
-	fourPlayerGames_ = {  GAME_KIND::FINDINGJ ,GAME_KIND::ATHLETIC};
-	oneToFourPlayGames_ = {GAME_KIND::FEEDJ ,GAME_KIND::UNICYCLE, };
+	fourPlayerGames_ = {GAME_KIND::ATHLETIC};
+	oneToFourPlayGames_ = {GAME_KIND::UNICYCLE, };
 
 	currentGroup_ = &onePlayerGames_;
 	cursorIndex_ = 0;
@@ -267,7 +272,7 @@ void GameSelectScene::UpdateStageSelect(void)
 	//		gameInfo_.stage_ = static_cast<STAGE_NUM>(static_cast<int>(gameInfo_.stage_) + 1);
 	//	}
 	//}
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down)
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::ENTER).down)
 	{
 		if (currentGroup_->empty())return;
 		SceneManager::GetInstance().ChangeScene<GameScene>(gameInfo_);
@@ -363,7 +368,9 @@ void GameSelectScene::DrawGameSelect(void)
 void GameSelectScene::DrawStageSelect(void)
 {
 	DrawRotaGraph(Application::SCREEN_SIZE_X / 2, Application::SCREEN_SIZE_Y / 2, 1, 0, backImage_, true);
-
+	float scale = 0.5f;
+	DrawRotaGraph(Application::SCREEN_SIZE_X / 3, Application::SCREEN_SIZE_Y / 2, scale, 0, gameImageHandles_[gameInfo_.game_], true);
+	DrawRotaGraph(Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y / 2, scale, 0, gameIntroductionHandles_[gameInfo_.game_], true);
 	//ゲーム名
 	std::string gameName = gameInfo_.GetGameName();
 	//DrawStringToHandle(300, 100, gameName.c_str(), GetColor(0, 0, 0), fontHandle_);

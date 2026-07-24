@@ -53,6 +53,13 @@ void ResourceManager::Init(void)
 	resourcesMap_.emplace(SRC::FOUR, res);
 	res = new RES(RES_T::IMG, PATH_IMG + "GameSelectScene/PlayNum/OneToFour.png");
 	resourcesMap_.emplace(SRC::ONE_TO_FOUR, res);
+
+	res = new RES(RES_T::IMG, PATH_IMG + "GameSelectScene/GameSelect/findingJ.png");
+	resourcesMap_.emplace(SRC::FINDINGJ, res);
+	res = new RES(RES_T::IMG, PATH_IMG + "GameSelectScene/GameSelect/marbleRace.png");
+	resourcesMap_.emplace(SRC::MARBLE_RACE, res);
+	res = new RES(RES_T::IMG, PATH_IMG + "GameSelectScene/GameSelect/unicycle.png");
+	resourcesMap_.emplace(SRC::UNICYCLEIMG, res);
 #pragma endregion
 
 
@@ -82,6 +89,19 @@ void ResourceManager::Init(void)
 	res = new RES(RES_T::MODEL, PATH_MDL + "FindingJ/sky.mv1");
 	resourcesMap_.emplace(SRC::SKY_DOME, res);
 
+
+	res = new RES(RES_T::IMG, PATH_IMG + "GameSelectScene/GameSelect/Introduction/findingJIntro.png");
+	resourcesMap_.emplace(SRC::FJ_INT, res);
+	res = new RES(RES_T::IMG, PATH_IMG + "GameSelectScene/GameSelect/Introduction/feedJIntro.png");
+	resourcesMap_.emplace(SRC::FEEDJ_INT, res);
+	res = new RES(RES_T::IMG, PATH_IMG + "GameSelectScene/GameSelect/Introduction/unicycleIntro.png");
+	resourcesMap_.emplace(SRC::UNICYCLE_INT, res);
+	res = new RES(RES_T::IMG, PATH_IMG + "GameSelectScene/GameSelect/Introduction/athleticJIntro.png");
+	resourcesMap_.emplace(SRC::ATHLETIC_INT, res);
+	res = new RES(RES_T::IMG, PATH_IMG + "GameSelectScene/GameSelect/Introduction/spikeDropIntro.png");
+	resourcesMap_.emplace(SRC::SPIKEDROP_INT, res);
+	res = new RES(RES_T::IMG, PATH_IMG + "GameSelectScene/GameSelect/Introduction/marbleRaceIntro.png");
+	resourcesMap_.emplace(SRC::MARBLE_RACE_INT, res);
 }
 
 void ResourceManager::Release(void)

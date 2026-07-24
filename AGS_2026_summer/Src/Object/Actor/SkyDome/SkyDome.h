@@ -5,7 +5,7 @@ class SkyDome :
     public ActorBase
 {
 public:
-
+    SkyDome(void);
     SkyDome(SRC src);
     ~SkyDome() = default;
 

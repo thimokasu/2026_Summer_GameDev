@@ -49,7 +49,7 @@ void UnicyclePlayer::SubInit(void)
 	animationController_->AddInFbx(0, 60.0f, 0);
 
 	riderAnimation_ = std::make_unique<AnimationController>(riderTrans_.modelId);
-	riderAnimation_->AddInFbx(0, 60.0f, 0);
+	riderAnimation_->AddInFbx(0, 120.0f, 0);
 
 	//“‹æÒ‚ÌˆÊ’u‚ğˆê—ÖÔ‚É‡‚í‚¹‚é
 	riderTrans_.pos = VAdd(trans_.pos, riderOffset_);

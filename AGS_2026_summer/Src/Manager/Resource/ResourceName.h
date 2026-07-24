@@ -33,6 +33,7 @@ enum class SRC
 	FEEDJ,
 	//ëSêlêîëŒâû(Ç≈Ç´ÇΩÇÁ)
 	UNICYCLE,
+	UNICYCLEIMG,
 	CLIFF,
 	UNICYCLER,
 	//----------------------------------
@@ -46,6 +47,19 @@ enum class SRC
 	RUNNER,
 	FJ_PLAYER,
 	SKY_DOME,
+
+	FJ_INT,
+	FEEDJ_INT,
+	UNICYCLE_INT,
+	ATHLETIC_INT,
+	SPIKEDROP_INT,
+	MARBLE_RACE_INT,
+
+	FEEDJ_LOGO,
+	UNICYCLE_LOGO,
+	ATHLETIC_LOGO,
+	SPIKEDROP_LOGO,
+	MARBLE_RACE_LOGO,
 
 	MAX,
 };

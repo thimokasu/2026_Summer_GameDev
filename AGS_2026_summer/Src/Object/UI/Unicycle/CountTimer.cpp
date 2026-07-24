@@ -4,7 +4,7 @@
 
 CountTimer::CountTimer(Vector2F pos)
     : UIBase(pos)
-    , isUpdate_(true)
+    , isUpdate_(false)
     , fontHandle_(-1)
     , scale_(0.2f)
     , textColor_(0)
@@ -57,7 +57,7 @@ void CountTimer::SubUpdate()
 
 void CountTimer::SubDraw()
 {
-
+    if (!isUpdate_)return;
     if (time_ < -1.0f) {return; }
 
 

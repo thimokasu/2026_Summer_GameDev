@@ -34,6 +34,14 @@ void Unicycle::SubInit(void)
 
 void Unicycle::SubUpdate(void)
 {
+	isUpdate_ = false;
+	static int count = 0;
+	count++;
+	if (count >= 250)
+	{
+		auto ui=UIManager::GetInstance().GetUI<CountTimer>(UINAME::UNICYCLE_COUNT_TIMER);
+		ui->SetIsUpdate(true);
+	}
 }
 
 void Unicycle::SubDraw(void)
@@ -160,7 +168,7 @@ void Unicycle::LoadUI(void)
 	//開始カウントUI
 	auto countUI = std::make_shared<CountTimer>(
 		Vector2F(Application::SCREEN_SIZE_X / 2, Application::SCREEN_SIZE_Y / 2));
-
+	
 	UIManager::GetInstance().AddRootUI(countUI);
 	countUI->Load();
 	//スタート時のコールバック関数を設定

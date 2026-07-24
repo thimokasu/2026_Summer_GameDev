@@ -60,15 +60,15 @@ void MarbleRace::SubUpdate(void)
 
 void MarbleRace::SubDraw(void)
 {
-	//カメラ座標
-DrawFormatString(0,0,0xffffff,"Camera Position: %f, %f, %f",
-	SceneManager::GetInstance().GetCamera().GetPos().x,
-	SceneManager::GetInstance().GetCamera().GetPos().y,
-	SceneManager::GetInstance().GetCamera().GetPos().z);
-DrawFormatString(0, 20, 0xffffff, "Camera Angles: %f, %f, %f",
-	SceneManager::GetInstance().GetCamera().GetAngles().x,
-	SceneManager::GetInstance().GetCamera().GetAngles().y,
-	SceneManager::GetInstance().GetCamera().GetAngles().z);
+//	//カメラ座標
+//DrawFormatString(0,0,0xffffff,"Camera Position: %f, %f, %f",
+//	SceneManager::GetInstance().GetCamera().GetPos().x,
+//	SceneManager::GetInstance().GetCamera().GetPos().y,
+//	SceneManager::GetInstance().GetCamera().GetPos().z);
+//DrawFormatString(0, 20, 0xffffff, "Camera Angles: %f, %f, %f",
+//	SceneManager::GetInstance().GetCamera().GetAngles().x,
+//	SceneManager::GetInstance().GetCamera().GetAngles().y,
+//	SceneManager::GetInstance().GetCamera().GetAngles().z);
 }
 
 void MarbleRace::SubRelease(void)

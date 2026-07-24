@@ -14,7 +14,7 @@ public:
     void SetUpdate(bool flag) { isUpdate_ = flag; }
     //スタート処理
     void SetStartCallBack(StartCallBack callBack) { startCallBack_ = std::move(callBack); }
-
+    void SetIsUpdate(bool flag) { isUpdate_ = flag; }
    
 public:
 
@@ -35,7 +35,7 @@ protected:
 
 private:
     float time_;
-    bool isUpdate_;
+    bool isUpdate_ = false;;
     int fontHandle_;
     float scale_;
     int textColor_;
