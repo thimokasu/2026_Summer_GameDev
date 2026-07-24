@@ -1,5 +1,7 @@
 #pragma once
 #include "../../GameBase.h"
+class GameMessageUI;
+
 class SpikeDrop :
     public GameBase
 {
@@ -22,5 +24,8 @@ public:
 	void InitUI(void)override;
 	void InitSE(void)override;
 	void InitCamera(void)override;
+private:
+	std::shared_ptr<GameMessageUI> msgUI_;
+
 };
 

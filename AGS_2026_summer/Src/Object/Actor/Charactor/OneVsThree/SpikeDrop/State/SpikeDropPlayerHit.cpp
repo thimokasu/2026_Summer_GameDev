@@ -2,6 +2,7 @@
 
 void SpikeDropPlayerHit::EnterT(SpikeDropPlayer* owner)
 {
+	isLoop_ = true;
 }
 
 void SpikeDropPlayerHit::HandleInputT(SpikeDropPlayer* owner)

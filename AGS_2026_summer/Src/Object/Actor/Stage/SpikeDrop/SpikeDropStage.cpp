@@ -29,6 +29,7 @@ void SpikeDropStage::InitCollider(void)
 	info.shape_ = ColliderShape::BOX;
 	info.layer_ = ColliderLayer::STAGE;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE });
+	info.debugColor_ = GetColor(150, 150, 150);
 	info.entityKind_ = EntityKind::STAGE;
 	VECTOR fSize = VGet(200, 0, 10);
 	std::unique_ptr<ColliderBox>collider =

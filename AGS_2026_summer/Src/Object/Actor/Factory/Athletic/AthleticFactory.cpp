@@ -19,7 +19,16 @@ std::vector<std::unique_ptr<ActorBase>> AthleticFactory::CreateActors(void)
     ATHLETIC_STAGE_KIND layout;
     layout = Athletic::athleticStage[0][0];
     AthleticMoveFloor* mf = nullptr;
-    actors.push_back(std::make_unique<AthleticPlayer>());
+    std::unique_ptr<AthleticPlayer> player;
+    for (int i = 0; i < 4; i++)
+    {
+        player = std::make_unique<AthleticPlayer>();
+        player->SetPlayNumber(i);
+        player->SetUseController(i);
+        player->GetTransform().pos = VGet(0, 50, +i * 80);
+        actors.push_back(std::move(player));
+
+    }
     actors.push_back(std::make_unique<AthleticFall>());
     for (int d = 0; d < D; d++)
     {

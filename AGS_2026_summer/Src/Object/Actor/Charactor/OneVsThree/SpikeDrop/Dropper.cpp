@@ -30,6 +30,7 @@ void Dropper::SubInit(void)
 void Dropper::SubUpdate(void)
 {
 	CharactorBase::SubUpdate();
+	trans_.pos.y = 200;
 
 }
 

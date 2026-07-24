@@ -53,9 +53,10 @@ void Spike::InitCollider(void)
 		info.shape_ = ColliderShape::BOX;
 		info.layer_ = ColliderLayer::SCAFFOLD;
 		info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
-		info.entityKind_ = EntityKind::SPIKE_HIT;
+		info.entityKind_ = EntityKind::SCAFFOLD;
 		info.localPos_ = VGet(0, 5, 0);
 		VECTOR fSize = VGet(18, 5, 8);
+		info.debugColor_ = GetColor(0, 255, 0);
 		std::unique_ptr<ColliderBox>collider =
 			std::make_unique<ColliderBox>(info, fSize, *this);
 		ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
@@ -63,10 +64,11 @@ void Spike::InitCollider(void)
 		info.shape_ = ColliderShape::BOX;
 		info.layer_ = ColliderLayer::SPIKE;
 		info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
-		info.entityKind_ = EntityKind::SPIKE_HIT;
-		info.localPos_ = VGet(0, -5, 0);
+		info.entityKind_ = EntityKind::SPIKE;
+		info.localPos_ = VGet(0, -10, 0);
 		info.isTrigger_ = true;
-		fSize = VGet(18, 5, 8);
+		info.debugColor_ = GetColor(0, 0, 255);
+		fSize = VGet(14, 1, 8);
 		collider =
 			std::make_unique<ColliderBox>(info, fSize, *this);
 		ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
@@ -88,8 +90,9 @@ void Spike::InitCollider(void)
 		info.shape_ = ColliderShape::BOX;
 		info.layer_ = ColliderLayer::SCAFFOLD;
 		info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
-		info.entityKind_ = EntityKind::SPIKE_HIT;
+		info.entityKind_ = EntityKind::SCAFFOLD;
 		info.localPos_ = VGet(0, 5, 0);
+		info.debugColor_ = GetColor(0, 255, 0);
 		VECTOR fSize = VGet(28, 5,8);
 		std::unique_ptr<ColliderBox>collider =
 			std::make_unique<ColliderBox>(info, fSize, *this);
@@ -98,10 +101,11 @@ void Spike::InitCollider(void)
 		info.shape_ = ColliderShape::BOX;
 		info.layer_ = ColliderLayer::SPIKE;
 		info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
-		info.entityKind_ = EntityKind::SPIKE_HIT;
-		info.localPos_ = VGet(0, -5, 0);
+		info.entityKind_ = EntityKind::SPIKE;
+		info.localPos_ = VGet(0, -10, 0);
 		info.isTrigger_ = true;
-		fSize = VGet(28, 5, 8);
+		info.debugColor_ = GetColor(0, 0, 255);
+		fSize = VGet(24, 1, 8);
 		collider =
 			std::make_unique<ColliderBox>(info, fSize, *this);
 		ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
@@ -123,7 +127,8 @@ void Spike::InitCollider(void)
 		info.shape_ = ColliderShape::BOX;
 		info.layer_ = ColliderLayer::SCAFFOLD;
 		info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
-		info.entityKind_ = EntityKind::SPIKE_HIT;
+		info.entityKind_ = EntityKind::SCAFFOLD;
+		info.debugColor_ = GetColor(0, 255, 0);
 		info.localPos_ = VGet(0, 5, 0);
 		VECTOR fSize = VGet(38, 5, 8);
 		std::unique_ptr<ColliderBox>collider =
@@ -133,9 +138,10 @@ void Spike::InitCollider(void)
 		info.shape_ = ColliderShape::BOX;
 		info.layer_ = ColliderLayer::SPIKE;
 		info.mask_ = ColliderBase::SetMask({ Layer::ACTOR });
-		info.entityKind_ = EntityKind::SPIKE_HIT;
-		info.localPos_ = VGet(0, -5, 0);
-		fSize = VGet(38, 5, 8);
+		info.entityKind_ = EntityKind::SPIKE;
+		info.debugColor_ = GetColor(0, 0, 255);
+		info.localPos_ = VGet(0, -10, 0);
+		fSize = VGet(34, 1, 8);
 		collider =
 			std::make_unique<ColliderBox>(info, fSize, *this);
 		ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));

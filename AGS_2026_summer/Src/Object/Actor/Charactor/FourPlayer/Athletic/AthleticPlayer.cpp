@@ -86,12 +86,12 @@ void AthleticPlayer::MoveInput(void)
 
 	VECTOR moveVec = { 0.0f,0.0f,0.0f };
 
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_FRONT).now) {
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_FRONT,useControllerNum_).now) {
 		moveVec.z += 1.0f;
 	}
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_BACK).now) moveVec.z -= 1.0f;
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_RIGHT).now) moveVec.x += 1.0f;
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT).now) moveVec.x -= 1.0f;
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_BACK, useControllerNum_).now) moveVec.z -= 1.0f;
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_RIGHT, useControllerNum_).now) moveVec.x += 1.0f;
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT, useControllerNum_).now) moveVec.x -= 1.0f;
 
 	const VECTOR cameraAngle = SceneManager::GetInstance().GetCamera().GetAngles();
 	MATRIX camYaw = MGetRotY(cameraAngle.y);
@@ -107,7 +107,7 @@ void AthleticPlayer::MoveInput(void)
 
 void AthleticPlayer::JumpInput(void)
 {
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE).down)
+	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::SPACE, useControllerNum_).down)
 	{
 		rigidBody_.AddForce({ 0,rigidBody_.GetJumpForce(),0 });
 	}

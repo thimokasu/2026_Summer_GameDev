@@ -12,6 +12,7 @@
 #include"../../../Collider/ColliderSphere.h"
 
 #include"State/SpikeDropPlayerHeaders.h"
+#include"../../../../../Utility/AsoUtility.h"
 
 SpikeDropPlayer::SpikeDropPlayer(void)
 {
@@ -24,6 +25,10 @@ SpikeDropPlayer::~SpikeDropPlayer(void)
 void SpikeDropPlayer::SubLoad(void)
 {
 	CharactorBase::SubLoad();
+	trans_.modelId = ResourceManager::GetInstance().LoadModelDuplicate(SRC::RUNNER);
+	float scale = 0.5f;
+	trans_.scl = VGet(scale, scale, scale);
+	trans_.quaRotLocal = Quaternion::Euler(VGet(0.0f, AsoUtility::Deg2RadD(-180), 0.0f));
 }
 
 void SpikeDropPlayer::SubInit(void)
@@ -40,6 +45,7 @@ void SpikeDropPlayer::SubUpdate(void)
 
 void SpikeDropPlayer::SubDraw(void)
 {
+
 }
 
 void SpikeDropPlayer::SubRelease(void)
@@ -54,8 +60,8 @@ void SpikeDropPlayer::InitCollider(void)
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE,Layer::ACTOR_TRIGGER });
 	info.entityKind_ = EntityKind::PLAYER;
 	float radius = 4.0f;
-	VECTOR localPosTop = VGet(0.0f, 10.0f, 0.0f);
-	VECTOR localPosDown = VGet(0.0f, -10.0f, 0.0f);
+	VECTOR localPosTop = VGet(0.0f, -20.0f, 0.0f);
+	VECTOR localPosDown = VGet(0.0f, 0.0f, 0.0f);
 	std::unique_ptr<ColliderCapsule>collider =
 		std::make_unique<ColliderCapsule>(info, radius, localPosTop, localPosDown, *this);
 	ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));

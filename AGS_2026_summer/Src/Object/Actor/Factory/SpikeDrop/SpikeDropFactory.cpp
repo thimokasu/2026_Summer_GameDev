@@ -4,7 +4,8 @@
 #include"../../Charactor/OneVsThree/SpikeDrop/Dropper.h"
 #include"../../Item/SpikeDrop/Spike.h"
 #include"../../Stage/SpikeDrop/SpikeDropStage.h"
-
+#include "../../SkyDome/SkyDome.h"
+#include "../../../../Manager/Resource/ResourceManager.h"
 SpikeDropFactory::SpikeDropFactory(void)
 {
 }
@@ -23,16 +24,16 @@ std::vector<std::unique_ptr<ActorBase>> SpikeDropFactory::CreateActors(void)
 	dropper->SetUseController(0);
 	actors.push_back(std::move(dropper));
 	
-	for (int i = 1; i <= 4; i++)
+	for (int i = 0; i <= 3; i++)
 	{
 		player = std::make_unique<SpikeDropPlayer>();
 		player->SetPlayNumber(i);
 		player->SetUseController(i);
-		player->GetTransform().pos = VGet(-100+i*50, 0, 0);
+		player->GetTransform().pos = VGet(-100+i*50, 50, 0);
 		actors.push_back(std::move(player));
 	}
 	actors.push_back(std::make_unique<SpikeDropStage>());
-	
+	actors.push_back(std::make_unique<SkyDome>(SRC::SKY_DOME));
 	return actors;
 }
 

@@ -35,9 +35,6 @@ void SpikeDropPlayerMove::UpdateT(SpikeDropPlayer* owner)
 {
 	VECTOR moveVec = { 0.0f,0.0f,0.0f };
 	int i = owner->GetUseController();
-	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_FRONT,i).now) {
-		moveVec.z += 1.0f;
-	}
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_RIGHT,i).now) moveVec.x += 1.0f;
 	if (KEY::GetIns().GetInfo(KEY::KEY_TYPE::MOVE_LEFT,i).now) moveVec.x -= 1.0f;
 

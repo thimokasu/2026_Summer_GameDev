@@ -33,6 +33,7 @@ void AthleticFall::InitCollider(void)
 	info.entityKind_ = EntityKind::ATHLETIC_FALL;
 	VECTOR fSize = VGet(1000, 2, 300);
 	info.localPos_ = VGet(700, -10, 0);
+	info.debugColor_ = GetColor(0, 100, 200);
 	std::unique_ptr<ColliderBox>collider =
 		std::make_unique<ColliderBox>(info, fSize, *this);
 	ownColliders_.emplace(static_cast<int>(info.shape_), std::move(collider));
