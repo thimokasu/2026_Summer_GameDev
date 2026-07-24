@@ -18,5 +18,5 @@ void ColliderSphere::DrawDebug(int color)
 	// ƒ[ƒ‹ƒhÀ•W‚ğæ“¾
 	VECTOR pos = GetRotPos(VECTOR{ 0,0,0 });
 	// ‹…‚ğ•`‰æ
-	DrawSphere3D(pos, radius_, 16, color, color, false);
+	DrawSphere3D(pos, radius_, 16, color, color, true);
 }

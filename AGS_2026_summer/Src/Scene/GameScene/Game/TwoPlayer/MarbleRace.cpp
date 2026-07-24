@@ -27,6 +27,7 @@ void MarbleRace::SubLoad(void)
 
 void MarbleRace::SubInit(void)
 {
+	SetLightDirection(VGet(0.6f, -3.14f, 0.0f));
 }
 
 void MarbleRace::SubUpdate(void)
@@ -112,9 +113,10 @@ void MarbleRace::SetContactEventCallback(void)
 			if (entityKindB == EntityKind::PLAYER) { player = dynamic_cast<MarbleRacePlayer*>(actorB); goal = dynamic_cast<MarbleRaceGoal*>(actorA); }
 			if (!player || !goal)return;
 			auto p = dynamic_cast<MarbleRacePlayer*>(player);
+			p->GetTransform().pos.z += 20;
 			isUpdate_ = false;
 			auto massage = UIManager::GetInstance().GetUI<GameMessageUI>(UINAME::MASSAGE);
-			massage->SetMassageState(GameMessageUI::MASSAGE_STATE::FINISH);		});
+			massage->SetMassageState(GameMessageUI::MASSAGE_STATE::FINISH);});
 }
 
 void MarbleRace::SetEventCallBack(void)

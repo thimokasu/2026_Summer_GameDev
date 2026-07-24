@@ -18,6 +18,7 @@ void NormalMarble::InitCollider(void)
 	info.layer_ = ColliderLayer::ACTOR;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE });
 	info.entityKind_ = EntityKind::MARBLE;
+	info.debugColor_ = GetColor(GetRand(255), GetRand(255), GetRand(255));
 
 	float radius = 10;
 	std::unique_ptr<ColliderSphere>collider =

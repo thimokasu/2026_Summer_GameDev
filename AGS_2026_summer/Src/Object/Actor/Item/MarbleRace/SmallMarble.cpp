@@ -9,6 +9,7 @@ void SmallMarble::SubLoad(void)
 void SmallMarble::SubInit(void)
 {
 	entityKind_ = EntityKind::MARBLE;
+
 }
 
 void SmallMarble::InitCollider(void)
@@ -18,6 +19,7 @@ void SmallMarble::InitCollider(void)
 	info.layer_ = ColliderLayer::ACTOR;
 	info.mask_ = ColliderBase::SetMask({ Layer::ACTOR,Layer::STAGE });
 	info.entityKind_ = EntityKind::MARBLE;
+	info.debugColor_ = GetColor(GetRand(255), GetRand(255), GetRand(255));
 
 	float radius = 8;
 	std::unique_ptr<ColliderSphere>collider =

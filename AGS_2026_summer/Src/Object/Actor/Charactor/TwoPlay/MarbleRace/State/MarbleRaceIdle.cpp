@@ -4,9 +4,13 @@
 #include"../../../../Camera/Camera.h"
 #include"MarbleRaceMove.h"
 #include"MarbleRaveAttack.h"
+#include"../../../../../Common/AnimationController.h"
+
 void MarbleRaceIdle::EnterT(MarbleRacePlayer* owner)
 {
 	isLoop_ = true;
+	auto anim = owner->GetAnimController();
+	anim->Play(1);
 }
 
 void MarbleRaceIdle::HandleInputT(MarbleRacePlayer* owner)
